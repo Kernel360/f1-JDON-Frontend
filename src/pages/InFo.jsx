@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import login from "./icn_google.svg";
-import git from "./icn_github.svg";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { GoogleLogin, GoogleOAuthProvider } from "react-oauth-google";
 import { Divider } from "@mui/material";
 
-export default function SignIn() {
+export default function Info() {
   const [id, setID] = useState();
   const [pw, setPW] = useState();
 
@@ -172,45 +168,11 @@ export default function SignIn() {
                   width: "100%",
                   margin: "30px 0",
                 }}
-              >
-                <GoogleLoginButton></GoogleLoginButton>
-                <GitHubLoginButton></GitHubLoginButton>
-              </Grid>
+              ></Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
-  );
-}
-
-function GoogleLoginButton() {
-  const CLIENT_ID = "YOUR_CLIENT_ID"; // 여기에 Google Client ID를 넣으세요
-  const REDIRECT_URI = "YOUR_REDIRECT_URI"; // 리디렉션될 URI를 넣으세요
-
-  const handleLogin = () => {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email%20profile%20openid&access_type=offline`;
-  };
-
-  return (
-    <span onClick={handleLogin}>
-      {" "}
-      <img src={login} alt="google" />
-    </span>
-  );
-}
-
-function GitHubLoginButton() {
-  const CLIENT_ID = "YOUR_CLIENT_ID";
-  const REDIRECT_URI = "YOUR_REDIRECT_URI";
-
-  const handleLogin = () => {
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user`;
-  };
-
-  return (
-    <span onClick={handleLogin}>
-      <img src={git} alt="git" />
-    </span>
   );
 }
