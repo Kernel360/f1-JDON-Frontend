@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { InFoBasic } from "../components/InFoBasic";
+import { ProgressBar } from "../components/Progressbar";
 
 const theme = createTheme({
   components: {
@@ -63,6 +64,7 @@ export default function Info() {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
+        <ProgressBar></ProgressBar>
         <CssBaseline />
         <Box
           sx={{
