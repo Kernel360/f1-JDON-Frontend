@@ -8,11 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { NavigationButtons } from "../components/NavigationBtn";
+import { NavigationButtons } from "../NavigationBtn";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import format from "date-fns/locale/ko";
 import { useState } from "react";
-import { ProgressBar } from "./Progressbar";
 
 export function InFoBasic() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -81,6 +80,10 @@ export function InFoBasic() {
             onChange={(e) => setNicname(e.target.value)}
             sx={{
               m: "10px auto",
+              "& .MuiInputBase-input": {
+                padding: "16px",
+                fontSize: "16px",
+              },
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
                   borderRadius: "10px", // 기본 테두리 두께
@@ -96,12 +99,18 @@ export function InFoBasic() {
               },
             }}
             InputProps={{
-              className: "nicname", // TextField의 input 요소에 className 적용
+              className: "nickname", // TextField의 input 요소에 className 적용
               endAdornment: (
                 <InputAdornment position="end">
                   <Button
                     onClick={handleCheckDuplicate}
-                    sx={{ background: "#F2F2F2", color: "#BCBCC4" }}
+                    sx={{
+                      background: "#F2F2F2",
+                      color: "#BCBCC4",
+                      fontSize: "12px",
+
+                      padding: "7px 0,",
+                    }}
                   >
                     중복확인
                   </Button>
@@ -123,6 +132,9 @@ export function InFoBasic() {
               border: "1px solid #BCBCC4",
               borderColor: birthday ? "#6482FF" : "#BCBCC4",
               borderRadius: "10px",
+              "& .MuiInputBase-input": {
+                padding: "16px",
+              },
               "& .MuiFormControl-root": { width: "100%" },
             }}
           >
@@ -200,6 +212,7 @@ export function InFoBasic() {
                 fullWidth
                 sx={{
                   height: 56,
+
                   borderRadius: "10px",
                   borderColor: "#BCBCC4",
                   color: "#BCBCC4",

@@ -3,7 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { InFoBasic } from "../components/InFoBasic";
+import { InFoBasic } from "../components/InfoBasic/InFoBasic";
 import { ProgressBar } from "../components/Progressbar";
 
 const theme = createTheme({

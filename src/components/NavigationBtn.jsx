@@ -10,7 +10,7 @@ export function NavigationButtons() {
           sx={{
             mt: "50px",
             mb: 2,
-            p: "10px",
+            p: "13px",
             borderRadius: "999px",
             background: "#6482FF",
             color: "white",
@@ -30,7 +30,7 @@ export function NavigationButtons() {
           sx={{
             mt: "50px",
             mb: 2,
-            p: "10px",
+            p: "13px",
             borderRadius: "999px",
             background: "#6482FF",
             color: "white",
