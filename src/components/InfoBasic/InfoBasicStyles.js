@@ -19,13 +19,7 @@ export const infoBasicStyles = {
     gap: "13px",
     width: "100%",
   },
-  nicknameTextField: {
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#BCBCC4", // Default color
-      },
-    },
-  },
+
   datePickerContainer: {
     m: "10px auto",
     width: "100%",
@@ -70,4 +64,11 @@ export const datePickerContainer = (birthday) => ({
   borderColor: birthday ? "#6482FF" : "#BCBCC4", // 조건에 따른 색상 변경
   borderRadius: "10px",
   "& .MuiFormControl-root": { width: "100%" },
+});
+export const nicknameTextField = (nickname) => ({
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: nickname ? "#6482FF" : "#BCBCC4", // 값이 있으면 파란색, 없으면 회색
+    },
+  },
 });

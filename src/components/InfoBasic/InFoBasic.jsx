@@ -8,11 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { NavigationButtons } from "../NavigationBtn";
+import { NavigationButtons } from "../navigation-btn/NavigationBtn";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import format from "date-fns/locale/ko";
 import { useState } from "react";
-import { datePickerContainer, infoBasicStyles } from "./InfoBasicStyles";
+import {
+  datePickerContainer,
+  duplicateCheckButtonStyle,
+  infoBasicStyles,
+  nicknameTextField,
+} from "./InfoBasicStyles";
 
 export function InFoBasic() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -57,25 +62,14 @@ export function InFoBasic() {
             autoComplete="nickname"
             placeholder="사용하실 닉네임을 입력해주세요"
             onChange={(e) => setNicname(e.target.value)}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: nickname ? "#6482FF" : "#BCBCC4", // 값이 있으면 파란색, 없으면 회색
-                },
-              },
-            }}
+            sx={nicknameTextField(nickname)}
             InputProps={{
               className: "nickname", // TextField의 input 요소에 className 적용
               endAdornment: (
                 <InputAdornment position="end">
                   <Button
                     onClick={handleCheckDuplicate}
-                    sx={{
-                      background: "#F2F2F2",
-                      color: "#BCBCC4",
-                      fontSize: "12px",
-                      padding: "7px 0,",
-                    }}
+                    sx={duplicateCheckButtonStyle}
                   >
                     중복확인
                   </Button>
