@@ -12,6 +12,7 @@ import { NavigationButtons } from "../NavigationBtn";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import format from "date-fns/locale/ko";
 import { useState } from "react";
+import { datePickerContainer, infoBasicStyles } from "./InfoBasicStyles";
 
 export function InFoBasic() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -30,45 +31,23 @@ export function InFoBasic() {
   const handleCheckDuplicate = () => {
     // 중복확인 로직
   };
+
   return (
     <>
-      <Typography
-        width="100%"
-        sx={{
-          fontSize: 24,
-          fontWeight: 700,
-          marginTop: 2,
-          textAlign: "left",
-        }}
-      >
+      <Typography width="100%" sx={infoBasicStyles.typographyTitle}>
         추가 정보를 알려주세요!
       </Typography>
-      <Typography
-        width="100%"
-        sx={{
-          fontSize: 16,
-          textAlign: "left",
-          marginTop: 1,
-          color: "#BCBCC4",
-        }}
-      >
+      <Typography width="100%" sx={infoBasicStyles.typographySubtitle}>
         서비스에 활용됩니다
       </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit}
         noValidate
-        sx={{
-          mt: "65px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "13px",
-          width: "100%",
-        }}
+        sx={infoBasicStyles.formContainer}
       >
         <Box>
           <FormLabel>닉네임</FormLabel>
-
           <TextField
             required
             fullWidth
@@ -79,22 +58,9 @@ export function InFoBasic() {
             placeholder="사용하실 닉네임을 입력해주세요"
             onChange={(e) => setNicname(e.target.value)}
             sx={{
-              m: "10px auto",
-              "& .MuiInputBase-input": {
-                padding: "16px",
-                fontSize: "16px",
-              },
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderRadius: "10px", // 기본 테두리 두께
-                  borderColor: nickname ? "#6482FF" : "#BCBCC4",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#6482FF",
-                },
-                "&.Mui-focused fieldset": {
-                  borderWidth: "2px",
-                  borderColor: "#6482FF", // 포커스 시 색상 변경 안 함
+                  borderColor: nickname ? "#6482FF" : "#BCBCC4", // 값이 있으면 파란색, 없으면 회색
                 },
               },
             }}
@@ -108,7 +74,6 @@ export function InFoBasic() {
                       background: "#F2F2F2",
                       color: "#BCBCC4",
                       fontSize: "12px",
-
                       padding: "7px 0,",
                     }}
                   >
@@ -124,20 +89,7 @@ export function InFoBasic() {
 
         <Box>
           <FormLabel>생일</FormLabel>
-          <Grid
-            container
-            sx={{
-              m: "10px auto",
-              width: "100%",
-              border: "1px solid #BCBCC4",
-              borderColor: birthday ? "#6482FF" : "#BCBCC4",
-              borderRadius: "10px",
-              "& .MuiInputBase-input": {
-                padding: "16px",
-              },
-              "& .MuiFormControl-root": { width: "100%" },
-            }}
-          >
+          <Grid container sx={datePickerContainer(birthday)}>
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
               adapterLocale={format}
@@ -149,25 +101,7 @@ export function InFoBasic() {
                   setSelectedDate(newValue);
                   setBirthday(newValue);
                 }}
-                sx={{
-                  "& .MuiInputBase-root": { flexGrow: 1 },
-                  "& .MuiOutlinedInput-root": {
-                    border: "none", // TextField의 테두리 제거
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    border: "none", // 호버 및 포커스 상태에서의 테두리 제거
-                  },
-
-                  "& .MuiOutlinedInput-input": {
-                    textAlign: "left", // 텍스트 필드를 왼쪽 정렬
-                  },
-                  "& .MuiInputAdornment-positionEnd": {
-                    marginLeft: "auto", // 달력 아이콘을 오른쪽 정렬
-                  },
-                }}
+                sx={infoBasicStyles.datePicker}
                 renderInput={(params) => (
                   <TextField {...params} fullWidth sx={{ flexGrow: 1 }} />
                 )}
@@ -175,9 +109,9 @@ export function InFoBasic() {
             </LocalizationProvider>
           </Grid>
         </Box>
+
         <Box>
           <FormLabel>성별</FormLabel>
-
           <Grid
             container
             sx={{
@@ -192,16 +126,7 @@ export function InFoBasic() {
               <Button
                 variant="outlined"
                 fullWidth
-                sx={{
-                  height: 56,
-                  borderRadius: "10px",
-                  borderColor: "#BCBCC4",
-                  color: "#BCBCC4",
-                  "&:hover": {
-                    backgroundColor: "#E2E7FF", // 클릭 시 배경색
-                    color: "#6482FF", // 클릭 시 텍스트 색
-                  },
-                }}
+                sx={infoBasicStyles.genderButton}
               >
                 남
               </Button>
@@ -210,17 +135,7 @@ export function InFoBasic() {
               <Button
                 variant="outlined"
                 fullWidth
-                sx={{
-                  height: 56,
-
-                  borderRadius: "10px",
-                  borderColor: "#BCBCC4",
-                  color: "#BCBCC4",
-                  "&:hover": {
-                    backgroundColor: "#E2E7FF", // 클릭 시 배경색
-                    color: "#6482FF", // 클릭 시 텍스트 색
-                  },
-                }}
+                sx={infoBasicStyles.genderButton}
               >
                 여
               </Button>

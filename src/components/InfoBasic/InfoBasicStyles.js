@@ -1,43 +1,73 @@
-import { createTheme } from "@mui/material/styles";
-
-export const infoBasicTheme = createTheme({
-  components: {
-    // TextField에 대한 스타일 정의
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderRadius: "10px", // 기본 테두리 두께
-            },
-            "&:hover fieldset": {
-              borderColor: "#6482FF",
-            },
-            "&.Mui-focused fieldset": {
-              borderWidth: "2px",
-              borderColor: "#6482FF", // 포커스 시 색상 변경 안 함
-            },
-          },
-        },
-      },
-    },
-    // Button에 대한 스타일 정의
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          height: 56,
-          borderRadius: "10px",
-          borderColor: "#BCBCC4",
-          color: "#BCBCC4",
-          "&:hover": {
-            backgroundColor: "#E2E7FF", // 클릭 시 배경색
-            color: "#6482FF", // 클릭 시 텍스트 색
-          },
-        },
-      },
-    },
-    // 여기에 필요한 다른 컴포넌트 스타일 추가 가능
+// infoBasicStyles.js 파일
+export const infoBasicStyles = {
+  typographyTitle: {
+    fontSize: 24,
+    fontWeight: 700,
+    marginTop: 2,
+    textAlign: "left",
   },
-});
+  typographySubtitle: {
+    fontSize: 16,
+    textAlign: "left",
+    marginTop: 1,
+    color: "#BCBCC4",
+  },
+  formContainer: {
+    mt: "65px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "13px",
+    width: "100%",
+  },
+  nicknameTextField: {
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#BCBCC4", // Default color
+      },
+    },
+  },
+  datePickerContainer: {
+    m: "10px auto",
+    width: "100%",
+    border: "1px solid #BCBCC4",
+    borderRadius: "10px",
+    "& .MuiFormControl-root": { width: "100%" },
+  },
+  datePicker: {
+    "& .MuiInputBase-root": { flexGrow: 1 },
+    "& .MuiOutlinedInput-root": {
+      border: "none",
+      display: "flex",
+      width: "100%",
+      justifyContent: "space-between",
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      border: "none",
+    },
+  },
+  genderButton: {
+    height: 56,
+    borderRadius: "10px",
+    borderColor: "#BCBCC4",
+    color: "#BCBCC4",
+    "&:hover": {
+      backgroundColor: "#E2E7FF",
+      color: "#6482FF",
+    },
+  },
+};
 
-// 다른 스타일 정의도 추가 가능
+export const duplicateCheckButtonStyle = {
+  background: "#F2F2F2",
+  color: "#BCBCC4",
+  fontSize: "12px",
+  padding: "7px",
+};
+export const datePickerContainer = (birthday) => ({
+  m: "10px auto",
+  width: "100%",
+  border: "1px solid",
+  borderColor: birthday ? "#6482FF" : "#BCBCC4", // 조건에 따른 색상 변경
+  borderRadius: "10px",
+  "& .MuiFormControl-root": { width: "100%" },
+});
