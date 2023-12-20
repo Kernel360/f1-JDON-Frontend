@@ -1,19 +1,31 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import { buttonStyle } from "./NavigationBtnStyles";
 
-export function NavigationButtons() {
+export function NavigationButtons({ step, onNext, onBefore }) {
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={6}>
-        <Button type="submit" fullWidth sx={buttonStyle}>
-          이전
-        </Button>
+    <Container fixed sx={buttonStyle.Container}>
+      <Grid container spacing={3} fullWidth sx={buttonStyle.Grid}>
+        <Grid item xs={6}>
+          <Button
+            type="submit"
+            fullWidth
+            sx={buttonStyle.Button}
+            onClick={onBefore}
+          >
+            이전
+          </Button>
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            type="submit"
+            fullWidth
+            sx={buttonStyle.Button}
+            onClick={onNext}
+          >
+            다음
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <Button type="submit" fullWidth sx={buttonStyle}>
-          다음
-        </Button>
-      </Grid>
-    </Grid>
+    </Container>
   );
 }

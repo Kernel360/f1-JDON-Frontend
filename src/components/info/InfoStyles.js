@@ -67,8 +67,13 @@ export const datePickerContainer = (birthday) => ({
 });
 export const nicknameTextField = (nickname) => ({
   "& .MuiOutlinedInput-root": {
+    margin: "12px auto",
     "& fieldset": {
       borderColor: nickname ? "#6482FF" : "#BCBCC4", // 값이 있으면 파란색, 없으면 회색
     },
   },
 });
+
+export const InfoSkillStyles = {
+  margin: "20px auto",
+};

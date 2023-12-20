@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { NavigationButtons } from "../navigation-btn/NavigationBtn";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import format from "date-fns/locale/ko";
 import { useState } from "react";
@@ -17,7 +16,7 @@ import {
   duplicateCheckButtonStyle,
   infoBasicStyles,
   nicknameTextField,
-} from "./InfoBasicStyles";
+} from "./InfoStyles";
 
 export function InFoBasic() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -136,7 +135,6 @@ export function InFoBasic() {
             </Grid>
           </Grid>
         </Box>
-        <NavigationButtons></NavigationButtons>
       </Box>
     </>
   );

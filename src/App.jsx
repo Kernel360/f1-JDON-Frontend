@@ -5,6 +5,7 @@ import Info from "./pages/InFo";
 import { Layout } from "./components/layout/Layout";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./themeMuiStyle";
+import { InFoJD } from "./components/info/InfoJD";
 
 function App() {
   return (
