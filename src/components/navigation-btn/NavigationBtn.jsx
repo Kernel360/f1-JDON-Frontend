@@ -19,6 +19,7 @@ export function NavigationButtons({ step, onNext, onBefore }) {
           <Button
             type="submit"
             fullWidth
+            disabled={step > 3}
             sx={buttonStyle.Button}
             onClick={onNext}
           >

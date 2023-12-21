@@ -36,7 +36,12 @@ export default function Info() {
         </Box>
         <NavigationButtons
           step={step}
-          onBefore={() => setStep(step - 1)}
+          onBefore={() => {
+            if (step === 0) {
+              navigate("../");
+            }
+            setStep(step - 1);
+          }}
           onNext={() => setStep(step + 1)}
         ></NavigationButtons>
       </Container>
