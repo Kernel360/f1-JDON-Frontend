@@ -3,7 +3,7 @@ import { buttonStyle } from "./NavigationBtnStyles";
 
 export function NavigationButtons({ step, onNext, onBefore }) {
   return (
-    <Container fixed sx={buttonStyle.Container}>
+    <Container maxWidth="sm" fixed sx={buttonStyle.Container}>
       <Grid container spacing={3} fullWidth sx={buttonStyle.Grid}>
         <Grid item xs={6}>
           <Button

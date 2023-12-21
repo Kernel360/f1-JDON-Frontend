@@ -1,8 +1,22 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import { InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
+import { useState } from "react";
+
+const CHIPS = [
+  "HTML",
+  "CSS",
+  "javascript",
+  "typescript",
+  "React",
+  "Next.js",
+  "Vue.js",
+  "Angular.js",
+  "Node.js",
+  "Redux",
+];
 
 export function InfoSkill() {
-  const CHIPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [select, setSelect] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,7 +47,7 @@ export function InfoSkill() {
         <Box>
           <Stack
             direction="row"
-            spacing={2}
+            spacing={1}
             useFlexGap
             flexWrap="wrap"
             sx={InfoSkillStyles}
@@ -41,19 +55,11 @@ export function InfoSkill() {
             {CHIPS.map((chip, i) => (
               <Chip
                 key={i}
-                label={`Item ${i}`}
+                label={chip}
                 variant="outlined"
                 onClick={handleClick}
                 size="medium"
-                sx={{
-                  fontSize: "16px",
-                  color: "#BCBCC4",
-                  borderRadius: "999px",
-                  padding: "24px 12px",
-                  "& .MuiChip-label": {
-                    padding: "12px",
-                  },
-                }}
+                sx={InfoSkillStyles.ChipStyle}
               />
             ))}
           </Stack>

@@ -63,9 +63,11 @@ export function InFoBasic() {
             onChange={(e) => setNicname(e.target.value)}
             sx={nicknameTextField(nickname)}
             InputProps={{
-              className: "nickname", // TextField의 input 요소에 className 적용
               endAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment
+                  position="end"
+                  sx={{ background: "transparent" }}
+                >
                   <Button
                     onClick={handleCheckDuplicate}
                     sx={duplicateCheckButtonStyle}
@@ -105,16 +107,7 @@ export function InFoBasic() {
 
         <Box>
           <FormLabel>성별</FormLabel>
-          <Grid
-            container
-            sx={{
-              justifyContent: "space-between",
-              m: "10px auto",
-              "& .MuiGrid-item": {
-                padding: 0,
-              },
-            }}
-          >
+          <Grid container sx={infoBasicStyles.genderBtnContainer}>
             <Grid item xs={5.5}>
               <Button
                 variant="outlined"

@@ -9,11 +9,10 @@ export const infoBasicStyles = {
   typographySubtitle: {
     fontSize: 16,
     textAlign: "left",
-    marginTop: 1,
     color: "#BCBCC4",
   },
   formContainer: {
-    mt: "65px",
+    mt: "50px",
     display: "flex",
     flexDirection: "column",
     gap: "13px",
@@ -49,6 +48,13 @@ export const infoBasicStyles = {
       color: "#6482FF",
     },
   },
+  genderBtnContainer: {
+    justifyContent: "space-between",
+    m: "10px auto",
+    "& .MuiGrid-item": {
+      padding: 0,
+    },
+  },
 };
 
 export const duplicateCheckButtonStyle = {
@@ -65,15 +71,48 @@ export const datePickerContainer = (birthday) => ({
   borderRadius: "10px",
   "& .MuiFormControl-root": { width: "100%" },
 });
-export const nicknameTextField = (nickname) => ({
-  "& .MuiOutlinedInput-root": {
-    margin: "12px auto",
-    "& fieldset": {
-      borderColor: nickname ? "#6482FF" : "#BCBCC4", // 값이 있으면 파란색, 없으면 회색
-    },
-  },
-});
 
 export const InfoSkillStyles = {
   margin: "20px auto",
+  ChipStyle: {
+    fontSize: "14px",
+    color: "#BCBCC4",
+    marginBottom: "10px",
+    borderRadius: "999px",
+    padding: "24px 12px",
+    "& .MuiChip-label": {
+      padding: "12px",
+    },
+    "& .MuiButtonBase-root": {
+      backgroundColor: "#6482FF",
+      "&:hover": {
+        color: "#6482FF",
+        background: "#6482FF",
+      },
+    },
+  },
 };
+
+export const nicknameTextField = (value) => ({
+  margin: "12px auto",
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderRadius: "10px", // 기본 테두리 두께
+      borderColor: value ? "#6482FF" : "#BCBCC4",
+    },
+    "&:hover fieldset": {
+      borderColor: "#6482FF",
+    },
+    "&.Mui-focused fieldset": {
+      borderWidth: "1px",
+      borderColor: "#6482FF", // 포커스 시 색상 변경 안 함
+    },
+  },
+  "& .MuiInputBase-input": {
+    color: "#6482FF", // 입력된 값의 색상
+    "&::placeholder": {
+      color: "#BCBCC4", // 플레이스홀더의 색상
+      opacity: 1, // 브라우저마다 다른 플레이스홀더 투명도 처리를 일관되게 함
+    },
+  },
+});
