@@ -5,6 +5,7 @@ import Info from "./pages/InFo";
 import { Layout } from "./components/layout/Layout";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./themeMuiStyle";
+import { Main } from "./pages/Main";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<SignIn />} />
             <Route exact path="/info" element={<Info />} />
+            <Route exact path="/main" element={<Main />} />
           </Routes>
         </Layout>
       </ThemeProvider>

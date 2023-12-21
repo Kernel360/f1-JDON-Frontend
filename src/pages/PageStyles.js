@@ -35,3 +35,9 @@ export const signInTextFieldStyles = (value) => ({
     },
   },
 });
+
+export const MainStyles = {
+  Chips: {
+    minWidth: "50px",
+  },
+};

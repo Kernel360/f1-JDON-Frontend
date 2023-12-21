@@ -14,7 +14,10 @@ export default function Info() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (step === 4) navigate("../");
+    if (step === 0) {
+      navigate("../");
+    }
+    if (step === 4) navigate("../main");
   });
 
   return (
@@ -36,12 +39,7 @@ export default function Info() {
         </Box>
         <NavigationButtons
           step={step}
-          onBefore={() => {
-            if (step === 0) {
-              navigate("../");
-            }
-            setStep(step - 1);
-          }}
+          onBefore={() => setStep(step - 1)}
           onNext={() => setStep(step + 1)}
         ></NavigationButtons>
       </Container>
