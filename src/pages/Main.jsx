@@ -11,13 +11,14 @@ import {
 import { SearchBar } from "../components/search-bar/SearchBar";
 import { useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { MainStyles } from "./PageStyles";
+import { ChipStyle, MainStyles } from "./PageStyles";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import CompanyCard from "../components/card_company/CompanyCard";
 import VideoCard from "../components/card_video/VideoCard";
 import video1 from "../../src/assets/video1.svg";
 import video2 from "../../src/assets/video2.svg";
 import video3 from "../../src/assets/video3.svg";
+import { click } from "@testing-library/user-event/dist/click";
 
 const HOT_SKILLS = [
   "JavaScript",
@@ -68,6 +69,7 @@ const VIDEO_DATA = [
 export function Main() {
   const [value, setValue] = useState("1");
   const [skill, setSkill] = useState(HOT_SKILLS[0]);
+  const [click, setClick] = useState(false);
   const scrollRef = useRef(null);
 
   const handleTabChange = (event, newValue) => {
@@ -113,11 +115,14 @@ export function Main() {
             {HOT_SKILLS.map((skill, index) => (
               <Chip
                 key={index}
-                onClick={() => setSkill(HOT_SKILLS[index])}
+                onClick={() => {
+                  setClick(true);
+                  setSkill(HOT_SKILLS[index]);
+                }}
                 label={skill}
                 clickable={true}
                 variant="outlined"
-                sx={MainStyles.Chips}
+                sx={ChipStyle(click)}
               />
             ))}
           </Stack>
@@ -149,7 +154,7 @@ export function Main() {
                 onClick={() => setSkill(MY_SKILLS[index])}
                 clickable={true}
                 variant="outlined"
-                sx={MainStyles.Chips}
+                sx={ChipStyle(click)}
               />
             ))}
           </Stack>

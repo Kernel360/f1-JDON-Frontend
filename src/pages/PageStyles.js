@@ -37,14 +37,6 @@ export const signInTextFieldStyles = (value) => ({
 });
 
 export const MainStyles = {
-  Chips: {
-    color: "#ADADAD",
-    borderColor: "#ADADAD",
-    fontSize: "14px",
-    padding: "4px",
-    height: "34px",
-    borderRadius: "999px",
-  },
   Tab: {
     fontSize: 18,
     color: "#BCBCC4",
@@ -79,3 +71,18 @@ export const MainStyles = {
     fontSize: 20,
   },
 };
+
+export const ChipStyle = (click) => ({
+  color: click ? "white" : "#ADADAD",
+  borderColor: click ? "#FF814D" : "#ADADAD",
+  background: click ? "#FF814D" : "",
+  fontSize: "14px",
+  padding: "4px",
+  height: "34px",
+  borderRadius: "999px",
+  "&&:hover": {
+    background: "#FF814D",
+    color: "white",
+    borderColor: "transparent",
+  },
+});
