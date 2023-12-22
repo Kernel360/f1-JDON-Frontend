@@ -50,13 +50,23 @@ export const MainStyles = {
     color: "#BCBCC4",
   },
   TabPanel: {
-    display: "flex",
     alignItems: "center",
-    padding: "0 10px",
+    padding: "14px 30px",
+    position: "relative",
   },
-  IconButton: {
+  IconButtonLeft: {
     opacity: 0.3,
     padding: 1,
+    position: "absolute",
+    top: "10px",
+    left: 0,
+  },
+  IconButtonRight: {
+    opacity: 0.3,
+    padding: 1,
+    position: "absolute",
+    top: "10px",
+    right: 0,
   },
   ChipContainer: {
     overflowX: "auto",
@@ -64,5 +74,8 @@ export const MainStyles = {
     "&::-webkit-scrollbar": {
       display: "none", // 스크롤바 숨기기 (선택적)
     },
+  },
+  TypoGraphy: {
+    fontSize: 20,
   },
 };
