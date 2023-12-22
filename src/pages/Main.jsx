@@ -44,21 +44,21 @@ const COMPANY_DATA = [
 const VIDEO_DATA = [
   {
     id: 0,
-    name: "javascript 기초",
+    name: "지렁이",
     content: "javascript 기초",
     price: "2000원",
     img: video1,
   },
   {
     id: 1,
-    name: "javascript 중급",
+    name: "레오",
     content: "content2",
     price: "7000원",
     img: video2,
   },
   {
     id: 2,
-    name: "javascript 상급",
+    name: "닉네임",
     content: "content3",
     price: "0원",
     img: video3,
@@ -67,6 +67,7 @@ const VIDEO_DATA = [
 
 export function Main() {
   const [value, setValue] = useState("1");
+  const [skill, setSkill] = useState(HOT_SKILLS[0]);
   const scrollRef = useRef(null);
 
   const handleTabChange = (event, newValue) => {
@@ -112,7 +113,9 @@ export function Main() {
             {HOT_SKILLS.map((skill, index) => (
               <Chip
                 key={index}
+                onClick={() => setSkill(HOT_SKILLS[index])}
                 label={skill}
+                clickable={true}
                 variant="outlined"
                 sx={MainStyles.Chips}
               />
@@ -143,6 +146,8 @@ export function Main() {
               <Chip
                 key={index}
                 label={skill}
+                onClick={() => setSkill(MY_SKILLS[index])}
+                clickable={true}
                 variant="outlined"
                 sx={MainStyles.Chips}
               />
@@ -159,8 +164,8 @@ export function Main() {
 
       <Box sx={{ mt: 1 }}>
         <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 700 }}>Skill</span> 학습
-          영상
+          <span style={{ color: "#FF814D", fontWeight: 700 }}>{skill}</span>{" "}
+          학습 영상
         </Typography>
         <Grid container spacing={{ xs: 2, md: 2 }}>
           {VIDEO_DATA.map((item, index) => (
@@ -177,10 +182,10 @@ export function Main() {
       </Box>
       <Box sx={{ mt: 6 }}>
         <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 700 }}>Skill</span> 에
+          <span style={{ color: "#FF814D", fontWeight: 700 }}> {skill}</span> 에
           관심있는 회사는 여기에요!
         </Typography>
-        <Grid container spacing={{ xs: 1, md: 1 }}>
+        <Grid container spacing={{ xs: 2, md: 2 }}>
           {COMPANY_DATA.map((item, index) => (
             <Grid item xs={4} sm={4} md={4} key={index}>
               <CompanyCard name={item.name} content={item.content} />

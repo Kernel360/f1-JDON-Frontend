@@ -1,12 +1,12 @@
 import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Paper } from "@mui/material";
+import { Box, CardActionArea, Paper } from "@mui/material";
 import example from "./../../assets/example.png";
 
 export default function CompanyCard({ name, content }) {
   return (
-    <Paper elevation={0}>
+    <Paper elevation={0} sx={{ my: 1 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -14,13 +14,12 @@ export default function CompanyCard({ name, content }) {
           image={example}
           alt="green iguana"
         />
-
-        <Typography variant="body2" component="div">
-          {name}
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          {content}
-        </Typography>
+        <Box sx={{ mt: 1 }}>
+          <Typography variant="body3" component="div" color="#9A9AA1">
+            {name}
+          </Typography>
+          <Typography color="#545459">{content}</Typography>
+        </Box>
       </CardActionArea>
     </Paper>
   );

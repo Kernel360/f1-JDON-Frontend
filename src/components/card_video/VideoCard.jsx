@@ -1,7 +1,7 @@
 import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Paper } from "@mui/material";
+import { Box, CardActionArea, Paper } from "@mui/material";
 
 export default function VideoCard({ name, content, price, img }) {
   return (
@@ -14,12 +14,15 @@ export default function VideoCard({ name, content, price, img }) {
           alt="green iguana"
           sx={{ borderRadius: "8px" }}
         />
-
-        <Typography variant="body2" component="div" color="text.secondary">
-          {name}
-        </Typography>
-        <Typography>{content}</Typography>
-        <Typography v>{price}</Typography>
+        <Box sx={{ mt: 1 }}>
+          <Typography variant="body3" component="div" color="#9A9AA1">
+            {name}
+          </Typography>
+          <Typography color="#545459">{content}</Typography>
+          <Typography color="#545459" fontWeight="700">
+            {price}
+          </Typography>
+        </Box>
       </CardActionArea>
     </Paper>
   );
