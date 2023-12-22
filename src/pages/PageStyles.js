@@ -51,21 +51,21 @@ export const MainStyles = {
   },
   TabPanel: {
     alignItems: "center",
-    padding: "14px 30px",
+    padding: "24px 30px",
     position: "relative",
   },
   IconButtonLeft: {
     opacity: 0.3,
     padding: 1,
     position: "absolute",
-    top: "10px",
+    top: "20px",
     left: 0,
   },
   IconButtonRight: {
     opacity: 0.3,
     padding: 1,
     position: "absolute",
-    top: "10px",
+    top: "20px",
     right: 0,
   },
   ChipContainer: {

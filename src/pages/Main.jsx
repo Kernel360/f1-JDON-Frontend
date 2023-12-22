@@ -24,12 +24,12 @@ const HOT_SKILLS = [
   "React",
   "Recoil",
   "Context Api",
-  5,
-  6666,
-  7,
-  8888,
-  9,
-  1000,
+  "everland",
+  "I want to go",
+  "푸바오",
+  "보고시퍼요",
+  "금요일",
+  "내일 주말",
 ];
 const MY_SKILLS = [11111, 22, 333333, 4, 555555, 66, 7777777, 88, 999, 1000];
 
@@ -75,10 +75,15 @@ export function Main() {
   };
 
   const handleScroll = (direction) => {
-    if (direction === "left") {
-      scrollRef.current.scrollLeft -= 100; // 왼쪽으로 스크롤
-    } else {
-      scrollRef.current.scrollLeft += 100; // 오른쪽으로 스크롤
+    const { current: scrollContainer } = scrollRef;
+
+    if (scrollContainer) {
+      const scrollAmount = scrollContainer.clientWidth; // 현재 보이는 영역의 너비
+      if (direction === "left") {
+        scrollContainer.scrollLeft -= scrollAmount; // 왼쪽으로 스크롤
+      } else {
+        scrollContainer.scrollLeft += scrollAmount; // 오른쪽으로 스크롤
+      }
     }
   };
 
@@ -152,7 +157,7 @@ export function Main() {
         </TabPanel>
       </TabContext>
 
-      <Box>
+      <Box sx={{ mt: 1 }}>
         <Typography sx={MainStyles.TypoGraphy}>
           <span style={{ color: "#FF814D", fontWeight: 700 }}>Skill</span> 학습
           영상
@@ -170,7 +175,7 @@ export function Main() {
           ))}
         </Grid>
       </Box>
-      <Box sx={{ mt: 4 }}>
+      <Box sx={{ mt: 6 }}>
         <Typography sx={MainStyles.TypoGraphy}>
           <span style={{ color: "#FF814D", fontWeight: 700 }}>Skill</span> 에
           관심있는 회사는 여기에요!
