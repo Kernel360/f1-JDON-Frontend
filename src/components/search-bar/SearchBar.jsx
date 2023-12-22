@@ -5,10 +5,16 @@ import { SearchTextFiled } from "./SearchBarStyles";
 
 export function SearchBar() {
   return (
-    <Container maxWidth="md">
+    <Container
+      maxWidth="md"
+      fullWidth
+      sx={{
+        padding: "0 !important",
+      }}
+    >
       <TextField
         fullWidth
-        sx={SearchTextFiled}
+        sx={SearchTextFiled(1)}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

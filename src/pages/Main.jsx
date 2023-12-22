@@ -18,7 +18,7 @@ import VideoCard from "../components/card_video/VideoCard";
 import video1 from "../../src/assets/video1.svg";
 import video2 from "../../src/assets/video2.svg";
 import video3 from "../../src/assets/video3.svg";
-import { click } from "@testing-library/user-event/dist/click";
+import BottomNav from "../components/BottomNav";
 
 const HOT_SKILLS = [
   "JavaScript",
@@ -35,12 +35,20 @@ const HOT_SKILLS = [
 const MY_SKILLS = [11111, 22, 333333, 4, 555555, 66, 7777777, 88, 999, 1000];
 
 const COMPANY_DATA = [
-  { id: 0, name: "name1", content: "content1" },
-  { id: 1, name: "name2", content: "content2" },
-  { id: 2, name: "name3", content: "content3" },
-  { id: 4, name: "name4", content: "content4" },
-  { id: 5, name: "name5", content: "content5" },
-  { id: 6, name: "name6", content: "content6" },
+  {
+    id: 0,
+    name: "패스오더",
+    content: "[패스오더]백엔드 개발자(Spring, Python, MSA)",
+  },
+  { id: 1, name: "에듀템", content: "JAVA 스프링부트 개발자" },
+  { id: 2, name: "MOLOCO", content: "[MOLOCO] Senior Staff Software Engineer" },
+  { id: 4, name: "아모레퍼시픽", content: "content4" },
+  {
+    id: 5,
+    name: "이름인 아주아주아주아주아주아주 긴 회사",
+    content: "content5",
+  },
+  { id: 6, name: "apple", content: "content6" },
 ];
 const VIDEO_DATA = [
   {
@@ -53,8 +61,7 @@ const VIDEO_DATA = [
   {
     id: 1,
     name: "레오",
-    content:
-      "입문자를 위한 Spring Boot with Kotlin - 나만의 포트폴리오 사이트 만들기",
+    content: "Spring Boot - 나만의 포트폴리오 사이트 만들기",
     price: "7000원",
     img: video2,
   },
@@ -69,8 +76,7 @@ const VIDEO_DATA = [
 
 export function Main() {
   const [value, setValue] = useState("1");
-  const [skill, setSkill] = useState(HOT_SKILLS[0]);
-  const [click, setClick] = useState(false);
+  const [selectdChip, setSelectedChip] = useState(HOT_SKILLS[0]);
   const scrollRef = useRef(null);
 
   const handleTabChange = (event, newValue) => {
@@ -92,10 +98,14 @@ export function Main() {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ pb: 10 }}>
       <SearchBar />
       <TabContext value={value}>
-        <TabList onChange={handleTabChange} sx={{ pt: 1 }}>
+        <TabList
+          onChange={handleTabChange}
+          sx={{ pt: 4 }}
+          TabIndicatorProps={{ style: MainStyles.TabIndicator }}
+        >
           <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
           <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} />
         </TabList>
@@ -117,13 +127,16 @@ export function Main() {
               <Chip
                 key={index}
                 onClick={() => {
-                  setClick(true);
-                  setSkill(HOT_SKILLS[index]);
+                  setSelectedChip(HOT_SKILLS[index]);
                 }}
                 label={skill}
                 clickable={true}
                 variant="outlined"
-                sx={ChipStyle(click)}
+                sx={
+                  selectdChip === skill
+                    ? ChipStyle(selectdChip)
+                    : ChipStyle(undefined)
+                }
               />
             ))}
           </Stack>
@@ -152,10 +165,14 @@ export function Main() {
               <Chip
                 key={index}
                 label={skill}
-                onClick={() => setSkill(MY_SKILLS[index])}
+                onClick={() => setSelectedChip(MY_SKILLS[index])}
                 clickable={true}
                 variant="outlined"
-                sx={ChipStyle(click)}
+                sx={
+                  selectdChip === skill
+                    ? ChipStyle(selectdChip)
+                    : ChipStyle(undefined)
+                }
               />
             ))}
           </Stack>
@@ -168,9 +185,11 @@ export function Main() {
         </TabPanel>
       </TabContext>
 
-      <Box sx={{ mt: 1 }}>
+      <Box sx={{ mt: 4 }}>
         <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 700 }}>{skill}</span>{" "}
+          <span style={{ color: "#FF814D", fontWeight: 700 }}>
+            {selectdChip}
+          </span>{" "}
           학습 영상
         </Typography>
         <Grid container spacing={{ xs: 2, md: 2 }}>
@@ -186,10 +205,13 @@ export function Main() {
           ))}
         </Grid>
       </Box>
-      <Box sx={{ mt: 6 }}>
+      <Box sx={{ mt: 12 }}>
         <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 700 }}> {skill}</span> 에
-          관심있는 회사는 여기에요!
+          <span style={{ color: "#FF814D", fontWeight: 700 }}>
+            {" "}
+            {selectdChip}
+          </span>{" "}
+          에 관심있는 회사는 여기에요!
         </Typography>
         <Grid container spacing={{ xs: 2, md: 2 }}>
           {COMPANY_DATA.map((item, index) => (
@@ -199,6 +221,7 @@ export function Main() {
           ))}
         </Grid>
       </Box>
+      <BottomNav></BottomNav>
     </Container>
   );
 }

@@ -69,6 +69,11 @@ export const MainStyles = {
   },
   TypoGraphy: {
     fontSize: 20,
+    fontWeight: 700,
+  },
+  TabIndicator: {
+    height: "4px", // 언더라인 두께
+    borderRadius: "10px",
   },
 };
 
