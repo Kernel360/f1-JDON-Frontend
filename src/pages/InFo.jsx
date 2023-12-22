@@ -23,7 +23,7 @@ export default function Info() {
   return (
     <>
       <ProgressBar step={step}></ProgressBar>
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
           sx={{

@@ -53,14 +53,15 @@ const VIDEO_DATA = [
   {
     id: 1,
     name: "레오",
-    content: "content2",
+    content:
+      "입문자를 위한 Spring Boot with Kotlin - 나만의 포트폴리오 사이트 만들기",
     price: "7000원",
     img: video2,
   },
   {
     id: 2,
-    name: "닉네임",
-    content: "content3",
+    name: "연세IT미래교육원",
+    content: "[연세IT미래교육원] 데이터 분석을 위한 올인원 취업캠프",
     price: "0원",
     img: video3,
   },
