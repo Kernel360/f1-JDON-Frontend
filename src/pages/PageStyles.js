@@ -38,6 +38,31 @@ export const signInTextFieldStyles = (value) => ({
 
 export const MainStyles = {
   Chips: {
-    minWidth: "50px",
+    color: "#ADADAD",
+    borderColor: "#ADADAD",
+    fontSize: "14px",
+    padding: "4px",
+    height: "34px",
+    borderRadius: "999px",
+  },
+  Tab: {
+    fontSize: 18,
+    color: "#BCBCC4",
+  },
+  TabPanel: {
+    display: "flex",
+    alignItems: "center",
+    padding: "0 10px",
+  },
+  IconButton: {
+    opacity: 0.3,
+    padding: 1,
+  },
+  ChipContainer: {
+    overflowX: "auto",
+    whiteSpace: "nowrap",
+    "&::-webkit-scrollbar": {
+      display: "none", // 스크롤바 숨기기 (선택적)
+    },
   },
 };
