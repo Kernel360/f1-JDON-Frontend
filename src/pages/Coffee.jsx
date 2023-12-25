@@ -7,6 +7,7 @@ import {
   Grid,
   IconButton,
   Modal,
+  Pagination,
   Stack,
   Tab,
   TextField,
@@ -120,7 +121,7 @@ export function Coffee() {
               }}
             >
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
+                정렬선택 모달입니다
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
@@ -137,13 +138,34 @@ export function Coffee() {
 
       <Grid container spacing={{ xs: 2, md: 2 }}>
         {COFFEECHAT.map((item, index) => (
-          <Grid item xs={6} sm={4} md={3} key={index}>
+          <Grid item xs={6} sm={6} md={6} key={index}>
             <CoffeeChatCard></CoffeeChatCard>
           </Grid>
         ))}
       </Grid>
 
+      <BasicPagination />
       <BottomNav></BottomNav>
     </Container>
+  );
+}
+
+export default function BasicPagination() {
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        py: 3,
+      }}
+    >
+      <Stack spacing={5} justifyContent="center" alignItems="center">
+        <Pagination
+          count={10}
+          variant="outlined"
+          size="large"
+          color="primary"
+        />
+      </Stack>
+    </Box>
   );
 }
