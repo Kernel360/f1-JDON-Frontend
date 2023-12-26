@@ -1,7 +1,6 @@
 import * as React from "react";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea, Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 
 export default function CoffeeChatCard({ name, content, price, img }) {
   return (

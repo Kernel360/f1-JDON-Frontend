@@ -18,7 +18,7 @@ export function SearchBar() {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon />
+              <SearchIcon sx={{ color: "#BCBCC4" }} />
             </InputAdornment>
           ),
         }}

@@ -50,14 +50,14 @@ export const MainStyles = {
     opacity: 0.3,
     padding: 1,
     position: "absolute",
-    top: "20px",
+    top: "22px",
     left: 0,
   },
   IconButtonRight: {
     opacity: 0.3,
     padding: 1,
     position: "absolute",
-    top: "20px",
+    top: "22px",
     right: 0,
   },
   ChipContainer: {
@@ -69,25 +69,26 @@ export const MainStyles = {
   },
   TypoGraphy: {
     fontSize: 20,
-    fontWeight: 700,
+    fontWeight: 500,
+    color: "#545459",
   },
   TabIndicator: {
-    height: "4px", // 언더라인 두께
+    height: 0, // 언더라인 두께
     borderRadius: "10px",
   },
 };
 
 export const ChipStyle = (click) => ({
-  color: click ? "white" : "#ADADAD",
+  color: click ? "#FF814D" : "#ADADAD",
   borderColor: click ? "#FF814D" : "#ADADAD",
-  background: click ? "#FF814D" : "",
+  background: click ? "#FFEAE1" : "",
   fontSize: "14px",
   padding: "4px",
-  height: "34px",
+  height: "38px",
   borderRadius: "999px",
   "&&:hover": {
-    background: "#FF814D",
-    color: "white",
-    borderColor: "transparent",
+    background: "#FFEAE1",
+    color: "#FF814D",
+    borderColor: "#FF814D",
   },
 });

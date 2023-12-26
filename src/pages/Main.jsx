@@ -187,7 +187,7 @@ export function Main() {
 
       <Box sx={{ mt: 4 }}>
         <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 700 }}>
+          <span style={{ color: "#FF814D", fontWeight: 600 }}>
             {selectdChip}
           </span>{" "}
           학습 영상
@@ -207,7 +207,7 @@ export function Main() {
       </Box>
       <Box sx={{ mt: 12 }}>
         <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 700 }}>
+          <span style={{ color: "#FF814D", fontWeight: 600 }}>
             {" "}
             {selectdChip}
           </span>{" "}
