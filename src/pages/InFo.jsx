@@ -13,6 +13,14 @@ export default function Info() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
+  const DATA = {
+    nickname: "",
+    birthday: "",
+    sex: "",
+    jd: "",
+    skills: [],
+  };
+
   useEffect(() => {
     if (step === 0) {
       navigate("../");
@@ -33,9 +41,9 @@ export default function Info() {
             alignItems: "center",
           }}
         >
-          {step === 1 && <InFoBasic></InFoBasic>}
-          {step === 2 && <InFoJD></InFoJD>}
-          {step === 3 && <InfoSkill></InfoSkill>}
+          {step === 1 && <InFoBasic DATA={DATA}></InFoBasic>}
+          {step === 2 && <InFoJD jd={DATA.jd}></InFoJD>}
+          {step === 3 && <InfoSkill skills={DATA.skills}></InfoSkill>}
         </Box>
         <NavigationButtons
           step={step}

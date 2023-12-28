@@ -18,10 +18,12 @@ import {
   nicknameTextField,
 } from "./InfoStyles";
 
-export function InFoBasic() {
+export function InFoBasic({ DATA }) {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [nickname, setNicname] = useState();
-  const [birthday, setBirthday] = useState();
+  const [nickname, setNicname] = useState(DATA.nickname);
+  const [birthday, setBirthday] = useState(DATA.birthday);
+
+  console.log(nickname, birthday);
 
   const handleSubmit = (event) => {
     event.preventDefault();
