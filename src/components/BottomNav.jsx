@@ -3,11 +3,19 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { Paper } from "@mui/material";
 import { Coffee, Home, Person } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function BottomNav() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
+
+  //console.log("out" + value);
+  useEffect(() => {
+    // console.log("in" + value);
+    if (value === 0) navigate("../main");
+    else if (value === 1) navigate("../coffee");
+    else if (value === 2) navigate("../mypage"); // 마이페이지로 이동하는 로직 추가
+  });
 
   return (
     <Paper
@@ -30,16 +38,8 @@ export default function BottomNav() {
         }}
         sx={{ height: "70px" }}
       >
-        <BottomNavigationAction
-          label="메인"
-          icon={<Home />}
-          onClick={() => navigate("../main")}
-        />
-        <BottomNavigationAction
-          label="커피챗"
-          icon={<Coffee />}
-          onClick={() => navigate("../coffee")}
-        />
+        <BottomNavigationAction label="메인" icon={<Home />} />
+        <BottomNavigationAction label="커피챗" icon={<Coffee />} />
         <BottomNavigationAction label="마이페이지" icon={<Person />} />
       </BottomNavigation>
     </Paper>

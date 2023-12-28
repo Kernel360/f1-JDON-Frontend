@@ -80,18 +80,28 @@ export const InfoSkillStyles = {
     marginBottom: "10px",
     borderRadius: "999px",
     padding: "24px 12px",
-    "& .MuiChip-label": {
-      padding: "12px",
-    },
-    "& .MuiButtonBase-root": {
-      backgroundColor: "#6482FF",
-      "&:hover": {
-        color: "#6482FF",
-        background: "#6482FF",
-      },
+    "&&:hover": {
+      background: "#FFEAE1",
+      color: "#FF814D",
+      borderColor: "#FF814D",
     },
   },
 };
+
+export const ChipStyle = (click) => ({
+  color: click ? "#6482FF" : "#ADADAD",
+  borderColor: click ? "#6482FF" : "#ADADAD",
+  background: click ? "#E2E7FF" : "",
+  fontSize: "14px",
+  padding: "4px",
+  height: "38px",
+  borderRadius: "999px",
+  "&&:hover": {
+    background: "#E2E7FF",
+    color: "#6482FF",
+    borderColor: "#6482FF",
+  },
+});
 
 export const nicknameTextField = (value) => ({
   margin: "12px auto",

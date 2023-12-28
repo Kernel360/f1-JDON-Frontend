@@ -1,5 +1,5 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
-import { InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
+import { ChipStyle, InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
 import { useState } from "react";
 
 const CHIPS = [
@@ -16,7 +16,7 @@ const CHIPS = [
 ];
 
 export function InfoSkill() {
-  const [select, setSelect] = useState([]);
+  const [selectedChip, setSelectedChip] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,8 +26,15 @@ export function InfoSkill() {
       password: data.get("password"),
     });
   };
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
+  const handleClick = (newchip) => {
+    if (selectedChip.includes(newchip)) {
+      setSelectedChip(selectedChip.filter((c) => c !== newchip));
+    } else if (selectedChip.length > 2) {
+      alert("3개까지만 선택 가능합니다");
+    } else {
+      setSelectedChip((prev) => [...prev, newchip]);
+    }
+    // console.log(newchip);
   };
 
   return (
@@ -57,9 +64,14 @@ export function InfoSkill() {
                 key={i}
                 label={chip}
                 variant="outlined"
-                onClick={handleClick}
+                onClick={() => handleClick(chip)}
                 size="medium"
-                sx={InfoSkillStyles.ChipStyle}
+                clickable={true}
+                sx={
+                  selectedChip.includes(chip)
+                    ? ChipStyle(chip)
+                    : ChipStyle(null)
+                }
               />
             ))}
           </Stack>
