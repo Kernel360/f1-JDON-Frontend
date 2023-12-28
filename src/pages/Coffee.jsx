@@ -1,20 +1,16 @@
 import {
-  Autocomplete,
   Box,
   Button,
   Chip,
   Container,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Grid,
   Modal,
   Pagination,
   Radio,
   RadioGroup,
   Stack,
-  TextField,
-  Typography,
 } from "@mui/material";
 import { SearchBar } from "../components/search-bar/SearchBar";
 import { useState } from "react";
@@ -128,8 +124,4 @@ export default function BasicPagination() {
       </Stack>
     </Box>
   );
-}
-const options = ["최신순", "조회순", "인기 낮은순", "인기 높은 순"]; // 옵션 예시
-function FF() {
-  return <Stack></Stack>;
 }

@@ -12,16 +12,20 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import format from "date-fns/locale/ko";
 import { useState } from "react";
 import {
+  datePicker,
   datePickerContainer,
   duplicateCheckButtonStyle,
   infoBasicStyles,
   nicknameTextField,
 } from "./InfoStyles";
 
-export function InFoBasic() {
+export function InFoBasic({ nickname, birthday, sex }) {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [nickname, setNicname] = useState();
-  const [birthday, setBirthday] = useState();
+  const [value, setValue] = useState({
+    nickname: nickname,
+    birthday: birthday,
+    sex: sex,
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,8 +64,13 @@ export function InFoBasic() {
             name="nickname"
             autoComplete="nickname"
             placeholder="사용하실 닉네임을 입력해주세요"
-            onChange={(e) => setNicname(e.target.value)}
-            sx={nicknameTextField(nickname)}
+            onChange={(e) => {
+              setValue((prev) => ({
+                ...prev,
+                nickname: e.target.value,
+              }));
+            }}
+            sx={nicknameTextField(value.nickname)}
             InputProps={{
               endAdornment: (
                 <InputAdornment
@@ -84,7 +93,7 @@ export function InFoBasic() {
 
         <Box>
           <FormLabel>생일</FormLabel>
-          <Grid container sx={datePickerContainer(birthday)}>
+          <Grid container sx={datePickerContainer(value.birthday)}>
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
               adapterLocale={format}
@@ -94,9 +103,12 @@ export function InFoBasic() {
                 inputFormat="yyyy.MM.dd"
                 onChange={(newValue) => {
                   setSelectedDate(newValue);
-                  setBirthday(newValue);
+                  setValue((prev) => ({
+                    ...prev,
+                    birthday: newValue,
+                  }));
                 }}
-                sx={infoBasicStyles.datePicker}
+                sx={datePicker(value.birthday)}
                 renderInput={(params) => (
                   <TextField {...params} fullWidth sx={{ flexGrow: 1 }} />
                 )}
@@ -112,6 +124,7 @@ export function InFoBasic() {
               <Button
                 variant="outlined"
                 fullWidth
+                onClick={() => setValue((prev) => ({ ...prev, sex: "남" }))}
                 sx={infoBasicStyles.genderButton}
               >
                 남
@@ -121,6 +134,7 @@ export function InFoBasic() {
               <Button
                 variant="outlined"
                 fullWidth
+                onClick={() => setValue((prev) => ({ ...prev, sex: "여" }))}
                 sx={infoBasicStyles.genderButton}
               >
                 여

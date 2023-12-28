@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { infoBasicStyles } from "./InfoStyles";
 
-export function InFoJD() {
+export function InFoJD({ jd }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

@@ -9,17 +9,17 @@ import { NavigationButtons } from "../components/navigation-btn/NavigationBtn";
 import { InfoSkill } from "../components/info/InfoSkill";
 import { useNavigate } from "react-router-dom/dist";
 
+const INITIAL_DATA = {
+  nickname: "",
+  birthday: "",
+  sex: "",
+  jd: "",
+  skills: [],
+};
 export default function Info() {
   const [step, setStep] = useState(1);
+  const [data, setData] = useState(INITIAL_DATA);
   const navigate = useNavigate();
-
-  const DATA = {
-    nickname: "",
-    birthday: "",
-    sex: "",
-    jd: "",
-    skills: [],
-  };
 
   useEffect(() => {
     if (step === 0) {
@@ -41,9 +41,15 @@ export default function Info() {
             alignItems: "center",
           }}
         >
-          {step === 1 && <InFoBasic DATA={DATA}></InFoBasic>}
-          {step === 2 && <InFoJD jd={DATA.jd}></InFoJD>}
-          {step === 3 && <InfoSkill skills={DATA.skills}></InfoSkill>}
+          {step === 1 && (
+            <InFoBasic
+              nickname={data.nickname}
+              birthday={data.birthday}
+              sex={data.sex}
+            ></InFoBasic>
+          )}
+          {step === 2 && <InFoJD jd={data.jd}></InFoJD>}
+          {step === 3 && <InfoSkill skills={data.skills}></InfoSkill>}
         </Box>
         <NavigationButtons
           step={step}
