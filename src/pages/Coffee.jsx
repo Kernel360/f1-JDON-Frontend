@@ -4,9 +4,14 @@ import {
   Button,
   Chip,
   Container,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Grid,
   Modal,
   Pagination,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -28,7 +33,6 @@ export function Coffee() {
     <Container maxWidth="md" sx={{ pb: 10 }}>
       <SearchBar />
       <Box>
-        <FF />
         <Chip
           label="최신순"
           clickable={true}
@@ -38,12 +42,7 @@ export function Coffee() {
 
         <Chip label="직무" clickable={true} variant="outlined" />
         {openFilter && (
-          <Modal
-            open={openFilter}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
+          <Modal open={openFilter} onClose={handleClose}>
             <Box
               sx={{
                 position: "absolute",
@@ -55,14 +54,38 @@ export function Coffee() {
                 border: "2px solid #000",
                 boxShadow: 24,
                 p: 4,
+                borderRadius: 10,
+                border: "none",
               }}
             >
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                정렬선택 모달입니다
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </Typography>
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="최신순"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="최신순"
+                    control={<Radio />}
+                    label="최신순"
+                  />
+                  <FormControlLabel
+                    value="조회순"
+                    control={<Radio />}
+                    label="조회순"
+                  />
+                  <FormControlLabel
+                    value="인기 높은 순"
+                    control={<Radio />}
+                    label="인기 높은 순"
+                  />
+                  <FormControlLabel
+                    value="인기 낮은 순"
+                    control={<Radio />}
+                    label="인기 낮은 순"
+                  />
+                </RadioGroup>
+              </FormControl>
             </Box>
           </Modal>
         )}
@@ -106,16 +129,7 @@ export default function BasicPagination() {
     </Box>
   );
 }
-const F = [1, 2];
+const options = ["최신순", "조회순", "인기 낮은순", "인기 높은 순"]; // 옵션 예시
 function FF() {
-  return (
-    <Stack sx={{ width: 300 }}>
-      <Autocomplete
-        id="free-solo-demo"
-        freeSolo
-        options={F.map((option) => option)}
-        renderInput={(params) => <TextField {...params} label="freeSolo" />}
-      />
-    </Stack>
-  );
+  return <Stack></Stack>;
 }
