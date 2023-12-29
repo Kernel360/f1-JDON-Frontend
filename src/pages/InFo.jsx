@@ -26,11 +26,14 @@ export default function Info() {
   };
 
   useEffect(() => {
-    console.log(data);
+    localStorage.setItem("userInfo", []);
     if (step === 0) {
       navigate("../");
     }
-    if (step === 4) navigate("../main");
+    if (step === 4) {
+      navigate("../main");
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    }
   });
 
   return (
@@ -54,8 +57,10 @@ export default function Info() {
               onChange={handleChange}
             ></InFoBasic>
           )}
-          {step === 2 && <InFoJD jd={data.jd}></InFoJD>}
-          {step === 3 && <InfoSkill skills={data.skills}></InfoSkill>}
+          {step === 2 && <InFoJD jd={data.jd} onChange={handleChange}></InFoJD>}
+          {step === 3 && (
+            <InfoSkill skills={data.skills} onChange={handleChange}></InfoSkill>
+          )}
         </Box>
         <NavigationButtons
           step={step}

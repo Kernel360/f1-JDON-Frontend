@@ -1,6 +1,6 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import { ChipStyle, InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CHIPS = [
   "HTML",
@@ -15,17 +15,9 @@ const CHIPS = [
   "Redux",
 ];
 
-export function InfoSkill() {
+export function InfoSkill({ skills, onChange }) {
   const [selectedChip, setSelectedChip] = useState([]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
   const handleClick = (newchip) => {
     if (selectedChip.length < 3) {
       if (selectedChip.includes(newchip)) {
@@ -41,6 +33,10 @@ export function InfoSkill() {
     console.log(selectedChip);
   };
 
+  useEffect(() => {
+    onChange({ skills: selectedChip });
+  }, [selectedChip]);
+
   return (
     <>
       <Typography width="100%" sx={infoBasicStyles.typographyTitle}>
@@ -49,12 +45,7 @@ export function InfoSkill() {
       <Typography width="100%" sx={infoBasicStyles.typographySubtitle}>
         3개 선택해주세요
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={infoBasicStyles.formContainer}
-      >
+      <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <Box>
           <Stack
             direction="row"
