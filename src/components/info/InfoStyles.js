@@ -100,7 +100,7 @@ export const InfoSkillStyles = {
   },
 };
 
-export const ChipStyle = (click) => ({
+export const ChipStyle = (click, selectedCount) => ({
   color: click ? "#6482FF" : "#ADADAD",
   borderColor: click ? "#6482FF" : "#ADADAD",
   background: click ? "#E2E7FF" : "",

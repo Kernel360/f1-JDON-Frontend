@@ -27,14 +27,18 @@ export function InfoSkill() {
     });
   };
   const handleClick = (newchip) => {
-    if (selectedChip.includes(newchip)) {
-      setSelectedChip(selectedChip.filter((c) => c !== newchip));
-    } else if (selectedChip.length > 2) {
-      alert("3개까지만 선택 가능합니다");
+    if (selectedChip.length < 3) {
+      if (selectedChip.includes(newchip)) {
+        setSelectedChip(selectedChip.filter((c) => c !== newchip));
+      } else {
+        setSelectedChip((prev) => [...prev, newchip]);
+      }
     } else {
-      setSelectedChip((prev) => [...prev, newchip]);
+      alert("3개만 선택 가능합니다");
+      setSelectedChip(selectedChip.filter((c) => c !== newchip));
     }
-    // console.log(newchip);
+
+    console.log(selectedChip);
   };
 
   return (
@@ -69,7 +73,7 @@ export function InfoSkill() {
                 clickable={true}
                 sx={
                   selectedChip.includes(chip)
-                    ? ChipStyle(chip)
+                    ? ChipStyle(chip, selectedChip.length)
                     : ChipStyle(null)
                 }
               />

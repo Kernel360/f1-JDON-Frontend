@@ -19,25 +19,22 @@ import {
   nicknameTextField,
 } from "./InfoStyles";
 
-export function InFoBasic({ nickname, birthday, sex }) {
+export function InFoBasic({ nickname, birthday, sex, onChange }) {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [value, setValue] = useState({
-    nickname: nickname,
-    birthday: birthday,
-    sex: sex,
-  });
+  const [value, setValue] = useState({ nickname, birthday, sex });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleInputChange = (field, newValue) => {
+    setValue((prev) => ({ ...prev, [field]: newValue }));
+    onChange({ [field]: newValue });
   };
 
-  const handleCheckDuplicate = () => {
-    // 중복확인 로직
+  const handleDateChange = (newValue) => {
+    setSelectedDate(newValue);
+    handleInputChange("birthday", newValue);
+  };
+
+  const handleSexChange = (newSex) => {
+    handleInputChange("sex", newSex);
   };
 
   return (
@@ -48,12 +45,7 @@ export function InFoBasic({ nickname, birthday, sex }) {
       <Typography width="100%" sx={infoBasicStyles.typographySubtitle}>
         서비스에 활용됩니다
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={infoBasicStyles.formContainer}
-      >
+      <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <Box>
           <FormLabel>닉네임</FormLabel>
           <TextField
@@ -64,12 +56,7 @@ export function InFoBasic({ nickname, birthday, sex }) {
             name="nickname"
             autoComplete="nickname"
             placeholder="사용하실 닉네임을 입력해주세요"
-            onChange={(e) => {
-              setValue((prev) => ({
-                ...prev,
-                nickname: e.target.value,
-              }));
-            }}
+            onChange={(e) => handleInputChange("nickname", e.target.value)}
             sx={nicknameTextField(value.nickname)}
             InputProps={{
               endAdornment: (
@@ -77,12 +64,7 @@ export function InFoBasic({ nickname, birthday, sex }) {
                   position="end"
                   sx={{ background: "transparent" }}
                 >
-                  <Button
-                    onClick={handleCheckDuplicate}
-                    sx={duplicateCheckButtonStyle}
-                  >
-                    중복확인
-                  </Button>
+                  <Button sx={duplicateCheckButtonStyle}>중복확인</Button>
                 </InputAdornment>
               ),
             }}
@@ -101,13 +83,7 @@ export function InFoBasic({ nickname, birthday, sex }) {
               <DatePicker
                 value={selectedDate}
                 inputFormat="yyyy.MM.dd"
-                onChange={(newValue) => {
-                  setSelectedDate(newValue);
-                  setValue((prev) => ({
-                    ...prev,
-                    birthday: newValue,
-                  }));
-                }}
+                onChange={handleDateChange}
                 sx={datePicker(value.birthday)}
                 renderInput={(params) => (
                   <TextField {...params} fullWidth sx={{ flexGrow: 1 }} />
@@ -124,7 +100,7 @@ export function InFoBasic({ nickname, birthday, sex }) {
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => setValue((prev) => ({ ...prev, sex: "남" }))}
+                onClick={() => handleSexChange("남")}
                 sx={infoBasicStyles.genderButton}
               >
                 남
@@ -134,7 +110,7 @@ export function InFoBasic({ nickname, birthday, sex }) {
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => setValue((prev) => ({ ...prev, sex: "여" }))}
+                onClick={() => handleSexChange("여")}
                 sx={infoBasicStyles.genderButton}
               >
                 여

@@ -21,7 +21,12 @@ export default function Info() {
   const [data, setData] = useState(INITIAL_DATA);
   const navigate = useNavigate();
 
+  const handleChange = (value) => {
+    setData((prev) => ({ ...prev, ...value }));
+  };
+
   useEffect(() => {
+    console.log(data);
     if (step === 0) {
       navigate("../");
     }
@@ -46,6 +51,7 @@ export default function Info() {
               nickname={data.nickname}
               birthday={data.birthday}
               sex={data.sex}
+              onChange={handleChange}
             ></InFoBasic>
           )}
           {step === 2 && <InFoJD jd={data.jd}></InFoJD>}
