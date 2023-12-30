@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Box,
@@ -6,14 +6,13 @@ import {
   Button,
   Typography,
   Grid,
-  ToggleButton,
 } from "@mui/material";
 import profile from "../assets/profile.svg";
 import ToggleList from "../components/ToggleList";
 
 const ProfileSection = () => (
   <Grid container spacing={2} alignItems="center" marginBottom={5}>
-    <Grid item xs={12} sm={6}>
+    <Grid item xs={12} sm={11}>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
           <Avatar
@@ -23,12 +22,12 @@ const ProfileSection = () => (
           ></Avatar>
         </Grid>
         <Grid item>
-          <Typography variant="h6">지렁이</Typography>
+          <Typography variant="h5">지렁이</Typography>
         </Grid>
       </Grid>
     </Grid>
-    <Grid item xs={12} sm={6}>
-      <Button fullWidth>수정</Button>
+    <Grid item xs={12} sm={1}>
+      <Button variant="text">수정</Button>
     </Grid>
   </Grid>
 );
@@ -36,12 +35,22 @@ const ProfileSection = () => (
 const ButtonSection = () => (
   <Grid container spacing={1}>
     <Grid item xs={6}>
-      <Button variant="contained" color="primary" fullWidth>
+      <Button
+        sx={{ fontSize: "17px" }}
+        variant="contained"
+        color="primary"
+        fullWidth
+      >
         찜
       </Button>
     </Grid>
     <Grid item xs={6}>
-      <Button variant="contained" color="primary" fullWidth>
+      <Button
+        sx={{ fontSize: "17px" }}
+        variant="contained"
+        color="primary"
+        fullWidth
+      >
         커피챗
       </Button>
     </Grid>
@@ -50,7 +59,15 @@ const ButtonSection = () => (
 
 export default function MyPage() {
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "95vh",
+        minwidth: "100vw",
+      }}
+    >
       <Typography
         variant="h1"
         component="h1"
@@ -64,15 +81,16 @@ export default function MyPage() {
       <ProfileSection />
       <ButtonSection />
       <ToggleList />
-      <ToggleButton>토글버튼</ToggleButton>
-      <Box
-        style={{ position: "fixed", bottom: 0, width: "100%" }}
-        marginBottom={5}
+      <Box sx={{ flexGrow: 1 }} />
+      <Button
+        position="sticky"
+        bottom="0"
+        variant="secondary"
+        size="large"
+        sx={{ width: "100%", backgroundColor: "#EBEBEB" }}
       >
-        <Button variant="contained" color="grey" fullWidth>
-          로그아웃
-        </Button>
-      </Box>
+        로그아웃
+      </Button>
     </Container>
   );
 }
