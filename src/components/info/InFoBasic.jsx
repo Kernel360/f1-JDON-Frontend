@@ -23,7 +23,6 @@ export function InFoBasic({ nickname, birthday, sex, onChange }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [value, setValue] = useState({ nickname, birthday, sex });
 
-
   const handleInputChange = (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
     onChange({ [field]: newValue });
