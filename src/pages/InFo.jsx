@@ -23,6 +23,7 @@ export default function Info() {
 
   const handleChange = (value) => {
     setData((prev) => ({ ...prev, ...value }));
+
   };
 
   useEffect(() => {
@@ -49,18 +50,11 @@ export default function Info() {
             alignItems: "center",
           }}
         >
-          {step === 1 && (
-            <InFoBasic
-              nickname={data.nickname}
-              birthday={data.birthday}
-              sex={data.sex}
-              onChange={handleChange}
-            ></InFoBasic>
-          )}
-          {step === 2 && <InFoJD jd={data.jd} onChange={handleChange}></InFoJD>}
-          {step === 3 && (
-            <InfoSkill skills={data.skills} onChange={handleChange}></InfoSkill>
-          )}
+
+          {step === 1 && <InFoBasic DATA={DATA}></InFoBasic>}
+          {step === 2 && <InFoJD jd={DATA.jd}></InFoJD>}
+          {step === 3 && <InfoSkill skills={DATA.skills}></InfoSkill>}
+
         </Box>
         <NavigationButtons
           step={step}
