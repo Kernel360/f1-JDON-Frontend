@@ -9,23 +9,32 @@ import { NavigationButtons } from "../components/navigation-btn/NavigationBtn";
 import { InfoSkill } from "../components/info/InfoSkill";
 import { useNavigate } from "react-router-dom/dist";
 
+const INITIAL_DATA = {
+  nickname: "",
+  birthday: "",
+  sex: "",
+  jd: "",
+  skills: [],
+};
 export default function Info() {
   const [step, setStep] = useState(1);
+  const [data, setData] = useState(INITIAL_DATA);
   const navigate = useNavigate();
 
-  const DATA = {
-    nickname: "",
-    birthday: "",
-    sex: "",
-    jd: "",
-    skills: [],
+  const handleChange = (value) => {
+    setData((prev) => ({ ...prev, ...value }));
+
   };
 
   useEffect(() => {
+    localStorage.setItem("userInfo", []);
     if (step === 0) {
       navigate("../");
     }
-    if (step === 4) navigate("../main");
+    if (step === 4) {
+      navigate("../main");
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    }
   });
 
   return (
@@ -41,9 +50,11 @@ export default function Info() {
             alignItems: "center",
           }}
         >
+
           {step === 1 && <InFoBasic DATA={DATA}></InFoBasic>}
           {step === 2 && <InFoJD jd={DATA.jd}></InFoJD>}
           {step === 3 && <InfoSkill skills={DATA.skills}></InfoSkill>}
+
         </Box>
         <NavigationButtons
           step={step}

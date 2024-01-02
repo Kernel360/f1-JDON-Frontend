@@ -1,6 +1,6 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
-import { InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
-import { useState } from "react";
+import { ChipStyle, InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
+import { useEffect, useState } from "react";
 
 const CHIPS = [
   "HTML",
@@ -15,20 +15,27 @@ const CHIPS = [
   "Redux",
 ];
 
-export function InfoSkill() {
-  const [select, setSelect] = useState([]);
+export function InfoSkill({ skills, onChange }) {
+  const [selectedChip, setSelectedChip] = useState([]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleClick = (newchip) => {
+    if (selectedChip.length < 3) {
+      if (selectedChip.includes(newchip)) {
+        setSelectedChip(selectedChip.filter((c) => c !== newchip));
+      } else {
+        setSelectedChip((prev) => [...prev, newchip]);
+      }
+    } else {
+      alert("3개만 선택 가능합니다");
+      setSelectedChip(selectedChip.filter((c) => c !== newchip));
+    }
+
+    console.log(selectedChip);
   };
-  const handleClick = () => {
-    console.info("You clicked the Chip.");
-  };
+
+  useEffect(() => {
+    onChange({ skills: selectedChip });
+  }, [selectedChip]);
 
   return (
     <>
@@ -38,12 +45,7 @@ export function InfoSkill() {
       <Typography width="100%" sx={infoBasicStyles.typographySubtitle}>
         3개 선택해주세요
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={infoBasicStyles.formContainer}
-      >
+      <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <Box>
           <Stack
             direction="row"
@@ -57,9 +59,14 @@ export function InfoSkill() {
                 key={i}
                 label={chip}
                 variant="outlined"
-                onClick={handleClick}
+                onClick={() => handleClick(chip)}
                 size="medium"
-                sx={InfoSkillStyles.ChipStyle}
+                clickable={true}
+                sx={
+                  selectedChip.includes(chip)
+                    ? ChipStyle(chip, selectedChip.length)
+                    : ChipStyle(null)
+                }
               />
             ))}
           </Stack>

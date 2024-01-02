@@ -4,6 +4,8 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: "#6482FF",
+      point: "#FF814D",
+      gray500: "#BCBCC4",
     },
   },
   components: {

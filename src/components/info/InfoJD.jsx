@@ -1,16 +1,14 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { infoBasicStyles } from "./InfoStyles";
+import { useState } from "react";
 
-export function InFoJD() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+export function InFoJD({ jd, onChange }) {
+  const [value, setValue] = useState({ jd });
+  const handleChange = (field, newValue) => {
+    console.log(value);
+    setValue((prev) => ({ ...prev, [field]: newValue }));
+    onChange({ [field]: newValue });
   };
-
   return (
     <>
       <Typography width="100%" sx={infoBasicStyles.typographyTitle}>
@@ -19,12 +17,7 @@ export function InFoJD() {
       <Typography width="100%" sx={infoBasicStyles.typographySubtitle}>
         직무 타입은 추후 추가될 예정입니다
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={infoBasicStyles.formContainer}
-      >
+      <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <Box>
           <Grid
             container
@@ -40,15 +33,17 @@ export function InFoJD() {
               <Button
                 variant="outlined"
                 fullWidth
+                onClick={() => handleChange("jd", "Front-end")}
                 sx={infoBasicStyles.genderButton}
               >
-                Font-end
+                Front-end
               </Button>
             </Grid>
             <Grid item xs={5.5}>
               <Button
                 variant="outlined"
                 fullWidth
+                onClick={() => handleChange("jd", "Back-end")}
                 sx={infoBasicStyles.genderButton}
               >
                 Back-end
