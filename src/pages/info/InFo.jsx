@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom/dist";
 import InFoBasic from "./InFoBasic";
 import InFoJD from "./InfoJD";
 import InfoSkill from "./InfoSkill";
-import ProgressBar from "../../components/Progressbar";
-import NavigationButtons from "../../components/navigation-btn/NavigationBtn";
+import ProgressBar from "../../components/common/Progressbar";
+import NavigationButtons from "../../components/common/navigation-btn/NavigationBtn";
 
 const INITIAL_DATA = {
   nickname: "",
