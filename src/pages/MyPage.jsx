@@ -71,7 +71,7 @@ export default function MyPage() {
       <Typography
         variant="h1"
         component="h1"
-        fontSize="1.25rem"
+        fontSize="1rem"
         textAlign="center"
         padding={2}
         marginBottom={10}
@@ -87,7 +87,7 @@ export default function MyPage() {
         bottom="0"
         variant="secondary"
         size="large"
-        sx={{ width: "100%", backgroundColor: "#EBEBEB" }}
+        sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "1.05rem" }}
       >
         로그아웃
       </Button>
