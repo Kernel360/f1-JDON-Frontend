@@ -19,7 +19,7 @@ import {
   nicknameTextField,
 } from "./InfoStyles";
 
-export function InFoBasic({ nickname, birthday, sex, onChange }) {
+function InFoBasic({ nickname, birthday, sex, onChange }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [value, setValue] = useState({ nickname, birthday, sex });
 
@@ -122,3 +122,5 @@ export function InFoBasic({ nickname, birthday, sex, onChange }) {
     </>
   );
 }
+
+export default InFoBasic;

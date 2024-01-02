@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { InFoBasic } from "../components/info/InFoBasic";
-import { ProgressBar } from "../components/Progressbar";
-import { InFoJD } from "../components/info/InfoJD";
-import { NavigationButtons } from "../components/navigation-btn/NavigationBtn";
-import { InfoSkill } from "../components/info/InfoSkill";
 import { useNavigate } from "react-router-dom/dist";
+import InFoBasic from "./InFoBasic";
+import InFoJD from "./InfoJD";
+import InfoSkill from "./InfoSkill";
+import ProgressBar from "../../components/Progressbar";
+import NavigationButtons from "../../components/navigation-btn/NavigationBtn";
 
 const INITIAL_DATA = {
   nickname: "",

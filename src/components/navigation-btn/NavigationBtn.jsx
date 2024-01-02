@@ -1,7 +1,7 @@
 import { Button, Container, Grid } from "@mui/material";
 import { buttonStyle } from "./NavigationBtnStyles";
 
-export function NavigationButtons({ step, onNext, onBefore }) {
+function NavigationButtons({ step, onNext, onBefore }) {
   return (
     <Container maxWidth="sm" fixed sx={buttonStyle.Container}>
       <Grid container spacing={3} fullWidth sx={buttonStyle.Grid}>
@@ -30,3 +30,5 @@ export function NavigationButtons({ step, onNext, onBefore }) {
     </Container>
   );
 }
+
+export default NavigationButtons;

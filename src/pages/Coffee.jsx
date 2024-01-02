@@ -15,7 +15,7 @@ import {
 import { SearchBar } from "../components/search-bar/SearchBar";
 import { useState } from "react";
 import BottomNav from "../components/BottomNav";
-import CoffeeChatCard from "../components/card_coffeechat/CoffeeChatCard";
+import CoffeeChatCard from "../components/card/CoffeeChatCard";
 
 export function Coffee() {
   const [openFilter, setOpenFilter] = useState(false);

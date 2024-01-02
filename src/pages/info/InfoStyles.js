@@ -1,4 +1,4 @@
-import { theme } from "../../themeMuiStyle";
+import { theme } from "../../styles/themeMuiStyle";
 
 // infoBasicStyles.js 파일
 export const infoBasicStyles = {

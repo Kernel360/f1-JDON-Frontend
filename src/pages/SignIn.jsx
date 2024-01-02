@@ -1,23 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import git from "../assets/icn_github.svg";
-import logo from "../assets/logo.svg";
+import logo from "../assets/images/logo.svg";
 import { Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom/dist";
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -32,7 +22,6 @@ export default function SignIn() {
       >
         <Box
           component="form"
-          onSubmit={handleSubmit}
           sx={{
             textAlign: "center",
             width: "100%",
@@ -75,8 +64,8 @@ export default function SignIn() {
 }
 
 function KaKaoLoginButton() {
-  const CLIENT_ID = "YOUR_CLIENT_ID"; // 여기에 Google Client ID를 넣으세요
-  const REDIRECT_URI = "YOUR_REDIRECT_URI"; // 리디렉션될 URI를 넣으세요
+  // const CLIENT_ID = "YOUR_CLIENT_ID"; // 여기에 Google Client ID를 넣으세요
+  // const REDIRECT_URI = "YOUR_REDIRECT_URI"; // 리디렉션될 URI를 넣으세요
   const navigation = useNavigate();
 
   const handleLogin = () => {
@@ -106,8 +95,8 @@ function KaKaoLoginButton() {
 
 function GitHubLoginButton() {
   const navigation = useNavigate();
-  const CLIENT_ID = "YOUR_CLIENT_ID";
-  const REDIRECT_URI = "YOUR_REDIRECT_URI";
+  // const CLIENT_ID = "YOUR_CLIENT_ID";
+  // const REDIRECT_URI = "YOUR_REDIRECT_URI";
 
   const handleLogin = () => {
     // window.location.href = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user`;

@@ -13,11 +13,11 @@ import { useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { ChipStyle, MainStyles } from "./PageStyles";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import CompanyCard from "../components/card_company/CompanyCard";
-import VideoCard from "../components/card_video/VideoCard";
-import video1 from "../../src/assets/video1.svg";
-import video2 from "../../src/assets/video2.svg";
-import video3 from "../../src/assets/video3.svg";
+import CompanyCard from "../components/card/CompanyCard";
+import VideoCard from "../components/card/VideoCard";
+import video1 from "../../src/assets/images/video1.svg";
+import video2 from "../../src/assets/images/video2.svg";
+import video3 from "../../src/assets/images/video3.svg";
 import BottomNav from "../components/BottomNav";
 
 const HOT_SKILLS = [
