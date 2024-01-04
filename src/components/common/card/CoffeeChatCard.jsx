@@ -1,8 +1,7 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Paper } from "@mui/material";
-
-export default function CoffeeChatCard({ name, content, price, img }) {
+function CoffeeChatCard({ name, content, price, img }) {
   return (
     <Paper
       elevation={0}
@@ -73,3 +72,5 @@ export default function CoffeeChatCard({ name, content, price, img }) {
     </Paper>
   );
 }
+
+export default CoffeeChatCard;

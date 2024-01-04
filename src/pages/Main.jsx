@@ -8,17 +8,21 @@ import {
   Tab,
   Typography,
 } from "@mui/material";
-import { SearchBar } from "../components/search-bar/SearchBar";
 import { useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { ChipStyle, MainStyles } from "./PageStyles";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import CompanyCard from "../components/card_company/CompanyCard";
-import VideoCard from "../components/card_video/VideoCard";
-import video1 from "../../src/assets/video1.svg";
-import video2 from "../../src/assets/video2.svg";
-import video3 from "../../src/assets/video3.svg";
-import BottomNav from "../components/BottomNav";
+import {
+  ArrowBackIos,
+  ArrowForwardIos,
+  VideoCallRounded,
+} from "@mui/icons-material";
+import video1 from "../../src/assets/images/video1.svg";
+import video2 from "../../src/assets/images/video2.svg";
+import video3 from "../../src/assets/images/video3.svg";
+import SearchBar from "../components/common/search-bar/SearchBar";
+import CompanyCard from "../components/common/card/CompanyCard";
+import BottomNav from "../components/common/BottomNav";
+import VideoCard from "../components/common/card/VideoCard";
 
 const HOT_SKILLS = [
   "JavaScript",

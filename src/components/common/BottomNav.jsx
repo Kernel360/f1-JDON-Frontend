@@ -9,9 +9,9 @@ export default function BottomNav() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
 
-  console.log("out" + value);
+  //console.log("out" + value);
   useEffect(() => {
-    console.log("in" + value);
+    // console.log("in" + value);
     if (value === 0) navigate("../main");
     else if (value === 1) navigate("../coffee");
     else if (value === 2) navigate("../mypage"); // 마이페이지로 이동하는 로직 추가

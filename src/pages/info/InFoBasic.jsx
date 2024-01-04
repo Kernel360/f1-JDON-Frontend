@@ -12,30 +12,29 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import format from "date-fns/locale/ko";
 import { useState } from "react";
 import {
+  datePicker,
   datePickerContainer,
   duplicateCheckButtonStyle,
   infoBasicStyles,
   nicknameTextField,
 } from "./InfoStyles";
 
-export function InFoBasic({ DATA }) {
+function InFoBasic({ nickname, birthday, sex, onChange }) {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [nickname, setNicname] = useState(DATA.nickname);
-  const [birthday, setBirthday] = useState(DATA.birthday);
+  const [value, setValue] = useState({ nickname, birthday, sex });
 
-  console.log(nickname, birthday);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleInputChange = (field, newValue) => {
+    setValue((prev) => ({ ...prev, [field]: newValue }));
+    onChange({ [field]: newValue });
   };
 
-  const handleCheckDuplicate = () => {
-    // 중복확인 로직
+  const handleDateChange = (newValue) => {
+    setSelectedDate(newValue);
+    handleInputChange("birthday", newValue);
+  };
+
+  const handleSexChange = (newSex) => {
+    handleInputChange("sex", newSex);
   };
 
   return (
@@ -46,12 +45,7 @@ export function InFoBasic({ DATA }) {
       <Typography width="100%" sx={infoBasicStyles.typographySubtitle}>
         서비스에 활용됩니다
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={infoBasicStyles.formContainer}
-      >
+      <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <Box>
           <FormLabel>닉네임</FormLabel>
           <TextField
@@ -62,20 +56,15 @@ export function InFoBasic({ DATA }) {
             name="nickname"
             autoComplete="nickname"
             placeholder="사용하실 닉네임을 입력해주세요"
-            onChange={(e) => setNicname(e.target.value)}
-            sx={nicknameTextField(nickname)}
+            onChange={(e) => handleInputChange("nickname", e.target.value)}
+            sx={nicknameTextField(value.nickname)}
             InputProps={{
               endAdornment: (
                 <InputAdornment
                   position="end"
                   sx={{ background: "transparent" }}
                 >
-                  <Button
-                    onClick={handleCheckDuplicate}
-                    sx={duplicateCheckButtonStyle}
-                  >
-                    중복확인
-                  </Button>
+                  <Button sx={duplicateCheckButtonStyle}>중복확인</Button>
                 </InputAdornment>
               ),
             }}
@@ -86,7 +75,7 @@ export function InFoBasic({ DATA }) {
 
         <Box>
           <FormLabel>생일</FormLabel>
-          <Grid container sx={datePickerContainer(birthday)}>
+          <Grid container sx={datePickerContainer(value.birthday)}>
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
               adapterLocale={format}
@@ -94,11 +83,8 @@ export function InFoBasic({ DATA }) {
               <DatePicker
                 value={selectedDate}
                 inputFormat="yyyy.MM.dd"
-                onChange={(newValue) => {
-                  setSelectedDate(newValue);
-                  setBirthday(newValue);
-                }}
-                sx={infoBasicStyles.datePicker}
+                onChange={handleDateChange}
+                sx={datePicker(value.birthday)}
                 renderInput={(params) => (
                   <TextField {...params} fullWidth sx={{ flexGrow: 1 }} />
                 )}
@@ -114,6 +100,7 @@ export function InFoBasic({ DATA }) {
               <Button
                 variant="outlined"
                 fullWidth
+                onClick={() => handleSexChange("남")}
                 sx={infoBasicStyles.genderButton}
               >
                 남
@@ -123,6 +110,7 @@ export function InFoBasic({ DATA }) {
               <Button
                 variant="outlined"
                 fullWidth
+                onClick={() => handleSexChange("여")}
                 sx={infoBasicStyles.genderButton}
               >
                 여
@@ -134,3 +122,5 @@ export function InFoBasic({ DATA }) {
     </>
   );
 }
+
+export default InFoBasic;

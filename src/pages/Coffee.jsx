@@ -1,25 +1,21 @@
 import {
-  Autocomplete,
   Box,
   Button,
   Chip,
   Container,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Grid,
   Modal,
   Pagination,
   Radio,
   RadioGroup,
   Stack,
-  TextField,
-  Typography,
 } from "@mui/material";
-import { SearchBar } from "../components/search-bar/SearchBar";
 import { useState } from "react";
-import BottomNav from "../components/BottomNav";
-import CoffeeChatCard from "../components/card_coffeechat/CoffeeChatCard";
+import BottomNav from "../components/common/BottomNav";
+import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
+import SearchBar from "../components/common/search-bar/SearchBar";
 
 export function Coffee() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -128,8 +124,4 @@ export default function BasicPagination() {
       </Stack>
     </Box>
   );
-}
-const options = ["최신순", "조회순", "인기 낮은순", "인기 높은 순"]; // 옵션 예시
-function FF() {
-  return <Stack></Stack>;
 }

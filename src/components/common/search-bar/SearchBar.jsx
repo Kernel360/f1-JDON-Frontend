@@ -3,7 +3,7 @@ import { Container, TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { SearchTextFiled } from "./SearchBarStyles";
 
-export function SearchBar() {
+function SearchBar() {
   return (
     <Container
       maxWidth="md"
@@ -27,3 +27,5 @@ export function SearchBar() {
     </Container>
   );
 }
+
+export default SearchBar;
