@@ -6,28 +6,57 @@ import {
   Button,
   Typography,
   Grid,
+  IconButton,
 } from "@mui/material";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+
 import profile from "../assets/profile.svg";
 import ToggleList from "../components/ToggleList";
 
 const ProfileSection = () => (
-  <Grid container spacing={2} alignItems="center" marginBottom={5}>
-    <Grid item xs={12} sm={11}>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item>
-          <Avatar
-            alt="user profile"
-            src={profile}
-            sx={{ background: "lightgrey", width: 43, height: 40 }}
-          ></Avatar>
-        </Grid>
-        <Grid item>
-          <Typography variant="h5">지렁이</Typography>
-        </Grid>
+  <Grid
+    container
+    spacing={2}
+    alignItems="center"
+    justifyContent="center"
+    marginBottom={5}
+  >
+    <Grid
+      item
+      xs={12}
+      sm={10}
+      container
+      direction="column"
+      spacing={2}
+      alignItems="center"
+    >
+      <Grid item>
+        <Avatar
+          alt="user profile"
+          src={profile}
+          sx={{
+            background: "inherit",
+            width: "2.8125rem",
+            height: "2.8125rem",
+            border: "1px solid #000",
+          }}
+        />
       </Grid>
-    </Grid>
-    <Grid item xs={12} sm={1}>
-      <Button variant="text">수정</Button>
+      <Grid item container alignItems="center" justifyContent="center">
+        <Typography
+          variant="h5"
+          sx={{
+            textAlign: "center",
+            marginLeft: "1.375rem",
+            fontWeight: "600",
+          }}
+        >
+          지렁이
+        </Typography>
+        <IconButton aria-label="정보수정" color="primary">
+          <ModeEditIcon />
+        </IconButton>
+      </Grid>
     </Grid>
   </Grid>
 );
@@ -40,16 +69,18 @@ const ButtonSection = () => (
         variant="contained"
         color="primary"
         fullWidth
+        disableElevation
       >
         찜
       </Button>
     </Grid>
     <Grid item xs={6}>
       <Button
-        sx={{ fontSize: "17px" }}
+        sx={{ fontSize: "1.0625rem" }}
         variant="contained"
         color="primary"
         fullWidth
+        disableElevation
       >
         커피챗
       </Button>
