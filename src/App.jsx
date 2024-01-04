@@ -7,6 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Main } from "./pages/Main";
 import { Coffee } from "./pages/Coffee";
 import { theme } from "./styles/themeMuiStyle";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/info" element={<Info />} />
             <Route exact path="/main" element={<Main />} />
             <Route exact path="/coffee" element={<Coffee />} />
+            <Route exact path="/mypage" element={<MyPage />} />
           </Routes>
         </Layout>
       </ThemeProvider>
