@@ -12,10 +12,10 @@ import {
   RadioGroup,
   Stack,
 } from "@mui/material";
-import { SearchBar } from "../components/search-bar/SearchBar";
 import { useState } from "react";
-import BottomNav from "../components/BottomNav";
-import CoffeeChatCard from "../components/card_coffeechat/CoffeeChatCard";
+import BottomNav from "../components/common/BottomNav";
+import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
+import SearchBar from "../components/common/search-bar/SearchBar";
 
 export function Coffee() {
   const [openFilter, setOpenFilter] = useState(false);

@@ -15,7 +15,7 @@ const CHIPS = [
   "Redux",
 ];
 
-export function InfoSkill({ skills, onChange }) {
+function InfoSkill({ skills, onChange }) {
   const [selectedChip, setSelectedChip] = useState([]);
 
   const handleClick = (newchip) => {
@@ -75,3 +75,5 @@ export function InfoSkill({ skills, onChange }) {
     </>
   );
 }
+
+export default InfoSkill;

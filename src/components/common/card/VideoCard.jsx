@@ -3,7 +3,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Paper } from "@mui/material";
 
-export default function VideoCard({ name, content, price, img }) {
+function VideoCard({ name, content, price, img }) {
   return (
     <Paper elevation={0} sx={{ my: 1 }}>
       <CardActionArea>
@@ -41,3 +41,5 @@ export default function VideoCard({ name, content, price, img }) {
     </Paper>
   );
 }
+
+export default VideoCard;

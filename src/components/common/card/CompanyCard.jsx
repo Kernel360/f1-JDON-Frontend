@@ -2,7 +2,7 @@ import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Paper } from "@mui/material";
-import example from "./../../assets/example.png";
+import example from "./../../../assets/images/example.png";
 
 export default function CompanyCard({ name, content }) {
   return (

@@ -2,7 +2,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { infoBasicStyles } from "./InfoStyles";
 import { useState } from "react";
 
-export function InFoJD({ jd, onChange }) {
+function InFoJD({ jd, onChange }) {
   const [value, setValue] = useState({ jd });
   const handleChange = (field, newValue) => {
     console.log(value);
@@ -55,3 +55,5 @@ export function InFoJD({ jd, onChange }) {
     </>
   );
 }
+
+export default InFoJD;
