@@ -20,6 +20,8 @@ function App() {
             <Route exact path="/info" element={<Info />} />
             <Route exact path="/main" element={<Main />} />
             <Route exact path="/coffee" element={<Coffee />} />
+            <Route exact path="/mypage" element={<MyPage />} />
+            <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
           </Routes>
         </Layout>
       </ThemeProvider>
