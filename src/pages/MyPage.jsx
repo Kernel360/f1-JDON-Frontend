@@ -13,6 +13,7 @@ import BottomNav from "../components/common/BottomNav";
 
 import profile from "../assets/profile.svg";
 import ToggleList from "../components/ToggleList";
+// import BottomNav from "../components/common/BottomNav";
 import { Link } from "react-router-dom";
 
 const ProfileSection = () => (
@@ -101,7 +102,6 @@ export default function MyPage() {
         flexDirection: "column",
         minHeight: "95vh",
         minwidth: "100vw",
-        pd: 10,
       }}
     >
       <Typography
