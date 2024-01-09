@@ -43,21 +43,19 @@ export const MainStyles = {
   },
   TabPanel: {
     alignItems: "center",
-    padding: "24px 30px",
+    padding: "10px 30px",
     position: "relative",
   },
   IconButtonLeft: {
     opacity: 0.3,
-    padding: 1,
     position: "absolute",
-    top: "22px",
+    top: "8px",
     left: 0,
   },
   IconButtonRight: {
     opacity: 0.3,
-    padding: 1,
     position: "absolute",
-    top: "22px",
+    top: "8px",
     right: 0,
   },
   ChipContainer: {
@@ -68,7 +66,7 @@ export const MainStyles = {
     },
   },
   TypoGraphy: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 500,
     color: "#545459",
   },
@@ -83,8 +81,8 @@ export const ChipStyle = (click) => ({
   borderColor: click ? "#FF814D" : "#ADADAD",
   background: click ? "#FFEAE1" : "",
   fontSize: "14px",
-  padding: "4px",
-  height: "38px",
+  padding: "2px",
+  height: "34px",
   borderRadius: "999px",
   "&&:hover": {
     background: "#FFEAE1",

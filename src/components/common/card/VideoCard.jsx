@@ -1,44 +1,48 @@
 import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea, Paper } from "@mui/material";
+import { Box } from "@mui/material";
+import heart from "../../../assets/icons/heart.svg";
+import heartFilled from "../../../assets/icons/heart_filled.svg";
+import person from "../../../assets/icons/person.svg";
+import { useState } from "react";
+import { VideoCardStyle } from "./CardStyle";
 
-function VideoCard({ name, content, price, img }) {
+function VideoCard({ data }) {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikeClick = () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+  };
+
   return (
-    <Paper elevation={0} sx={{ my: 1 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          image={img}
-          alt="green iguana"
-          sx={{ borderRadius: "8px" }}
-        />
-        <Box sx={{ mt: 1, position: "relative" }}>
-          <Typography
-            color="#545459"
-            fontWeight="500"
-            sx={{
-              display: "-webkit-box",
-              overflow: "hidden",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 2, // 이 값으로 표시할 줄 수를 설정합니다.
-              textOverflow: "ellipsis",
-              height: 50, // 이 값은 줄 수와 폰트 크기에 따라 조정될 수 있습니다.
-            }}
-          >
-            {content}
+    <Box sx={{ my: 1, pointer: "cursor" }}>
+      <CardMedia
+        component="img"
+        image={data.imageUrl}
+        sx={{ borderRadius: "8px" }}
+      />
+      <Box sx={{ mt: 1 }}>
+        <Typography sx={VideoCardStyle.Instructor}>
+          {data.instructor}
+          <img
+            src={isLiked ? heartFilled : heart}
+            alt="heart"
+            onClick={handleLikeClick}
+          />
+        </Typography>
+        <Typography sx={VideoCardStyle.Title}>{data.title}</Typography>
+        <Box>
+          <Typography fontWeight="500">
+            {data.price} <span style={{ fontSize: "12px" }}>원</span>
           </Typography>
-          <Box sx={{ position: "absolute", top: 55, left: 0 }}>
-            <Typography variant="body3" component="div" color="#9A9AA1">
-              {name}
-            </Typography>
-            <Typography color="#545459" fontWeight="700">
-              {price}
-            </Typography>
-          </Box>
         </Box>
-      </CardActionArea>
-    </Paper>
+        <Typography sx={VideoCardStyle.StudentCount}>
+          <img src={person} alt="person" />
+          {data.studentCount}
+        </Typography>
+      </Box>
+    </Box>
   );
 }
 

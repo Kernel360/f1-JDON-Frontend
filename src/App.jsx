@@ -4,11 +4,11 @@ import SignIn from "./pages/SignIn";
 import Info from "./pages/info/InFo";
 import { Layout } from "./components/layout/Layout";
 import { ThemeProvider } from "@mui/material/styles";
-import { Main } from "./pages/Main";
 import { Coffee } from "./pages/Coffee";
 import { theme } from "./styles/themeMuiStyle";
 import MyPage from "./pages/MyPage";
 import CoffeeDetail from "./pages/coffee-detail/CoffeeDetail";
+import { Main } from "./pages/mainpage/Main";
 
 function App() {
   return (

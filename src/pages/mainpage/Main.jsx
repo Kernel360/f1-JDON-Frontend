@@ -6,23 +6,18 @@ import {
   IconButton,
   Stack,
   Tab,
-  Typography,
 } from "@mui/material";
 import { useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { ChipStyle, MainStyles } from "./PageStyles";
-import {
-  ArrowBackIos,
-  ArrowForwardIos,
-  VideoCallRounded,
-} from "@mui/icons-material";
-import video1 from "../../src/assets/images/video1.svg";
-import video2 from "../../src/assets/images/video2.svg";
-import video3 from "../../src/assets/images/video3.svg";
-import SearchBar from "../components/common/search-bar/SearchBar";
-import CompanyCard from "../components/common/card/CompanyCard";
-import BottomNav from "../components/common/BottomNav";
-import VideoCard from "../components/common/card/VideoCard";
+import { ChipStyle, MainStyles } from "../PageStyles";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import video1 from "../../../src/assets/images/video1.svg";
+import video2 from "../../../src/assets/images/video2.svg";
+import video3 from "../../../src/assets/images/video3.svg";
+import SearchBar from "../../components/common/search-bar/SearchBar";
+import BottomNav from "../../components/common/BottomNav";
+import CompanySection from "./CompanySection";
+import VideoSection from "./VideoSection";
 
 const HOT_SKILLS = [
   "JavaScript",
@@ -56,25 +51,31 @@ const COMPANY_DATA = [
 ];
 const VIDEO_DATA = [
   {
-    id: 0,
-    name: "지렁이",
-    content: "javascript 기초",
-    price: "2000원",
-    img: video1,
+    lectureId: 3,
+    instructor: "김영한",
+    title: "스프링부트 기본편",
+    imageUrl: video1,
+    lectureUrl: "https://www.wanted.co.kr/wd/196444",
+    studentCount: 3253,
+    price: 120000,
   },
   {
-    id: 1,
-    name: "레오",
-    content: "Spring Boot - 나만의 포트폴리오 사이트 만들기",
-    price: "7000원",
-    img: video2,
+    lectureId: 4,
+    instructor: "김영한",
+    title: "스프링부트 기본편",
+    imageUrl: video2,
+    lectureUrl: "https://www.wanted.co.kr/wd/196444",
+    studentCount: 3253,
+    price: 120000,
   },
   {
-    id: 2,
-    name: "연세IT미래교육원",
-    content: "[연세IT미래교육원] 데이터 분석을 위한 올인원 취업캠프",
-    price: "0원",
-    img: video3,
+    lectureId: 31,
+    instructor: "김영한",
+    title: "스프링부트 기본편",
+    imageUrl: video3,
+    lectureUrl: "https://www.wanted.co.kr/wd/196444",
+    studentCount: 3253,
+    price: 120000,
   },
 ];
 
@@ -107,7 +108,7 @@ export function Main() {
       <TabContext value={value}>
         <TabList
           onChange={handleTabChange}
-          sx={{ pt: 4 }}
+          sx={{ pt: 2 }}
           TabIndicatorProps={{ style: MainStyles.TabIndicator }}
         >
           <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
@@ -188,43 +189,8 @@ export function Main() {
           </IconButton>
         </TabPanel>
       </TabContext>
-
-      <Box sx={{ mt: 4 }}>
-        <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 600 }}>
-            {selectdChip}
-          </span>{" "}
-          학습 영상
-        </Typography>
-        <Grid container spacing={{ xs: 2, md: 2 }}>
-          {VIDEO_DATA.map((item, index) => (
-            <Grid item xs={4} sm={4} md={4} key={index}>
-              <VideoCard
-                name={item.name}
-                content={item.content}
-                price={item.price}
-                img={item.img}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box sx={{ mt: 12 }}>
-        <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 600 }}>
-            {" "}
-            {selectdChip}
-          </span>{" "}
-          에 관심있는 회사는 여기에요!
-        </Typography>
-        <Grid container spacing={{ xs: 2, md: 2 }}>
-          {COMPANY_DATA.map((item, index) => (
-            <Grid item xs={4} sm={4} md={4} key={index}>
-              <CompanyCard name={item.name} content={item.content} />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <VideoSection selectdChip={selectdChip} data={VIDEO_DATA} />
+      <CompanySection selectdChip={selectdChip} data={COMPANY_DATA} />
       <BottomNav></BottomNav>
     </Container>
   );

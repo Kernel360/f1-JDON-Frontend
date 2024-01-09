@@ -1,7 +1,7 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Paper } from "@mui/material";
-import { BadgeStyle } from "./CoffeeChatCardStyle";
+import { BadgeStyle } from "./CardStyle";
 
 function CoffeeChatCard({ data }) {
   return (
