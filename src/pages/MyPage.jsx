@@ -37,8 +37,8 @@ const ProfileSection = () => (
           src={profile}
           sx={{
             background: "inherit",
-            width: "45px",
-            height: "45px",
+            width: "2.8125rem",
+            height: "2.8125rem",
             border: "1px solid #000",
           }}
         />
@@ -48,7 +48,7 @@ const ProfileSection = () => (
           variant="h5"
           sx={{
             textAlign: "center",
-            marginLeft: "22px",
+            marginLeft: "1.375rem",
             fontWeight: "600",
           }}
         >
@@ -77,7 +77,7 @@ const ButtonSection = () => (
     </Grid>
     <Grid item xs={6}>
       <Button
-        sx={{ fontSize: "17px" }}
+        sx={{ fontSize: "1.0625rem" }}
         variant="contained"
         color="primary"
         fullWidth
@@ -104,7 +104,7 @@ export default function MyPage() {
       <Typography
         variant="h1"
         component="h1"
-        fontSize="16px"
+        fontSize="1rem"
         textAlign="center"
         padding={2}
         marginBottom={10}
@@ -120,7 +120,7 @@ export default function MyPage() {
         bottom="0"
         variant="secondary"
         size="large"
-        sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "17px" }}
+        sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "1.05rem" }}
       >
         로그아웃
       </Button>
