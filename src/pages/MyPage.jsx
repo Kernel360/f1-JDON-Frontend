@@ -9,7 +9,7 @@ import {
   IconButton,
 } from "@mui/material";
 // import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import ToggleList from "../components/ToggleList";
+import ToggleList from "../components/common/ToggleList";
 import BottomNav from "../components/common/BottomNav";
 
 import profile from "../assets/profile.svg";

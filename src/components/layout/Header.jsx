@@ -1,11 +1,13 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import backBtn from "../../assets/images/back_button.svg";
 
 export default function Header({ showBackButton, myText }) {
   const navigate = useNavigate();
+  const isLargeScreen = useMediaQuery("(min-width:600px)");
 
   const handleBack = () => {
     navigate(-1);
@@ -14,15 +16,20 @@ export default function Header({ showBackButton, myText }) {
   return (
     <AppBar
       position="static"
-      style={{ background: "white", color: "black", boxShadow: "none" }}
+      sx={{
+        background: "white",
+        color: "black",
+        boxShadow: "none",
+        paddingY: "8px",
+      }}
     >
-      <Toolbar>
+      <Box sx={{ display: "flex", gap: "2" }}>
         {showBackButton && (
           <IconButton color="inherit" onClick={handleBack}>
             <img
               src={backBtn}
               alt="back"
-              style={{ width: "1.5rem", height: "1.5rem" }}
+              style={{ width: "24px", height: "24px" }}
             ></img>
           </IconButton>
         )}
@@ -36,7 +43,7 @@ export default function Header({ showBackButton, myText }) {
         >
           {myText}
         </Typography>
-      </Toolbar>
+      </Box>
     </AppBar>
   );
 }
