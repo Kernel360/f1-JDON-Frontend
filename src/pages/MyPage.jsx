@@ -64,7 +64,7 @@ const ProfileSection = () => (
             style={{
               backgroundImage: `url(${edit})`,
               backgroundSize: "cover",
-              marginLeft: "9px",
+              margin: "11px",
               width: "17px",
               height: "17px",
             }}
