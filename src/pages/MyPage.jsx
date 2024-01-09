@@ -51,7 +51,7 @@ const ProfileSection = () => (
           variant="h5"
           sx={{
             textAlign: "center",
-            marginLeft: "22px",
+            marginLeft: "1.375rem",
             fontWeight: "600",
           }}
         >
