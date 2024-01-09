@@ -1,101 +1,94 @@
-import {
-  Box,
-  Button,
-  Chip,
-  Container,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Modal,
-  Pagination,
-  Radio,
-  RadioGroup,
-  Stack,
-} from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Container, Grid, Pagination, Stack } from "@mui/material";
+
 import BottomNav from "../components/common/BottomNav";
 import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
 import SearchBar from "../components/common/search-bar/SearchBar";
+import { Filters } from "../components/common/filters/Filters";
+
+const MockData = [
+  {
+    coffeechatId: 1,
+    nickname: "김영한10",
+    job: "backend",
+    title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.10",
+    meetDate: "2024-02-06 19:30",
+    createdDate: "2024-01-07 22:10",
+    activeStatus: "모집중",
+    currentRecruitCount: 5,
+    totalRecruitCount: 10,
+  },
+  {
+    coffeechatId: 2,
+    nickname: "김영한11",
+    job: "frontend",
+    title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.11",
+    meetDate: "2024-02-06 19:40",
+    createdDate: "2024-01-07 22:10",
+    activeStatus: "모집중",
+    currentRecruitCount: 5,
+    totalRecruitCount: 11,
+  },
+
+  {
+    coffeechatId: 3,
+    nickname: "김영한20",
+    job: "backend",
+    title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.20",
+    meetDate: "2024-02-06 19:50",
+    createdDate: "2024-01-07 22:10",
+    activeStatus: "모집중",
+    currentRecruitCount: 5,
+    totalRecruitCount: 20,
+  },
+  {
+    coffeechatId: 4,
+    nickname: "김영한4",
+    job: "frontend",
+    title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.20",
+    meetDate: "2024-02-06 19:50",
+    createdDate: "2024-01-07 22:10",
+    activeStatus: "모집중",
+    currentRecruitCount: 5,
+    totalRecruitCount: 20,
+  },
+  {
+    coffeechatId: 5,
+    nickname: "김영한5",
+    job: "backend",
+    title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.20",
+    meetDate: "2024-02-06 19:50",
+    createdDate: "2024-01-07 22:10",
+    activeStatus: "모집중",
+    currentRecruitCount: 5,
+    totalRecruitCount: 20,
+  },
+  {
+    coffeechatId: 6,
+    nickname: "김영한6",
+    job: "frontend",
+    title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.20",
+    meetDate: "2024-02-06 19:50",
+    createdDate: "2024-01-07 22:10",
+    activeStatus: "모집중",
+    currentRecruitCount: 5,
+    totalRecruitCount: 20,
+  },
+];
 
 export function Coffee() {
-  const [openFilter, setOpenFilter] = useState(false);
-  const handleClose = () => setOpenFilter(false);
-  const COFFEECHAT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  const handleChipClick = () => {
-    setOpenFilter(!openFilter);
-  };
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
       <SearchBar />
-      <Box>
-        <Chip
-          label="최신순"
-          clickable={true}
-          variant="outlined"
-          onClick={handleChipClick}
-        ></Chip>
-
-        <Chip label="직무" clickable={true} variant="outlined" />
-        {openFilter && (
-          <Modal open={openFilter} onClose={handleClose}>
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 400,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-                borderRadius: 10,
-                border: "none",
-              }}
-            >
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="최신순"
-                  name="radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="최신순"
-                    control={<Radio />}
-                    label="최신순"
-                  />
-                  <FormControlLabel
-                    value="조회순"
-                    control={<Radio />}
-                    label="조회순"
-                  />
-                  <FormControlLabel
-                    value="인기 높은 순"
-                    control={<Radio />}
-                    label="인기 높은 순"
-                  />
-                  <FormControlLabel
-                    value="인기 낮은 순"
-                    control={<Radio />}
-                    label="인기 낮은 순"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Box>
-          </Modal>
-        )}
-      </Box>
+      <Filters />
       <Box display="flex" justifyContent="flex-end">
         <Button variant="contained" disableElevation>
           커피챗 오픈
         </Button>
       </Box>
-
       <Grid container spacing={{ xs: 2, md: 2 }}>
-        {COFFEECHAT.map((item, index) => (
+        {MockData.map((item, index) => (
           <Grid item xs={6} sm={6} md={6} key={index}>
-            <CoffeeChatCard></CoffeeChatCard>
+            <CoffeeChatCard data={item}></CoffeeChatCard>
           </Grid>
         ))}
       </Grid>

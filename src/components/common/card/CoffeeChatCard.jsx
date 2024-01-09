@@ -1,7 +1,8 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Paper } from "@mui/material";
-function CoffeeChatCard({ name, content, price, img }) {
+
+function CoffeeChatCard({ data }) {
   return (
     <Paper
       elevation={0}
@@ -27,7 +28,7 @@ function CoffeeChatCard({ name, content, price, img }) {
           fontWeight: 500,
         }}
       >
-        모집중
+        {data.activeStatus}
       </div>
       <Box
         sx={{
@@ -45,10 +46,10 @@ function CoffeeChatCard({ name, content, price, img }) {
           color="#9A9AA1"
           sx={{ display: "flex" }}
         >
-          nickname
+          {data.nickname}
         </Typography>
         <Typography color="#545459" fontWeight="500">
-          커피챗 제목의 예시
+          {data.title}
         </Typography>
         <Typography variant="body2" component="div" color="#9A9AA1">
           일시: 2024. 01 . 01
@@ -67,7 +68,7 @@ function CoffeeChatCard({ name, content, price, img }) {
           padding: "3px 6px",
         }}
       >
-        backend
+        {data.job}
       </Typography>
     </Paper>
   );

@@ -92,3 +92,20 @@ export const ChipStyle = (click) => ({
     borderColor: "#FF814D",
   },
 });
+
+export const URLInput = () => ({
+  py: "95px",
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderRadius: "10px", // 기본 테두리 두께
+      borderColor: "#BCBCC4",
+    },
+  },
+  "& .MuiInputBase-input": {
+    color: "#6482FF", // 입력된 값의 색상
+    "&::placeholder": {
+      color: "#BCBCC4", // 플레이스홀더의 색상
+      opacity: 1, // 브라우저마다 다른 플레이스홀더 투명도 처리를 일관되게 함
+    },
+  },
+});

@@ -8,6 +8,7 @@ import { Main } from "./pages/Main";
 import { Coffee } from "./pages/Coffee";
 import { theme } from "./styles/themeMuiStyle";
 import MyPage from "./pages/MyPage";
+import CoffeeDetail from "./pages/coffee-detail/CoffeeDetail";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/info" element={<Info />} />
             <Route exact path="/main" element={<Main />} />
             <Route exact path="/coffee" element={<Coffee />} />
+            <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
             <Route exact path="/mypage" element={<MyPage />} />
           </Routes>
         </Layout>
