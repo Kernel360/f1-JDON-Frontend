@@ -24,7 +24,7 @@ const MockData = [
     title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.11",
     meetDate: "2024-02-06 19:40",
     createdDate: "2024-01-07 22:10",
-    activeStatus: "모집중",
+    activeStatus: "종료",
     currentRecruitCount: 5,
     totalRecruitCount: 11,
   },
@@ -36,7 +36,7 @@ const MockData = [
     title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.20",
     meetDate: "2024-02-06 19:50",
     createdDate: "2024-01-07 22:10",
-    activeStatus: "모집중",
+    activeStatus: "마감",
     currentRecruitCount: 5,
     totalRecruitCount: 20,
   },
@@ -58,7 +58,7 @@ const MockData = [
     title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.20",
     meetDate: "2024-02-06 19:50",
     createdDate: "2024-01-07 22:10",
-    activeStatus: "모집중",
+    activeStatus: "종료",
     currentRecruitCount: 5,
     totalRecruitCount: 20,
   },
@@ -69,7 +69,7 @@ const MockData = [
     title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.20",
     meetDate: "2024-02-06 19:50",
     createdDate: "2024-01-07 22:10",
-    activeStatus: "모집중",
+    activeStatus: "마감",
     currentRecruitCount: 5,
     totalRecruitCount: 20,
   },
@@ -92,7 +92,6 @@ export function Coffee() {
           </Grid>
         ))}
       </Grid>
-
       <BasicPagination />
       <BottomNav></BottomNav>
     </Container>

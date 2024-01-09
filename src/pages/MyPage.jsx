@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Container,
   Box,
@@ -9,7 +9,6 @@ import {
   IconButton,
 } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-
 import profile from "../assets/profile.svg";
 import ToggleList from "../components/ToggleList";
 import BottomNav from "../components/common/BottomNav";
@@ -92,7 +91,7 @@ const ButtonSection = () => (
 export default function MyPage() {
   return (
     <Container
-      maxWidth="sm"
+      maxWidth="md"
       sx={{
         display: "flex",
         flexDirection: "column",

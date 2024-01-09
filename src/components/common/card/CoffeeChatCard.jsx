@@ -1,6 +1,7 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Paper } from "@mui/material";
+import { BadgeStyle } from "./CoffeeChatCardStyle";
 
 function CoffeeChatCard({ data }) {
   return (
@@ -12,31 +13,16 @@ function CoffeeChatCard({ data }) {
         borderRadius: "8px",
         height: "220px",
         position: "relative",
+        opacity: data.activeStatus === "종료" ? 0.4 : 1,
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px",
-          width: "fit-content",
-          background: "#FFEBC3",
-          borderRadius: "4px",
-          padding: "2px 4px",
-          fontSize: "12px",
-          color: "#323236",
-          fontWeight: 500,
-        }}
-      >
-        {data.activeStatus}
-      </div>
+      <div style={BadgeStyle(data.activeStatus)}>{data.activeStatus}</div>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           gap: "14px",
           padding: "30px 10px",
-
           height: "100%",
         }}
       >
@@ -52,7 +38,7 @@ function CoffeeChatCard({ data }) {
           {data.title}
         </Typography>
         <Typography variant="body2" component="div" color="#9A9AA1">
-          일시: 2024. 01 . 01
+          일시: {data.meetDate.split(" ")[0].replace(/-/g, ".")}
         </Typography>
       </Box>
       <Typography
@@ -66,6 +52,7 @@ function CoffeeChatCard({ data }) {
           left: "10px",
           width: "fit-content",
           padding: "3px 6px",
+          fontSize: "12px",
         }}
       >
         {data.job}

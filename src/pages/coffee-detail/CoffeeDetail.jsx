@@ -13,6 +13,23 @@ import InfoBox from "./InfoBox";
 import paste from "../../assets/icons/paste.svg";
 import { URLInput } from "../PageStyles";
 import Buttons from "./Button";
+import eye from "../../assets/icons/eye.svg";
+
+const MockData = {
+  coffeechatId: 2,
+  nickname: "안소",
+  job: "backend",
+  title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.",
+  createdDate: "2023-10-10 19:30",
+  status: "모집중",
+  totalRecruitCount: 20,
+  currentRecruitCount: 8,
+  meetDate: "2023-10-10 19:30",
+  content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo",
+  openChatUrl: "openkakao.dfkjwhf.wdjfhwkj/wkdjfhwkj",
+  viewCount: 76,
+};
 
 function CoffeeDetail() {
   return (
@@ -27,9 +44,11 @@ function CoffeeDetail() {
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex", gap: "12px" }}>
-          <Typography sx={{ color: "#1D1D1D", fontWeight: 300 }}>
-            name
+        <Box sx={{ display: "flex", gap: "12px", alignItems: "center" }}>
+          <Typography
+            sx={{ color: "#1D1D1D", fontWeight: 400, fontSize: "13px" }}
+          >
+            {MockData.nickname}
           </Typography>
           <Typography
             variant="body2"
@@ -39,16 +58,29 @@ function CoffeeDetail() {
             sx={{
               width: "fit-content",
               padding: "3px 6px",
+              fontSize: "12px",
             }}
           >
-            backend
+            {MockData.job}
           </Typography>
         </Box>
-        <Typography sx={{ color: "#B9B9B9", fontSize: "12px" }}>
-          조회수
+        <Typography
+          sx={{
+            color: "#B9B9B9",
+            fontSize: "12px",
+            display: "flex",
+            alignItems: "center",
+            gap: "4px",
+          }}
+        >
+          <img src={eye} alt="조회수" />
+          {MockData.viewCount}
         </Typography>
       </Box>
-      <InfoBox />
+      <Typography sx={{ px: "6px", fontSize: "20px", mt: "12px" }}>
+        {MockData.title}
+      </Typography>
+      <InfoBox data={MockData} />
       <Divider />
       <Typography sx={{ py: "24px" }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

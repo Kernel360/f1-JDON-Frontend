@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-function InfoBox() {
+function InfoBox({ data }) {
   return (
     <Box
       sx={{
@@ -9,7 +9,7 @@ function InfoBox() {
         heigth: "64px",
         background: "#F2F2F2",
         my: "24px",
-        py: "20px",
+        py: "16px",
         px: "16px",
       }}
     >
@@ -30,7 +30,7 @@ function InfoBox() {
           fontSize: "12px",
         }}
       >
-        일시:{" "}
+        일시: {data.meetDate.split(" ")[0].replace(/-/g, ".")}
       </Box>
       <Box
         sx={{
@@ -39,7 +39,7 @@ function InfoBox() {
           fontSize: "12px",
         }}
       >
-        인원:{" "}
+        인원: {data.currentRecruitCount}/{data.totalRecruitCount}
       </Box>
     </Box>
   );
