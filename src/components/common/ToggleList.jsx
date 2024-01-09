@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Collapse, Typography, Box, IconButton } from "@mui/material";
-import vector from "../assets/images/vector.svg";
+import vector from "../../assets/images/vector.svg";
 
 export default function ToggleList() {
   const [lists, setLists] = useState([]);
