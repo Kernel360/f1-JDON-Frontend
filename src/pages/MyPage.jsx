@@ -9,9 +9,11 @@ import {
   IconButton,
 } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import BottomNav from "../components/common/BottomNav";
 
 import profile from "../assets/profile.svg";
 import ToggleList from "../components/ToggleList";
+import { Link } from "react-router-dom";
 
 const ProfileSection = () => (
   <Grid
@@ -53,9 +55,11 @@ const ProfileSection = () => (
         >
           지렁이
         </Typography>
-        <IconButton aria-label="정보수정" color="primary">
-          <ModeEditIcon />
-        </IconButton>
+        <Link to="/mypage/infoedit">
+          <IconButton aria-label="정보수정" color="primary">
+            <ModeEditIcon />
+          </IconButton>
+        </Link>
       </Grid>
     </Grid>
   </Grid>
@@ -97,6 +101,7 @@ export default function MyPage() {
         flexDirection: "column",
         minHeight: "95vh",
         minwidth: "100vw",
+        pd: 10,
       }}
     >
       <Typography
@@ -122,6 +127,7 @@ export default function MyPage() {
       >
         로그아웃
       </Button>
+      <BottomNav></BottomNav>
     </Container>
   );
 }
