@@ -12,6 +12,7 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 import profile from "../assets/profile.svg";
 import ToggleList from "../components/ToggleList";
+import BottomNav from "../components/common/BottomNav";
 
 const ProfileSection = () => (
   <Grid
@@ -97,6 +98,7 @@ export default function MyPage() {
         flexDirection: "column",
         minHeight: "95vh",
         minwidth: "100vw",
+        pb: 10,
       }}
     >
       <Typography
@@ -122,6 +124,7 @@ export default function MyPage() {
       >
         로그아웃
       </Button>
+      <BottomNav></BottomNav>
     </Container>
   );
 }
