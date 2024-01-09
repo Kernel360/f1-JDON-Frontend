@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Collapse, Typography, Box, IconButton } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import vector from "../assets/images/vector.svg";
 
 export default function ToggleList() {
   const [lists, setLists] = useState([]);
@@ -46,7 +46,7 @@ export default function ToggleList() {
   };
 
   return (
-    <div style={{ marginTop: 30 }}>
+    <div style={{ marginTop: 42 }}>
       {lists.map((list) => (
         <div key={list.id}>
           <Box
@@ -54,13 +54,17 @@ export default function ToggleList() {
             alignItems="center"
             gap={2}
             onClick={toggleItem(list.id)}
-            style={{ cursor: "pointer", paddingBottom: 15 }}
+            style={{
+              cursor: "pointer",
+              paddingBottom: 32,
+              paddingLeft: "16px",
+            }}
           >
-            <IconButton size="small" color="#9A9AA1">
-              <ExpandMoreIcon />
+            <IconButton size="small">
+              <img src={vector} />
             </IconButton>
 
-            <Typography variant="h6" component="h2">
+            <Typography component="h2" sx={{ fontSize: "16px" }}>
               {list.title}
             </Typography>
           </Box>
