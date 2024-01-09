@@ -8,11 +8,14 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-
-import profile from "../assets/profile.svg";
+// import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import ToggleList from "../components/ToggleList";
 import BottomNav from "../components/common/BottomNav";
+
+import profile from "../assets/profile.svg";
+import edit from "../assets/images/icn_edit.svg";
+// import BottomNav from "../components/common/BottomNav";
+import { Link } from "react-router-dom";
 
 const ProfileSection = () => (
   <Grid
@@ -37,9 +40,9 @@ const ProfileSection = () => (
           src={profile}
           sx={{
             background: "inherit",
-            width: "2.8125rem",
-            height: "2.8125rem",
-            border: "1px solid #000",
+            width: "45px",
+            height: "45px",
+            border: "1px solid #FEC93A",
           }}
         />
       </Grid>
@@ -54,9 +57,22 @@ const ProfileSection = () => (
         >
           지렁이
         </Typography>
-        <IconButton aria-label="정보수정" color="primary">
-          <ModeEditIcon />
-        </IconButton>
+        <Link to="/mypage/infoedit">
+          <IconButton
+            aria-label="정보수정"
+            color="black"
+            style={{
+              backgroundImage: `url(${edit})`,
+              backgroundSize: "cover",
+              marginLeft: "9px",
+              width: "17px",
+              height: "17px",
+            }}
+          >
+            {/* <ModeEditIcon />*/}
+            {/* <img src="{edit}" /> */}
+          </IconButton>
+        </Link>
       </Grid>
     </Grid>
   </Grid>
@@ -66,7 +82,7 @@ const ButtonSection = () => (
   <Grid container spacing={1}>
     <Grid item xs={6}>
       <Button
-        sx={{ fontSize: "17px" }}
+        sx={{ fontSize: "17px", paddingY: "12px" }}
         variant="contained"
         color="primary"
         fullWidth
@@ -77,7 +93,7 @@ const ButtonSection = () => (
     </Grid>
     <Grid item xs={6}>
       <Button
-        sx={{ fontSize: "1.0625rem" }}
+        sx={{ fontSize: "17px", paddingY: "12px" }}
         variant="contained"
         color="primary"
         fullWidth
@@ -91,40 +107,47 @@ const ButtonSection = () => (
 
 export default function MyPage() {
   return (
-    <Container
-      maxWidth="sm"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "95vh",
-        minwidth: "100vw",
-        pb: 10,
-      }}
-    >
-      <Typography
-        variant="h1"
-        component="h1"
-        fontSize="1rem"
-        textAlign="center"
-        padding={2}
-        marginBottom={10}
+    <Box>
+      <Container
+        maxWidth="md"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "95vh",
+          minwidth: "100vw",
+          pb: "43px",
+        }}
       >
-        마이페이지
-      </Typography>
-      <ProfileSection />
-      <ButtonSection />
-      <ToggleList />
-      <Box sx={{ flexGrow: 1 }} />
-      <Button
-        position="sticky"
-        bottom="0"
-        variant="secondary"
-        size="large"
-        sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "1.05rem" }}
-      >
-        로그아웃
-      </Button>
+        <Typography
+          variant="h1"
+          component="h1"
+          fontSize="1rem"
+          textAlign="center"
+          padding={2}
+          marginBottom={10}
+        >
+          마이페이지
+        </Typography>
+        <ProfileSection />
+        <ButtonSection />
+        <ToggleList />
+        <Box sx={{ flexGrow: 1 }} />
+        <Button
+          position="sticky"
+          bottom="0"
+          variant="secondary"
+          size="large"
+          sx={{
+            width: "100%",
+            backgroundColor: "#EBEBEB",
+            fontSize: "17px",
+            paddingY: "12px",
+          }}
+        >
+          로그아웃
+        </Button>
+      </Container>
       <BottomNav></BottomNav>
-    </Container>
+    </Box>
   );
 }
