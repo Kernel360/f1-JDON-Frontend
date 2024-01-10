@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import profile from "../assets/profile.svg";
-import ToggleList from "../components/ToggleList";
+import ToggleList from "../components/common/ToggleList";
 import BottomNav from "../components/common/BottomNav";
 import edit from "../assets/images/icn_edit.svg";
 // import BottomNav from "../components/common/BottomNav";
