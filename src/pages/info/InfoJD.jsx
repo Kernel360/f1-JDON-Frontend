@@ -33,7 +33,7 @@ function InFoJD({ jd, onChange }) {
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => handleChange("jd", "Front-end")}
+                onClick={() => handleChange("jd", "1")}
                 sx={infoBasicStyles.genderButton}
               >
                 Front-end
@@ -43,7 +43,7 @@ function InFoJD({ jd, onChange }) {
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => handleChange("jd", "Back-end")}
+                onClick={() => handleChange("jd", "2")}
                 sx={infoBasicStyles.genderButton}
               >
                 Back-end

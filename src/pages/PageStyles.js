@@ -107,3 +107,32 @@ export const URLInput = () => ({
     },
   },
 });
+
+export const BtnStyle = (value) => ({
+  width: "100%",
+  height: "55px",
+  background: value === "git" ? "black" : "#FEE500",
+  borderRadius: "10px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+export const SignInStyle = {
+  BtnContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    gap: "25px",
+    mt: "150px",
+  },
+  ElemContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+  },
+};

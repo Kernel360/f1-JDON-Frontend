@@ -10,7 +10,7 @@ export const buttonStyle = {
     mt: 5,
     mb: 2,
     p: "13px",
-    border: "1px solid black",
+
     borderRadius: "999px",
     background: "#EBEBEB",
     color: "#BCBCC4",

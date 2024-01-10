@@ -2,7 +2,7 @@ import { Box, Chip, Stack, Typography } from "@mui/material";
 import { ChipStyle, InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
 import { useEffect, useState } from "react";
 
-const FRONT_CHIPS = [
+const CHIPS = [
   "HTML",
   "CSS",
   "javascript",
@@ -15,38 +15,25 @@ const FRONT_CHIPS = [
   "Redux",
 ];
 
-const BACK_CHIPS = [
-  "Node.js",
-  "Express.js",
-  "Spring Boot",
-  "Django",
-  "Ruby on Rails",
-  "Flask",
-  "ASP.NET Core",
-  "Go (Golang)",
-  "Laravel",
-];
+function InfoSkill({ skills, onChange }) {
+  const [selectedChip, setSelectedChip] = useState([]);
 
-function InfoSkill({ jd, skills, onChange }) {
-  const [selected, setSelected] = useState([]);
-  const handleClick = (newChip) => {
-    setSelected((prevSelected) => {
-      if (prevSelected.includes(newChip)) {
-        return prevSelected.filter((chip) => chip !== newChip);
+  const handleClick = (newchip) => {
+    if (selectedChip.length < 3) {
+      if (selectedChip.includes(newchip)) {
+        setSelectedChip(selectedChip.filter((c) => c !== newchip));
       } else {
-        if (prevSelected.length < 3) {
-          return [...prevSelected, newChip];
-        } else {
-          alert("3개만 선택할 수 있습니다");
-          return prevSelected;
-        }
+        setSelectedChip((prev) => [...prev, newchip]);
       }
-    });
+    } else {
+      alert("3개만 선택 가능합니다");
+      setSelectedChip(selectedChip.filter((c) => c !== newchip));
+    }
   };
 
   useEffect(() => {
-    console.log(selected);
-  }, [selected]); // selected 상태가 변경될 때마다 로그 출력
+    onChange({ skills: selectedChip });
+  }, [selectedChip]);
 
   return (
     <>
@@ -65,15 +52,19 @@ function InfoSkill({ jd, skills, onChange }) {
             flexWrap="wrap"
             sx={InfoSkillStyles}
           >
-            {FRONT_CHIPS.map((chip, i) => (
+            {CHIPS.map((chip, i) => (
               <Chip
                 key={i}
                 label={chip}
                 variant="outlined"
+                onClick={() => handleClick(chip)}
                 size="medium"
                 clickable={true}
-                onClick={() => handleClick(chip)}
-                sx={ChipStyle(selected, chip)}
+                sx={
+                  selectedChip.includes(chip)
+                    ? ChipStyle(chip, selectedChip.length)
+                    : ChipStyle(null)
+                }
               />
             ))}
           </Stack>
@@ -82,4 +73,5 @@ function InfoSkill({ jd, skills, onChange }) {
     </>
   );
 }
+
 export default InfoSkill;

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import SignIn from "./pages/SignIn";
+import SignIn from "./pages/sign-in/SignIn";
 import Info from "./pages/info/InFo";
 import { Layout } from "./components/layout/Layout";
 import { ThemeProvider } from "@mui/material/styles";

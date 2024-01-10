@@ -8,14 +8,16 @@ import InFoJD from "./InfoJD";
 import InfoSkill from "./InfoSkill";
 import ProgressBar from "../../components/common/Progressbar";
 import NavigationButtons from "../../components/common/navigation-btn/NavigationBtn";
+import { InfoStyle } from "./InfoStyles";
 
 const INITIAL_DATA = {
   nickname: "",
-  birthday: "",
-  sex: "",
-  jd: "",
-  skills: [],
+  birth: "",
+  gender: "",
+  jobCategoryId: "",
+  skillList: [],
 };
+
 export default function Info() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState(INITIAL_DATA);
@@ -39,27 +41,26 @@ export default function Info() {
   return (
     <>
       <ProgressBar step={step}></ProgressBar>
-      <Container component="main" maxWidth="sm">
+      <Container maxWidth="sm">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 6,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <Box sx={InfoStyle.FrameContainer}>
           {step === 1 && (
             <InFoBasic
               nickname={data.nickname}
-              birthday={data.birthday}
-              sex={data.sex}
+              birthday={data.birth}
+              sex={data.gender}
               onChange={handleChange}
             ></InFoBasic>
           )}
-          {step === 2 && <InFoJD jd={data.jd} onChange={handleChange}></InFoJD>}
+          {step === 2 && (
+            <InFoJD jd={data.jobCategoryId} onChange={handleChange}></InFoJD>
+          )}
           {step === 3 && (
-            <InfoSkill skills={data.skills} onChange={handleChange}></InfoSkill>
+            <InfoSkill
+              skills={data.skillList}
+              jd={data.jobCategoryId}
+              onChange={handleChange}
+            ></InfoSkill>
           )}
         </Box>
         <NavigationButtons

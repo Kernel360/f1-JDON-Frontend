@@ -1,6 +1,14 @@
 import { theme } from "../../styles/themeMuiStyle";
 
-// infoBasicStyles.js 파일
+export const InfoStyle = {
+  FrameContainer: {
+    marginTop: 6,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+};
+
 export const infoBasicStyles = {
   typographyTitle: {
     fontSize: 24,
@@ -21,18 +29,6 @@ export const infoBasicStyles = {
     width: "100%",
   },
 
-  // datePicker: {
-  //   "& .MuiInputBase-root": { flexGrow: 1 },
-  //   "& .MuiOutlinedInput-root": {
-  //     border: "none",
-  //     display: "flex",
-  //     width: "100%",
-  //     justifyContent: "space-between",
-  //   },
-  //   "& .MuiOutlinedInput-notchedOutline": {
-  //     border: "none",
-  //   },
-  // },
   genderButton: {
     height: 56,
     borderRadius: "10px",
@@ -100,18 +96,18 @@ export const InfoSkillStyles = {
   },
 };
 
-export const ChipStyle = (click, selectedCount) => ({
-  color: click ? "#6482FF" : "#ADADAD",
-  borderColor: click ? "#6482FF" : "#ADADAD",
-  background: click ? "#E2E7FF" : "",
+export const ChipStyle = (selected, chip) => ({
+  color: selected.includes(chip) ? "#6482FF" : "#ADADAD",
+  borderColor: selected.includes(chip) ? "#6482FF" : "#ADADAD",
+  background: selected.includes(chip) ? "#E2E7FF" : "",
   fontSize: "14px",
   padding: "4px",
   height: "38px",
   borderRadius: "999px",
   "&&:hover": {
-    background: "#E2E7FF",
-    color: "#6482FF",
-    borderColor: "#6482FF",
+    background: selected.includes(chip) ? "#E2E7FF" : "white",
+    color: selected.includes(chip) ? "#6482FF" : "#ADADAD",
+    borderColor: selected.includes(chip) ? "#6482FF" : "#ADADAD",
   },
 });
 
