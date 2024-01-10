@@ -8,6 +8,7 @@ function CoffeeChatCard({ data }) {
     <Paper
       elevation={0}
       sx={{
+        pointer: "cursor",
         my: 1,
         border: "1px solid #BCBCC4",
         borderRadius: "8px",
@@ -22,23 +23,19 @@ function CoffeeChatCard({ data }) {
           display: "flex",
           flexDirection: "column",
           gap: "14px",
-          padding: "30px 10px",
+          padding: "20px 16px",
           height: "100%",
         }}
       >
-        <Typography
-          variant="body2"
-          component="div"
-          color="#9A9AA1"
-          sx={{ display: "flex" }}
-        >
+        <Typography variant="body2" color="#9A9AA1" sx={{ display: "flex" }}>
           {data.nickname}
         </Typography>
-        <Typography color="#545459" fontWeight="500">
+        <Typography color="#545459" fontWeight="600">
           {data.title}
         </Typography>
-        <Typography variant="body2" component="div" color="#9A9AA1">
-          일시: {data.meetDate.split(" ")[0].replace(/-/g, ".")}
+        <Typography variant="body2" color="#9A9AA1" fontSize="13px">
+          <div>일시: {data.meetDate.split(" ")[0].replace(/-/g, ".")}</div>
+          <div>시간: {data.meetDate.split(" ")[1]}</div>
         </Typography>
       </Box>
       <Typography
@@ -48,8 +45,8 @@ function CoffeeChatCard({ data }) {
         borderRadius="999px"
         sx={{
           position: "absolute",
-          bottom: 30,
-          left: "10px",
+          bottom: 20,
+          left: "16px",
           width: "fit-content",
           padding: "3px 6px",
           fontSize: "12px",
