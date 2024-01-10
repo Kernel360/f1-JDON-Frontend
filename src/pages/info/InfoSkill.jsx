@@ -27,8 +27,14 @@ const BACK_CHIPS = [
   "Laravel",
 ];
 
-function InfoSkill({ jd, skills, onChange }) {
-  const [selected, setSelected] = useState([]);
+const CHIP_MAP = {
+  1: FRONT_CHIPS,
+  2: BACK_CHIPS,
+};
+
+function InfoSkill({ jobCategoryId, skills, onChange }) {
+  const [selected, setSelected] = useState(skills);
+
   const handleClick = (newChip) => {
     setSelected((prevSelected) => {
       if (prevSelected.includes(newChip)) {
@@ -45,8 +51,10 @@ function InfoSkill({ jd, skills, onChange }) {
   };
 
   useEffect(() => {
-    console.log(selected);
-  }, [selected]); // selected 상태가 변경될 때마다 로그 출력
+    onChange({ skillList: selected });
+  }, [selected, onChange]);
+
+  const chipsToRender = CHIP_MAP[jobCategoryId] || [];
 
   return (
     <>
@@ -65,7 +73,7 @@ function InfoSkill({ jd, skills, onChange }) {
             flexWrap="wrap"
             sx={InfoSkillStyles}
           >
-            {FRONT_CHIPS.map((chip, i) => (
+            {chipsToRender.map((chip, i) => (
               <Chip
                 key={i}
                 label={chip}

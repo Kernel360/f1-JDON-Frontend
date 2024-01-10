@@ -9,6 +9,8 @@ import InfoSkill from "./InfoSkill";
 import ProgressBar from "../../components/common/Progressbar";
 import NavigationButtons from "../../components/common/navigation-btn/NavigationBtn";
 import { InfoStyle } from "./InfoStyles";
+import Done from "./Done";
+import { Button } from "@mui/material";
 
 const INITIAL_DATA = {
   nickname: "",
@@ -29,45 +31,61 @@ export default function Info() {
 
   useEffect(() => {
     localStorage.setItem("userInfo", []);
+    console.log(data);
     if (step === 0) {
       navigate("../");
     }
     if (step === 4) {
-      navigate("../main");
       localStorage.setItem("userInfo", JSON.stringify(data));
     }
   });
 
   return (
     <>
-      <ProgressBar step={step}></ProgressBar>
+      {step < 4 && <ProgressBar step={step}></ProgressBar>}
       <Container maxWidth="sm">
         <CssBaseline />
         <Box sx={InfoStyle.FrameContainer}>
           {step === 1 && (
             <InFoBasic
               nickname={data.nickname}
-              birthday={data.birth}
-              sex={data.gender}
+              birth={data.birth}
+              gender={data.gender}
               onChange={handleChange}
             ></InFoBasic>
           )}
           {step === 2 && (
-            <InFoJD jd={data.jobCategoryId} onChange={handleChange}></InFoJD>
+            <InFoJD
+              jobCategoryId={data.jobCategoryId}
+              onChange={handleChange}
+            ></InFoJD>
           )}
           {step === 3 && (
             <InfoSkill
               skills={data.skillList}
-              jd={data.jobCategoryId}
+              jobCategoryId={data.jobCategoryId}
               onChange={handleChange}
             ></InfoSkill>
           )}
+          {step === 4 && <Done></Done>}
         </Box>
-        <NavigationButtons
-          step={step}
-          onBefore={() => setStep(step - 1)}
-          onNext={() => setStep(step + 1)}
-        ></NavigationButtons>
+        {step < 4 && (
+          <NavigationButtons
+            step={step}
+            onBefore={() => setStep(step - 1)}
+            onNext={() => setStep(step + 1)}
+          ></NavigationButtons>
+        )}
+        {step === 4 && (
+          <Button
+            onClick={() => {
+              navigate("../main");
+              setStep(5);
+            }}
+          >
+            이용하러 가기
+          </Button>
+        )}
       </Container>
     </>
   );
