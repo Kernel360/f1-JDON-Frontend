@@ -2,10 +2,16 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Paper } from "@mui/material";
 import { BadgeStyle } from "./CardStyle";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CoffeeChatCard({ data }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`./${data.coffeechatId}`);
+  };
   return (
     <Paper
+      onClick={handleClick}
       elevation={0}
       sx={{
         pointer: "cursor",

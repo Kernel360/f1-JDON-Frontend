@@ -1,9 +1,10 @@
 import { Box, Button, Container, Grid, Pagination, Stack } from "@mui/material";
 
-import BottomNav from "../components/common/BottomNav";
-import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
-import SearchBar from "../components/common/search-bar/SearchBar";
-import { Filters } from "../components/common/filters/Filters";
+import BottomNav from "../../components/common/BottomNav";
+import CoffeeChatCard from "../../components/common/card/CoffeeChatCard";
+import SearchBar from "../../components/common/search-bar/SearchBar";
+import { Filters } from "../../components/common/filters/Filters";
+import { useNavigate } from "react-router-dom";
 
 const MockData = [
   {
@@ -76,12 +77,17 @@ const MockData = [
 ];
 
 export function Coffee() {
+  const navigate = useNavigate();
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
       <SearchBar />
       <Filters />
       <Box display="flex" justifyContent="flex-end">
-        <Button variant="contained" disableElevation>
+        <Button
+          variant="contained"
+          disableElevation
+          onClick={() => navigate("/coffeechat-open")}
+        >
           커피챗 오픈
         </Button>
       </Box>

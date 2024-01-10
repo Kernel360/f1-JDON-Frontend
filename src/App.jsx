@@ -4,12 +4,13 @@ import SignIn from "./pages/sign-in/SignIn";
 import Info from "./pages/info/InFo";
 import { Layout } from "./components/layout/Layout";
 import { ThemeProvider } from "@mui/material/styles";
-import { Coffee } from "./pages/Coffee";
+import { Coffee } from "./pages/coffeechat/Coffee";
 import { theme } from "./styles/themeMuiStyle";
 import MyPage from "./pages/MyPage";
 import InfoEdit from "./pages/InfoEdit";
 import CoffeeDetail from "./pages/coffee-detail/CoffeeDetail";
 import { Main } from "./pages/mainpage/Main";
+import Coffeeopen from "./pages/coffeechat/CoffeeOpen";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
             <Route exact path="/mypage" element={<MyPage />} />
             <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
+            <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
           </Routes>
         </Layout>
       </ThemeProvider>

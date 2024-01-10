@@ -1,5 +1,4 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import congrat from "../../assets/images/congrat.svg";
 import { useNavigate } from "react-router-dom";
 import { buttonStyle } from "../../components/common/navigation-btn/NavigationBtnStyles";
 import DoneIcon from "@mui/icons-material/Done";

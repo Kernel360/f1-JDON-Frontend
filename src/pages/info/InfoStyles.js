@@ -56,11 +56,10 @@ export const duplicateCheckButtonStyle = {
 };
 export const datePickerContainer = (birthday) => ({
   m: "10px auto",
-  width: "100%",
   border: "1px solid",
+
   borderColor: birthday ? "#6482FF" : theme.palette.primary.gray500, // 조건에 따른 색상 변경
   borderRadius: "10px",
-  "& .MuiFormControl-root": { width: "100%" },
 });
 export const datePicker = (birthday) => ({
   "& .MuiInputBase-root": {
