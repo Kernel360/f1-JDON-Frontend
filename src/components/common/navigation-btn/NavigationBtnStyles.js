@@ -1,7 +1,7 @@
 export const buttonStyle = {
   Container: {
     position: "absolute", // 화면 중앙에 위치하기 위해 'absolute' 사용
-    bottom: 0, // 화면 하단에서의 위치
+    bottom: 10, // 화면 하단에서의 위치
     left: "50%", // 화면 중앙에 위치
     transform: "translateX(-50%)", // 정확한 중앙 정렬을 위한 변환
   },
@@ -10,6 +10,7 @@ export const buttonStyle = {
     mt: 5,
     mb: 2,
     p: "13px",
+    border: "1px solid black",
     borderRadius: "999px",
     background: "#EBEBEB",
     color: "#BCBCC4",
