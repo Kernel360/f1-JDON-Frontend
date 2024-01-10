@@ -45,47 +45,39 @@ export default function Info() {
       {step < 4 && <ProgressBar step={step}></ProgressBar>}
       <Container maxWidth="sm">
         <CssBaseline />
-        <Box sx={InfoStyle.FrameContainer}>
-          {step === 1 && (
-            <InFoBasic
-              nickname={data.nickname}
-              birth={data.birth}
-              gender={data.gender}
-              onChange={handleChange}
-            ></InFoBasic>
-          )}
-          {step === 2 && (
-            <InFoJD
-              jobCategoryId={data.jobCategoryId}
-              onChange={handleChange}
-            ></InFoJD>
-          )}
-          {step === 3 && (
-            <InfoSkill
-              skills={data.skillList}
-              jobCategoryId={data.jobCategoryId}
-              onChange={handleChange}
-            ></InfoSkill>
-          )}
-          {step === 4 && <Done></Done>}
-        </Box>
         {step < 4 && (
-          <NavigationButtons
-            step={step}
-            onBefore={() => setStep(step - 1)}
-            onNext={() => setStep(step + 1)}
-          ></NavigationButtons>
+          <Box sx={InfoStyle.FrameContainer}>
+            {step === 1 && (
+              <InFoBasic
+                nickname={data.nickname}
+                birth={data.birth}
+                gender={data.gender}
+                onChange={handleChange}
+              ></InFoBasic>
+            )}
+            {step === 2 && (
+              <InFoJD
+                jobCategoryId={data.jobCategoryId}
+                onChange={handleChange}
+              ></InFoJD>
+            )}
+            {step === 3 && (
+              <InfoSkill
+                skills={data.skillList}
+                jobCategoryId={data.jobCategoryId}
+                onChange={handleChange}
+              ></InfoSkill>
+            )}
+            {step < 4 && (
+              <NavigationButtons
+                step={step}
+                onBefore={() => setStep(step - 1)}
+                onNext={() => setStep(step + 1)}
+              ></NavigationButtons>
+            )}
+          </Box>
         )}
-        {step === 4 && (
-          <Button
-            onClick={() => {
-              navigate("../main");
-              setStep(5);
-            }}
-          >
-            이용하러 가기
-          </Button>
-        )}
+        {step === 4 && <Done></Done>}
       </Container>
     </>
   );

@@ -10,10 +10,23 @@ export const buttonStyle = {
     mt: 5,
     mb: 2,
     p: "13px",
-
     borderRadius: "999px",
     background: "#EBEBEB",
     color: "#BCBCC4",
+    fontSize: "16px",
+    "&:hover": {
+      color: "#ffffff",
+      backgroundColor: "#6482FF", // 클릭(마우스 오버) 시 배경색 변경
+    },
+  },
+  EndButton: {
+    mt: 7,
+    mb: 2,
+    width: "60%",
+    p: "13px",
+    borderRadius: "999px",
+    background: "#6482FF",
+    color: "#ffffff",
     fontSize: "16px",
     "&:hover": {
       color: "#ffffff",
