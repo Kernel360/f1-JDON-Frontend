@@ -1,8 +1,8 @@
 import { Box, Button, Container, Grid, Pagination, Stack } from "@mui/material";
-
 import BottomNav from "../../components/common/BottomNav";
 import CoffeeChatCard from "../../components/common/card/CoffeeChatCard";
 import SearchBar from "../../components/common/search-bar/SearchBar";
+import news from "../../assets/images/new.svg";
 import { Filters } from "../../components/common/filters/Filters";
 import { useNavigate } from "react-router-dom";
 
@@ -86,6 +86,7 @@ export function Coffee() {
         <Button
           variant="contained"
           disableElevation
+          sx={{ mt: 3, fontWeight: 600, padding: "4px 10px", gap: 1 }}
           onClick={() => navigate("/coffeechat-open")}
         >
           커피챗 오픈
@@ -93,7 +94,7 @@ export function Coffee() {
       </Box>
       <Grid container spacing={{ xs: 2, md: 2 }}>
         {MockData.map((item, index) => (
-          <Grid item xs={6} sm={6} md={6} key={index}>
+          <Grid item xs={12} sm={6} md={6} key={index}>
             <CoffeeChatCard data={item}></CoffeeChatCard>
           </Grid>
         ))}

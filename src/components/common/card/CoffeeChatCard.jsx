@@ -36,7 +36,19 @@ function CoffeeChatCard({ data }) {
         <Typography variant="body2" color="#9A9AA1" sx={{ display: "flex" }}>
           {data.nickname}
         </Typography>
-        <Typography color="#545459" fontWeight="600">
+        <Typography
+          color="#545459"
+          fontWeight="600"
+          sx={{
+            display: "-webkit-box",
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 2, // 이 값으로 표시할 줄 수를 설정합니다.
+            textOverflow: "ellipsis",
+            height: 45,
+            fontSize: "16px",
+          }}
+        >
           {data.title}
         </Typography>
         <Typography variant="body2" color="#9A9AA1" fontSize="13px">

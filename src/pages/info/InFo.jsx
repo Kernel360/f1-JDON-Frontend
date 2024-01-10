@@ -10,7 +10,6 @@ import ProgressBar from "../../components/common/Progressbar";
 import NavigationButtons from "../../components/common/navigation-btn/NavigationBtn";
 import { InfoStyle } from "./InfoStyles";
 import Done from "./Done";
-import { Button } from "@mui/material";
 
 const INITIAL_DATA = {
   nickname: "",

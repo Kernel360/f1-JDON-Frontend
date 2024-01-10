@@ -33,84 +33,95 @@ const MockData = {
 
 function CoffeeDetail() {
   return (
-    <Container maxWidth="md" sx={{ pb: 10 }}>
+    <Container
+      maxWidth="md"
+      sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
+    >
       <CssBaseline />
       <Header />
       <Box
         sx={{
-          px: "6px",
+          flexGrow: 1,
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
-        <Box sx={{ display: "flex", gap: "12px", alignItems: "center" }}>
-          <Typography
-            sx={{ color: "#1D1D1D", fontWeight: 400, fontSize: "13px" }}
-          >
-            {MockData.nickname}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="#FF814D"
-            border="1px solid #FF814D"
-            borderRadius="999px"
-            sx={{
-              width: "fit-content",
-              padding: "3px 6px",
-              fontSize: "12px",
-            }}
-          >
-            {MockData.job}
-          </Typography>
-        </Box>
-        <Typography
+        <Box
           sx={{
-            color: "#B9B9B9",
-            fontSize: "12px",
+            px: "6px",
             display: "flex",
+            justifyContent: "space-between",
             alignItems: "center",
-            gap: "4px",
           }}
         >
-          <img src={eye} alt="조회수" />
-          {MockData.viewCount}
+          <Box sx={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <Typography
+              sx={{ color: "#1D1D1D", fontWeight: 400, fontSize: "13px" }}
+            >
+              {MockData.nickname}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="#FF814D"
+              border="1px solid #FF814D"
+              borderRadius="999px"
+              sx={{
+                width: "fit-content",
+                padding: "3px 6px",
+                fontSize: "12px",
+              }}
+            >
+              {MockData.job}
+            </Typography>
+          </Box>
+          <Typography
+            sx={{
+              color: "#B9B9B9",
+              fontSize: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
+          >
+            <img src={eye} alt="조회수" />
+            {MockData.viewCount}
+          </Typography>
+        </Box>
+        <Typography sx={{ px: "6px", fontSize: "20px", mt: "22px" }}>
+          {MockData.title}
         </Typography>
+        <InfoBox data={MockData} />
+        <Divider />
+
+        <Typography sx={{ color: "#545459", py: 5 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore Ut enim ad minim veniam, quis
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatu Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id es
+        </Typography>
+        <Typography sx={{ fontWeight: 600, pt: "10px" }}>오픈채팅</Typography>
+        <TextField
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          sx={URLInput}
+          placeholder="openkakao.comasdkj/dkjfwkjdfhkwdjf"
+          InputProps={{
+            readOnly: true,
+            disabled: true,
+            endAdornment: (
+              <InputAdornment position="end" sx={{ background: "transparent" }}>
+                <Button>
+                  <img src={paste} alt="복사" />
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+        ></TextField>
+        <Buttons></Buttons>
       </Box>
-      <Typography sx={{ px: "6px", fontSize: "20px", mt: "12px" }}>
-        {MockData.title}
-      </Typography>
-      <InfoBox data={MockData} />
-      <Divider />
-      <Typography sx={{ py: "24px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo con Duis aute
-        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-        fugiat nulla pariatu Excepteur sint occaecat cupidatat non proident,
-        sunt in culpa qui officia deserunt mollit anim id es
-      </Typography>
-      <TextField
-        fullWidth
-        InputLabelProps={{ shrink: true }}
-        sx={URLInput}
-        id="nickname"
-        name="nickname"
-        autoComplete="nickname"
-        placeholder="openkakao.comasdkj/dkjfwkjdfhkwdjf"
-        InputProps={{
-          readOnly: true,
-          disabled: true,
-          endAdornment: (
-            <InputAdornment position="end" sx={{ background: "transparent" }}>
-              <Button>
-                <img src={paste} alt="복사" />
-              </Button>
-            </InputAdornment>
-          ),
-        }}
-      ></TextField>
-      <Buttons></Buttons>
     </Container>
   );
 }

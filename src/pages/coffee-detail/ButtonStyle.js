@@ -1,15 +1,16 @@
-export const buttonStyle = {
+export const buttonStyles = {
   Container: {
-    position: "absolute",
-    bottom: 20,
-    left: "50%",
-    transform: "translateX(-50%)",
+    position: "relative",
+    width: "100%",
+    "& .MuiContainer-root": {
+      padding: 0,
+    },
   },
 
   Button: {
     mt: 5,
     mb: 2,
-    p: "13px",
+    py: "13px",
     borderRadius: "999px",
     background: "#EBEBEB",
     color: "#BCBCC4",
@@ -22,7 +23,7 @@ export const buttonStyle = {
   ShareButton: {
     mt: 5,
     mb: 2,
-    p: "13px",
+    py: "13px",
     borderRadius: "10px",
     background: "#EBEBEB",
     color: "#BCBCC4",

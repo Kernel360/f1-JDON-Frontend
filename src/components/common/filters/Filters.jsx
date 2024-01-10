@@ -34,7 +34,12 @@ export function Filters() {
           variant="outlined"
           onClick={() => handleChipClick(0)}
           onDelete={handleDelete}
-          sx={{ display: "flex", width: "75px", color: "#545459" }}
+          sx={{
+            display: "flex",
+            width: "75px",
+            color: "#6E6E71",
+            borderColor: "#",
+          }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
           InputProps={{
             endAdornment: (
@@ -51,7 +56,7 @@ export function Filters() {
           variant="outlined"
           onClick={() => handleChipClick(1)}
           onDelete={handleDelete}
-          sx={{ display: "flex", width: "75px", color: "#545459" }}
+          sx={{ display: "flex", width: "70px", color: "#6E6E71" }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
         />
 

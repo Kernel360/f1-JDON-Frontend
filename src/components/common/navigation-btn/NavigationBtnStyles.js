@@ -28,9 +28,5 @@ export const buttonStyle = {
     background: "#6482FF",
     color: "#ffffff",
     fontSize: "16px",
-    "&:hover": {
-      color: "#ffffff",
-      backgroundColor: "#6482FF", // 클릭(마우스 오버) 시 배경색 변경
-    },
   },
 };

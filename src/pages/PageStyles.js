@@ -96,7 +96,7 @@ export const ChipStyle = (click) => ({
 });
 
 export const URLInput = () => ({
-  py: "95px",
+  pt: "10px",
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       borderRadius: "10px", // 기본 테두리 두께
