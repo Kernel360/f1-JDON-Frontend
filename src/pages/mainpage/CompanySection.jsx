@@ -12,9 +12,9 @@ function CompanySection({ selectdChip, data }) {
         </span>{" "}
         에 관심있는 회사는 여기에요!
       </Typography>
-      <Grid container spacing={{ xs: 2, md: 2 }}>
+      <Grid container spacing={{ xs: 2, sm: 3, md: 3 }}>
         {data.map((item, index) => (
-          <Grid item xs={4} sm={4} md={4} key={index}>
+          <Grid item xs={6} sm={4} md={4} key={index}>
             <CompanyCard name={item.name} content={item.content} />
           </Grid>
         ))}

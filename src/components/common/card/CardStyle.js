@@ -14,8 +14,8 @@ export const BadgeStyle = (status) => ({
 export const VideoCardStyle = {
   Title: {
     color: "#545459",
-    fontWeight: "500",
-    fontSize: "14px",
+    fontWeight: "400",
+    fontSize: "16px",
     display: "-webkit-box",
     overflow: "hidden",
     WebkitBoxOrient: "vertical",
@@ -29,7 +29,13 @@ export const VideoCardStyle = {
     fontSize: "12px",
     justifyContent: "space-between",
   },
-  StudentCount: { color: "#E66C4D", fontSize: "12px", display: "flex", gap: 1 },
+  StudentCount: {
+    color: "#E66C4D",
+    fontSize: "12px",
+    display: "flex",
+    gap: 0.5,
+    alignItems: "center",
+  },
 };
 
 export const CompanyCardStyle = {

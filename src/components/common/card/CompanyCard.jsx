@@ -11,7 +11,11 @@ export default function CompanyCard({ name, content }) {
   return (
     <Paper elevation={0} sx={{ my: 1 }}>
       <CardActionArea>
-        <CardMedia component="img" image={company1} sx={{ height: 200 }} />
+        <CardMedia
+          component="img"
+          image={company1}
+          sx={{ height: 200, borderRadius: "5px" }}
+        />
         <Box sx={{ mt: 1 }}>
           <Typography
             variant="body3"

@@ -43,32 +43,37 @@ export const MainStyles = {
   },
   TabPanel: {
     alignItems: "center",
-    padding: "10px 30px",
+    padding: "10px 20px",
     position: "relative",
   },
   IconButtonLeft: {
     opacity: 0.3,
     position: "absolute",
-    top: "8px",
+    top: "10px",
     left: 0,
+    px: 0,
   },
   IconButtonRight: {
     opacity: 0.3,
     position: "absolute",
-    top: "8px",
+    top: "10px",
     right: 0,
+    px: 0,
   },
   ChipContainer: {
     overflowX: "auto",
+
     whiteSpace: "nowrap",
     "&::-webkit-scrollbar": {
       display: "none", // 스크롤바 숨기기 (선택적)
     },
   },
   TypoGraphy: {
-    fontSize: 18,
+    fontSize: "18px",
     fontWeight: 500,
     color: "#545459",
+    display: "flex",
+    alignItems: "center",
   },
   TabIndicator: {
     height: 0, // 언더라인 두께
@@ -77,17 +82,16 @@ export const MainStyles = {
 };
 
 export const ChipStyle = (click) => ({
-  color: click ? "#FF814D" : "#ADADAD",
-  borderColor: click ? "#FF814D" : "#ADADAD",
-  background: click ? "#FFEAE1" : "",
+  color: click ? "#6482FF" : "#ADADAD",
+  borderColor: click ? "#6482FF" : "#ADADAD",
+  background: click ? "#E2E7FF" : "",
   fontSize: "14px",
-  padding: "2px",
-  height: "34px",
+  height: "32px",
   borderRadius: "999px",
   "&&:hover": {
-    background: "#FFEAE1",
-    color: "#FF814D",
-    borderColor: "#FF814D",
+    background: "#E2E7FF",
+    color: "#6482FF",
+    borderColor: "#6482FF",
   },
 });
 

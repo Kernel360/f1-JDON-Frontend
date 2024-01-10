@@ -16,25 +16,30 @@ function VideoCard({ data }) {
   };
 
   return (
-    <Box sx={{ my: 1, pointer: "cursor" }}>
+    <Box sx={{ my: 1, pointer: "cursor", position: "relative" }}>
       <CardMedia
         component="img"
         image={data.imageUrl}
-        sx={{ borderRadius: "8px" }}
+        sx={{
+          borderRadius: "8px",
+          maxHeight: "230px",
+        }}
+      />
+      <img
+        src={isLiked ? heartFilled : heart}
+        alt="heart"
+        onClick={handleLikeClick}
+        style={{ position: "absolute", top: 6, right: 6 }}
       />
       <Box sx={{ mt: 1 }}>
         <Typography sx={VideoCardStyle.Instructor}>
           {data.instructor}
-          <img
-            src={isLiked ? heartFilled : heart}
-            alt="heart"
-            onClick={handleLikeClick}
-          />
         </Typography>
         <Typography sx={VideoCardStyle.Title}>{data.title}</Typography>
         <Box>
           <Typography fontWeight="500">
-            {data.price} <span style={{ fontSize: "12px" }}>원</span>
+            {data.price}{" "}
+            <span style={{ fontSize: "14px", color: "#545459" }}>원</span>
           </Typography>
         </Box>
         <Typography sx={VideoCardStyle.StudentCount}>

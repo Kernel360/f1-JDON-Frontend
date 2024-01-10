@@ -1,12 +1,4 @@
-import {
-  Box,
-  Chip,
-  Container,
-  Grid,
-  IconButton,
-  Stack,
-  Tab,
-} from "@mui/material";
+import { Chip, Container, IconButton, Stack, Tab } from "@mui/material";
 import { useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { ChipStyle, MainStyles } from "../PageStyles";
@@ -14,6 +6,9 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import video1 from "../../../src/assets/images/video1.svg";
 import video2 from "../../../src/assets/images/video2.svg";
 import video3 from "../../../src/assets/images/video3.svg";
+import arrowLeft from "../../../src/assets/icons/arrow-left.svg";
+import arrowRight from "../../../src/assets/icons/arrow-right.svg";
+
 import SearchBar from "../../components/common/search-bar/SearchBar";
 import BottomNav from "../../components/common/BottomNav";
 import CompanySection from "./CompanySection";
@@ -120,11 +115,11 @@ export function Main() {
             onClick={() => handleScroll("left")}
             sx={MainStyles.IconButtonLeft}
           >
-            <ArrowBackIos />
+            <img src={arrowLeft} alt="arrow" />
           </IconButton>
           <Stack
             direction="row"
-            spacing={1}
+            spacing={0.8}
             ref={scrollRef}
             sx={MainStyles.ChipContainer}
           >
@@ -149,7 +144,7 @@ export function Main() {
             onClick={() => handleScroll("right")}
             sx={MainStyles.IconButtonRight}
           >
-            <ArrowForwardIos />
+            <img src={arrowRight} alt="arrow" />
           </IconButton>
         </TabPanel>
 
@@ -158,7 +153,7 @@ export function Main() {
             onClick={() => handleScroll("left")}
             sx={MainStyles.IconButtonLeft}
           >
-            <ArrowBackIos />
+            <img src={arrowLeft} alt="arrow" />
           </IconButton>
           <Stack
             direction="row"
@@ -185,7 +180,7 @@ export function Main() {
             onClick={() => handleScroll("right")}
             sx={MainStyles.IconButtonRight}
           >
-            <ArrowForwardIos />
+            <img src={arrowRight} alt="arrow" />
           </IconButton>
         </TabPanel>
       </TabContext>
