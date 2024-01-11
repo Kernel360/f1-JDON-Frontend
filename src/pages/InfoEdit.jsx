@@ -6,6 +6,7 @@ import { Link as RouterLink } from "react-router-dom";
 import Header from "../components/layout/Header";
 import { Box, Button, Container, Grid, Typography, Link } from "@mui/material";
 
+import SwipJobSkill from "../components/common/swipe/SwipJobSkill";
 import InputField from "../components/common/InputField";
 import DuplicateCheckButton from "../components/common/DuplicateCheckButton";
 import DatePickerField from "../components/common/DatePickerField";
@@ -100,6 +101,7 @@ export default function InfoEdit() {
                 error={!jobSkill}
                 helperText={!jobSkill ? "직무 및 기술 스택을 선택해주세요" : ""}
               />
+              <SwipJobSkill />
             </Grid>
             <Grid item xs={12}>
               <Button
