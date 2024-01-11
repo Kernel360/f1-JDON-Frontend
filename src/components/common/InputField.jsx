@@ -1,6 +1,7 @@
 // InputField.js
 import React from "react";
 import { Box, FormLabel, TextField, InputAdornment } from "@mui/material";
+import { nicknameTextField } from "../../pages/info/InfoStyles";
 
 const InputField = ({
   label,
@@ -34,6 +35,7 @@ const InputField = ({
         InputProps={{
           endAdornment: inputProps?.endAdornment,
         }}
+        sx={nicknameTextField(value)}
       />
     </Box>
   );

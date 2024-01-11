@@ -7,7 +7,6 @@ import backBtn from "../../assets/images/back_button.svg";
 
 export default function Header({ showBackButton, myText }) {
   const navigate = useNavigate();
-  const isLargeScreen = useMediaQuery("(min-width:600px)");
 
   const handleBack = () => {
     navigate(-1);
