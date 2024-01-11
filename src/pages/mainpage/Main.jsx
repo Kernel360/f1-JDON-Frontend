@@ -1,28 +1,21 @@
-import {
-  Box,
-  Chip,
-  Container,
-  Grid,
-  IconButton,
-  Stack,
-  Tab,
-  Typography,
-} from "@mui/material";
+import { Chip, Container, IconButton, Stack, Tab } from "@mui/material";
 import { useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { ChipStyle, MainStyles } from "./PageStyles";
-import {
-  ArrowBackIos,
-  ArrowForwardIos,
-  VideoCallRounded,
-} from "@mui/icons-material";
-import video1 from "../../src/assets/images/video1.svg";
-import video2 from "../../src/assets/images/video2.svg";
-import video3 from "../../src/assets/images/video3.svg";
-import SearchBar from "../components/common/search-bar/SearchBar";
-import CompanyCard from "../components/common/card/CompanyCard";
-import BottomNav from "../components/common/BottomNav";
-import VideoCard from "../components/common/card/VideoCard";
+import { ChipStyle, MainStyles } from "../PageStyles";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import video1 from "../../../src/assets/images/video1.svg";
+import video2 from "../../../src/assets/images/video2.svg";
+import video3 from "../../../src/assets/images/video3.svg";
+import company1 from "../../../src/assets/images/comany1.svg";
+import company2 from "../../../src/assets/images/company2.svg";
+import company3 from "../../../src/assets/images/company3.svg";
+import arrowLeft from "../../../src/assets/icons/arrow-left.svg";
+import arrowRight from "../../../src/assets/icons/arrow-right.svg";
+
+import SearchBar from "../../components/common/search-bar/SearchBar";
+import BottomNav from "../../components/common/BottomNav";
+import CompanySection from "./CompanySection";
+import VideoSection from "./VideoSection";
 
 const HOT_SKILLS = [
   "JavaScript",
@@ -43,38 +36,66 @@ const COMPANY_DATA = [
     id: 0,
     name: "패스오더",
     content: "[패스오더]백엔드 개발자(Spring, Python, MSA)",
+    imageUrl: company1,
   },
-  { id: 1, name: "에듀템", content: "JAVA 스프링부트 개발자" },
-  { id: 2, name: "MOLOCO", content: "[MOLOCO] Senior Staff Software Engineer" },
-  { id: 4, name: "아모레퍼시픽", content: "content4" },
+  {
+    id: 1,
+    name: "에듀템",
+    content: "JAVA 스프링부트 개발자",
+    imageUrl: company2,
+  },
+  {
+    id: 2,
+    name: "MOLOCO",
+    content: "[MOLOCO] Senior Staff Software Engineer",
+    imageUrl: company3,
+  },
+  {
+    id: 4,
+    name: "아모레퍼시픽",
+    content: "content4",
+    imageUrl: company2,
+  },
   {
     id: 5,
     name: "이름인 아주아주아주아주아주아주 긴 회사",
     content: "content5",
+    imageUrl: company3,
   },
-  { id: 6, name: "apple", content: "content6" },
+  {
+    id: 6,
+    name: "appleeee",
+    content: "content6",
+    imageUrl: company1,
+  },
 ];
 const VIDEO_DATA = [
   {
-    id: 0,
-    name: "지렁이",
-    content: "javascript 기초",
-    price: "2000원",
-    img: video1,
+    lectureId: 3,
+    instructor: "김영한",
+    title: "스프링부트 기본편",
+    imageUrl: video1,
+    lectureUrl: "https://www.wanted.co.kr/wd/196444",
+    studentCount: 3253,
+    price: 120000,
   },
   {
-    id: 1,
-    name: "레오",
-    content: "Spring Boot - 나만의 포트폴리오 사이트 만들기",
-    price: "7000원",
-    img: video2,
+    lectureId: 4,
+    instructor: "김영한",
+    title: "스프링부트 기본편",
+    imageUrl: video2,
+    lectureUrl: "https://www.wanted.co.kr/wd/196444",
+    studentCount: 3253,
+    price: 120000,
   },
   {
-    id: 2,
-    name: "연세IT미래교육원",
-    content: "[연세IT미래교육원] 데이터 분석을 위한 올인원 취업캠프",
-    price: "0원",
-    img: video3,
+    lectureId: 31,
+    instructor: "김영한",
+    title: "스프링부트 기본편",
+    imageUrl: video3,
+    lectureUrl: "https://www.wanted.co.kr/wd/196444",
+    studentCount: 3253,
+    price: 120000,
   },
 ];
 
@@ -107,7 +128,7 @@ export function Main() {
       <TabContext value={value}>
         <TabList
           onChange={handleTabChange}
-          sx={{ pt: 4 }}
+          sx={{ pt: 2 }}
           TabIndicatorProps={{ style: MainStyles.TabIndicator }}
         >
           <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
@@ -119,11 +140,11 @@ export function Main() {
             onClick={() => handleScroll("left")}
             sx={MainStyles.IconButtonLeft}
           >
-            <ArrowBackIos />
+            <img src={arrowLeft} alt="arrow" />
           </IconButton>
           <Stack
             direction="row"
-            spacing={1}
+            spacing={0.8}
             ref={scrollRef}
             sx={MainStyles.ChipContainer}
           >
@@ -148,7 +169,7 @@ export function Main() {
             onClick={() => handleScroll("right")}
             sx={MainStyles.IconButtonRight}
           >
-            <ArrowForwardIos />
+            <img src={arrowRight} alt="arrow" />
           </IconButton>
         </TabPanel>
 
@@ -157,7 +178,7 @@ export function Main() {
             onClick={() => handleScroll("left")}
             sx={MainStyles.IconButtonLeft}
           >
-            <ArrowBackIos />
+            <img src={arrowLeft} alt="arrow" />
           </IconButton>
           <Stack
             direction="row"
@@ -184,47 +205,12 @@ export function Main() {
             onClick={() => handleScroll("right")}
             sx={MainStyles.IconButtonRight}
           >
-            <ArrowForwardIos />
+            <img src={arrowRight} alt="arrow" />
           </IconButton>
         </TabPanel>
       </TabContext>
-
-      <Box sx={{ mt: 4 }}>
-        <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 600 }}>
-            {selectdChip}
-          </span>{" "}
-          학습 영상
-        </Typography>
-        <Grid container spacing={{ xs: 2, md: 2 }}>
-          {VIDEO_DATA.map((item, index) => (
-            <Grid item xs={4} sm={4} md={4} key={index}>
-              <VideoCard
-                name={item.name}
-                content={item.content}
-                price={item.price}
-                img={item.img}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box sx={{ mt: 12 }}>
-        <Typography sx={MainStyles.TypoGraphy}>
-          <span style={{ color: "#FF814D", fontWeight: 600 }}>
-            {" "}
-            {selectdChip}
-          </span>{" "}
-          에 관심있는 회사는 여기에요!
-        </Typography>
-        <Grid container spacing={{ xs: 2, md: 2 }}>
-          {COMPANY_DATA.map((item, index) => (
-            <Grid item xs={4} sm={4} md={4} key={index}>
-              <CompanyCard name={item.name} content={item.content} />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <VideoSection selectdChip={selectdChip} data={VIDEO_DATA} />
+      <CompanySection selectdChip={selectdChip} data={COMPANY_DATA} />
       <BottomNav></BottomNav>
     </Container>
   );

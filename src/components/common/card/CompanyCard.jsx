@@ -2,31 +2,31 @@ import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Paper } from "@mui/material";
-import example from "./../../../assets/images/example.png";
+import company1 from "./../../../assets/images/comany1.svg";
+import company2 from "./../../../assets/images/company2.svg";
+import company3 from "./../../../assets/images/company3.svg";
+import { CompanyCardStyle } from "./CardStyle";
 
-export default function CompanyCard({ name, content }) {
+export default function CompanyCard({ data }) {
   return (
     <Paper elevation={0} sx={{ my: 1 }}>
       <CardActionArea>
-        <CardMedia component="img" image={example} alt="green iguana" />
+        <CardMedia
+          component="img"
+          image={data.imageUrl}
+          sx={{ height: 200, borderRadius: "5px" }}
+        />
         <Box sx={{ mt: 1 }}>
           <Typography
             variant="body3"
             component="div"
             color="#9A9AA1"
-            sx={{
-              display: "-webkit-box",
-              overflow: "hidden",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 1, // 이 값으로 표시할 줄 수를 설정합니다.
-              textOverflow: "ellipsis",
-              height: 17, // 이 값은 줄 수와 폰트 크기에 따라 조정될 수 있습니다.
-            }}
+            sx={CompanyCardStyle.Name}
           >
-            {name}
+            {data.name}
           </Typography>
-          <Typography color="#545459" fontWeight="500">
-            {content}
+          <Typography color="#545459" fontSize="14px" fontWeight="500">
+            {data.content}
           </Typography>
         </Box>
       </CardActionArea>

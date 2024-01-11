@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Container,
   Box,
@@ -8,11 +8,10 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-// import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import ToggleList from "../components/common/ToggleList";
-import BottomNav from "../components/common/BottomNav";
 
 import profile from "../assets/profile.svg";
+import ToggleList from "../components/common/ToggleList";
+import BottomNav from "../components/common/BottomNav";
 import edit from "../assets/images/icn_edit.svg";
 // import BottomNav from "../components/common/BottomNav";
 import { Link } from "react-router-dom";
@@ -107,47 +106,40 @@ const ButtonSection = () => (
 
 export default function MyPage() {
   return (
-    <Box>
-      <Container
-        maxWidth="md"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "95vh",
-          minwidth: "100vw",
-          pb: "43px",
-        }}
+    <Container
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "95vh",
+        minwidth: "100vw",
+        pb: 10,
+      }}
+    >
+      <Typography
+        variant="h1"
+        component="h1"
+        fontSize="1rem"
+        textAlign="center"
+        padding={2}
+        marginBottom={10}
       >
-        <Typography
-          variant="h1"
-          component="h1"
-          fontSize="1rem"
-          textAlign="center"
-          padding={2}
-          marginBottom={10}
-        >
-          마이페이지
-        </Typography>
-        <ProfileSection />
-        <ButtonSection />
-        <ToggleList />
-        <Box sx={{ flexGrow: 1 }} />
-        <Button
-          position="sticky"
-          bottom="0"
-          variant="secondary"
-          size="large"
-          sx={{
-            width: "100%",
-            backgroundColor: "#EBEBEB",
-            fontSize: "17px",
-            paddingY: "12px",
-          }}
-        >
-          로그아웃
-        </Button>
-      </Container>
+        마이페이지
+      </Typography>
+      <ProfileSection />
+      <ButtonSection />
+      <ToggleList />
+      <Box sx={{ flexGrow: 1 }} />
+      <Button
+        position="sticky"
+        bottom="0"
+        variant="secondary"
+        size="large"
+        sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "1.05rem" }}
+      >
+        로그아웃
+      </Button>
       <BottomNav></BottomNav>
-    </Box>
+    </Container>
   );
 }
