@@ -2,8 +2,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
-import { Container, Button } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  FormLabel,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
+
 import InputField from "../components/common/InputField";
+import { nicknameTextField } from "./info/InfoStyles";
 import DuplicateCheckButton from "../components/common/DuplicateCheckButton";
 
 export default function InfoEdit() {
@@ -39,6 +50,19 @@ export default function InfoEdit() {
 
       <Container component="main" sx={{ marginTop: 6, paddingX: "29px" }}>
         <form onSubmit={handleSaveChanges}>
+          {/* <Box>
+            <FormLabel>닉네임</FormLabel>
+            <TextField
+              required
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              name="nickname"
+              placeholder="닉네임을 입력해주세요."
+              onChange={(e) => {}}
+              sx={nicknameTextField(null)}
+            ></TextField>
+          </Box> */}
+
           <InputField
             label="닉네임"
             type="standard"
@@ -52,7 +76,10 @@ export default function InfoEdit() {
             helperText={!isNicknameValid ? "닉네임을 입력하세요." : ""}
             inputProps={{
               endAdornment: (
-                <DuplicateCheckButton onClick={handleCheckDuplicate} />
+                <DuplicateCheckButton
+                  onClick={handleCheckDuplicate}
+                  text={"중복 확인"}
+                />
               ),
             }}
           />
