@@ -1,10 +1,8 @@
 import {
   Box,
-  Button,
   Chip,
   FormControl,
   FormControlLabel,
-  InputAdornment,
   Modal,
   Radio,
   RadioGroup,
@@ -21,10 +19,6 @@ export function Filters() {
     console.log(openFilter[value]);
   };
 
-  const handleDelete = () => {
-    console.log("Icon clicked");
-  };
-
   return (
     <>
       <Box sx={{ display: "flex", gap: 1 }}>
@@ -33,7 +27,7 @@ export function Filters() {
           clickable
           variant="outlined"
           onClick={() => handleChipClick(0)}
-          onDelete={handleDelete}
+          onDelete={() => handleChipClick(0)}
           sx={{
             display: "flex",
             width: "75px",
@@ -41,13 +35,6 @@ export function Filters() {
             borderColor: "#",
           }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Button>중복확인</Button>
-              </InputAdornment>
-            ),
-          }}
         ></Chip>
 
         <Chip
@@ -55,7 +42,7 @@ export function Filters() {
           clickable={true}
           variant="outlined"
           onClick={() => handleChipClick(1)}
-          onDelete={handleDelete}
+          onDelete={() => handleChipClick(1)}
           sx={{ display: "flex", width: "70px", color: "#6E6E71" }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
         />
@@ -67,11 +54,11 @@ export function Filters() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: 400,
+              width: 328,
               bgcolor: "background.paper",
               boxShadow: 24,
               p: 4,
-              borderRadius: 10,
+              borderRadius: 8,
             }}
           >
             <FormControl>
@@ -111,11 +98,11 @@ export function Filters() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: 338,
+              width: 328,
               bgcolor: "background.paper",
               boxShadow: 24,
               p: 4,
-              borderRadius: 10,
+              borderRadius: 8,
             }}
           >
             <FormControl>

@@ -33,6 +33,7 @@ export const VideoCardStyle = {
     color: "#E66C4D",
     fontSize: "12px",
     display: "flex",
+    fontWeight: 600,
     gap: 0.5,
     alignItems: "center",
   },

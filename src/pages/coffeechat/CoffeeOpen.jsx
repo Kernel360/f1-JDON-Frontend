@@ -23,7 +23,7 @@ function Coffeeopen() {
     <>
       <Container
         maxWidth="sm"
-        sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
+        sx={{ display: "flex", flexDirection: "column" }}
       >
         <CssBaseline />
         <Header />

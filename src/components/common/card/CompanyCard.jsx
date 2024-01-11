@@ -7,13 +7,13 @@ import company2 from "./../../../assets/images/company2.svg";
 import company3 from "./../../../assets/images/company3.svg";
 import { CompanyCardStyle } from "./CardStyle";
 
-export default function CompanyCard({ name, content }) {
+export default function CompanyCard({ data }) {
   return (
     <Paper elevation={0} sx={{ my: 1 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          image={company1}
+          image={data.imageUrl}
           sx={{ height: 200, borderRadius: "5px" }}
         />
         <Box sx={{ mt: 1 }}>
@@ -23,10 +23,10 @@ export default function CompanyCard({ name, content }) {
             color="#9A9AA1"
             sx={CompanyCardStyle.Name}
           >
-            {name}
+            {data.name}
           </Typography>
           <Typography color="#545459" fontSize="14px" fontWeight="500">
-            {content}
+            {data.content}
           </Typography>
         </Box>
       </CardActionArea>

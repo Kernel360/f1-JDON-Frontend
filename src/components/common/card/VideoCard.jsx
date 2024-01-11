@@ -37,7 +37,7 @@ function VideoCard({ data }) {
         </Typography>
         <Typography sx={VideoCardStyle.Title}>{data.title}</Typography>
         <Box>
-          <Typography fontWeight="500">
+          <Typography fontWeight="600">
             {data.price}{" "}
             <span style={{ fontSize: "14px", color: "#545459" }}>원</span>
           </Typography>

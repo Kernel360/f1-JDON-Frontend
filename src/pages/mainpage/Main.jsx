@@ -6,6 +6,9 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import video1 from "../../../src/assets/images/video1.svg";
 import video2 from "../../../src/assets/images/video2.svg";
 import video3 from "../../../src/assets/images/video3.svg";
+import company1 from "../../../src/assets/images/comany1.svg";
+import company2 from "../../../src/assets/images/company2.svg";
+import company3 from "../../../src/assets/images/company3.svg";
 import arrowLeft from "../../../src/assets/icons/arrow-left.svg";
 import arrowRight from "../../../src/assets/icons/arrow-right.svg";
 
@@ -33,16 +36,38 @@ const COMPANY_DATA = [
     id: 0,
     name: "패스오더",
     content: "[패스오더]백엔드 개발자(Spring, Python, MSA)",
+    imageUrl: company1,
   },
-  { id: 1, name: "에듀템", content: "JAVA 스프링부트 개발자" },
-  { id: 2, name: "MOLOCO", content: "[MOLOCO] Senior Staff Software Engineer" },
-  { id: 4, name: "아모레퍼시픽", content: "content4" },
+  {
+    id: 1,
+    name: "에듀템",
+    content: "JAVA 스프링부트 개발자",
+    imageUrl: company2,
+  },
+  {
+    id: 2,
+    name: "MOLOCO",
+    content: "[MOLOCO] Senior Staff Software Engineer",
+    imageUrl: company3,
+  },
+  {
+    id: 4,
+    name: "아모레퍼시픽",
+    content: "content4",
+    imageUrl: company2,
+  },
   {
     id: 5,
     name: "이름인 아주아주아주아주아주아주 긴 회사",
     content: "content5",
+    imageUrl: company3,
   },
-  { id: 6, name: "apple", content: "content6" },
+  {
+    id: 6,
+    name: "appleeee",
+    content: "content6",
+    imageUrl: company1,
+  },
 ];
 const VIDEO_DATA = [
   {
