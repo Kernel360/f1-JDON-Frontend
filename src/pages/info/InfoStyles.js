@@ -43,6 +43,11 @@ export const infoBasicStyles = {
       color: "#6482FF",
     },
   },
+  clickedGenderButton: {
+    backgroundColor: "#E2E7FF",
+    color: "#6482FF",
+    borderColor: theme.palette.primary.main,
+  },
   genderBtnContainer: {
     justifyContent: "space-between",
     m: "10px auto",
