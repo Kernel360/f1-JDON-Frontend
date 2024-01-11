@@ -10,7 +10,7 @@ import InputField from "../components/common/InputField";
 import DuplicateCheckButton from "../components/common/DuplicateCheckButton";
 import DatePickerField from "../components/common/DatePickerField";
 import GenderBtn from "../components/common/GenderBtn";
-import { SignInStyles } from "./PageStyles";
+import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnStyles";
 
 export default function InfoEdit() {
   const navigate = useNavigate();
@@ -103,11 +103,11 @@ export default function InfoEdit() {
             </Grid>
             <Grid item xs={12}>
               <Button
-                variant="contained"
-                fullWidth
-                color="primary"
                 onClick={handleSaveChanges}
-                sx={SignInStyles.Button}
+                sx={{
+                  ...buttonStyle.Button,
+                  width: "100%",
+                }}
               >
                 수정
               </Button>
@@ -117,7 +117,7 @@ export default function InfoEdit() {
         <Box sx={{ textAlign: "right" }}>
           <Link
             component={RouterLink}
-            to="/withdrawal"
+            to="/mypage/withdrawal"
             variant="subtitle1"
             sx={{
               color: "#B5B5B5",
