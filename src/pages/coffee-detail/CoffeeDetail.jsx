@@ -38,7 +38,7 @@ function CoffeeDetail() {
       sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
     >
       <CssBaseline />
-      <Header />
+      <Header title={MockData.title} />
       <Box
         sx={{
           flexGrow: 1,

@@ -26,7 +26,7 @@ function Coffeeopen() {
         sx={{ display: "flex", flexDirection: "column" }}
       >
         <CssBaseline />
-        <Header />
+        <Header title="커피챗 오픈" />
         <Box
           sx={{
             flexGrow: 1,
