@@ -14,7 +14,6 @@ const InputField = ({
   onChange,
   error,
   helperText,
-
   inputProps,
 }) => {
   return (
