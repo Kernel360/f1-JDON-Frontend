@@ -6,10 +6,9 @@ function CompanySection({ selectdChip, data }) {
   return (
     <Box sx={{ mt: 12 }}>
       <Typography sx={MainStyles.TypoGraphy}>
-        <span style={{ color: "#FF814D", fontWeight: 600 }}>
-          {" "}
+        <span style={{ color: "black", fontWeight: 600, margin: "2px 8px" }}>
           {selectdChip}
-        </span>{" "}
+        </span>
         에 관심있는 회사는 여기에요!
       </Typography>
       <Grid container spacing={{ xs: 2, sm: 3, md: 3 }}>

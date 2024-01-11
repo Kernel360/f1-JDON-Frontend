@@ -43,40 +43,39 @@ export const MainStyles = {
   },
   TabPanel: {
     alignItems: "center",
-    padding: "10px 20px",
+    padding: " 20px",
     position: "relative",
   },
   IconButtonLeft: {
     opacity: 0.3,
     position: "absolute",
-    top: "10px",
+    top: "20px",
     left: 0,
     px: 0,
   },
   IconButtonRight: {
     opacity: 0.3,
     position: "absolute",
-    top: "10px",
+    top: "20px",
     right: 0,
     px: 0,
   },
   ChipContainer: {
     overflowX: "auto",
-
     whiteSpace: "nowrap",
     "&::-webkit-scrollbar": {
       display: "none", // 스크롤바 숨기기 (선택적)
     },
   },
   TypoGraphy: {
-    fontSize: "18px",
-    fontWeight: 500,
+    fontSize: "20px",
+    fontWeight: 700,
     color: "#545459",
     display: "flex",
     alignItems: "center",
   },
   TabIndicator: {
-    height: 0, // 언더라인 두께
+    height: 3, // 언더라인 두께
     borderRadius: "10px",
   },
 };
