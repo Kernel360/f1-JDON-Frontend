@@ -12,30 +12,47 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import format from "date-fns/locale/ko";
 
 import InputField from "../components/common/InputField";
-import { nicknameTextField } from "./info/InfoStyles";
+import { SignInStyles } from "./PageStyles";
+import { datePickerContainer, datePicker } from "./info/InfoStyles";
 import DuplicateCheckButton from "../components/common/DuplicateCheckButton";
+
+import DatePickerField from "../components/common/DatePickerField";
 
 export default function InfoEdit() {
   const navigate = useNavigate();
+  // const [nickname, birthday, sex] = ["지렁이", "2111-01-11", "여"];
 
   const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
+  const [birthday, setBirthday] = useState(null); // or some default date
+  const [sex, setSex] = useState(""); // or
+  const [jobSkill, setJobSkill] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [value, setValue] = useState({ nickname, birthday, sex });
   const [isNicknameValid, setNicknameValid] = useState(true);
 
   // 초반에 정보들 넣어주기
   const handleInputChange = (name, value) => {
     if (name === "nickname") {
       setNickname(value);
-    } else if (name === "password") {
-      setPassword(value);
+    } else if (name === "birthday") {
+      setBirthday(value);
+    } else if (name === "sex") {
+      setSex(value);
     }
   };
 
   const handleCheckDuplicate = () => {
     // setNicknameValid(validateField(nickname));
     //통신에서 성공하면 변경해주고아니면 에러 창 띄워주기
+  };
+  const handleDateChange = (newValue) => {
+    setSelectedDate(newValue);
+    handleInputChange("birthday", newValue);
   };
 
   const handleSaveChanges = () => {
@@ -50,19 +67,6 @@ export default function InfoEdit() {
 
       <Container component="main" sx={{ marginTop: 6, paddingX: "29px" }}>
         <form onSubmit={handleSaveChanges}>
-          {/* <Box>
-            <FormLabel>닉네임</FormLabel>
-            <TextField
-              required
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-              name="nickname"
-              placeholder="닉네임을 입력해주세요."
-              onChange={(e) => {}}
-              sx={nicknameTextField(null)}
-            ></TextField>
-          </Box> */}
-
           <InputField
             label="닉네임"
             type="standard"
@@ -83,18 +87,42 @@ export default function InfoEdit() {
               ),
             }}
           />
+          {/* <Box>
+            <FormLabel>생일</FormLabel>
+            <Grid container sx={datePickerContainer(value.birthday)}>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                adapterLocale={format}
+              >
+                <DatePicker
+                  value={selectedDate}
+                  inputFormat="yyyy.MM.dd"
+                  onChange={handleDateChange}
+                  sx={datePicker(value.birthday)}
+                  renderInput={(params) => (
+                    <TextField {...params} fullWidth sx={{ flexGrow: 1 }} />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+          </Box> */}
+          <DatePickerField
+            value={selectedDate}
+            selectedDate={selectedDate}
+            onChange={handleDateChange}
+          />
 
           <InputField
-            label="비밀번호"
+            label="직무 및 기술 스택"
             type="standard"
-            id="password"
-            name="password"
-            autoComplete="password"
-            placeholder="비밀번호 입력해주세요"
-            value={password}
+            id="jobSkill"
+            name="jobSkill"
+            autoComplete="jobSkill"
+            placeholder="클릭하여 선택하기"
+            value={jobSkill}
             onChange={handleInputChange}
-            error={!isNicknameValid}
-            helperText={!isNicknameValid ? "비밀번호를 입력하세요." : ""}
+            error={!jobSkill}
+            helperText={!jobSkill ? "직무 및 기술 스택을 선택해주세요" : ""}
           />
 
           <Button
@@ -102,7 +130,7 @@ export default function InfoEdit() {
             fullWidth
             color="primary"
             onClick={handleSaveChanges}
-            sx={{ boxShadow: "none", marginTop: 3, borderRadius: 5 }}
+            sx={SignInStyles.Button}
           >
             수정
           </Button>
