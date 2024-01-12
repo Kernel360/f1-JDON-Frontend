@@ -1,14 +1,14 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { infoBasicStyles } from "./InfoStyles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function InFoJD({ jobCategoryId, onChange }) {
+function InFoJD({ jobCategoryId, step, onChange, validate }) {
   const [value, setValue] = useState({ jobCategoryId });
   const handleChange = (field, newValue) => {
-    console.log(value);
     setValue((prev) => ({ ...prev, [field]: newValue }));
     onChange({ [field]: newValue });
   };
+
   return (
     <>
       <Typography width="100%" sx={infoBasicStyles.typographyTitle}>

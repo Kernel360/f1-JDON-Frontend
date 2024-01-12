@@ -28,9 +28,22 @@ export default function Info() {
     setData((prev) => ({ ...prev, ...value }));
   };
 
+  const handleNextBtn = () => {
+    if (step === 1) {
+      if (data.nickname && data.birth && data.gender) {
+        setStep(step + 1);
+      } else alert("값을 다 입력하세요");
+    } else if (step === 2) {
+      if (!data.jobCategoryId) alert("직무를 선택해주세요");
+      else setStep(step + 1);
+    } else if (step === 3) {
+      if (data.skillList < 3) alert("직무를 선택해주세요");
+      else setStep(step + 1);
+    } else setStep(step + 1);
+  };
+
   useEffect(() => {
     localStorage.setItem("userInfo", []);
-    console.log(data);
     if (step === 0) {
       navigate("../");
     }
@@ -48,6 +61,7 @@ export default function Info() {
           <Box sx={InfoStyle.FrameContainer}>
             {step === 1 && (
               <InFoBasic
+                step={step}
                 nickname={data.nickname}
                 birth={data.birth}
                 gender={data.gender}
@@ -56,12 +70,15 @@ export default function Info() {
             )}
             {step === 2 && (
               <InFoJD
+                step={step}
+                validate={data.jobCategoryId ? true : false}
                 jobCategoryId={data.jobCategoryId}
                 onChange={handleChange}
               ></InFoJD>
             )}
             {step === 3 && (
               <InfoSkill
+                step={step}
                 skills={data.skillList}
                 jobCategoryId={data.jobCategoryId}
                 onChange={handleChange}
@@ -71,7 +88,7 @@ export default function Info() {
               <NavigationButtons
                 step={step}
                 onBefore={() => setStep(step - 1)}
-                onNext={() => setStep(step + 1)}
+                onNext={handleNextBtn}
               ></NavigationButtons>
             )}
           </Box>
