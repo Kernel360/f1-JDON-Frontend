@@ -1,24 +1,37 @@
 // InfoEdit.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/layout/Header";
-import { Container, Button } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+
+import Header from "../components/common/Header";
+import { Box, Button, Container, Grid, Typography, Link } from "@mui/material";
+
+import SwipJobSkill from "../components/common/swipe/SwipJobSkill";
 import InputField from "../components/common/InputField";
 import DuplicateCheckButton from "../components/common/DuplicateCheckButton";
+import DatePickerField from "../components/common/DatePickerField";
+import GenderBtn from "../components/common/GenderBtn";
+import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnStyles";
 
 export default function InfoEdit() {
   const navigate = useNavigate();
 
   const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
+  const [birthday, setBirthday] = useState(null); // or some default date
+  const [sex, setSex] = useState(""); // or
+  const [jobSkill, setJobSkill] = useState("");
+  // const [selectedDate, setSelectedDate] = useState(null);
+
   const [isNicknameValid, setNicknameValid] = useState(true);
 
   // 초반에 정보들 넣어주기
   const handleInputChange = (name, value) => {
     if (name === "nickname") {
       setNickname(value);
-    } else if (name === "password") {
-      setPassword(value);
+    } else if (name === "birthday") {
+      setBirthday(value);
+    } else if (name === "sex") {
+      setSex(value);
     }
   };
 
@@ -26,17 +39,22 @@ export default function InfoEdit() {
     // setNicknameValid(validateField(nickname));
     //통신에서 성공하면 변경해주고아니면 에러 창 띄워주기
   };
-
+  const handleDateChange = (newValue) => {
+    setBirthday(newValue);
+    handleInputChange("birthday", newValue);
+  };
+  const handleSexChange = (selectedGender) => {
+    console.log("성별 선택", selectedGender);
+  };
   const handleSaveChanges = () => {
     // 여기서 변경된 정보를 저장하는 로직을 추가
     // 저장이 완료되면 프로필 페이지로 이동
-    navigate("/profile");
+    navigate("/mypage");
   };
 
   return (
     <div>
-      <Header showBackButton={true} myText={"정보수정"} />
-
+      <Header title={"정보수정"} sx={{ marginLeft: "24px" }} />
       <Container component="main" sx={{ marginTop: 6, paddingX: "29px" }}>
         <form onSubmit={handleSaveChanges}>
           <InputField
@@ -52,34 +70,58 @@ export default function InfoEdit() {
             helperText={!isNicknameValid ? "닉네임을 입력하세요." : ""}
             inputProps={{
               endAdornment: (
-                <DuplicateCheckButton onClick={handleCheckDuplicate} />
+                <DuplicateCheckButton
+                  onClick={handleCheckDuplicate}
+                  text={"중복 확인"}
+                />
               ),
             }}
           />
-
-          <InputField
-            label="비밀번호"
-            type="standard"
-            id="password"
-            name="password"
-            autoComplete="password"
-            placeholder="비밀번호 입력해주세요"
-            value={password}
-            onChange={handleInputChange}
-            error={!isNicknameValid}
-            helperText={!isNicknameValid ? "비밀번호를 입력하세요." : ""}
-          />
-
-          <Button
-            variant="contained"
-            fullWidth
-            color="primary"
-            onClick={handleSaveChanges}
-            sx={{ boxShadow: "none", marginTop: 3, borderRadius: 5 }}
-          >
-            수정
-          </Button>
+          <Grid container spacing={4.5}>
+            <Grid item xs={12}>
+              <DatePickerField
+                value={birthday}
+                selectedDate={birthday}
+                onChange={handleDateChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <GenderBtn handleSexChange={handleSexChange} />
+            </Grid>
+            <Grid item xs={12}>
+              <SwipJobSkill />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                onClick={handleSaveChanges}
+                sx={{
+                  ...buttonStyle.Button,
+                  width: "100%",
+                  marginTop: "10px",
+                }}
+              >
+                수정
+              </Button>
+            </Grid>
+          </Grid>
         </form>
+        <Box sx={{ textAlign: "right" }}>
+          <Link
+            component={RouterLink}
+            to="/mypage/withdrawal"
+            variant="subtitle1"
+            sx={{
+              color: "#B5B5B5",
+              fontWeight: "500",
+              marginRight: "13px",
+              marginBottom: "10px",
+              textDecoration: "none",
+              cursor: "pointer",
+            }}
+          >
+            회원탈퇴
+          </Link>
+        </Box>
       </Container>
     </div>
   );

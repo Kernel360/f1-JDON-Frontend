@@ -39,6 +39,11 @@ export const infoBasicStyles = {
       color: "#6482FF",
     },
   },
+  clickedGenderButton: {
+    backgroundColor: "#E2E7FF",
+    color: "#6482FF",
+    borderColor: theme.palette.primary.main,
+  },
   genderBtnContainer: {
     justifyContent: "space-between",
     m: "10px auto",
@@ -137,5 +142,20 @@ export const nicknameTextField = (value) => ({
       color: theme.palette.primary.gray500, // 플레이스홀더의 색상
       opacity: 1, // 브라우저마다 다른 플레이스홀더 투명도 처리를 일관되게 함
     },
+  },
+});
+
+export const skillsButton = (value) => ({
+  margin: "12px auto",
+  padding: "16px 10px",
+  borderRadius: "10px",
+  border: `1px solid ${theme.palette.primary.gray500}`,
+  textalign: "left",
+  fontSize: "16px",
+  // color: "#6482FF",
+  color: theme.palette.primary.gray500,
+  "&:hover": {
+    border: `1px solid ${theme.palette.primary.main}`,
+    color: theme.palette.primary.main,
   },
 });
