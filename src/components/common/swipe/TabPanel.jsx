@@ -12,11 +12,7 @@ export default function TabPanel(props) {
         id={`vertical-tabpanel-${index}`}
         aria-labelledby={`vertical-tab-${index}`}
       >
-        {value === index && (
-          <Box sx={{ pl: 3, maxHeight: "80vh", overflowY: "auto" }}>
-            {children}
-          </Box>
-        )}
+        {value === index && <Box sx={{ pl: 3, width: "100%" }}>{children}</Box>}
       </div>
     </Box>
   );

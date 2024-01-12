@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 
-import Header from "../components/layout/Header";
+import Header from "../components/common/Header";
 import { Box, Button, Container, Grid, Typography, Link } from "@mui/material";
 
 import SwipJobSkill from "../components/common/swipe/SwipJobSkill";
@@ -54,7 +54,7 @@ export default function InfoEdit() {
 
   return (
     <div>
-      <Header showBackButton={true} myText={"정보수정"} />
+      <Header title={"정보수정"} sx={{ marginLeft: "24px" }} />
       <Container component="main" sx={{ marginTop: 6, paddingX: "29px" }}>
         <form onSubmit={handleSaveChanges}>
           <InputField
@@ -89,18 +89,6 @@ export default function InfoEdit() {
               <GenderBtn handleSexChange={handleSexChange} />
             </Grid>
             <Grid item xs={12}>
-              <InputField
-                label="직무 및 기술 스택"
-                type="standard"
-                id="jobSkill"
-                name="jobSkill"
-                autoComplete="jobSkill"
-                placeholder="클릭하여 선택하기"
-                value={jobSkill}
-                onChange={handleInputChange}
-                error={!jobSkill}
-                helperText={!jobSkill ? "직무 및 기술 스택을 선택해주세요" : ""}
-              />
               <SwipJobSkill />
             </Grid>
             <Grid item xs={12}>

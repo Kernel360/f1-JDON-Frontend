@@ -11,10 +11,15 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
+  Typography,
 } from "@mui/material";
 import { ChipStyle, MainStyles } from "../../../pages/PageStyles";
 import TabPanel from "./TabPanel";
 import { buttonStyle } from "../navigation-btn/NavigationBtnStyles";
+import {
+  skillsButton,
+  infoBasicStyles,
+} from "../../../pages/info/InfoStyles.js";
 
 export default function SwipJobSkill() {
   const SKILLS = [
@@ -54,6 +59,7 @@ export default function SwipJobSkill() {
       "aria-controls": `vertical-tabpanel-${index}`,
     };
   };
+
   const handleCheckboxChange = (index) => {
     setCheckedItems((prevCheckedItems) => {
       const newCheckedItems = [...prevCheckedItems];
@@ -115,7 +121,17 @@ export default function SwipJobSkill() {
 
   return (
     <div>
-      <Button onClick={toggleDrawer(true)}>Open Drawer</Button>
+      <Typography sx={{ fontSize: "16px", color: "#545459" }}>
+        직무 및 기술 스택
+      </Typography>
+      <Button
+        // variant="outlined"
+        onClick={toggleDrawer(true)}
+        fullWidth
+        sx={skillsButton}
+      >
+        클릭하여 선택하기
+      </Button>
       <SwipeableDrawer
         anchor="bottom"
         open={drawerOpen}
@@ -137,7 +153,13 @@ export default function SwipJobSkill() {
               flexGrow: 1,
               bgcolor: "background.paper",
               display: "flex",
-              height: "45vw",
+              height: "50vw",
+              "@media (min-width: 300px)": {
+                height: "70vw",
+              },
+              "@media (min-width: 960px)": {
+                height: "40vw",
+              },
             }}
           >
             <Tabs
@@ -165,10 +187,10 @@ export default function SwipJobSkill() {
           </Box>
         </Box>
 
-        <Box>
+        <Box sx={{ padding: "20px" }}>
           <Button
             fullWidth
-            sx={{ ...buttonStyle.Button, marginBottom: "10px" }}
+            sx={{ ...buttonStyle.Button, marginTop: "10px" }}
             onClick={toggleDrawer(false)}
           >
             완료

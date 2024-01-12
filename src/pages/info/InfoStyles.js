@@ -144,3 +144,18 @@ export const nicknameTextField = (value) => ({
     },
   },
 });
+
+export const skillsButton = (value) => ({
+  margin: "12px auto",
+  padding: "16px 10px",
+  borderRadius: "10px",
+  border: `1px solid ${theme.palette.primary.gray500}`,
+  textalign: "left",
+  fontSize: "16px",
+  // color: "#6482FF",
+  color: theme.palette.primary.gray500,
+  "&:hover": {
+    border: `1px solid ${theme.palette.primary.main}`,
+    color: theme.palette.primary.main,
+  },
+});
