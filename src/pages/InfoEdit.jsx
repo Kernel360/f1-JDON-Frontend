@@ -97,6 +97,7 @@ export default function InfoEdit() {
                 sx={{
                   ...buttonStyle.Button,
                   width: "100%",
+                  marginTop: "10px",
                 }}
               >
                 수정
@@ -113,6 +114,7 @@ export default function InfoEdit() {
               color: "#B5B5B5",
               fontWeight: "500",
               marginRight: "13px",
+              marginBottom: "10px",
               textDecoration: "none",
               cursor: "pointer",
             }}
