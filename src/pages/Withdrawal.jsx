@@ -10,6 +10,7 @@ export default function Withdrawal() {
   };
   return (
     <Container
+      maxWidth="sm"
       sx={{
         display: "flex",
         flexDirection: "column",

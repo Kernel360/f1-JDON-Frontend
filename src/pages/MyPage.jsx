@@ -107,7 +107,7 @@ const ButtonSection = () => (
 export default function MyPage() {
   return (
     <Container
-      maxWidth="sm"
+      maxWidth="md"
       sx={{
         display: "flex",
         flexDirection: "column",

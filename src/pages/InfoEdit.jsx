@@ -53,7 +53,13 @@ export default function InfoEdit() {
   };
 
   return (
-    <div>
+    <Container
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Header title={"정보수정"} sx={{ marginLeft: "24px" }} />
       <Container component="main" sx={{ marginTop: 6, paddingX: "29px" }}>
         <form onSubmit={handleSaveChanges}>
@@ -123,6 +129,6 @@ export default function InfoEdit() {
           </Link>
         </Box>
       </Container>
-    </div>
+    </Container>
   );
 }
