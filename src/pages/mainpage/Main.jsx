@@ -1,5 +1,5 @@
 import { Chip, Container, IconButton, Stack, Tab } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { ChipStyle, MainStyles } from "../PageStyles";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
@@ -30,7 +30,7 @@ const HOT_SKILLS = [
   "내일 주말",
 ];
 const MY_SKILLS = [11111, 22, 333333, 4, 555555, 66, 7777777, 88, 999, 1000];
-
+let HOT = [];
 const COMPANY_DATA = [
   {
     id: 0,
@@ -98,10 +98,20 @@ const VIDEO_DATA = [
     price: 120000,
   },
 ];
+async function getHotSkills() {
+  fetch("/api/v1/skills/hot")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.data);
+      return data.data;
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+}
 
 export function Main() {
   const [value, setValue] = useState("1");
   const [selectdChip, setSelectedChip] = useState(HOT_SKILLS[0]);
+  const [hotSkills, setHotSkills] = useState([]); // 빈 배열로 초기화
   const scrollRef = useRef(null);
 
   const handleTabChange = (event, newValue) => {
@@ -121,6 +131,25 @@ export function Main() {
       }
     }
   };
+
+  useEffect(() => {
+    const fetchHotSkills = async () => {
+      try {
+        const response = await fetch("/api/v1/skills/hot");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        const hotSkillsData = data.data || []; // 데이터가 없는 경우 빈 배열로 처리
+        console.log(hotSkillsData.skillList);
+        setHotSkills(hotSkillsData.skillList.map((skill) => skill.keyword));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchHotSkills();
+  }, []); // 빈 배열을 두어 한 번만 실행되도록 설정
 
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
@@ -148,7 +177,7 @@ export function Main() {
             ref={scrollRef}
             sx={MainStyles.ChipContainer}
           >
-            {HOT_SKILLS.map((skill, index) => (
+            {hotSkills.map((skill, index) => (
               <Chip
                 key={index}
                 onClick={() => {
