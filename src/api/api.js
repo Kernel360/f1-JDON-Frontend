@@ -1,3 +1,5 @@
+const apiUrl = "http://43.201.221.251:1221"; // API의 기본 URL
+
 export async function getHotSkills() {
   const response = await fetch(`http://43.201.221.251:1221/api/v1/skills/hot`);
   if (!response.ok) throw new Error("리뷰를 불러오는데 실패하였습니다");
@@ -18,3 +20,18 @@ export async function getHotSkills() {
 
 //   return await response.json(); //비동기 작업이므로
 // }
+
+export const getFaq = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/api/v1/faqs`);
+    if (!response.ok) {
+      throw new Error(`API 요청 실패: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
