@@ -35,3 +35,17 @@ export const getFaq = async () => {
     throw error;
   }
 };
+export const getFavoritVideo = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/api/v1/favorites?page=0&size=10`);
+    if (!response.ok) {
+      throw new Error(`API 요청 실패: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

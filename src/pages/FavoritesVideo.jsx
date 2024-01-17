@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -10,11 +10,83 @@ import {
 } from "@mui/material";
 
 import BottomNav from "../components/common/BottomNav";
-
-// import BottomNav from "../components/common/BottomNav";
 import { Link } from "react-router-dom";
+import VideoCard from "../components/common/card/VideoCard";
+import { getFavoritVideo } from "../api/api";
+
+const tempData = [
+  {
+    lectureId: 1,
+    title: "스프링부트 초급편_1",
+    lectureUrl: "www.inflearn.com/we234",
+    imageUrl:
+      "https://cdn.inflearn.com/public/courses/330459/cover/00d1bd8e-3b9d-4c62-b801-fea717c942fa/330459-eng.png",
+    instructor: "김영한",
+    studentCount: 5332,
+    price: 180000,
+    isFavorite: true,
+  },
+  {
+    lectureId: 2,
+    title: "스프링부트 초급편_2",
+    lectureUrl: "www.inflearn.com/we234",
+    imageUrl:
+      "https://cdn.inflearn.com/public/courses/330459/cover/00d1bd8e-3b9d-4c62-b801-fea717c942fa/330459-eng.png",
+    instructor: "김영한",
+    studentCount: 5332,
+    price: 180000,
+    isFavorite: true,
+  },
+  {
+    lectureId: 3,
+    title: "스프링부트 초급편_3",
+    lectureUrl: "www.inflearn.com/we234",
+    imageUrl:
+      "https://cdn.inflearn.com/public/courses/330459/cover/00d1bd8e-3b9d-4c62-b801-fea717c942fa/330459-eng.png",
+    instructor: "김영한",
+    studentCount: 5332,
+    price: 180000,
+    isFavorite: true,
+  },
+  {
+    lectureId: 4,
+    title: "스프링부트 초급편_4",
+    lectureUrl: "www.inflearn.com/we234",
+    imageUrl:
+      "https://cdn.inflearn.com/public/courses/330459/cover/00d1bd8e-3b9d-4c62-b801-fea717c942fa/330459-eng.png",
+    instructor: "김영한",
+    studentCount: 5332,
+    price: 180000,
+    isFavorite: true,
+  },
+  {
+    lectureId: 5,
+    title: "스프링부트 초급편_5",
+    lectureUrl: "www.inflearn.com/we234",
+    imageUrl:
+      "https://cdn.inflearn.com/public/courses/330459/cover/00d1bd8e-3b9d-4c62-b801-fea717c942fa/330459-eng.png",
+    instructor: "김영한",
+    studentCount: 5332,
+    price: 180000,
+    isFavorite: true,
+  },
+];
 
 export default function FavoritesVideo() {
+  const [data, setData] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await getFavoritVideo();
+  //       setData(res);
+  //       console.log("찜 확인", res);
+  //     } catch (error) {
+  //       console.error("getFavoritVideo API 에러", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
   return (
     <Container
       maxWidth="md"
@@ -36,6 +108,9 @@ export default function FavoritesVideo() {
       >
         찜
       </Typography>
+      {tempData.map((video, index) => (
+        <VideoCard key={index} data={video} />
+      ))}
       <Box sx={{ flexGrow: 1 }} />
       <Button
         position="sticky"
@@ -44,7 +119,7 @@ export default function FavoritesVideo() {
         size="large"
         sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "1.05rem" }}
       >
-        로그아웃
+        페이지네이션 자리
       </Button>
       <BottomNav></BottomNav>
     </Container>
