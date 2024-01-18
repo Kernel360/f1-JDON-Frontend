@@ -16,6 +16,7 @@ import SearchBar from "../../components/common/search-bar/SearchBar";
 import BottomNav from "../../components/common/BottomNav";
 import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
+import { getHotSkills } from "../../api/api";
 
 const HOT_SKILLS = [
   "JavaScript",
@@ -98,21 +99,14 @@ const VIDEO_DATA = [
     price: 120000,
   },
 ];
-async function getHotSkills() {
-  fetch("/api/v1/skills/hot")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.data);
-      return data.data;
-    })
-    .catch((error) => console.error("Error fetching data:", error));
-}
 
 export function Main() {
   const [value, setValue] = useState("1");
   const [selectdChip, setSelectedChip] = useState(HOT_SKILLS[0]);
   const [hotSkills, setHotSkills] = useState([]); // 빈 배열로 초기화
   const scrollRef = useRef(null);
+
+  console.log(111);
 
   const handleTabChange = (event, newValue) => {
     console.log(newValue);
@@ -133,23 +127,23 @@ export function Main() {
   };
 
   useEffect(() => {
-    const fetchHotSkills = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("/api/v1/skills/hot");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await getHotSkills();
+        const hotSkillsData = data.data || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
+        if (hotSkillsData.skillList && Array.isArray(hotSkillsData.skillList)) {
+          setHotSkills(hotSkillsData.skillList.map((skill) => skill.keyword));
+        } else {
+          console.error("Invalid hot skills data structure");
         }
-        const data = await response.json();
-        const hotSkillsData = data.data || []; // 데이터가 없는 경우 빈 배열로 처리
-        console.log(hotSkillsData.skillList);
-        setHotSkills(hotSkillsData.skillList.map((skill) => skill.keyword));
+        console.log("getHotSkills 확인중", data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching hot skills:", error);
       }
     };
 
-    fetchHotSkills();
-  }, []); // 빈 배열을 두어 한 번만 실행되도록 설정
+    fetchData();
+  }, []);
 
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
