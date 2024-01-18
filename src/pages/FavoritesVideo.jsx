@@ -75,18 +75,18 @@ const tempData = [
 export default function FavoritesVideo() {
   const [data, setData] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const res = await getFavoritVideo();
-  //       setData(res);
-  //       console.log("찜 확인", res);
-  //     } catch (error) {
-  //       console.error("getFavoritVideo API 에러", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getFavoritVideo(1);
+        setData(res);
+        console.log("찜 확인", res);
+      } catch (error) {
+        console.error("getFavoritVideo API 에러", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <Container
       maxWidth="md"
@@ -108,9 +108,17 @@ export default function FavoritesVideo() {
       >
         찜
       </Typography>
-      {tempData.map((video, index) => (
+      {/* {tempData.map((video, index) => (
         <VideoCard key={index} data={video} />
-      ))}
+      ))} */}
+
+      <Grid container spacing={{ xs: 2, md: 2 }} sx={{ px: 2, py: 1 }}>
+        {tempData.map((item, index) => (
+          <Grid item xs={12} sm={4} md={4} key={index}>
+            <VideoCard data={item} />
+          </Grid>
+        ))}
+      </Grid>
       <Box sx={{ flexGrow: 1 }} />
       <Button
         position="sticky"
