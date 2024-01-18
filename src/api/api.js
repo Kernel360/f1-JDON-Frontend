@@ -3,7 +3,7 @@ import axios from "axios";
 require("dotenv").config();
 
 const instance = axios.create({
-  baseURL: `http://:${process.env.PUBLIC_SERVER_URL}:${process.env.PUBLIC_SERVER_PORT}`, // 베이스 URL
+  baseURL: `/api`, // 베이스 URL
   // timeout: 5000, // 요청 시간 초과 설정
   headers: {
     "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const instance = axios.create({
 
 export async function getHotSkills() {
   try {
-    const res = await instance.get("/api/v1/skills/hot");
+    const res = await instance.get("/v1/skills/hot");
 
     console.log("getHotSkills API", res);
     return res.data;
