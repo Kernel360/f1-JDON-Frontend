@@ -1,7 +1,5 @@
 import axios from "axios";
 
-require("dotenv").config();
-
 const instance = axios.create({
   baseURL: `/api`, // 베이스 URL
   // timeout: 5000, // 요청 시간 초과 설정
@@ -12,15 +10,6 @@ const instance = axios.create({
 });
 
 // //-------------------------------------------- skill
-
-// //요즘 뜨는 기술 스택 조회
-// export async function getHotSkills() {
-//   const response = await fetch(`http://43.201.221.251:1221/api/v1/skills/hot`);
-//   if (!response.ok) throw new Error("리뷰를 불러오는데 실패하였습니다");
-//   console.log(122);
-
-//   return await response.json();
-// }
 
 export async function getHotSkills() {
   try {
