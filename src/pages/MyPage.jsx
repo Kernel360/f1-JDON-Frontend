@@ -80,15 +80,17 @@ const ProfileSection = () => (
 const ButtonSection = () => (
   <Grid container spacing={1}>
     <Grid item xs={6}>
-      <Button
-        sx={{ fontSize: "17px", paddingY: "12px" }}
-        variant="contained"
-        color="primary"
-        fullWidth
-        disableElevation
-      >
-        찜
-      </Button>
+      <Link to="/mypage/video">
+        <Button
+          sx={{ fontSize: "17px", paddingY: "12px" }}
+          variant="contained"
+          color="primary"
+          fullWidth
+          disableElevation
+        >
+          찜
+        </Button>
+      </Link>
     </Grid>
     <Grid item xs={6}>
       <Button

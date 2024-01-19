@@ -12,6 +12,7 @@ import CoffeeDetail from "./pages/coffee-detail/CoffeeDetail";
 import { Main } from "./pages/mainpage/Main";
 import Coffeeopen from "./pages/coffeechat/CoffeeOpen";
 import Withdrawal from "./pages/Withdrawal";
+import FavoritesVideo from "./pages/FavoritesVideo";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
             <Route exact path="/mypage" element={<MyPage />} />
             <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
+            <Route exact path="/mypage/video" element={<FavoritesVideo />} />
             <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
             {/* </Route> */}
             <Route exact path="/coffeechat-open" element={<Coffeeopen />} />

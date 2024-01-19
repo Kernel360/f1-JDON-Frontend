@@ -48,3 +48,15 @@ export async function getHotSkills() {
 // //     throw error;
 // //   }
 // // };
+
+export const getFavoritVideo = async (page) => {
+  try {
+    console.log("page check", page);
+    const res = await instance.get(`/api/v1/favorites?page=${page}&size=12`);
+    console.log("pageCnt", res.headers);
+    return res.data;
+  } catch (error) {
+    console.error("getFavoritVideo API", error);
+    throw error;
+  }
+};
