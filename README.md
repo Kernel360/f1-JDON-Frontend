@@ -1,5 +1,5 @@
-# JDON
-### "Job Description을 기반으로 직무 분석과 해당 직무 학습에 도움을 주는 서비스"
+# JDON💡
+### "Job Description을 기반으로 직무 분석과 해당 직무 학습에 도움을 주는 서비스입니다"
 </br>
 
 ## 주요 서비스 내용
@@ -28,8 +28,13 @@
 ## FE팀 소개
 | **이지원** | **정종미** |
 | :------: |  :------: |
-|[<img height=150 width=150 alt="image" src="https://github.com/Kernel360/f1-JDON-Frontend/assets/103630185/cddf975e-22dc-4006-ab1b-004c4a7ec94b">
- <br/> @Wlfjd](https://github.com/Wlfjd) | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) 
+|[<img height=150 width=150 alt="image" src="https://github.com/Kernel360/f1-JDON-Frontend/assets/103630185/a93e8ce8-b0e4-4f80-95a6-1abe56f41030"> <br/> @Wlfjd](https://github.com/Wlfjd) | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) 
+
+
+ | **이지원** | **정종미** |
+| :------: |  :------: |
+| [<img src="" height=150 width=150> <br/> @지원](https://github.com/wookki) | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) 
+
 
 
 
