@@ -1,8 +1,7 @@
 import axios from "axios";
-
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
 const instance = axios.create({
-  baseURL: `/api`, // 베이스 URL
-  timeout: 5000, // 요청 시간 초과 설정
+  baseURL: apiUrl,
   headers: {
     "Content-Type": "application/json",
     // 기타 필요한 헤더 설정(JWT토큰)
@@ -13,7 +12,7 @@ const instance = axios.create({
 
 export async function getHotSkills() {
   try {
-    const res = await instance.get("/v1/skills/hot");
+    const res = await instance.get("/api/v1/skills/hot");
 
     console.log("getHotSkills API", res);
     return res.data;
@@ -50,9 +49,10 @@ export async function getHotSkills() {
 // //   }
 // // };
 
-export const getFavoritVideo = async () => {
+export const getFavoritVideo = async (page) => {
   try {
-    const res = await instance.get("/v1/favorites?page=0&size=12");
+    console.log("page check", page);
+    const res = await instance.get(`/api/v1/favorites?page=${page}&size=12`);
     return res.data;
   } catch (error) {
     console.error("getFavoritVideo API", error);

@@ -5,23 +5,31 @@ import BottomNav from "../components/common/BottomNav";
 import VideoCard from "../components/common/card/VideoCard";
 import { getFavoritVideo } from "../api/api";
 import Header from "../components/common/Header";
+import PaginationComponent from "../components/common/Pagenation";
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getFavoritVideo();
+        const res = await getFavoritVideo(currentPage);
         setDatas(res.data);
-        console.log("찜 확인", res.data);
+        // console.log("찜 확인", res.data);
         console.log("datas", datas);
       } catch (error) {
         console.error("getFavoritVideo API 에러", error);
       }
     };
     fetchData();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (event, value) => {
+    // 페이지 변경 시 처리 로직 추가
+    console.log(`현재 페이지: ${value}`);
+    setCurrentPage(value);
+  };
 
   return (
     <Container
@@ -55,15 +63,11 @@ export default function FavoritesVideo() {
         )}
       </Grid>
       <Box sx={{ flexGrow: 1 }} />
-      <Button
-        position="sticky"
-        bottom="0"
-        variant="secondary"
-        size="large"
-        sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "1.05rem" }}
-      >
-        페이지네이션 자리
-      </Button>
+      <PaginationComponent
+        pageCount={10} // 총 페이지 수
+        currentPage={currentPage}
+        onChange={handlePageChange}
+      />
       <BottomNav></BottomNav>
     </Container>
   );
