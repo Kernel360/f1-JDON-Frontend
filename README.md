@@ -2,6 +2,9 @@
 ### "Job Description을 기반으로 직무 분석과 해당 직무 학습에 도움을 주는 서비스입니다"
 </br>
 
+<img width="647" alt="image" src="https://github.com/Kernel360/f1-JDON-Frontend/assets/103630185/ad371135-d8e5-4493-98f8-588be36fdde1">
+
+
 ## 🔵 주요 서비스 내용
 ### 기능
   - 최근 채용공고에 많이 언급된 직군별 기술스택에 맞는 영상을 추천
