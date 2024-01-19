@@ -2,7 +2,6 @@ import { Chip, Container, IconButton, Stack, Tab } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { ChipStyle, MainStyles } from "../PageStyles";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import video1 from "../../../src/assets/images/video1.svg";
 import video2 from "../../../src/assets/images/video2.svg";
 import video3 from "../../../src/assets/images/video3.svg";
