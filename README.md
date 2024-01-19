@@ -1,18 +1,17 @@
 # JDON
-### "Job Description 을 기반으로 직무 분석과 해당 직무 학습에 도움을 주는 서비스"
+### "Job Description을 기반으로 직무 분석과 해당 직무 학습에 도움을 주는 서비스"
 </br>
 
 ## 주요 서비스 내용
-### 주제
-  - 최근 채용공고에 많이 언급된 직군별 기술스택에 맞는 영상을 추천하는 서비스
-  - 자유로운 커피챗 모집을 지원하는 서비스
+### 기능
+  - 최근 채용공고에 많이 언급된 직군별 기술스택에 맞는 영상을 추천
+  - 자유로운 커피챗 모집을 지원
 ### 타겟 
   - 취업을 향하여 달려가는 모두
   - 자신의 jd 을 분석하여 교육자료 및 회사를 추천받고 싶은 모두
   - 같은 고민을 하는, 혹은 배우고 싶은 동료들과의 커피챗을 원하는 모두
 
 ### 프로젝트관련 정보
-
 - <a href="https://www.notion.so/JDON-3667f7453ffd40eaa8bcca9b62fbec3a">Notion</a>
 - <a href="https://www.figma.com/file/GfE8RImZKlq05g2VfNzqUq/JDON?type=design&node-id=371-1400&mode=design&t=khjS3U9eo9gqCiZT-0">Figma</a>
 </br>
@@ -29,7 +28,8 @@
 ## FE팀 소개
 | **이지원** | **정종미** |
 | :------: |  :------: |
-| [<img src="" height=150 width=150> <br/> @지원](https://github.com/wookki) | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) 
+| ![Uploading image.png…]()
+ | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) 
 
 
 
