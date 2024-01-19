@@ -28,8 +28,8 @@
 ## FE팀 소개
 | **이지원** | **정종미** |
 | :------: |  :------: |
-| ![Uploading image.png…]()
- | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) 
+|[<img height=150 width=150 alt="image" src="https://github.com/Kernel360/f1-JDON-Frontend/assets/103630185/cddf975e-22dc-4006-ab1b-004c4a7ec94b">
+ <br/> @Wlfjd](https://github.com/Wlfjd) | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) 
 
 
 
