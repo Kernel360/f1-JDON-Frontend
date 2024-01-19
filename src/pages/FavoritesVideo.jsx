@@ -10,6 +10,7 @@ import PaginationComponent from "../components/common/Pagenation";
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,12 +19,22 @@ export default function FavoritesVideo() {
         setDatas(res.data);
         // console.log("찜 확인", res.data);
         console.log("datas", datas);
+
+        // 최초 렌더링 시에만 전체 데이터의 양을 가져오고 페이지 수를 계산
+        // if (currentPage === 1) {
+        //   const calculatedTotalPages = Math.ceil(totalCount / 12);
+        //   setTotalPages(calculatedTotalPages);
+        // }
       } catch (error) {
         console.error("getFavoritVideo API 에러", error);
       }
     };
-    fetchData();
-  }, [currentPage]);
+    // 최초 렌더링 시에만 fetchData 호출
+    if (!datas) {
+      fetchData();
+    }
+    // fetchData();
+  }, [currentPage, datas]);
 
   const handlePageChange = (event, value) => {
     // 페이지 변경 시 처리 로직 추가
@@ -64,7 +75,7 @@ export default function FavoritesVideo() {
       </Grid>
       <Box sx={{ flexGrow: 1 }} />
       <PaginationComponent
-        pageCount={10} // 총 페이지 수
+        pageCount={10} // 총 페이지 수 나중에 페이지네이션 api 개발 후 자동화해야함
         currentPage={currentPage}
         onChange={handlePageChange}
       />
