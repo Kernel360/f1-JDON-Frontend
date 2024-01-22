@@ -13,7 +13,7 @@ export default function BottomNav() {
     setValue(newValue);
     switch (newValue) {
       case 0:
-        navigate("/main");
+        navigate("/");
         break;
       case 1:
         navigate("/coffee");

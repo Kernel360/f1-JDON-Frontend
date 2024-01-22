@@ -20,9 +20,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <Layout>
           <Routes>
-            <Route exact path="/" element={<SignIn />} />
+            <Route exact path="/" element={<Main />} />
+            <Route exact path="/signin" element={<SignIn />} />
             <Route exact path="/info" element={<Info />} />
-            <Route exact path="/main" element={<Main />} />
             <Route exact path="/coffee" element={<Coffee />} />
             <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
             <Route exact path="/mypage" element={<MyPage />} />
