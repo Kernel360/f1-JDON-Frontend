@@ -4,9 +4,14 @@ import { Paper } from "@mui/material";
 import { Coffee, Home, Person } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+// import { isLoggedInState } from "./atoms";
+import { isLoggedInState } from "../../recoil/atoms";
+import SignIn from "../../pages/sign-in/SignIn";
 
 export default function BottomNav() {
   const [value, setValue] = useState(0);
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const navigate = useNavigate();
 
   const handleNavigationChange = (event, newValue) => {
@@ -19,7 +24,7 @@ export default function BottomNav() {
         navigate("/coffee");
         break;
       case 2:
-        navigate("/mypage");
+        navigate(isLoggedIn ? "/mypage" : "/signin");
         break;
       default:
         break;
@@ -46,7 +51,10 @@ export default function BottomNav() {
       >
         <BottomNavigationAction label="메인" icon={<Home />} />
         <BottomNavigationAction label="커피챗" icon={<Coffee />} />
-        <BottomNavigationAction label="마이페이지" icon={<Person />} />
+        <BottomNavigationAction
+          label={isLoggedIn ? "마이페이지" : "로그인"}
+          icon={<Person />}
+        />
       </BottomNavigation>
     </Paper>
   );

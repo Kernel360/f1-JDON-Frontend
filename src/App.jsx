@@ -1,3 +1,5 @@
+import { RecoilRoot } from "recoil";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import SignIn from "./pages/sign-in/SignIn";
@@ -16,25 +18,27 @@ import FavoritesVideo from "./pages/FavoritesVideo";
 
 function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <Routes>
-            <Route exact path="/" element={<Main />} />
-            <Route exact path="/signin" element={<SignIn />} />
-            <Route exact path="/info" element={<Info />} />
-            <Route exact path="/coffee" element={<Coffee />} />
-            <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
-            <Route exact path="/mypage" element={<MyPage />} />
-            <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
-            <Route exact path="/mypage/video" element={<FavoritesVideo />} />
-            <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
-            {/* </Route> */}
-            <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
-          </Routes>
-        </Layout>
-      </ThemeProvider>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <Layout>
+            <Routes>
+              <Route exact path="/" element={<Main />} />
+              <Route exact path="/signin" element={<SignIn />} />
+              <Route exact path="/info" element={<Info />} />
+              <Route exact path="/coffee" element={<Coffee />} />
+              <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
+              <Route exact path="/mypage" element={<MyPage />} />
+              <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
+              <Route exact path="/mypage/video" element={<FavoritesVideo />} />
+              <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
+              {/* </Route> */}
+              <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
+            </Routes>
+          </Layout>
+        </ThemeProvider>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 
