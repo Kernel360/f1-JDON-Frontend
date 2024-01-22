@@ -60,3 +60,14 @@ export const getFavoritVideo = async (page) => {
     throw error;
   }
 };
+
+export const getLecture = async () => {
+  try {
+    const res = await instance.get(`/api/v1/skills/search?keyword=redis`);
+    console.log("강의 추천 데이터", res);
+    return res.data.data;
+  } catch (error) {
+    console.error("추천학습영상 데이터를 받아오지 못했습니다.", error);
+    throw error;
+  }
+};

@@ -15,7 +15,7 @@ import SearchBar from "../../components/common/search-bar/SearchBar";
 import BottomNav from "../../components/common/BottomNav";
 import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
-import { getHotSkills } from "../../api/api";
+import { getHotSkills, getLecture } from "../../api/api";
 
 const HOT_SKILLS = [
   "JavaScript",
@@ -69,43 +69,43 @@ const COMPANY_DATA = [
     imageUrl: company1,
   },
 ];
-const VIDEO_DATA = [
-  {
-    lectureId: 3,
-    instructor: "김영한",
-    title: "스프링부트 기본편",
-    imageUrl: video1,
-    lectureUrl: "https://www.wanted.co.kr/wd/196444",
-    studentCount: 3253,
-    price: 120000,
-  },
-  {
-    lectureId: 4,
-    instructor: "김영한",
-    title: "스프링부트 기본편",
-    imageUrl: video2,
-    lectureUrl: "https://www.wanted.co.kr/wd/196444",
-    studentCount: 3253,
-    price: 120000,
-  },
-  {
-    lectureId: 31,
-    instructor: "김영한",
-    title: "스프링부트 기본편",
-    imageUrl: video3,
-    lectureUrl: "https://www.wanted.co.kr/wd/196444",
-    studentCount: 3253,
-    price: 120000,
-  },
-];
+// const VIDEO_DATA = [
+//   {
+//     lectureId: 3,
+//     instructor: "김영한",
+//     title: "스프링부트 기본편",
+//     imageUrl: video1,
+//     lectureUrl: "https://www.wanted.co.kr/wd/196444",
+//     studentCount: 3253,
+//     price: 120000,
+//   },
+//   {
+//     lectureId: 4,
+//     instructor: "김영한",
+//     title: "스프링부트 기본편",
+//     imageUrl: video2,
+//     lectureUrl: "https://www.wanted.co.kr/wd/196444",
+//     studentCount: 3253,
+//     price: 120000,
+//   },
+//   {
+//     lectureId: 31,
+//     instructor: "김영한",
+//     title: "스프링부트 기본편",
+//     imageUrl: video3,
+//     lectureUrl: "https://www.wanted.co.kr/wd/196444",
+//     studentCount: 3253,
+//     price: 120000,
+//   },
+// ];
 
 export function Main() {
   const [value, setValue] = useState("1");
-  const [selectdChip, setSelectedChip] = useState(HOT_SKILLS[0]);
   const [hotSkills, setHotSkills] = useState([]); // 빈 배열로 초기화
+  const [selectdChip, setSelectedChip] = useState();
+  const [lecture, setLecture] = useState([]);
+  const [companies, setCompanies] = useState([]);
   const scrollRef = useRef(null);
-
-  console.log(111);
 
   const handleTabChange = (event, newValue) => {
     console.log(newValue);
@@ -129,19 +129,31 @@ export function Main() {
     const fetchData = async () => {
       try {
         const data = await getHotSkills();
-        const hotSkillsData = data.data || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
-        if (hotSkillsData.skillList && Array.isArray(hotSkillsData.skillList)) {
-          setHotSkills(hotSkillsData.skillList.map((skill) => skill.keyword));
-        } else {
-          console.error("Invalid hot skills data structure");
-        }
+        const hotSkillsData = data.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
         console.log("getHotSkills 확인중", data);
+
+        setHotSkills(hotSkillsData);
+        setSelectedChip(hotSkillsData[0].keyword);
+        // if (hotSkillsData.skillList && Array.isArray(hotSkillsData.skillList)) {
+        //   setHotSkills(hotSkillsData.skillList.map((skill) => skill.keyword));
+        // } else {
+        //   console.error("Invalid hot skills data structure");
+        // }
+
+        const lectureData = await getLecture();
+        setLecture(lectureData.lectureList);
+        setCompanies(lectureData.jdList);
+        // console.log("@강의 받아서 확인중", lectureData);
+        // console.log("@@강의 받아서 확인중", lecture.jdList);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
     };
 
     fetchData();
+
+    console.log("데이터 set 확인중", lecture, companies);
+    console.log("@@비동기 이후 getHotSkills 확인중", hotSkills);
   }, []);
 
   return (
@@ -170,17 +182,17 @@ export function Main() {
             ref={scrollRef}
             sx={MainStyles.ChipContainer}
           >
-            {hotSkills.map((skill, index) => (
+            {hotSkills.map((skill) => (
               <Chip
-                key={index}
+                key={skill.id}
                 onClick={() => {
-                  setSelectedChip(HOT_SKILLS[index]);
+                  setSelectedChip(skill.keyword);
                 }}
-                label={skill}
+                label={skill.keyword}
                 clickable={true}
                 variant="outlined"
                 sx={
-                  selectdChip === skill
+                  selectdChip === skill.keyword
                     ? ChipStyle(selectdChip)
                     : ChipStyle(undefined)
                 }
@@ -231,8 +243,8 @@ export function Main() {
           </IconButton>
         </TabPanel>
       </TabContext>
-      <VideoSection selectdChip={selectdChip} data={VIDEO_DATA} />
-      <CompanySection selectdChip={selectdChip} data={COMPANY_DATA} />
+      <VideoSection selectdChip={selectdChip} data={lecture} />
+      <CompanySection selectdChip={selectdChip} data={companies} />
       <BottomNav></BottomNav>
     </Container>
   );

@@ -13,7 +13,7 @@ export default function CompanyCard({ data }) {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={data.imageUrl}
+          image={data.imageUrl || company1}
           sx={{ height: 200, borderRadius: "5px" }}
         />
         <Box sx={{ mt: 1 }}>
@@ -23,10 +23,10 @@ export default function CompanyCard({ data }) {
             color="#9A9AA1"
             sx={CompanyCardStyle.Name}
           >
-            {data.name}
+            {data.company}
           </Typography>
           <Typography color="#545459" fontSize="14px" fontWeight="500">
-            {data.content}
+            {data.title}
           </Typography>
         </Box>
       </CardActionArea>
