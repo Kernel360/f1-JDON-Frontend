@@ -3,6 +3,7 @@ import CompanyCard from "../../components/common/card/CompanyCard";
 import { MainStyles } from "../PageStyles";
 
 function CompanySection({ selectdChip, data }) {
+  console.log("회사 컴포에서 확인중", data);
   return (
     <Box sx={{ mt: 12 }}>
       <Typography sx={MainStyles.TypoGraphy}>
