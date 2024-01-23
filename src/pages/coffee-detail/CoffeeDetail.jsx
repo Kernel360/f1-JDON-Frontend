@@ -14,6 +14,8 @@ import paste from "../../assets/icons/paste.svg";
 import { URLInput } from "../PageStyles";
 import Buttons from "./Button";
 import eye from "../../assets/icons/eye.svg";
+import { useEffect } from "react";
+import { getCoffeeChatDetail } from "../../api/api";
 
 const MockData = {
   coffeechatId: 2,
@@ -32,6 +34,18 @@ const MockData = {
 };
 
 function CoffeeDetail() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getCoffeeChatDetail(1);
+        console.log(data.data);
+      } catch (error) {
+        console.error("Error fetching hot skills:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Container
       maxWidth="md"

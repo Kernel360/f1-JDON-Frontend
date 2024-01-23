@@ -4,6 +4,7 @@ import VideoCard from "../../components/common/card/VideoCard";
 import hot from "../../../src/assets/images/hot.svg";
 
 function VideoSection({ selectdChip, data }) {
+  console.log(data);
   return (
     <Box sx={{ mt: 4 }}>
       <Typography sx={MainStyles.TypoGraphy}>
