@@ -2,9 +2,7 @@ import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Paper } from "@mui/material";
-import company1 from "./../../../assets/images/comany1.svg";
-import company2 from "./../../../assets/images/company2.svg";
-import company3 from "./../../../assets/images/company3.svg";
+
 import { CompanyCardStyle } from "./CardStyle";
 
 export default function CompanyCard({ data }) {
@@ -13,7 +11,7 @@ export default function CompanyCard({ data }) {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={data.imageUrl || company1}
+          image={data.imageUrl}
           sx={{ height: 200, borderRadius: "5px" }}
         />
         <Box sx={{ mt: 1 }}>

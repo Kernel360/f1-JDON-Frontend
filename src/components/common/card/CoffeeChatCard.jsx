@@ -20,10 +20,10 @@ function CoffeeChatCard({ data }) {
         borderRadius: "8px",
         height: "220px",
         position: "relative",
-        opacity: data.activeStatus === "종료" ? 0.4 : 1,
+        opacity: data.status === "종료" ? 0.4 : 1,
       }}
     >
-      <div style={BadgeStyle(data.activeStatus)}>{data.activeStatus}</div>
+      <div style={BadgeStyle(data.status)}>{data.status}</div>
       <Box
         sx={{
           display: "flex",

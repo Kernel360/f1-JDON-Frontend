@@ -8,47 +8,37 @@ const instance = axios.create({
   },
 });
 
-// //-------------------------------------------- skill
+// -------------------------------------------- skill
+
+//요즘 뜨는 기술스택 조회
 
 export async function getHotSkills() {
   try {
     const res = await instance.get("/api/v1/skills/hot");
-
-    console.log("getHotSkills API", res);
+    console.log("getHotSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getHotSkills API error", error);
     throw error;
   }
 }
-// // export async function createReview(formData) {
-// //   //throw new Error("버그가 아니라 기능입니다");
-// //   // return 필수로 존재해야 한다 !! 없으면 데이터 못불러옴
-// //   const response = await fetch(`https://learn.codeit.kr/0627/film-reviews`, {
-// //     method: "POST",
-// //     body: formData,
-// //   });
 
-// //   if (!response.ok) throw new Error("리뷰를 생성하는데 실패하였습니다");
+//기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
 
-// //   return await response.json(); //비동기 작업이므로
-// // }
+export async function getLecture({ skillId }) {
+  try {
+    const res = await instance.get(`/api/v1/skills/search?${skillId}`);
+    console.log("getLecture API", res.data.data);
+    return res.data.data;
+  } catch (error) {
+    console.error("getLecture API error", error);
+    throw error;
+  }
+}
 
-// // export const getFaq = async () => {
-// //   try {
-// //     const response = await fetch(`${apiUrl}/api/v1/faqs`);
-// //     if (!response.ok) {
-// //       throw new Error(`API 요청 실패: ${response.status}`);
-// //     }
+// -------------------------------------------- favorite
 
-// //     const data = await response.json();
-// //     return data;
-// //   } catch (error) {
-// //     console.error(error);
-// //     throw error;
-// //   }
-// // };
-
+// 내가 찜한 영상 목록 조회
 export const getFavoritVideo = async (page) => {
   try {
     console.log("page check", page);
@@ -60,14 +50,44 @@ export const getFavoritVideo = async (page) => {
     throw error;
   }
 };
+// -------------------------------------------- job_category
+// -------------------------------------------- coffeechat
 
-export const getLecture = async () => {
+//내가 신청한 커피챗 목록 조회
+
+//내가 오픈한 커피챗 목록 조회
+
+//커피챗 목록 조회
+export const getCoffeeChat = async (page) => {
   try {
-    const res = await instance.get(`/api/v1/skills/search?keyword=redis`);
-    console.log("강의 추천 데이터", res);
+    console.log("page check", page);
+    const res = await instance.get(`/api/v1/coffeechats?page=${page}&size=12`);
+    console.log("getCoffeeChat", res);
     return res.data.data;
   } catch (error) {
-    console.error("추천학습영상 데이터를 받아오지 못했습니다.", error);
+    console.error("getCoffeeChat API", error);
     throw error;
   }
 };
+
+//커피챗 상세 조회
+export const getCoffeeChatDetail = async (id) => {
+  try {
+    const res = await instance.get(`/api/v1/coffeechats?${id}`);
+    console.log("getCoffeeChatDetail", res.data);
+    return res.data.data;
+  } catch (error) {
+    console.error("getCoffeeChatDetail API", error);
+    throw error;
+  }
+};
+
+//커피챗 등록
+
+//커피챗 수정
+
+//커피챗 삭제
+
+//커피챗 신청
+// -------------------------------------------- member
+// -------------------------------------------- faq
