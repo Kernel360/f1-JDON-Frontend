@@ -36,6 +36,20 @@ export async function getLecture({ skillId }) {
   }
 }
 
+//직무 별 기술스택 조회하기
+export async function getSkillsOnJD({ jobCategoryId }) {
+  try {
+    const res = await instance.get(
+      `/api/v1/skills/job-category/${jobCategoryId}`
+    );
+    console.log("getSkillsOnJD API", res.data.data);
+    return res.data.data;
+  } catch (error) {
+    console.error("getSkillsOnJD API error", error);
+    throw error;
+  }
+}
+
 // -------------------------------------------- favorite
 
 // 내가 찜한 영상 목록 조회
@@ -51,6 +65,17 @@ export const getFavoritVideo = async (page) => {
   }
 };
 // -------------------------------------------- job_category
+//직군 별 직무 조회
+export const getJobCategory = async () => {
+  try {
+    const res = await instance.get("/api/v1/job-categories");
+    console.log("getJobCategory", res);
+    return res.data.data;
+  } catch (error) {
+    console.error("getJobCategory API", error);
+    throw error;
+  }
+};
 // -------------------------------------------- coffeechat
 
 //내가 신청한 커피챗 목록 조회
@@ -90,4 +115,16 @@ export const getCoffeeChatDetail = async (id) => {
 
 //커피챗 신청
 // -------------------------------------------- member
+//최종 회원 정보 등록
+export async function registerUserInfo(userInfo) {
+  try {
+    const res = await instance.post("/api/v1/register", userInfo);
+    console.log("registerUserInfo API", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("registerUserInfo API error", error);
+    throw error;
+  }
+}
+
 // -------------------------------------------- faq

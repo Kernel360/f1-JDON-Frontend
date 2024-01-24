@@ -63,25 +63,24 @@ export const duplicateCheckButtonStyle = {
 export const datePickerContainer = (birthday) => ({
   m: "10px auto",
   border: "1px solid",
-  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
   borderColor: birthday ? "#6482FF" : theme.palette.primary.gray500, // 조건에 따른 색상 변경
   borderRadius: "10px",
 });
 export const datePicker = (birthday) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  flexGrow: 1,
   "& .MuiInputBase-root": {
-    background: "red",
     display: "flex",
-    width: "1000px",
-    flexGow: 1,
+    justifyContent: "space-between",
     color: birthday
       ? theme.palette.primary.main
       : theme.palette.primary.gray500,
   },
   "& .MuiOutlinedInput-root": {
     border: "none",
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
   },
   "& .MuiOutlinedInput-notchedOutline": {
     border: "none",
