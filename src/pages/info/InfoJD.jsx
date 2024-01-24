@@ -1,14 +1,14 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { infoBasicStyles } from "./InfoStyles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function InFoJD({ jd, onChange }) {
-  const [value, setValue] = useState({ jd });
+function InFoJD({ jobCategoryId, step, onChange, validate }) {
+  const [value, setValue] = useState({ jobCategoryId });
   const handleChange = (field, newValue) => {
-    console.log(value);
     setValue((prev) => ({ ...prev, [field]: newValue }));
     onChange({ [field]: newValue });
   };
+
   return (
     <>
       <Typography width="100%" sx={infoBasicStyles.typographyTitle}>
@@ -33,7 +33,7 @@ function InFoJD({ jd, onChange }) {
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => handleChange("jd", "Front-end")}
+                onClick={() => handleChange("jobCategoryId", "1")}
                 sx={infoBasicStyles.genderButton}
               >
                 Front-end
@@ -43,7 +43,7 @@ function InFoJD({ jd, onChange }) {
               <Button
                 variant="outlined"
                 fullWidth
-                onClick={() => handleChange("jd", "Back-end")}
+                onClick={() => handleChange("jobCategoryId", "2")}
                 sx={infoBasicStyles.genderButton}
               >
                 Back-end

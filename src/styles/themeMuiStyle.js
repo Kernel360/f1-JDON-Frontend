@@ -27,5 +27,17 @@ export const theme = createTheme({
         },
       },
     },
+
+    overrides: {
+      MuiToolbar: {
+        root: {
+          padding: "0",
+          // 미디어 쿼리를 사용하여 화면 크기가 600px 이상인 경우에만 패딩을 추가
+          [`@media (min-width: ${600}px)`]: {
+            padding: "0px",
+          },
+        },
+      },
+    },
   },
 });

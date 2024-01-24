@@ -1,57 +1,59 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Paper } from "@mui/material";
-function CoffeeChatCard({ name, content, price, img }) {
+import { BadgeStyle } from "./CardStyle";
+import { useNavigate, useParams } from "react-router-dom";
+
+function CoffeeChatCard({ data }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`./${data.coffeechatId}`);
+  };
   return (
     <Paper
+      onClick={handleClick}
       elevation={0}
       sx={{
+        pointer: "cursor",
         my: 1,
         border: "1px solid #BCBCC4",
         borderRadius: "8px",
         height: "220px",
         position: "relative",
+        opacity: data.status === "종료" ? 0.4 : 1,
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px",
-          width: "fit-content",
-          background: "#FFEBC3",
-          borderRadius: "4px",
-          padding: "2px 4px",
-          fontSize: "12px",
-          color: "#323236",
-          fontWeight: 500,
-        }}
-      >
-        모집중
-      </div>
+      <div style={BadgeStyle(data.status)}>{data.status}</div>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           gap: "14px",
-          padding: "30px 10px",
-
+          padding: "20px 16px",
           height: "100%",
         }}
       >
+        <Typography variant="body2" color="#9A9AA1" sx={{ display: "flex" }}>
+          {data.nickname}
+        </Typography>
         <Typography
-          variant="body2"
-          component="div"
-          color="#9A9AA1"
-          sx={{ display: "flex" }}
+          color="#545459"
+          fontWeight="600"
+          sx={{
+            display: "-webkit-box",
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 2, // 이 값으로 표시할 줄 수를 설정합니다.
+            textOverflow: "ellipsis",
+            height: 45,
+            fontSize: "16px",
+          }}
         >
-          nickname
+          {data.title}
         </Typography>
-        <Typography color="#545459" fontWeight="500">
-          커피챗 제목의 예시
-        </Typography>
-        <Typography variant="body2" component="div" color="#9A9AA1">
-          일시: 2024. 01 . 01
+        <Typography variant="body2" color="#9A9AA1" fontSize="13px">
+          <div>일시: {data.meetDate.split(" ")[0].replace(/-/g, ".")}</div>
+          <div>시간: {data.meetDate.split(" ")[1]}</div>
         </Typography>
       </Box>
       <Typography
@@ -61,13 +63,14 @@ function CoffeeChatCard({ name, content, price, img }) {
         borderRadius="999px"
         sx={{
           position: "absolute",
-          bottom: 30,
-          left: "10px",
+          bottom: 20,
+          left: "16px",
           width: "fit-content",
           padding: "3px 6px",
+          fontSize: "12px",
         }}
       >
-        backend
+        {data.job}
       </Typography>
     </Paper>
   );

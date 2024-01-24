@@ -1,6 +1,14 @@
 import { theme } from "../../styles/themeMuiStyle";
 
-// infoBasicStyles.js 파일
+export const InfoStyle = {
+  FrameContainer: {
+    paddingTop: 6,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+};
+
 export const infoBasicStyles = {
   typographyTitle: {
     fontSize: 24,
@@ -21,18 +29,6 @@ export const infoBasicStyles = {
     width: "100%",
   },
 
-  // datePicker: {
-  //   "& .MuiInputBase-root": { flexGrow: 1 },
-  //   "& .MuiOutlinedInput-root": {
-  //     border: "none",
-  //     display: "flex",
-  //     width: "100%",
-  //     justifyContent: "space-between",
-  //   },
-  //   "& .MuiOutlinedInput-notchedOutline": {
-  //     border: "none",
-  //   },
-  // },
   genderButton: {
     height: 56,
     borderRadius: "10px",
@@ -42,6 +38,11 @@ export const infoBasicStyles = {
       backgroundColor: "#E2E7FF",
       color: "#6482FF",
     },
+  },
+  clickedGenderButton: {
+    backgroundColor: "#E2E7FF",
+    color: "#6482FF",
+    borderColor: theme.palette.primary.main,
   },
   genderBtnContainer: {
     justifyContent: "space-between",
@@ -58,17 +59,20 @@ export const duplicateCheckButtonStyle = {
   fontSize: "12px",
   padding: "7px",
 };
+
 export const datePickerContainer = (birthday) => ({
   m: "10px auto",
-  width: "100%",
   border: "1px solid",
+  width: "100%",
   borderColor: birthday ? "#6482FF" : theme.palette.primary.gray500, // 조건에 따른 색상 변경
   borderRadius: "10px",
-  "& .MuiFormControl-root": { width: "100%" },
 });
 export const datePicker = (birthday) => ({
   "& .MuiInputBase-root": {
-    flexGrow: 1,
+    background: "red",
+    display: "flex",
+    width: "1000px",
+    flexGow: 1,
     color: birthday
       ? theme.palette.primary.main
       : theme.palette.primary.gray500,
@@ -100,18 +104,18 @@ export const InfoSkillStyles = {
   },
 };
 
-export const ChipStyle = (click, selectedCount) => ({
-  color: click ? "#6482FF" : "#ADADAD",
-  borderColor: click ? "#6482FF" : "#ADADAD",
-  background: click ? "#E2E7FF" : "",
+export const ChipStyle = (selected, chip) => ({
+  color: selected.includes(chip) ? "#6482FF" : "#ADADAD",
+  borderColor: selected.includes(chip) ? "#6482FF" : "#ADADAD",
+  background: selected.includes(chip) ? "#E2E7FF" : "",
   fontSize: "14px",
   padding: "4px",
   height: "38px",
   borderRadius: "999px",
   "&&:hover": {
-    background: "#E2E7FF",
-    color: "#6482FF",
-    borderColor: "#6482FF",
+    background: selected.includes(chip) ? "#E2E7FF" : "white",
+    color: selected.includes(chip) ? "#6482FF" : "#ADADAD",
+    borderColor: selected.includes(chip) ? "#6482FF" : "#ADADAD",
   },
 });
 
@@ -142,5 +146,20 @@ export const nicknameTextField = (value) => ({
       color: theme.palette.primary.gray500, // 플레이스홀더의 색상
       opacity: 1, // 브라우저마다 다른 플레이스홀더 투명도 처리를 일관되게 함
     },
+  },
+});
+
+export const skillsButton = (value) => ({
+  margin: "12px auto",
+  padding: "16px 10px",
+  borderRadius: "10px",
+  border: `1px solid ${theme.palette.primary.gray500}`,
+  textalign: "left",
+  fontSize: "16px",
+  // color: "#6482FF",
+  color: theme.palette.primary.gray500,
+  "&:hover": {
+    border: `1px solid ${theme.palette.primary.main}`,
+    color: theme.palette.primary.main,
   },
 });

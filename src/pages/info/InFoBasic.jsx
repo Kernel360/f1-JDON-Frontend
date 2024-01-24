@@ -19,9 +19,9 @@ import {
   nicknameTextField,
 } from "./InfoStyles";
 
-function InFoBasic({ nickname, birthday, sex, onChange }) {
+function InFoBasic({ nickname, birth, sex, onChange }) {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [value, setValue] = useState({ nickname, birthday, sex });
+  const [value, setValue] = useState({ nickname, birth, sex });
 
   const handleInputChange = (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
@@ -30,11 +30,11 @@ function InFoBasic({ nickname, birthday, sex, onChange }) {
 
   const handleDateChange = (newValue) => {
     setSelectedDate(newValue);
-    handleInputChange("birthday", newValue);
+    handleInputChange("birth", newValue);
   };
 
   const handleSexChange = (newSex) => {
-    handleInputChange("sex", newSex);
+    handleInputChange("gender", newSex);
   };
 
   return (
@@ -52,11 +52,9 @@ function InFoBasic({ nickname, birthday, sex, onChange }) {
             required
             fullWidth
             InputLabelProps={{ shrink: true }}
-            id="nickname"
             name="nickname"
-            autoComplete="nickname"
             placeholder="사용하실 닉네임을 입력해주세요"
-            onChange={(e) => handleInputChange("nickname", e.target.value)}
+            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
             sx={nicknameTextField(value.nickname)}
             InputProps={{
               endAdornment: (
@@ -68,14 +66,12 @@ function InFoBasic({ nickname, birthday, sex, onChange }) {
                 </InputAdornment>
               ),
             }}
-          >
-            <button style={{ width: "10px", height: "20px" }}>중복확인</button>
-          </TextField>
+          ></TextField>
         </Box>
 
         <Box>
           <FormLabel>생일</FormLabel>
-          <Grid container sx={datePickerContainer(value.birthday)}>
+          <Grid container sx={datePickerContainer(value.birth)}>
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
               adapterLocale={format}
@@ -84,7 +80,7 @@ function InFoBasic({ nickname, birthday, sex, onChange }) {
                 value={selectedDate}
                 inputFormat="yyyy.MM.dd"
                 onChange={handleDateChange}
-                sx={datePicker(value.birthday)}
+                sx={datePicker(value.birth)}
                 renderInput={(params) => (
                   <TextField {...params} fullWidth sx={{ flexGrow: 1 }} />
                 )}
