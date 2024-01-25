@@ -43,10 +43,11 @@ export function Main() {
       try {
         const data = await getHotSkills();
         const hotSkillsData = data.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
-        //console.log("getHotSkills 확인중", data);
+        console.log("getHotSkills 확인중", hotSkillsData);
         setHotSkills(hotSkillsData);
-        setSelectedChip(hotSkillsData[0].keyword);
-        const lectureData = await getLecture(1);
+        console.log(hotSkillsData[0].id);
+        const lectureData = await getLecture(hotSkillsData[0].id);
+        console.log("getHotSkills 확인중", lectureData);
         setLecture((prev) => [...prev, ...lectureData.lectureList]);
         console.log(lecture);
         setCompanies(lectureData.jdList);

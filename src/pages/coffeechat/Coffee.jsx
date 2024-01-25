@@ -4,7 +4,6 @@ import CoffeeChatCard from "../../components/common/card/CoffeeChatCard";
 import SearchBar from "../../components/common/search-bar/SearchBar";
 import { Filters } from "../../components/common/filters/Filters";
 import { useNavigate } from "react-router-dom";
-import { MockData } from "./MockData";
 import { useEffect, useState } from "react";
 import { getCoffeeChat } from "../../api/api";
 
@@ -17,7 +16,6 @@ export function Coffee() {
       try {
         const data = await getCoffeeChat(1);
         setCoffeeData((prev) => [...prev, ...data]);
-        //console.log(coffeeData);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }

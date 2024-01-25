@@ -25,13 +25,27 @@ export async function getHotSkills() {
 
 //기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
 
-export async function getLecture({ skillId }) {
+export async function getLecture(skillId) {
   try {
-    const res = await instance.get(`/api/v1/skills/search?${skillId}`);
-    console.log("getLecture API", res.data.data);
+    const res = await instance.get(`/api/v1/skills/search?skillId=${skillId}`);
+    console.log("getLecture API", res.data);
     return res.data.data;
   } catch (error) {
     console.error("getLecture API error", error);
+    throw error;
+  }
+}
+
+//직무 별 기술스택 조회하기
+export async function getSkillsOnJD(jobCategoryId) {
+  try {
+    const res = await instance.get(
+      `/api/v1/skills/job-category/${jobCategoryId}`
+    );
+    //  console.log("getSkillsOnJD API", res.data.data);
+    return res.data.data;
+  } catch (error) {
+    console.error("getSkillsOnJD API error", error);
     throw error;
   }
 }
@@ -51,6 +65,16 @@ export const getFavoritVideo = async (page) => {
   }
 };
 // -------------------------------------------- job_category
+//직군 별 직무 조회
+export const getJobCategory = async () => {
+  try {
+    const res = await instance.get("/api/v1/job-categories");
+    return res.data.data;
+  } catch (error) {
+    console.error("getJobCategory API", error);
+    throw error;
+  }
+};
 // -------------------------------------------- coffeechat
 
 //내가 신청한 커피챗 목록 조회
@@ -90,4 +114,29 @@ export const getCoffeeChatDetail = async (id) => {
 
 //커피챗 신청
 // -------------------------------------------- member
+//최종 회원 정보 등록
+export async function registerUserInfo(userInfo) {
+  try {
+    const res = await instance.post("/api/v1/register", userInfo);
+    console.log("registerUserInfo API", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("registerUserInfo API error", error);
+    throw error;
+  }
+}
+
+//닉네임 중복 확인
+export async function checkNicknameDuplicate(nickName) {
+  try {
+    console.log(nickName);
+    const res = await instance.post("/api/v1/nickname/duplicate", { nickName });
+    console.log("checkNicknameDuplicate API", res.data);
+    return true;
+  } catch (error) {
+    console.log("checkNicknameDuplicate API error", error);
+    throw error;
+  }
+}
+
 // -------------------------------------------- faq

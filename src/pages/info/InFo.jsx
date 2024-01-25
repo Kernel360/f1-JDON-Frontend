@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom/dist";
+import { useLocation, useNavigate } from "react-router-dom/dist";
 import InFoBasic from "./InFoBasic";
 import InFoJD from "./InfoJD";
 import InfoSkill from "./InfoSkill";
@@ -10,47 +10,132 @@ import ProgressBar from "../../components/common/Progressbar";
 import NavigationButtons from "../../components/common/navigation-btn/NavigationBtn";
 import { InfoStyle } from "./InfoStyles";
 import Done from "./Done";
-
-const INITIAL_DATA = {
-  nickname: "",
-  birth: "",
-  gender: "",
-  jobCategoryId: "",
-  skillList: [],
-};
+import { getJobCategory, registerUserInfo } from "../../api/api";
+import { userInfo } from "../../recoil/atoms";
+import { useRecoilState } from "recoil";
 
 export default function Info() {
   const [step, setStep] = useState(1);
-  const [data, setData] = useState(INITIAL_DATA);
+  const [data, setData] = useRecoilState(userInfo);
+  const [jobCategory, setJobCategory] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (value) => {
     setData((prev) => ({ ...prev, ...value }));
   };
 
   const handleNextBtn = () => {
-    if (step === 1) {
-      if (data.nickname && data.birth && data.gender) {
-        setStep(step + 1);
-      } else alert("값을 다 입력하세요");
-    } else if (step === 2) {
-      if (!data.jobCategoryId) alert("직무를 선택해주세요");
-      else setStep(step + 1);
-    } else if (step === 3) {
-      if (data.skillList < 3) alert("직무를 선택해주세요");
-      else setStep(step + 1);
-    } else setStep(step + 1);
+    const validateStep = () => {
+      if (step === 1 && !(data.nickname && data.birth && data.gender)) {
+        alert("값을 다 입력하세요");
+        return false;
+      }
+      if (step === 2 && !data.jobCategoryId) {
+        alert("직무를 선택해주세요");
+        return false;
+      }
+      if (step === 3 && data.skillList.length < 3) {
+        alert("최소 3개 이상의 기술을 선택하세요");
+        return false;
+      }
+      return true;
+    };
+
+    if (validateStep()) {
+      setStep(step + 1);
+    }
   };
 
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   const value = searchParams.get("value");
+  //   const hmac = searchParams.get("hmac");
+  //   if (value && hmac) {
+  //     handleChange({ encrypted: value, hmac: hmac });
+  //   }
+  // }, [location]);
+
   useEffect(() => {
+    console.log(data);
     localStorage.setItem("userInfo", []);
     if (step === 0) {
       navigate("../");
     }
     if (step === 4) {
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      const registerData = async () => {
+        try {
+          const response = await registerUserInfo(data);
+          console.log("회원 정보 등록 성공:", response);
+          localStorage.setItem("userInfo", JSON.stringify(data));
+          navigate("/main");
+        } catch (error) {
+          console.error("회원 정보 등록 실패:", error);
+          navigate("/fail");
+        }
+      };
+      registerData();
     }
-  });
+  }, [step, data, navigate]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getJobCategory();
+        setJobCategory(data.jobGroupList[0].jobCategoryList);
+      } catch (error) {
+        console.error("Error fetching hot skills:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const renderStepComponent = () => {
+    switch (step) {
+      case 1:
+        return (
+          <>
+            <InFoBasic step={step} onChange={handleChange} />
+            <NavigationButtons
+              step={step}
+              isActive={data.nickname && data.birth && data.gender}
+              onBefore={() => setStep(step - 1)}
+              onNext={handleNextBtn}
+            />
+          </>
+        );
+      case 2:
+        return (
+          <>
+            <InFoJD
+              jobCategoryId={data.jobCategoryId}
+              jobCategory={jobCategory}
+              onChange={handleChange}
+            />
+            <NavigationButtons
+              step={step}
+              isActive={data.jobCategoryId}
+              onBefore={() => setStep(step - 1)}
+              onNext={handleNextBtn}
+            />
+          </>
+        );
+      case 3:
+        return (
+          <>
+            <InfoSkill step={step} onChange={handleChange} />
+            <NavigationButtons
+              step={step}
+              isActive={data.skillList.length > 2}
+              onBefore={() => setStep(step - 1)}
+              onNext={handleNextBtn}
+            />
+          </>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
@@ -58,42 +143,9 @@ export default function Info() {
       <Container maxWidth="sm">
         <CssBaseline />
         {step < 4 && (
-          <Box sx={InfoStyle.FrameContainer}>
-            {step === 1 && (
-              <InFoBasic
-                step={step}
-                nickname={data.nickname}
-                birth={data.birth}
-                gender={data.gender}
-                onChange={handleChange}
-              ></InFoBasic>
-            )}
-            {step === 2 && (
-              <InFoJD
-                step={step}
-                validate={data.jobCategoryId ? true : false}
-                jobCategoryId={data.jobCategoryId}
-                onChange={handleChange}
-              ></InFoJD>
-            )}
-            {step === 3 && (
-              <InfoSkill
-                step={step}
-                skills={data.skillList}
-                jobCategoryId={data.jobCategoryId}
-                onChange={handleChange}
-              ></InfoSkill>
-            )}
-            {step < 4 && (
-              <NavigationButtons
-                step={step}
-                onBefore={() => setStep(step - 1)}
-                onNext={handleNextBtn}
-              ></NavigationButtons>
-            )}
-          </Box>
+          <Box sx={InfoStyle.FrameContainer}>{renderStepComponent()}</Box>
         )}
-        {step === 4 && <Done></Done>}
+        {step === 4 && <Done />}
       </Container>
     </>
   );
