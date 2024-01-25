@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Collapse, Typography, Box, IconButton } from "@mui/material";
 import vector from "../../assets/images/vector.svg";
 
-const ToggleList = ({ FAQData }) => {
+const ToggleList = ({ datas }) => {
   // 재귀적인 데이터 구조
-
+  console.log("check", datas);
   return (
     <div style={{ marginTop: 42, backgroundcolor: "pink" }}>
-      {lists.map((faq) => (
-        <FAQItem key={faq.id} {...faq} />
+      {datas.map((data) => (
+        <FAQItem key={data.id} {...data} />
       ))}
     </div>
   );
