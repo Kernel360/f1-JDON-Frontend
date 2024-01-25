@@ -7,7 +7,7 @@ function CompanySection({ selectdChip, data }) {
     <Box sx={{ mt: 12 }}>
       <Typography sx={MainStyles.TypoGraphy}>
         <span style={{ color: "black", fontWeight: 600, margin: "2px 8px" }}>
-          {selectdChip}
+          {selectdChip.keyword}
         </span>
         에 관심있는 회사에요!
       </Typography>
