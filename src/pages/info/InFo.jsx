@@ -10,23 +10,14 @@ import ProgressBar from "../../components/common/Progressbar";
 import NavigationButtons from "../../components/common/navigation-btn/NavigationBtn";
 import { InfoStyle } from "./InfoStyles";
 import Done from "./Done";
-import { registerUserInfo } from "../../api/api";
+import { getJobCategory, registerUserInfo } from "../../api/api";
 import { userInfo } from "../../recoil/atoms";
 import { useRecoilState } from "recoil";
-
-// const INITIAL_DATA = {
-//   encrypted: "",
-//   hmac: "",
-//   nickname: "",
-//   birth: "",
-//   gender: "",
-//   jobCategoryId: "",
-//   skillList: [],
-// };
 
 export default function Info() {
   const [step, setStep] = useState(1);
   const [data, setData] = useRecoilState(userInfo);
+  const [jobCategory, setJobCategory] = useState();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -56,19 +47,14 @@ export default function Info() {
     }
   };
 
-  const handleOAuthKakao = async (value, hmac) => {
-    console.log("handleOAuthKakao 시작", value, hmac);
-  };
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const value = searchParams.get("value");
-    const hmac = searchParams.get("hmac");
-    if (value && hmac) {
-      handleChange({ encrypted: value, hmac: hmac });
-      handleOAuthKakao(value, hmac);
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   const value = searchParams.get("value");
+  //   const hmac = searchParams.get("hmac");
+  //   if (value && hmac) {
+  //     handleChange({ encrypted: value, hmac: hmac });
+  //   }
+  // }, [location]);
 
   useEffect(() => {
     console.log(data);
@@ -82,7 +68,7 @@ export default function Info() {
           const response = await registerUserInfo(data);
           console.log("회원 정보 등록 성공:", response);
           localStorage.setItem("userInfo", JSON.stringify(data));
-          navigate("/success");
+          navigate("/main");
         } catch (error) {
           console.error("회원 정보 등록 실패:", error);
           navigate("/fail");
@@ -92,35 +78,59 @@ export default function Info() {
     }
   }, [step, data, navigate]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getJobCategory();
+        setJobCategory(data.jobGroupList[0].jobCategoryList);
+      } catch (error) {
+        console.error("Error fetching hot skills:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const renderStepComponent = () => {
     switch (step) {
       case 1:
         return (
-          <InFoBasic
-            step={step}
-            nickname={data.nickname}
-            birth={data.birth}
-            gender={data.gender}
-            onChange={handleChange}
-          />
+          <>
+            <InFoBasic step={step} onChange={handleChange} />
+            <NavigationButtons
+              step={step}
+              isActive={data.nickname && data.birth && data.gender}
+              onBefore={() => setStep(step - 1)}
+              onNext={handleNextBtn}
+            />
+          </>
         );
       case 2:
         return (
-          <InFoJD
-            step={step}
-            validate={!!data.jobCategoryId}
-            jobCategoryId={data.jobCategoryId}
-            onChange={handleChange}
-          />
+          <>
+            <InFoJD
+              jobCategoryId={data.jobCategoryId}
+              jobCategory={jobCategory}
+              onChange={handleChange}
+            />
+            <NavigationButtons
+              step={step}
+              isActive={data.jobCategoryId}
+              onBefore={() => setStep(step - 1)}
+              onNext={handleNextBtn}
+            />
+          </>
         );
       case 3:
         return (
-          <InfoSkill
-            step={step}
-            skills={data.skillList}
-            jobCategoryId={data.jobCategoryId}
-            onChange={handleChange}
-          />
+          <>
+            <InfoSkill step={step} onChange={handleChange} />
+            <NavigationButtons
+              step={step}
+              isActive={data.skillList.length > 2}
+              onBefore={() => setStep(step - 1)}
+              onNext={handleNextBtn}
+            />
+          </>
         );
       default:
         return null;
@@ -133,16 +143,7 @@ export default function Info() {
       <Container maxWidth="sm">
         <CssBaseline />
         {step < 4 && (
-          <Box sx={InfoStyle.FrameContainer}>
-            {renderStepComponent()}
-            {step < 4 && (
-              <NavigationButtons
-                step={step}
-                onBefore={() => setStep(step - 1)}
-                onNext={handleNextBtn}
-              />
-            )}
-          </Box>
+          <Box sx={InfoStyle.FrameContainer}>{renderStepComponent()}</Box>
         )}
         {step === 4 && <Done />}
       </Container>

@@ -25,10 +25,10 @@ export async function getHotSkills() {
 
 //기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
 
-export async function getLecture({ skillId }) {
+export async function getLecture(skillId) {
   try {
-    const res = await instance.get(`/api/v1/skills/search?${skillId}`);
-    console.log("getLecture API", res.data.data);
+    const res = await instance.get(`/api/v1/skills/search?skillId=${skillId}`);
+    console.log("getLecture API", res.data);
     return res.data.data;
   } catch (error) {
     console.error("getLecture API error", error);
@@ -37,12 +37,12 @@ export async function getLecture({ skillId }) {
 }
 
 //직무 별 기술스택 조회하기
-export async function getSkillsOnJD({ jobCategoryId }) {
+export async function getSkillsOnJD(jobCategoryId) {
   try {
     const res = await instance.get(
       `/api/v1/skills/job-category/${jobCategoryId}`
     );
-    console.log("getSkillsOnJD API", res.data.data);
+    //  console.log("getSkillsOnJD API", res.data.data);
     return res.data.data;
   } catch (error) {
     console.error("getSkillsOnJD API error", error);
@@ -69,7 +69,6 @@ export const getFavoritVideo = async (page) => {
 export const getJobCategory = async () => {
   try {
     const res = await instance.get("/api/v1/job-categories");
-    console.log("getJobCategory", res);
     return res.data.data;
   } catch (error) {
     console.error("getJobCategory API", error);
@@ -123,6 +122,19 @@ export async function registerUserInfo(userInfo) {
     return res.data;
   } catch (error) {
     console.error("registerUserInfo API error", error);
+    throw error;
+  }
+}
+
+//닉네임 중복 확인
+export async function checkNicknameDuplicate(nickName) {
+  try {
+    console.log(nickName);
+    const res = await instance.post("/api/v1/nickname/duplicate", { nickName });
+    console.log("checkNicknameDuplicate API", res.data);
+    return true;
+  } catch (error) {
+    console.log("checkNicknameDuplicate API error", error);
     throw error;
   }
 }

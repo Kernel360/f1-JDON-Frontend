@@ -15,6 +15,7 @@ import { Main } from "./pages/mainpage/Main";
 import Coffeeopen from "./pages/coffeechat/CoffeeOpen";
 import Withdrawal from "./pages/Withdrawal";
 import FavoritesVideo from "./pages/FavoritesVideo";
+import KakaoRedirectPage from "./pages/sign-in/KakaoRedirectPage";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
               <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
               <Route exact path="/mypage/video" element={<FavoritesVideo />} />
               <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
-              <Route path="/oauth/info" element={<Info />} />
+              <Route path="/oauth/info" element={<KakaoRedirectPage />} />
               <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
             </Routes>
           </Layout>

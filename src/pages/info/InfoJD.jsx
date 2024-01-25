@@ -1,12 +1,11 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { infoBasicStyles } from "./InfoStyles";
-import { useEffect, useState } from "react";
-import { getJobCategory } from "../../api/api";
+import { OptionButton, infoBasicStyles } from "./InfoStyles";
+import { userInfo } from "../../recoil/atoms";
+import { useRecoilState } from "recoil";
 
-function InFoJD({ jobCategoryId, step, onChange }) {
-  const [value, setValue] = useState({ jobCategoryId });
-  const newValue = [];
-  const handleChange = (field, newValue) => {
+function InFoJD({ onChange, jobCategory }) {
+  const [value, setValue] = useRecoilState(userInfo);
+  const handleInputChange = (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
     onChange({ [field]: newValue });
   };
@@ -21,36 +20,19 @@ function InFoJD({ jobCategoryId, step, onChange }) {
       </Typography>
       <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <Box>
-          <Grid
-            container
-            sx={{
-              justifyContent: "space-between",
-              m: "10px auto",
-              "& .MuiGrid-item": {
-                padding: 0,
-              },
-            }}
-          >
-            <Grid item xs={5.5}>
-              <Button
-                variant="outlined"
-                fullWidth
-                onClick={() => handleChange("jobCategoryId", "1")}
-                sx={infoBasicStyles.genderButton}
-              >
-                {newValue[0].name}
-              </Button>
-            </Grid>
-            <Grid item xs={5.5}>
-              <Button
-                variant="outlined"
-                fullWidth
-                onClick={() => handleChange("jobCategoryId", "2")}
-                sx={infoBasicStyles.genderButton}
-              >
-                {newValue[1].name}
-              </Button>
-            </Grid>
+          <Grid container sx={infoBasicStyles.genderBtnContainer}>
+            {jobCategory.map((item) => (
+              <Grid item xs={5.5} key={item.id}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  onClick={() => handleInputChange("jobCategoryId", item.id)}
+                  sx={OptionButton(value.jobCategoryId === item.id)}
+                >
+                  {item.name}
+                </Button>
+              </Grid>
+            ))}
           </Grid>
         </Box>
       </Box>

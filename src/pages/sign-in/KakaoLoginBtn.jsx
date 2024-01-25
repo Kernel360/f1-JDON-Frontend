@@ -2,8 +2,7 @@ import { BtnStyle } from "../PageStyles";
 
 export function KaKaoLoginButton() {
   const handleLogin = () => {
-    window.location.href =
-      "http://43.201.221.251:1221/oauth2/authorization/kakao";
+    window.location.href = "https://jdon.kr/oauth2/authorization/kakao";
   };
 
   return (

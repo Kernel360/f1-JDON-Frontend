@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
+import { theme } from "../../../styles/themeMuiStyle";
 
-function NewBtn({ title, onClick }) {
+function NewBtn({ title, onClick, isActive }) {
   return (
     <Button
       type="submit"
@@ -10,11 +11,12 @@ function NewBtn({ title, onClick }) {
         mb: 2,
         p: "13px",
         borderRadius: "999px",
-        background: "#EBEBEB",
-        color: "#BCBCC4",
+        background: isActive ? theme.palette.primary.main : "#EBEBEB",
+        color: isActive ? "white" : "#BCBCC4",
         fontSize: "16px",
         "&:hover": {
-          color: "#ffffff",
+          background: theme.palette.primary.main,
+          color: "white",
         },
       }}
       onClick={onClick}
