@@ -1,8 +1,28 @@
 import React, { useState } from "react";
-import { Collapse, Typography, Box, IconButton } from "@mui/material";
-import vector from "../../assets/images/vector.svg";
+import {
+  Container,
+  Collapse,
+  Typography,
+  Box,
+  IconButton,
+} from "@mui/material";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AttachmentIcon from "@mui/icons-material/Attachment";
 
-const FAQItem = ({ id, title, content, children }) => {
+import vector from "../../assets/images/vector.svg";
+import id from "date-fns/locale/id";
+
+const ToggleList = ({ datas }) => {
+  return (
+    <div style={{ marginTop: 42 }}>
+      {datas.map((data) => (
+        <TitleItem key={data.id} {...data} />
+      ))}
+    </div>
+  );
+};
+const TitleItem = ({ id, title, content, children }) => {
   const [showItem, setShowItem] = useState(false);
 
   const toggleItem = () => {
@@ -10,7 +30,7 @@ const FAQItem = ({ id, title, content, children }) => {
   };
 
   return (
-    <div>
+    <Container sx={{ marginBottom: 3 }}>
       <Box
         display="flex"
         alignItems="center"
@@ -18,9 +38,8 @@ const FAQItem = ({ id, title, content, children }) => {
         onClick={toggleItem}
         style={{
           cursor: "pointer",
-          paddingBottom: 32,
+          paddingBottom: 11,
           paddingLeft: "16px",
-          // marginBottom: "20px",
         }}
       >
         <IconButton size="small">
@@ -29,101 +48,76 @@ const FAQItem = ({ id, title, content, children }) => {
         <Typography
           component="h2"
           sx={{
-            fontSize: "16px",
+            fontSize: "18px",
           }}
         >
           {title}
         </Typography>
       </Box>
       <Collapse in={showItem}>
-        <Typography marginLeft={7} marginBottom={2}>
-          {content}
-        </Typography>
-        {children && (
-          <div
-            style={{
-              paddingLeft: "20px",
-              borderBottom: "1px solid #f0f0f0",
-              marginBottom: "20px",
-            }}
-          >
-            {children.map((child, index) => (
-              <FAQItem
-                key={child.id}
-                {...child}
-                style={{
-                  // borderBottom: "none",
-                  width: "100%",
-                }}
-              />
-            ))}
-          </div>
-        )}
+        <Box
+          sx={{
+            marginLeft: "50px",
+            border: "1.5px solid #E2E7FF",
+            borderRadius: "5px",
+            overflowY: "auto",
+            overflowX: "hidden",
+            maxHeight: "200px",
+          }}
+        >
+          <Typography marginLeft={7} marginBottom={2}>
+            {content}
+          </Typography>
+          {children && (
+            <Box>
+              {children.map((child, index) => (
+                <TextItem key={child.id} {...child} />
+              ))}
+            </Box>
+          )}
+        </Box>
       </Collapse>
-    </div>
+    </Container>
   );
 };
-
-const ToggleList = () => {
-  // 재귀적인 데이터 구조
-  const faqData = [
-    {
-      id: 1,
-      title: "FAQ",
-      // content: "FAQ 1의 내용입니다.",
-      children: [
-        {
-          id: 4,
-          title: "FAQ 하위 1",
-          content: "FAQ 하위 1의 내용입니다.",
-        },
-        {
-          id: 5,
-          title: "FAQ 하위 2",
-          content: "FAQ 하위 2의 내용입니다.",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "개인정보 수집 및 이용",
-      children: [
-        {
-          id: 6,
-          title: "개인정보 하위 1",
-          content: "개인정보 하위 1의 내용입니다.",
-        },
-        {
-          id: 7,
-          title: "개인정보 하위 2",
-          content: "개인정보 하위 2의 내용입니다.",
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: "서비스 이용 약관",
-      children: [
-        {
-          id: 8,
-          title: "서비스 하위 1",
-          content: "서비스 하위 1의 내용입니다.",
-        },
-        {
-          id: 9,
-          title: "서비스 하위 2",
-          content: "서비스 하위 2의 내용입니다.",
-        },
-      ],
-    },
-  ];
-
+const TextItem = ({ title, content }) => {
   return (
-    <div style={{ marginTop: 42, backgroundcolor: "pink" }}>
-      {faqData.map((faq) => (
-        <FAQItem key={faq.id} {...faq} />
-      ))}
-    </div>
+    <Box
+      key={id}
+      display="flex"
+      flexDirection="column"
+      sx={{
+        padding: "0px 15px 15px 35px",
+      }}
+    >
+      <Typography
+        component="h6"
+        sx={{
+          fontSize: "14px",
+          fontWeight: "bold",
+          marginBottom: "4px",
+        }}
+      >
+        {title}
+      </Typography>
+      {/* {Array.isArray(content) && */}
+
+      {/* content.map((text, index) => ( */}
+      <Typography
+        // key={index}
+        component="p"
+        sx={{
+          fontSize: "14px",
+          paddingLeft: "15px",
+          lineHeight: "1.6",
+          color: "#333",
+          whiteSpace: "pre-line",
+        }}
+      >
+        {content}
+      </Typography>
+      {/* ))} */}
+    </Box>
   );
 };
 
