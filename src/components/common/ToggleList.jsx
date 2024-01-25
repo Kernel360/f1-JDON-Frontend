@@ -2,6 +2,18 @@ import React, { useState } from "react";
 import { Collapse, Typography, Box, IconButton } from "@mui/material";
 import vector from "../../assets/images/vector.svg";
 
+const ToggleList = ({ FAQData }) => {
+  // 재귀적인 데이터 구조
+
+  return (
+    <div style={{ marginTop: 42, backgroundcolor: "pink" }}>
+      {lists.map((faq) => (
+        <FAQItem key={faq.id} {...faq} />
+      ))}
+    </div>
+  );
+};
+
 const FAQItem = ({ id, title, content, children }) => {
   const [showItem, setShowItem] = useState(false);
 
@@ -48,81 +60,11 @@ const FAQItem = ({ id, title, content, children }) => {
             }}
           >
             {children.map((child, index) => (
-              <FAQItem
-                key={child.id}
-                {...child}
-                style={{
-                  // borderBottom: "none",
-                  width: "100%",
-                }}
-              />
+              <FAQItem key={child.id} {...child} />
             ))}
           </div>
         )}
       </Collapse>
-    </div>
-  );
-};
-
-const ToggleList = () => {
-  // 재귀적인 데이터 구조
-  const faqData = [
-    {
-      id: 1,
-      title: "FAQ",
-      // content: "FAQ 1의 내용입니다.",
-      children: [
-        {
-          id: 4,
-          title: "FAQ 하위 1",
-          content: "FAQ 하위 1의 내용입니다.",
-        },
-        {
-          id: 5,
-          title: "FAQ 하위 2",
-          content: "FAQ 하위 2의 내용입니다.",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "개인정보 수집 및 이용",
-      children: [
-        {
-          id: 6,
-          title: "개인정보 하위 1",
-          content: "개인정보 하위 1의 내용입니다.",
-        },
-        {
-          id: 7,
-          title: "개인정보 하위 2",
-          content: "개인정보 하위 2의 내용입니다.",
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: "서비스 이용 약관",
-      children: [
-        {
-          id: 8,
-          title: "서비스 하위 1",
-          content: "서비스 하위 1의 내용입니다.",
-        },
-        {
-          id: 9,
-          title: "서비스 하위 2",
-          content: "서비스 하위 2의 내용입니다.",
-        },
-      ],
-    },
-  ];
-
-  return (
-    <div style={{ marginTop: 42, backgroundcolor: "pink" }}>
-      {faqData.map((faq) => (
-        <FAQItem key={faq.id} {...faq} />
-      ))}
     </div>
   );
 };

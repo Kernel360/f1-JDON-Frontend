@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Box,
@@ -15,6 +15,7 @@ import BottomNav from "../components/common/BottomNav";
 import edit from "../assets/images/icn_edit.svg";
 // import BottomNav from "../components/common/BottomNav";
 import { Link } from "react-router-dom";
+import { getFAQ } from "../api/api";
 
 const ProfileSection = () => (
   <Grid
@@ -107,6 +108,21 @@ const ButtonSection = () => (
 );
 
 export default function MyPage() {
+  const [FAQ, setFAQ] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getFAQ();
+        const FAQData = data.faqList || [];
+        setFAQ(FAQData);
+        console.log("faq", data.faqList);
+      } catch (error) {
+        console.error("faq 에러", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <Container
       maxWidth="md"
@@ -130,7 +146,7 @@ export default function MyPage() {
       </Typography>
       <ProfileSection />
       <ButtonSection />
-      <ToggleList />
+      <ToggleList FAQData={FAQ} />
       <Box sx={{ flexGrow: 1 }} />
       <Button
         position="sticky"

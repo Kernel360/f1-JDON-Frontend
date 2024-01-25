@@ -41,12 +41,27 @@ export async function getLecture({ skillId }) {
 // 내가 찜한 영상 목록 조회
 export const getFavoritVideo = async (page) => {
   try {
-    console.log("page check", page);
+    // console.log("page check", page);
     const res = await instance.get(`/api/v1/favorites?page=${page}&size=12`);
     console.log("pageCnt", res.headers);
     return res.data;
   } catch (error) {
     console.error("getFavoritVideo API", error);
+    throw error;
+  }
+};
+
+// -------------------------------------------- faq
+
+// faq 목록조회
+
+export const getFAQ = async () => {
+  try {
+    // console.log("FAQ");
+    const res = await instance.get(`/api/v1/faqs`);
+    return res.data.data;
+  } catch (error) {
+    console.error("getFAQ API 통신에러", error);
     throw error;
   }
 };
