@@ -15,13 +15,13 @@ export const VideoCardStyle = {
   Title: {
     color: "#545459",
     fontWeight: "400",
-    fontSize: "16px",
+    fontSize: "14px",
     display: "-webkit-box",
     overflow: "hidden",
     WebkitBoxOrient: "vertical",
     WebkitLineClamp: 2, // 이 값으로 표시할 줄 수를 설정합니다.
     textOverflow: "ellipsis",
-    height: 35, // 이 값은 줄 수와 폰트 크기에 따라 조정될 수 있습니다.
+    height: 42, // 이 값은 줄 수와 폰트 크기에 따라 조정될 수 있습니다.
   },
   Instructor: {
     color: "#9A9AA1",

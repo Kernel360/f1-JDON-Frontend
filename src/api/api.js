@@ -8,6 +8,32 @@ const instance = axios.create({
   },
 });
 
+// -------------------------------------------- member
+//최종 회원 정보 등록
+export async function registerUserInfo(userInfo) {
+  try {
+    const res = await instance.post("/api/v1/register", userInfo);
+    console.log("registerUserInfo API", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("registerUserInfo API error", error);
+    throw error;
+  }
+}
+
+//닉네임 중복 확인
+export async function checkNicknameDuplicate(nickName) {
+  try {
+    console.log(nickName);
+    const res = await instance.post("/api/v1/nickname/duplicate", { nickName });
+    console.log("checkNicknameDuplicate API", res.data);
+    return true;
+  } catch (error) {
+    console.log("checkNicknameDuplicate API error", error);
+    throw error;
+  }
+}
+
 // -------------------------------------------- skill
 
 //요즘 뜨는 기술스택 조회
@@ -128,30 +154,5 @@ export const getCoffeeChatDetail = async (id) => {
 //커피챗 삭제
 
 //커피챗 신청
-// -------------------------------------------- member
-//최종 회원 정보 등록
-export async function registerUserInfo(userInfo) {
-  try {
-    const res = await instance.post("/api/v1/register", userInfo);
-    console.log("registerUserInfo API", res.data);
-    return res.data;
-  } catch (error) {
-    console.error("registerUserInfo API error", error);
-    throw error;
-  }
-}
-
-//닉네임 중복 확인
-export async function checkNicknameDuplicate(nickName) {
-  try {
-    console.log(nickName);
-    const res = await instance.post("/api/v1/nickname/duplicate", { nickName });
-    console.log("checkNicknameDuplicate API", res.data);
-    return true;
-  } catch (error) {
-    console.log("checkNicknameDuplicate API error", error);
-    throw error;
-  }
-}
 
 // -------------------------------------------- faq

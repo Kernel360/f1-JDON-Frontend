@@ -1,24 +1,33 @@
 import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import heart from "../../../assets/icons/heart.svg";
 import heartFilled from "../../../assets/icons/heart_filled.svg";
 import person from "../../../assets/icons/person.svg";
 import { useState } from "react";
 import { VideoCardStyle } from "./CardStyle";
-import { Link } from "react-router-dom";
+import "./../../../styles/animations.scss";
 
 function VideoCard({ data }) {
   const [isLiked, setIsLiked] = useState(false);
-  console.log(data);
+  //console.log(data);
 
-  const handleLikeClick = () => {
+  const handleLikeClick = (e) => {
+    e.preventDefault();
     setIsLiked((prevIsLiked) => !prevIsLiked);
   };
 
   return (
-    <Link href={data.lectureUrl} style={{ textDecoration: "none" }}>
+    <Link
+      href={data.lectureUrl}
+      style={{
+        textDecoration: "none",
+        background: "inherit !important",
+        outline: "none",
+        boxShadow: "none",
+      }}
+    >
       <Box sx={{ my: 1, pointer: "cursor", position: "relative" }}>
         <CardMedia
           component="img"
@@ -32,7 +41,12 @@ function VideoCard({ data }) {
           src={isLiked ? heartFilled : heart}
           alt="heart"
           onClick={handleLikeClick}
-          style={{ position: "absolute", top: 6, right: 6 }}
+          style={{
+            position: "absolute",
+            top: 6,
+            right: 6,
+            animation: isLiked ? "pop 0.3s ease" : "none",
+          }}
         />
         <Box sx={{ mt: 1 }}>
           <Typography sx={VideoCardStyle.Instructor}>
