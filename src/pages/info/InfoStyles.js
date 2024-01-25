@@ -29,16 +29,6 @@ export const infoBasicStyles = {
     width: "100%",
   },
 
-  genderButton: {
-    height: 56,
-    borderRadius: "10px",
-    borderColor: theme.palette.primary.gray500,
-    color: theme.palette.primary.gray500,
-    "&:hover": {
-      backgroundColor: "#E2E7FF",
-      color: "#6482FF",
-    },
-  },
   clickedGenderButton: {
     backgroundColor: "#E2E7FF",
     color: "#6482FF",
@@ -58,30 +48,41 @@ export const duplicateCheckButtonStyle = {
   color: theme.palette.primary.gray500,
   fontSize: "12px",
   padding: "7px",
+  border: "none",
 };
 
+export const OptionButton = (isSelected) => ({
+  height: 56,
+  borderRadius: "10px",
+  borderColor: isSelected ? "#6482FF" : theme.palette.primary.gray500,
+  color: isSelected ? "#6482FF" : theme.palette.primary.gray500,
+  backgroundColor: isSelected && "#E2E7FF",
+  "&:hover": {
+    backgroundColor: "#E2E7FF",
+    color: "#6482FF",
+  },
+});
 export const datePickerContainer = (birthday) => ({
   m: "10px auto",
   border: "1px solid",
-  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
   borderColor: birthday ? "#6482FF" : theme.palette.primary.gray500, // 조건에 따른 색상 변경
   borderRadius: "10px",
 });
 export const datePicker = (birthday) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  flexGrow: 1,
   "& .MuiInputBase-root": {
-    background: "red",
     display: "flex",
-    width: "1000px",
-    flexGow: 1,
+    justifyContent: "space-between",
     color: birthday
       ? theme.palette.primary.main
       : theme.palette.primary.gray500,
   },
   "& .MuiOutlinedInput-root": {
     border: "none",
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
   },
   "& .MuiOutlinedInput-notchedOutline": {
     border: "none",
@@ -120,20 +121,32 @@ export const ChipStyle = (selected, chip) => ({
 });
 
 export const nicknameTextField = (value) => ({
-  margin: "12px auto",
+  margin: "8px auto",
+  background: "none",
+  width: "100%",
+  "& input:-webkit-autofill": {
+    WebkitBoxShadow: "0 0 0 1000px white inset",
+    WebkitTextFillColor: "black", // 텍스트 색상을 여기서 조정
+  },
   "& .MuiOutlinedInput-root": {
     borderRadius: "10px", // 기본 테두리 두께
+    background: "white",
+    width: "100%",
     "& fieldset": {
+      background: "none",
+      width: "100%",
       borderColor: value
         ? theme.palette.primary.main
         : theme.palette.primary.gray500,
     },
     "&:hover fieldset": {
+      width: "100%",
       borderColor: value
         ? theme.palette.primary.main
         : theme.palette.primary.gray500,
     },
     "&.Mui-focused fieldset": {
+      width: "100%",
       borderWidth: "1px",
       borderColor: value
         ? theme.palette.primary.main
@@ -141,6 +154,7 @@ export const nicknameTextField = (value) => ({
     },
   },
   "& .MuiInputBase-input": {
+    width: "100%",
     color: "#6482FF", // 입력된 값의 색상
     "&::placeholder": {
       color: theme.palette.primary.gray500, // 플레이스홀더의 색상

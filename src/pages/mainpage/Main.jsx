@@ -14,8 +14,8 @@ const MY_SKILLS = [11111, 22, 333333, 4, 555555, 66, 7777777, 88, 999, 1000];
 
 export function Main() {
   const [value, setValue] = useState("1");
-  const [hotSkills, setHotSkills] = useState([]); // 빈 배열로 초기화
-  const [selectdChip, setSelectedChip] = useState();
+  const [hotSkills, setHotSkills] = useState([]);
+  const [selectdChip, setSelectedChip] = useState({});
   const [lecture, setLecture] = useState([]);
   const [companies, setCompanies] = useState([]);
   const scrollRef = useRef(null);
@@ -31,9 +31,15 @@ export function Main() {
     if (scrollContainer) {
       const scrollAmount = scrollContainer.clientWidth; // 현재 보이는 영역의 너비
       if (direction === "left") {
-        scrollContainer.scrollLeft -= scrollAmount; // 왼쪽으로 스크롤
+        scrollContainer.scrollTo({
+          left: scrollContainer.scrollLeft - scrollAmount,
+          behavior: "smooth",
+        });
       } else {
-        scrollContainer.scrollLeft += scrollAmount; // 오른쪽으로 스크롤
+        scrollContainer.scrollTo({
+          left: scrollContainer.scrollLeft + scrollAmount,
+          behavior: "smooth",
+        });
       }
     }
   };
@@ -43,19 +49,20 @@ export function Main() {
       try {
         const data = await getHotSkills();
         const hotSkillsData = data.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
-        //console.log("getHotSkills 확인중", data);
+        console.log("hotSkillsData 확인중", hotSkillsData);
         setHotSkills(hotSkillsData);
-        setSelectedChip(hotSkillsData[0].keyword);
-        const lectureData = await getLecture(1);
-        setLecture((prev) => [...prev, ...lectureData.lectureList]);
+        const lectureData = await getLecture(hotSkillsData[0].id);
+        console.log("lectureData 확인중", lectureData);
+        setLecture(lectureData.lectureList);
         console.log(lecture);
         setCompanies(lectureData.jdList);
+        console.log(companies);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [selectdChip]);
 
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
@@ -87,7 +94,8 @@ export function Main() {
               <Chip
                 key={skill.id}
                 onClick={() => {
-                  setSelectedChip(skill.keyword);
+                  setSelectedChip(skill);
+                  console.log(selectdChip);
                 }}
                 label={skill.keyword}
                 clickable={true}
@@ -119,7 +127,7 @@ export function Main() {
             direction="row"
             spacing={1}
             ref={scrollRef}
-            sx={MainStyles.ChipContainer}
+            sx={{ ...MainStyles.ChipContainer, scrollBehavior: "smooth" }}
           >
             {MY_SKILLS.map((skill, index) => (
               <Chip

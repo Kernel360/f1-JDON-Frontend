@@ -1,60 +1,48 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import { ChipStyle, InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
 import { useEffect, useState } from "react";
+import { getSkillsOnJD } from "../../api/api";
 
-const FRONT_CHIPS = [
-  "HTML",
-  "CSS",
-  "javascript",
-  "typescript",
-  "React",
-  "Next.js",
-  "Vue.js",
-  "Angular.js",
-  "Node.js",
-  "Redux",
-];
+import { userInfo } from "../../recoil/atoms";
+import { useRecoilState } from "recoil";
 
-const BACK_CHIPS = [
-  "Node.js",
-  "Express.js",
-  "Spring Boot",
-  "Django",
-  "Ruby on Rails",
-  "Flask",
-  "ASP.NET Core",
-  "Go (Golang)",
-  "Laravel",
-];
-
-const CHIP_MAP = {
-  1: FRONT_CHIPS,
-  2: BACK_CHIPS,
-};
-
-function InfoSkill({ jobCategoryId, skills, onChange }) {
-  const [selected, setSelected] = useState(skills);
+function InfoSkill({ onChange }) {
+  const [value, setValue] = useRecoilState(userInfo);
+  const [selected, setSelected] = useState(value.skillList);
+  const [skillsOnJd, setSkillsOnJd] = useState([]);
 
   const handleClick = (newChip) => {
-    setSelected((prevSelected) => {
-      if (prevSelected.includes(newChip)) {
-        return prevSelected.filter((chip) => chip !== newChip);
+    setSelected((prev) => {
+      if (prev.includes(newChip)) {
+        return prev.filter((chip) => chip !== newChip);
       } else {
-        if (prevSelected.length < 3) {
-          return [...prevSelected, newChip];
+        if (prev.length < 3) {
+          return [...prev, newChip];
         } else {
           alert("3개만 선택할 수 있습니다");
-          return prevSelected;
+          return prev;
         }
       }
     });
+    handleInputChange("skillList", selected);
+  };
+
+  const handleInputChange = async (field, newValue) => {
+    setValue((prev) => ({ ...prev, [field]: newValue }));
+    onChange({ [field]: newValue });
   };
 
   useEffect(() => {
-    onChange({ skillList: selected });
-  }, [selected, onChange]);
-
-  const chipsToRender = CHIP_MAP[jobCategoryId] || [];
+    const fetchSkill = async () => {
+      try {
+        const res = await getSkillsOnJD(Number(value.jobCategoryId));
+        setSkillsOnJd(res.skillList);
+      } catch (error) {
+        console.error("Error fetchSkill:", error);
+      }
+    };
+    fetchSkill();
+  });
 
   return (
     <>
@@ -73,15 +61,15 @@ function InfoSkill({ jobCategoryId, skills, onChange }) {
             flexWrap="wrap"
             sx={InfoSkillStyles}
           >
-            {chipsToRender.map((chip, i) => (
+            {skillsOnJd.map((chip, i) => (
               <Chip
                 key={i}
-                label={chip}
+                label={chip.keyword}
                 variant="outlined"
                 size="medium"
                 clickable={true}
-                onClick={() => handleClick(chip)}
-                sx={ChipStyle(selected, chip)}
+                onClick={() => handleClick(chip.keyword)}
+                sx={ChipStyle(selected, chip.keyword)}
               />
             ))}
           </Stack>

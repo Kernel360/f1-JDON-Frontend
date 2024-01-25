@@ -1,40 +1,39 @@
-import {
-  Box,
-  Button,
-  FormLabel,
-  Grid,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import format from "date-fns/locale/ko";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useState } from "react";
-import {
-  datePicker,
-  datePickerContainer,
-  duplicateCheckButtonStyle,
-  infoBasicStyles,
-  nicknameTextField,
-} from "./InfoStyles";
+import { OptionButton, infoBasicStyles } from "./InfoStyles";
+import NewInput from "../../components/common/new-input/NewInput";
+import { checkNicknameDuplicate } from "../../api/api";
+import { userInfo } from "../../recoil/atoms";
+import { useRecoilState } from "recoil";
+import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
+import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 
-function InFoBasic({ nickname, birth, sex, onChange }) {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [value, setValue] = useState({ nickname, birth, sex });
+function InFoBasic({ onChange }) {
+  const [helperText, setHelperText] = useState();
+  const [value, setValue] = useRecoilState(userInfo);
+  const [valid, setValid] = useState(false);
 
-  const handleInputChange = (field, newValue) => {
+  const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
     onChange({ [field]: newValue });
   };
 
-  const handleDateChange = (newValue) => {
-    setSelectedDate(newValue);
-    handleInputChange("birth", newValue);
-  };
-
-  const handleSexChange = (newSex) => {
-    handleInputChange("gender", newSex);
+  const checkNickname = async () => {
+    try {
+      const isAvailable = await checkNicknameDuplicate({
+        nickname: value.nickname,
+      });
+      if (isAvailable) {
+        setHelperText("사용 가능한 닉네임입니다!");
+        setValid(true);
+      } else {
+        setHelperText("사용 불가능한 닉네임입니다");
+        setValid(false);
+      }
+    } catch (error) {
+      console.error("오류 발생:", error);
+      setHelperText("오류가 발생했습니다");
+    }
   };
 
   return (
@@ -46,74 +45,40 @@ function InFoBasic({ nickname, birth, sex, onChange }) {
         서비스에 활용됩니다
       </Typography>
       <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
-        <Box>
-          <FormLabel>닉네임</FormLabel>
-          <TextField
-            required
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            name="nickname"
-            placeholder="사용하실 닉네임을 입력해주세요"
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-            sx={nicknameTextField(value.nickname)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment
-                  position="end"
-                  sx={{ background: "transparent" }}
-                >
-                  <Button sx={duplicateCheckButtonStyle}>중복확인</Button>
-                </InputAdornment>
-              ),
-            }}
-          ></TextField>
-        </Box>
-
-        <Box>
-          <FormLabel>생일</FormLabel>
-          <Grid container sx={datePickerContainer(value.birth)}>
-            <LocalizationProvider
-              dateAdapter={AdapterDateFns}
-              adapterLocale={format}
-            >
-              <DatePicker
-                value={selectedDate}
-                inputFormat="yyyy.MM.dd"
-                onChange={handleDateChange}
-                sx={datePicker(value.birth)}
-                renderInput={(params) => (
-                  <TextField {...params} fullWidth sx={{ flexGrow: 1 }} />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
-        </Box>
-
-        <Box>
-          <FormLabel>성별</FormLabel>
+        <NewInput
+          placeholder="사용하실 닉네임을 입력해주세요"
+          label="닉네임"
+          value={value.nickname}
+          valid={valid}
+          helperText={helperText}
+          onChange={(e) => {
+            handleInputChange("nickname", e.target.value);
+            setValid(false);
+            setHelperText("중복 확인을 해주세요");
+          }}
+          onClick={checkNickname}
+        />
+        <NewDayPicker
+          label="생일"
+          value={value.birth}
+          onChange={(newDate) => handleInputChange("birth", newDate)}
+        />
+        <TotalInputForm label="성별" value={value.gender} valid={valid}>
           <Grid container sx={infoBasicStyles.genderBtnContainer}>
-            <Grid item xs={5.5}>
-              <Button
-                variant="outlined"
-                fullWidth
-                onClick={() => handleSexChange("남")}
-                sx={infoBasicStyles.genderButton}
-              >
-                남
-              </Button>
-            </Grid>
-            <Grid item xs={5.5}>
-              <Button
-                variant="outlined"
-                fullWidth
-                onClick={() => handleSexChange("여")}
-                sx={infoBasicStyles.genderButton}
-              >
-                여
-              </Button>
-            </Grid>
+            {["남", "여"].map((item) => (
+              <Grid item xs={5.5} key={item}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  onClick={() => handleInputChange("gender", item)}
+                  sx={OptionButton(value.gender === item)}
+                >
+                  {item}
+                </Button>
+              </Grid>
+            ))}
           </Grid>
-        </Box>
+        </TotalInputForm>
       </Box>
     </>
   );

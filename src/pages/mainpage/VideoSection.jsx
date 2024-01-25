@@ -9,7 +9,7 @@ function VideoSection({ selectdChip, data }) {
     <Box sx={{ mt: 4 }}>
       <Typography sx={MainStyles.TypoGraphy}>
         <span style={{ fontWeight: 700, color: "black", margin: "2px 8px" }}>
-          {selectdChip}
+          {selectdChip.keyword}
         </span>
         추천 학습 영상
         <img src={hot} alt="hot" />
