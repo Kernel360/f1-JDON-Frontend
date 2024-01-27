@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { theme } from "../../../styles/themeMuiStyle";
 
-function NewBtn({ title, onClick, isActive }) {
+function NewBtn({ title, onClick, isActive, styles }) {
   return (
     <Button
       type="submit"
@@ -18,6 +18,7 @@ function NewBtn({ title, onClick, isActive }) {
           background: theme.palette.primary.main,
           color: "white",
         },
+        ...styles,
       }}
       onClick={onClick}
     >

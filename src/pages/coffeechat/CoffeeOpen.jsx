@@ -3,22 +3,31 @@ import {
   Button,
   Container,
   CssBaseline,
-  FormLabel,
   Grid,
-  TextField,
   Typography,
 } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import {
-  datePicker,
-  datePickerContainer,
-  nicknameTextField,
-} from "../info/InfoStyles";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import format from "date-fns/locale/ko";
 import Header from "../../components/common/Header";
+import NewInput from "../../components/common/new-input/NewInput";
+import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
+import { useState } from "react";
+import { registerCoffeeChat } from "../../api/api";
 
 function Coffeeopen() {
+  const [value, setValue] = useState([]);
+  const handleInputChange = async (field, newValue) => {
+    setValue((prev) => ({ ...prev, [field]: newValue }));
+  };
+
+  const hanldeRegister = async () => {
+    console.log(value);
+    try {
+      const data = await registerCoffeeChat(value);
+      console.log("registerCoffeeChat 확인중", data);
+    } catch (error) {
+      console.error("Error fetching hot skills:", error);
+    }
+  };
+
   return (
     <>
       <Container
@@ -37,13 +46,13 @@ function Coffeeopen() {
         >
           <Typography
             sx={{
-              fontSize: 24,
-              fontWeight: 700,
+              fontSize: 18,
+              fontWeight: 600,
               paddingTop: 1,
               textAlign: "left",
             }}
           >
-            커피챗 정보를 입력해주세요
+            커피챗 정보를 입력해주세요 ☕️
           </Typography>
           <Box
             component="form"
@@ -56,30 +65,23 @@ function Coffeeopen() {
               width: "100%",
             }}
           >
-            <Box>
-              <FormLabel>제목</FormLabel>
-              <TextField
-                required
-                fullWidth
-                InputLabelProps={{ shrink: true }}
-                name="nickname"
-                placeholder="커피챗 제목을 입력해주세요"
-                onChange={(e) => {}}
-                sx={nicknameTextField(null)}
-              ></TextField>
-            </Box>
-            <Box>
-              <FormLabel>상세 내용</FormLabel>
-              <TextField
-                required
-                fullWidth
-                InputLabelProps={{ shrink: true }}
-                name="nickname"
-                placeholder="커피챗 상세내용을 입력해주세요"
-                onChange={(e) => {}}
-                sx={nicknameTextField(null)}
-              ></TextField>
-            </Box>
+            <NewInput
+              placeholder="커피챗 제목을 입력해주세요"
+              label="제목"
+              value={value.title}
+              valid={false}
+              onChange={(e) => {
+                handleInputChange("title", e.target.value);
+              }}
+            />
+            <NewInput
+              placeholder="커피챗 내용을 입력해주세요"
+              label="상세 내용"
+              value={value.content}
+              onChange={(e) => {
+                handleInputChange("content", e.target.value);
+              }}
+            />
             <Box>
               <Grid
                 container
@@ -90,56 +92,37 @@ function Coffeeopen() {
                 }}
               >
                 <Grid item xs={5.6}>
-                  <FormLabel>총 모집 인원 </FormLabel>
-                  <TextField
-                    type="number"
-                    required
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    name="총 모집 인원"
+                  <NewInput
                     placeholder="숫자만 입력해주세요"
-                    onChange={(e) => {}}
-                    sx={nicknameTextField(null)}
-                  ></TextField>
+                    label="총 모집 인원"
+                    value={value.totalRecruitCount}
+                    onChange={(e) => {
+                      handleInputChange("totalRecruitCount", e.target.value);
+                    }}
+                  />
                 </Grid>
 
                 <Grid item xs={5.6}>
-                  <FormLabel>일시</FormLabel>
-                  <Grid container sx={datePickerContainer(null)}>
-                    <LocalizationProvider
-                      dateAdapter={AdapterDateFns}
-                      adapterLocale={format}
-                    >
-                      <DatePicker
-                        inputFormat="yyyy.MM.dd"
-                        sx={datePicker(null)}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            fullWidth
-                            sx={{ flexGrow: 1 }}
-                          />
-                        )}
-                      />
-                    </LocalizationProvider>
-                  </Grid>
+                  <NewDayPicker
+                    label="일시"
+                    value={value.meetDate}
+                    onChange={(newValue) => {
+                      handleInputChange("meetDate", newValue);
+                    }}
+                  />
                 </Grid>
               </Grid>
             </Box>
-
-            <Box>
-              <FormLabel>오픈채팅방 링크</FormLabel>
-              <TextField
-                required
-                fullWidth
-                InputLabelProps={{ shrink: true }}
-                name="nickname"
-                placeholder="커피챗 제목을 입력해주세요"
-                onChange={(e) => {}}
-                sx={nicknameTextField(null)}
-              ></TextField>
-            </Box>
+            <NewInput
+              placeholder="오픈채팅방 링크를 입력해주세요"
+              label="오픈채팅방 링크"
+              value={value.openChatUrl}
+              onChange={(e) => {
+                handleInputChange("openChatUrl", e.target.value);
+              }}
+            />
             <Button
+              onClick={hanldeRegister}
               sx={{
                 mt: 3,
                 mb: 3,

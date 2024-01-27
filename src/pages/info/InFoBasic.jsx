@@ -51,6 +51,7 @@ function InFoBasic({ onChange }) {
           value={value.nickname}
           valid={valid}
           helperText={helperText}
+          duplicate
           onChange={(e) => {
             handleInputChange("nickname", e.target.value);
             setValid(false);
