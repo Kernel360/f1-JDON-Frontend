@@ -1,14 +1,21 @@
 export const BadgeStyle = (status) => ({
-  position: "absolute",
-  top: "10px",
-  right: "10px",
   width: "fit-content",
-  background: status === "모집중" ? "#FFEBC3" : "#DADADA",
+  background: status === "모집중" ? "#FFF4BE" : "#DADADA",
   borderRadius: "4px",
-  padding: "2px 4px",
-  fontSize: "12px",
+  padding: "3px 5px",
+  fontSize: "10px",
   color: "#323236",
-  fontWeight: 500,
+  fontWeight: 600,
+});
+export const jobStyle = (status) => ({
+  width: "fit-content",
+  background: "white",
+  border: "1px solid #FF814D",
+  borderRadius: "4px",
+  padding: "3px 5px",
+  fontSize: "10px",
+  color: "#FF814D",
+  fontWeight: 600,
 });
 
 export const VideoCardStyle = {

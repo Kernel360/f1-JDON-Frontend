@@ -25,12 +25,8 @@ export const buttonStyles = {
     mb: 2,
     py: "13px",
     borderRadius: "10px",
-    background: "#EBEBEB",
-    color: "#BCBCC4",
+    background: "white",
+    border: "1px solid #6482FF",
     fontSize: "16px",
-    "&:hover": {
-      color: "#ffffff",
-      backgroundColor: "#6482FF",
-    },
   },
 };

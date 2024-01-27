@@ -63,7 +63,7 @@ export const OptionButton = (isSelected) => ({
   },
 });
 export const datePickerContainer = (birthday) => ({
-  m: "10px auto",
+  m: "8px auto",
   border: "1px solid",
   display: "flex",
   justifyContent: "space-between",

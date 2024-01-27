@@ -10,49 +10,50 @@ import {
 } from "@mui/material";
 import Header from "../../components/common/Header";
 import InfoBox from "./InfoBox";
-import paste from "../../assets/icons/paste.svg";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { URLInput } from "../PageStyles";
 import Buttons from "./Button";
 import eye from "../../assets/icons/eye.svg";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCoffeeChatDetail } from "../../api/api";
+import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
+import { useParams } from "react-router-dom";
+import { jobStyle } from "../../components/common/card/CardStyle";
 
-const MockData = {
-  coffeechatId: 2,
-  nickname: "안소",
-  job: "backend",
-  title: "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.",
-  createdDate: "2023-10-10 19:30",
-  status: "모집중",
-  totalRecruitCount: 20,
-  currentRecruitCount: 8,
-  meetDate: "2023-10-10 19:30",
-  content:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo",
-  openChatUrl: "openkakao.dfkjwhf.wdjfhwkj/wkdjfhwkj",
-  viewCount: 76,
-};
+function CoffeeDetail({ host = true }) {
+  const params = useParams();
+  const [coffeeChatData, setCoffeeChatData] = useState({});
+  const [isCopied, setIsCopied] = useState(false);
+  const inputRef = useRef(null);
 
-function CoffeeDetail() {
+  const handleCopyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(coffeeChatData.openChatUrl);
+      setIsCopied(true);
+      console.log("텍스트가 클립보드에 복사되었습니다.");
+    } catch (error) {
+      console.error("클립보드 복사 실패:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getCoffeeChatDetail(1);
-        console.log(data.data);
+        const res = await getCoffeeChatDetail(params.id);
+        console.log(res.title);
+        setCoffeeChatData(res);
+        return res.data;
       } catch (error) {
-        console.error("Error fetching hot skills:", error);
+        console.error("Error fetching getCoffeeChatDetail:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [params.id]);
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
-    >
+    <Container maxWidth="md">
       <CssBaseline />
-      <Header title={MockData.title} />
+      <Header title={coffeeChatData.title} />
       <Box
         sx={{
           flexGrow: 1,
@@ -64,6 +65,7 @@ function CoffeeDetail() {
         <Box
           sx={{
             px: "6px",
+            paddingTop: "20px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -71,23 +73,15 @@ function CoffeeDetail() {
         >
           <Box sx={{ display: "flex", gap: "12px", alignItems: "center" }}>
             <Typography
-              sx={{ color: "#1D1D1D", fontWeight: 400, fontSize: "13px" }}
+              sx={{ color: "#9A9AA1", fontWeight: 400, fontSize: "13px" }}
             >
-              {MockData.nickname}
+              {coffeeChatData.nickname}
             </Typography>
-            <Typography
-              variant="body2"
-              color="#FF814D"
-              border="1px solid #FF814D"
-              borderRadius="999px"
-              sx={{
-                width: "fit-content",
-                padding: "3px 6px",
-                fontSize: "12px",
-              }}
-            >
-              {MockData.job}
-            </Typography>
+            {coffeeChatData.job && (
+              <div style={jobStyle(coffeeChatData.job)}>
+                {coffeeChatData.job}
+              </div>
+            )}
           </Box>
           <Typography
             sx={{
@@ -99,42 +93,50 @@ function CoffeeDetail() {
             }}
           >
             <img src={eye} alt="조회수" />
-            {MockData.viewCount}
+            {coffeeChatData.viewCount}
           </Typography>
         </Box>
         <Typography sx={{ px: "6px", fontSize: "20px", mt: "22px" }}>
-          {MockData.title}
+          {coffeeChatData.title}
         </Typography>
-        <InfoBox data={MockData} />
+        <InfoBox data={coffeeChatData} />
         <Divider />
 
-        <Typography sx={{ color: "#545459", py: 5 }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore Ut enim ad minim veniam, quis
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatu Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id es
+        <Typography sx={{ color: "#545459", py: 3, minHeight: "180px" }}>
+          {coffeeChatData.content}
         </Typography>
-        <Typography sx={{ fontWeight: 600, pt: "10px" }}>오픈채팅</Typography>
-        <TextField
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          sx={URLInput}
-          placeholder="openkakao.comasdkj/dkjfwkjdfhkwdjf"
-          InputProps={{
-            readOnly: true,
-            disabled: true,
-            endAdornment: (
-              <InputAdornment position="end" sx={{ background: "transparent" }}>
-                <Button>
-                  <img src={paste} alt="복사" />
-                </Button>
-              </InputAdornment>
-            ),
-          }}
-        ></TextField>
-        <Buttons></Buttons>
+        <TotalInputForm value={false} label="오픈채팅 링크">
+          <TextField
+            fullWidth
+            InputLabelProps={{ shrink: true }}
+            sx={URLInput}
+            ref={inputRef}
+            value={
+              host ? coffeeChatData.openChatUrl : "신청 후 확인 가능합니다"
+            }
+            InputProps={{
+              readOnly: true,
+              disabled: true,
+              endAdornment: (
+                <InputAdornment
+                  position="end"
+                  sx={{ background: "transparent" }}
+                >
+                  {host && (
+                    <Button onClick={handleCopyClick}>
+                      {isCopied ? (
+                        <p style={{ fontSize: "12px" }}>Copied!</p>
+                      ) : (
+                        <FileCopyIcon sx={{ fontSize: 20, color: "gray" }} />
+                      )}
+                    </Button>
+                  )}
+                </InputAdornment>
+              ),
+            }}
+          ></TextField>
+        </TotalInputForm>
+        <Buttons host={false}></Buttons>
       </Box>
     </Container>
   );
