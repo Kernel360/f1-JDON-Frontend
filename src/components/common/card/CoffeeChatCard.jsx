@@ -1,13 +1,16 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Box, Paper } from "@mui/material";
-import { BadgeStyle } from "./CardStyle";
-import { useNavigate, useParams } from "react-router-dom";
+import { BadgeStyle, jobStyle } from "./CardStyle";
+import { useNavigate } from "react-router-dom";
 
 function CoffeeChatCard({ data }) {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`./${data.coffeechatId}`);
+    navigate(`./${data.coffeeChatId}`);
   };
   return (
     <Paper
@@ -23,13 +26,26 @@ function CoffeeChatCard({ data }) {
         opacity: data.status === "종료" ? 0.4 : 1,
       }}
     >
-      <div style={BadgeStyle(data.status)}>{data.status}</div>
+      <Box
+        sx={{
+          position: "absolute",
+          display: "flex",
+          top: "8px",
+          right: "10px",
+          gap: 1,
+        }}
+      >
+        <div color="#FF814D" style={jobStyle(data.job)}>
+          {data.job}
+        </div>
+        <div style={BadgeStyle(data.status)}>{data.status}</div>
+      </Box>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           gap: "14px",
-          padding: "20px 16px",
+          padding: "25px 16px",
           height: "100%",
         }}
       >
@@ -43,7 +59,7 @@ function CoffeeChatCard({ data }) {
             display: "-webkit-box",
             overflow: "hidden",
             WebkitBoxOrient: "vertical",
-            WebkitLineClamp: 2, // 이 값으로 표시할 줄 수를 설정합니다.
+            WebkitLineClamp: 2,
             textOverflow: "ellipsis",
             height: 45,
             fontSize: "16px",
@@ -52,26 +68,49 @@ function CoffeeChatCard({ data }) {
           {data.title}
         </Typography>
         <Typography variant="body2" color="#9A9AA1" fontSize="13px">
-          <div>일시: {data.meetDate.split(" ")[0].replace(/-/g, ".")}</div>
-          <div>시간: {data.meetDate.split(" ")[1]}</div>
+          <Box
+            sx={{
+              pb: "5px",
+              color: "#9A9AA1",
+              fontSize: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <CalendarMonthIcon sx={{ fontSize: "small", color: "#FF6565" }} />{" "}
+            {data.meetDate.split(" ")[0].replace(/-/g, ".")}
+          </Box>
+          <Box
+            sx={{
+              pb: "5px",
+              color: "#9A9AA1",
+              fontSize: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <AccessTimeFilledIcon
+              sx={{ fontSize: "small", color: "#52BF91" }}
+            />
+            {data.meetDate.split(" ")[1]}
+          </Box>
+          <Box
+            sx={{
+              pb: "5px",
+              color: "#9A9AA1",
+              fontSize: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <PeopleAltIcon sx={{ fontSize: "small", color: "#575757" }} />
+            {data.currentRecruitCount} / {data.totalRecruitCount}
+          </Box>
         </Typography>
       </Box>
-      <Typography
-        variant="body2"
-        color="#FF814D"
-        border="1px solid #FF814D"
-        borderRadius="999px"
-        sx={{
-          position: "absolute",
-          bottom: 20,
-          left: "16px",
-          width: "fit-content",
-          padding: "3px 6px",
-          fontSize: "12px",
-        }}
-      >
-        {data.job}
-      </Typography>
     </Paper>
   );
 }

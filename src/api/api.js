@@ -37,7 +37,6 @@ export async function checkNicknameDuplicate(nickName) {
 // -------------------------------------------- skill
 
 //요즘 뜨는 기술스택 조회
-
 export async function getHotSkills() {
   try {
     const res = await instance.get("/api/v1/skills/hot");
@@ -49,8 +48,19 @@ export async function getHotSkills() {
   }
 }
 
-//기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
+//회원 맞춤 기술스택 조회
+export async function getMemberSkills() {
+  try {
+    const res = await instance.get("/api/v1/skills/member");
+    console.log("getMemberSkills API", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("getMemberSkills API error", error);
+    throw error;
+  }
+}
 
+//기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
 export async function getLecture(skillId) {
   try {
     const res = await instance.get(`/api/v1/skills/search?skillId=${skillId}`);
@@ -127,7 +137,7 @@ export const getCoffeeChat = async (page) => {
   try {
     console.log("page check", page);
     const res = await instance.get(`/api/v1/coffeechats?page=${page}&size=12`);
-    console.log("getCoffeeChat", res);
+    // console.log("getCoffeeChat", res);
     return res.data.data;
   } catch (error) {
     console.error("getCoffeeChat API", error);
@@ -138,7 +148,7 @@ export const getCoffeeChat = async (page) => {
 //커피챗 상세 조회
 export const getCoffeeChatDetail = async (id) => {
   try {
-    const res = await instance.get(`/api/v1/coffeechats?${id}`);
+    const res = await instance.get(`api/v1/coffeechats/${id}`);
     console.log("getCoffeeChatDetail", res.data);
     return res.data.data;
   } catch (error) {
@@ -148,6 +158,16 @@ export const getCoffeeChatDetail = async (id) => {
 };
 
 //커피챗 등록
+export async function registerCoffeeChat(coffeeChat) {
+  try {
+    const res = await instance.post("/api/v1/coffeechats", { coffeeChat });
+    console.log("registerCoffeeChat API", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("registerCoffeeChat API error", error);
+    throw error;
+  }
+}
 
 //커피챗 수정
 

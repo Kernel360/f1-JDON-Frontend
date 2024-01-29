@@ -15,7 +15,7 @@ export function Coffee() {
     const fetchData = async () => {
       try {
         const data = await getCoffeeChat(1);
-        setCoffeeData((prev) => [...prev, ...data]);
+        setCoffeeData(data);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
@@ -30,7 +30,7 @@ export function Coffee() {
         <Button
           variant="contained"
           disableElevation
-          sx={{ mt: 3, fontWeight: 600, padding: "4px 10px", gap: 1 }}
+          sx={{ mt: 3, fontWeight: 500, padding: "4px 10px", gap: 1 }}
           onClick={() => navigate("/coffeechat-open")}
         >
           커피챗 오픈

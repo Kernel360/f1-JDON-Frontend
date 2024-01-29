@@ -51,6 +51,7 @@ function InFoBasic({ onChange }) {
           value={value.nickname}
           valid={valid}
           helperText={helperText}
+          duplicate
           onChange={(e) => {
             handleInputChange("nickname", e.target.value);
             setValid(false);
@@ -65,7 +66,7 @@ function InFoBasic({ onChange }) {
         />
         <TotalInputForm label="성별" value={value.gender} valid={valid}>
           <Grid container sx={infoBasicStyles.genderBtnContainer}>
-            {["남", "여"].map((item) => (
+            {["남성", "여성"].map((item) => (
               <Grid item xs={5.5} key={item}>
                 <Button
                   variant="outlined"
