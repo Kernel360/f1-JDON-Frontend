@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   SwipeableDrawer,
@@ -21,7 +21,9 @@ import {
   infoBasicStyles,
 } from "../../../pages/info/InfoStyles.js";
 
-export default function SwipJobSkill() {
+export default function SwipJobSkill({
+  skills = ["JavaScript", "React", "Recoil"],
+}) {
   const SKILLS = [
     "JavaScript",
     "React",
@@ -35,15 +37,17 @@ export default function SwipJobSkill() {
     "내일 주말",
   ];
 
-  const [checkedItems, setCheckedItems] = useState(
-    ["JavaScript", "React", "Recoil"]
-    // api 연결해서 가져온 스킬만 그리고 체크이벤트가 일어날때마다 변경
-  );
-
+  const [checkedItems, setCheckedItems] = useState(skills || []);
+  console.log("이건?", checkedItems, skills);
   const [tabValue, setTabValue] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    // setCheckedItems(skills);
+    console.log("직무선택", checkedItems);
+  }, [checkedItems]);
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -60,7 +64,16 @@ export default function SwipJobSkill() {
     };
   };
 
-  const handleCheckboxChange = (index) => {
+  const handleCheckboxChange = (index, event) => {
+    const isChecked = event.target.checked;
+    console.log("체크값의 상태", SKILLS[index], isChecked);
+
+    if (isChecked === false && checkedItems.includes(SKILLS[index])) {
+      const newChecked = checkedItems.filter((el) => el !== SKILLS[index]);
+      console.log("!!!!!", newChecked);
+      setCheckedItems(newChecked);
+    }
+
     setCheckedItems((prevCheckedItems) => {
       const newCheckedItems = [...prevCheckedItems];
       newCheckedItems[index] = !newCheckedItems[index];
@@ -71,7 +84,8 @@ export default function SwipJobSkill() {
         return newCheckedItems;
       } else {
         // 이미 3개 이상이 선택되어 있으면 해당 항목의 체크를 되돌림
-        return prevCheckedItems;
+        newCheckedItems[index] = !newCheckedItems[index];
+        return newCheckedItems.filter(Boolean); // undefined나 null을 필터링하여 제거
       }
     });
   };
@@ -91,7 +105,7 @@ export default function SwipJobSkill() {
             label={SKILLS[index]}
             // clickable={true}
             variant={"filled"}
-            sx={ChipStyle(undefined)}
+            sx={ChipStyle(true)}
           />
         ))}
       </Stack>
@@ -107,8 +121,8 @@ export default function SwipJobSkill() {
               key={index}
               control={
                 <Checkbox
-                  checked={checkedItems[index]}
-                  onChange={() => handleCheckboxChange(index)}
+                  checked={checkedItems[index] || false}
+                  onChange={(event) => handleCheckboxChange(index, event)}
                 />
               }
               label={item}
@@ -155,10 +169,10 @@ export default function SwipJobSkill() {
               display: "flex",
               height: "50vw",
               "@media (min-width: 300px)": {
-                height: "70vw",
+                height: "450px",
               },
               "@media (min-width: 960px)": {
-                height: "40vw",
+                height: "500px",
               },
             }}
           >
