@@ -34,6 +34,10 @@ function App() {
               <Route exact path="/mypage/video" element={<FavoritesVideo />} />
               <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
               <Route path="/oauth/info" element={<KakaoRedirectPage />} />
+              <Route
+                path="/oauth/login/success"
+                element={<KakaoRedirectPage />}
+              />
               <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
             </Routes>
           </Layout>
