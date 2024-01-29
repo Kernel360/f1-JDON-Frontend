@@ -68,7 +68,7 @@ function InfoSkill({ onChange }) {
                 variant="outlined"
                 size="medium"
                 clickable={true}
-                onClick={() => handleClick(chip.keyword)}
+                onClick={() => handleClick(chip.skillId)}
                 sx={ChipStyle(selected, chip.keyword)}
               />
             ))}

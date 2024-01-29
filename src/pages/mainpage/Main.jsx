@@ -8,13 +8,14 @@ import SearchBar from "../../components/common/search-bar/SearchBar";
 import BottomNav from "../../components/common/BottomNav";
 import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
-import { getHotSkills, getLecture } from "../../api/api";
+import { getHotSkills, getLecture, getMemberSkills } from "../../api/api";
 
 const MY_SKILLS = [11111, 22, 333333, 4, 555555, 66, 7777777, 88, 999, 1000];
 
 export function Main() {
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
+  const [memberSkills, setMemberSkills] = useState([]);
   const [selectdChip, setSelectedChip] = useState({});
   const [lecture, setLecture] = useState([]);
   const [companies, setCompanies] = useState([]);
@@ -51,6 +52,12 @@ export function Main() {
         const hotSkillsData = data.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
         console.log("hotSkillsData 확인중", hotSkillsData);
         setHotSkills(hotSkillsData);
+
+        // const memData = await getMemberSkills();
+        // const memSkillsData = memData.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
+        // console.log("memSkillsData 확인중", memSkillsData);
+        // setMemberSkills(memSkillsData);
+
         const lectureData = await getLecture(hotSkillsData[0].id);
         console.log("lectureData 확인중", lectureData);
         setLecture(lectureData.lectureList);

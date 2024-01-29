@@ -37,7 +37,6 @@ export async function checkNicknameDuplicate(nickName) {
 // -------------------------------------------- skill
 
 //요즘 뜨는 기술스택 조회
-
 export async function getHotSkills() {
   try {
     const res = await instance.get("/api/v1/skills/hot");
@@ -45,6 +44,18 @@ export async function getHotSkills() {
     return res.data;
   } catch (error) {
     console.error("getHotSkills API error", error);
+    throw error;
+  }
+}
+
+//회원 맞춤 기술스택 조회
+export async function getMemberSkills() {
+  try {
+    const res = await instance.get("/api/v1/skills/member");
+    console.log("getMemberSkills API", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("getMemberSkills API error", error);
     throw error;
   }
 }
