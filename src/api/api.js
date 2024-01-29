@@ -130,6 +130,19 @@ export const getJobCategory = async () => {
 
 //내가 신청한 커피챗 목록 조회
 
+export const getMyCoffeeChat = async (page) => {
+  try {
+    console.log("page check", page);
+    const res = await instance.get(
+      `/api/v1/coffeechats/host?${page}=0&size=12`
+    );
+    return res.data;
+  } catch (error) {
+    console.error("getMyCoffeeChat API", error);
+    throw error;
+  }
+};
+
 //내가 오픈한 커피챗 목록 조회
 
 //커피챗 목록 조회
