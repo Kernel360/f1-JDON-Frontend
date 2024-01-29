@@ -16,6 +16,7 @@ import Coffeeopen from "./pages/coffeechat/CoffeeOpen";
 import Withdrawal from "./pages/Withdrawal";
 import FavoritesVideo from "./pages/FavoritesVideo";
 import KakaoRedirectPage from "./pages/sign-in/KakaoRedirectPage";
+import MyCoffeeChat from "./pages/MyCoffeeChat";
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
               <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
               <Route exact path="/mypage/video" element={<FavoritesVideo />} />
               <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
+              <Route
+                exact
+                path="/mypage/mycoffeechat"
+                element={<MyCoffeeChat />}
+              />
               <Route path="/oauth/info" element={<KakaoRedirectPage />} />
               <Route
                 path="/oauth/login/success"
