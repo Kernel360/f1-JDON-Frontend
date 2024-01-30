@@ -41,7 +41,7 @@ export default function MyCoffeeChat() {
       >
         <Header title={"커피챗"} />
 
-        <Box sx={{ width: "100%", typography: "body1" }}>
+        <Box mt={4} sx={{ width: "100%", typography: "body1" }}>
           <TabContext value={value} sx={{ display: "flex" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <TabList
