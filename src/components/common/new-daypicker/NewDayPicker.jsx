@@ -8,7 +8,7 @@ import {
 } from "../../../pages/info/InfoStyles";
 import TotalInputForm from "../total-input-form/TotalInputForm";
 
-function NewDayPicker({ label, value, valid, onChange }) {
+function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
   const handleDateChange = (newDate) => {
     onChange(newDate);
   };
@@ -25,7 +25,7 @@ function NewDayPicker({ label, value, valid, onChange }) {
             onChange={handleDateChange}
             sx={datePicker(value)}
             renderInput={(params) => <TextField {...params} />}
-            minDate={new Date()}
+            minDate={isMeetDay && new Date()}
           />
         </LocalizationProvider>
       </Grid>

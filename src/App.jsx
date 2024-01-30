@@ -16,6 +16,7 @@ import Coffeeopen from "./pages/coffeechat/CoffeeOpen";
 import Withdrawal from "./pages/Withdrawal";
 import FavoritesVideo from "./pages/FavoritesVideo";
 import KakaoRedirectPage from "./pages/sign-in/KakaoRedirectPage";
+import SignupFail from "./pages/info/SignupFail";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
                 path="/oauth/login/success"
                 element={<KakaoRedirectPage />}
               />
+              <Route path="/fail" element={<SignupFail />} />
               <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
             </Routes>
           </Layout>

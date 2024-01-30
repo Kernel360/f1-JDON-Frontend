@@ -4,8 +4,8 @@ import NewBtn from "../new-btn/NewBtn";
 
 function NavigationButtons({ onNext, onBefore, isActive }) {
   return (
-    <Container maxWidth="sm" fixed sx={buttonStyle.Container}>
-      <Grid container spacing={3} fullWidth sx={buttonStyle.Grid}>
+    <Container maxWidth="sm" sx={buttonStyle.Container}>
+      <Grid container spacing={3} fullWidth>
         <Grid item xs={6}>
           <NewBtn title="이전" onClick={onBefore} />
         </Grid>

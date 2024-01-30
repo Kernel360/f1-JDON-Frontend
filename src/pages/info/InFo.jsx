@@ -11,15 +11,15 @@ import NavigationButtons from "../../components/common/navigation-btn/Navigation
 import { InfoStyle } from "./InfoStyles";
 import Done from "./Done";
 import { getJobCategory, registerUserInfo } from "../../api/api";
-import { userInfo } from "../../recoil/atoms";
+import { isLoggedInState, userInfo } from "../../recoil/atoms";
 import { useRecoilState } from "recoil";
 
 export default function Info() {
   const [step, setStep] = useState(1);
   const [data, setData] = useRecoilState(userInfo);
+  const [isLogin, setIsLogin] = useRecoilState(isLoggedInState);
   const [jobCategory, setJobCategory] = useState();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleChange = (value) => {
     setData((prev) => ({ ...prev, ...value }));
@@ -47,15 +47,6 @@ export default function Info() {
     }
   };
 
-  // useEffect(() => {
-  //   const searchParams = new URLSearchParams(location.search);
-  //   const value = searchParams.get("value");
-  //   const hmac = searchParams.get("hmac");
-  //   if (value && hmac) {
-  //     handleChange({ encrypted: value, hmac: hmac });
-  //   }
-  // }, [location]);
-
   useEffect(() => {
     console.log(data);
     localStorage.setItem("userInfo", []);
@@ -67,7 +58,8 @@ export default function Info() {
         try {
           const response = await registerUserInfo(data);
           console.log("회원 정보 등록 성공:", response);
-          localStorage.setItem("userInfo", JSON.stringify(data));
+          // localStorage.setItem("userInfo", JSON.stringify(data));
+          setIsLogin(true);
           navigate("/main");
         } catch (error) {
           console.error("회원 정보 등록 실패:", error);
@@ -138,7 +130,7 @@ export default function Info() {
   };
 
   return (
-    <>
+    <div style={{ position: "relative" }}>
       {step < 4 && <ProgressBar step={step}></ProgressBar>}
       <Container maxWidth="sm">
         <CssBaseline />
@@ -147,6 +139,6 @@ export default function Info() {
         )}
         {step === 4 && <Done />}
       </Container>
-    </>
+    </div>
   );
 }

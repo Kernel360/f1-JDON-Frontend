@@ -26,9 +26,9 @@ export async function registerUserInfo(userInfo) {
 export async function checkNicknameDuplicate(nickName) {
   try {
     console.log(nickName);
-    const res = await instance.post("/api/v1/nickname/duplicate", { nickName });
-    console.log("checkNicknameDuplicate API", res.data);
-    return true;
+    const res = await instance.post("/api/v1/nickname/duplicate", nickName);
+    console.log("checkNicknameDuplicate API", res);
+    return res.status;
   } catch (error) {
     console.log("checkNicknameDuplicate API error", error);
     throw error;
