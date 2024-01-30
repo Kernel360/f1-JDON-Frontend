@@ -35,14 +35,15 @@ function CoffeeChatCard({ data }) {
           gap: 1,
         }}
       >
-        <div color="#FF814D" style={jobStyle(data.job)}>
-          {data.job}
-        </div>
+        {data.job && (
+          <div color="#FF814D" style={jobStyle(data.job)}>
+            {data.job}
+          </div>
+        )}
         <div style={BadgeStyle(data.status)}>{data.status}</div>
       </Box>
       <Box
         sx={{
-          display: "flex",
           flexDirection: "column",
           gap: "14px",
           padding: "25px 16px",

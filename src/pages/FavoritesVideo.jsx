@@ -12,12 +12,13 @@ export default function FavoritesVideo() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  console.log("datas", datas);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getFavoritVideo(currentPage);
         setDatas(res.data);
-        // console.log("찜 확인", res.data);
+        console.log("찜 확인", res.data);
         console.log("datas", datas);
 
         // 최초 렌더링 시에만 전체 데이터의 양을 가져오고 페이지 수를 계산
