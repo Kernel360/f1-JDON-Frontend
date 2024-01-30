@@ -105,6 +105,7 @@ function Coffeeopen() {
                 <Grid item xs={5.6}>
                   <NewDayPicker
                     label="일시"
+                    isMeetDay={true}
                     value={value.meetDate}
                     onChange={(newValue) => {
                       handleInputChange("meetDate", newValue);

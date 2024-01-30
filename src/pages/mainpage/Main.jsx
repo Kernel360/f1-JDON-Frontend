@@ -10,8 +10,6 @@ import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
 import { getHotSkills, getLecture, getMemberSkills } from "../../api/api";
 
-const MY_SKILLS = [11111, 22, 333333, 4, 555555, 66, 7777777, 88, 999, 1000];
-
 export function Main() {
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
@@ -26,9 +24,19 @@ export function Main() {
     setValue(newValue);
   };
 
+  const GetMemberSkillData = async () => {
+    try {
+      const memData = await getMemberSkills();
+      const memSkillsData = memData.data.skillList || { skillList: [] };
+      console.log("memSkillsData 확인중", memSkillsData);
+      setMemberSkills(memSkillsData);
+    } catch (error) {
+      console.error("Error fetching member skills:", error);
+    }
+  };
+
   const handleScroll = (direction) => {
     const { current: scrollContainer } = scrollRef;
-
     if (scrollContainer) {
       const scrollAmount = scrollContainer.clientWidth; // 현재 보이는 영역의 너비
       if (direction === "left") {
@@ -46,18 +54,12 @@ export function Main() {
   };
 
   useEffect(() => {
+    console.log(document.cookie);
     const fetchData = async () => {
       try {
         const data = await getHotSkills();
         const hotSkillsData = data.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
-        console.log("hotSkillsData 확인중", hotSkillsData);
         setHotSkills(hotSkillsData);
-
-        // const memData = await getMemberSkills();
-        // const memSkillsData = memData.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
-        // console.log("memSkillsData 확인중", memSkillsData);
-        // setMemberSkills(memSkillsData);
-
         const lectureData = await getLecture(hotSkillsData[0].id);
         console.log("lectureData 확인중", lectureData);
         setLecture(lectureData.lectureList);
@@ -81,7 +83,12 @@ export function Main() {
           TabIndicatorProps={{ style: MainStyles.TabIndicator }}
         >
           <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
-          <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} />
+          <Tab
+            label="내 맞춤 키워드"
+            value="2"
+            sx={MainStyles.Tab}
+            onClick={GetMemberSkillData}
+          />
         </TabList>
 
         <TabPanel value="1" sx={MainStyles.TabPanel}>
@@ -136,15 +143,18 @@ export function Main() {
             ref={scrollRef}
             sx={{ ...MainStyles.ChipContainer, scrollBehavior: "smooth" }}
           >
-            {MY_SKILLS.map((skill, index) => (
+            {memberSkills.map((skill, index) => (
               <Chip
-                key={index}
-                label={skill}
-                onClick={() => setSelectedChip(MY_SKILLS[index])}
+                key={skill.id}
+                label={skill.keyword}
+                onClick={() => {
+                  setSelectedChip(skill);
+                  console.log(selectdChip);
+                }}
                 clickable={true}
                 variant="outlined"
                 sx={
-                  selectdChip === skill
+                  selectdChip === skill.keyword
                     ? ChipStyle(selectdChip)
                     : ChipStyle(undefined)
                 }

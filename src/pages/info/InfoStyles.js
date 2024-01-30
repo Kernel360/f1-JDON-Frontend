@@ -3,6 +3,7 @@ import { theme } from "../../styles/themeMuiStyle";
 export const InfoStyle = {
   FrameContainer: {
     paddingTop: 6,
+    paddingBottom: 15,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

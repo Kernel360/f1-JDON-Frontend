@@ -7,7 +7,6 @@ function SearchBar() {
   return (
     <Container
       maxWidth="md"
-      fullWidth
       sx={{
         padding: "0 !important",
       }}

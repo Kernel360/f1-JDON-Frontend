@@ -16,11 +16,11 @@ function InfoSkill({ onChange }) {
       if (prev.includes(newChip)) {
         return prev.filter((chip) => chip !== newChip);
       } else {
-        if (prev.length < 3) {
-          return [...prev, newChip];
-        } else {
+        if (prev.length >= 3) {
           alert("3개만 선택할 수 있습니다");
           return prev;
+        } else {
+          return [...prev, newChip];
         }
       }
     });
@@ -69,7 +69,7 @@ function InfoSkill({ onChange }) {
                 size="medium"
                 clickable={true}
                 onClick={() => handleClick(chip.skillId)}
-                sx={ChipStyle(selected, chip.keyword)}
+                sx={ChipStyle(selected, chip.skillId)}
               />
             ))}
           </Stack>

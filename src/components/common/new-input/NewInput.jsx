@@ -35,7 +35,7 @@ function NewInput({
         InputLabelProps={{ shrink: true }}
         placeholder={placeholder}
         onChange={onChange}
-        sx={nicknameTextField(value)}
+        sx={nicknameTextField(value, valid)}
         InputProps={
           duplicate
             ? {
