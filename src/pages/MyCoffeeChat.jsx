@@ -72,16 +72,24 @@ export default function MyCoffeeChat() {
                 <Tab
                   label="내가 오픈한 커피챗"
                   value="1"
-                  sx={{ flex: 1, fontSize: "20px" }}
+                  sx={{
+                    flex: 1,
+                    fontSize: "20px",
+                    maxWidth: "none",
+                  }}
                 />
                 <Tab
                   label="내가 신청한 커피챗"
                   value="2"
-                  sx={{ flex: 1, fontSize: "20px" }}
+                  sx={{
+                    flex: 1,
+                    fontSize: "20px",
+                    maxWidth: "none",
+                  }}
                 />
               </TabList>
             </Box>
-            <TabPanel value="1">
+            <TabPanel value="1" sx={{ width: "100%" }}>
               <Grid container spacing={{ xs: 2, md: 2 }}>
                 {/* Item One */}
                 {coffeeDatas.map((data, index) => (
@@ -98,7 +106,7 @@ export default function MyCoffeeChat() {
                 />
               </Box>
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel value="2" sx={{ width: "100%" }}>
               <Grid container spacing={{ xs: 2, md: 2 }}>
                 {/* Item Two */}
                 {coffeeDatas.map((data, index) => (
