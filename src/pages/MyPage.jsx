@@ -94,7 +94,7 @@ const ButtonSection = () => (
       </Link>
     </Grid>
     <Grid item xs={6}>
-      <Link to="/mypage/mycoffeechat">
+      <Link to="/mypage/coffee">
         <Button
           sx={{ fontSize: "17px", paddingY: "12px" }}
           variant="contained"

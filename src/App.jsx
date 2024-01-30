@@ -34,10 +34,12 @@ function App() {
               <Route exact path="/mypage/infoedit" element={<InfoEdit />} />
               <Route exact path="/mypage/video" element={<FavoritesVideo />} />
               <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
+              <Route exact path="/mypage/coffee" element={<MyCoffeeChat />} />
+              //손보기
               <Route
                 exact
-                path="/mypage/mycoffeechat"
-                element={<MyCoffeeChat />}
+                path="/mypage/coffee/:id"
+                element={<CoffeeDetail />}
               />
               <Route path="/oauth/info" element={<KakaoRedirectPage />} />
               <Route

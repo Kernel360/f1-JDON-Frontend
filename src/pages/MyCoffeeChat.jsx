@@ -4,11 +4,12 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Header from "../components/common/Header";
 import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
 import { getMyCoffeeChat } from "../api/api";
+import Pagenation from "../components/common/Pagenation";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");
   const [currentPage, setCurrentPAge] = useState(1);
-  const [data, setData] = useState([]);
+  const [coffeeDatas, setCoffeeDatas] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -18,14 +19,16 @@ export default function MyCoffeeChat() {
     const fetchData = async () => {
       try {
         const res = await getMyCoffeeChat(currentPage);
-        setData(res);
-        console.log("data ch!!", data);
+        setCoffeeDatas(res.content);
+        // console.log("coffeeData ch!!", res.content);
       } catch (error) {
         console.error("MyCoffeeChat 통신에러", error);
       }
     };
     fetchData();
   }, []);
+
+  console.log("coffeeData setData ch!!", coffeeDatas);
 
   return (
     <div>
@@ -40,7 +43,6 @@ export default function MyCoffeeChat() {
         }}
       >
         <Header title={"커피챗"} />
-
         <Box mt={4} sx={{ width: "100%", typography: "body1" }}>
           <TabContext value={value} sx={{ display: "flex" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -61,9 +63,16 @@ export default function MyCoffeeChat() {
               </TabList>
             </Box>
             <TabPanel value="1">
-              <Box>
-                Item One
-                {/* <CoffeeChatCard /> */}
+              <Grid container spacing={{ xs: 2, md: 2 }}>
+                {/* Item One */}
+                {coffeeDatas.map((data, index) => (
+                  <Grid item xs={12} sm={6} md={6} key={index}>
+                    <CoffeeChatCard data={data} />
+                  </Grid>
+                ))}
+              </Grid>
+              <Box mt={4}>
+                <Pagenation pageCount={coffeeDatas.length} />
               </Box>
             </TabPanel>
             <TabPanel value="2">Item Two</TabPanel>

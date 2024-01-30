@@ -136,7 +136,7 @@ export const getMyCoffeeChat = async (page) => {
     const res = await instance.get(
       `/api/v1/coffeechats/host?${page}=0&size=12`
     );
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.error("getMyCoffeeChat API", error);
     throw error;
