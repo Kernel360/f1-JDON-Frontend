@@ -8,11 +8,18 @@ import Pagenation from "../components/common/Pagenation";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");
-  const [currentPage, setCurrentPAge] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState({});
   const [coffeeDatas, setCoffeeDatas] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+    console.log("dddd", currentPage);
   };
 
   useEffect(() => {
@@ -22,6 +29,7 @@ export default function MyCoffeeChat() {
         if (value == "1") {
           res = await getMyCoffeeChat(currentPage);
           setCoffeeDatas(res.content);
+
           console.log(`${value} 내가 오픈한커피내용`, res);
         } else if (value == "2") {
           res = await getSignCoffeeChat(currentPage);
@@ -30,6 +38,7 @@ export default function MyCoffeeChat() {
           setCoffeeDatas(res);
         }
 
+        setPage(res.pageInfo || {});
         // console.log("coffeeData ch!!", res.content);
       } catch (error) {
         console.error("MyCoffeeChat 통신에러", error);
@@ -38,7 +47,7 @@ export default function MyCoffeeChat() {
     fetchData();
   }, [value, currentPage]);
 
-  console.log(`${value}coffeeData setData ch!!`, coffeeDatas);
+  console.log(`${value}coffeeData page!!`, page.totalPages);
 
   return (
     <div>
@@ -82,7 +91,11 @@ export default function MyCoffeeChat() {
                 ))}
               </Grid>
               <Box mt={4}>
-                <Pagenation pageCount={coffeeDatas.length} />
+                <Pagenation
+                  pageCount={page?.totalPages || 2}
+                  currentPage={currentPage}
+                  onChange={handlePageChange}
+                />
               </Box>
             </TabPanel>
             <TabPanel value="2">
@@ -95,7 +108,11 @@ export default function MyCoffeeChat() {
                 ))}
               </Grid>
               <Box mt={4}>
-                <Pagenation pageCount={coffeeDatas.length} />
+                <Pagenation
+                  pageCount={page?.totalPages || 2}
+                  currentPage={currentPage}
+                  onChange={handlePageChange}
+                />
               </Box>
             </TabPanel>
           </TabContext>

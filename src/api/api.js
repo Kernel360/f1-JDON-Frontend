@@ -142,8 +142,8 @@ export const getMyCoffeeChat = async (page) => {
     throw error;
   }
 };
-//내가 신청한 커피챗 목록 조회
 
+//내가 신청한 커피챗 목록 조회
 export const getSignCoffeeChat = async (page) => {
   try {
     console.log("page check", page);
