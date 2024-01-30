@@ -3,7 +3,7 @@ import { Container, Box, Button, Typography, Grid, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Header from "../components/common/Header";
 import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
-import { getMyCoffeeChat } from "../api/api";
+import { getMyCoffeeChat, getSignCoffeeChat } from "../api/api";
 import Pagenation from "../components/common/Pagenation";
 
 export default function MyCoffeeChat() {
@@ -18,17 +18,27 @@ export default function MyCoffeeChat() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getMyCoffeeChat(currentPage);
-        setCoffeeDatas(res.content);
+        let res;
+        if (value == "1") {
+          res = await getMyCoffeeChat(currentPage);
+          setCoffeeDatas(res.content);
+          console.log(`${value} 내가 오픈한커피내용`, res);
+        } else if (value == "2") {
+          res = await getSignCoffeeChat(currentPage);
+          console.log(`${value} 내가 신청한커피내용`, res);
+
+          setCoffeeDatas(res);
+        }
+
         // console.log("coffeeData ch!!", res.content);
       } catch (error) {
         console.error("MyCoffeeChat 통신에러", error);
       }
     };
     fetchData();
-  }, []);
+  }, [value, currentPage]);
 
-  console.log("coffeeData setData ch!!", coffeeDatas);
+  console.log(`${value}coffeeData setData ch!!`, coffeeDatas);
 
   return (
     <div>
@@ -75,7 +85,19 @@ export default function MyCoffeeChat() {
                 <Pagenation pageCount={coffeeDatas.length} />
               </Box>
             </TabPanel>
-            <TabPanel value="2">Item Two</TabPanel>
+            <TabPanel value="2">
+              <Grid container spacing={{ xs: 2, md: 2 }}>
+                {/* Item Two */}
+                {coffeeDatas.map((data, index) => (
+                  <Grid item xs={12} sm={6} md={6} key={index}>
+                    <CoffeeChatCard data={data} />
+                  </Grid>
+                ))}
+              </Grid>
+              <Box mt={4}>
+                <Pagenation pageCount={coffeeDatas.length} />
+              </Box>
+            </TabPanel>
           </TabContext>
         </Box>
       </Container>

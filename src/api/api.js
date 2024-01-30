@@ -128,7 +128,7 @@ export const getJobCategory = async () => {
 };
 // -------------------------------------------- coffeechat
 
-//내가 신청한 커피챗 목록 조회
+//내가 오픈한 커피챗 목록 조회
 
 export const getMyCoffeeChat = async (page) => {
   try {
@@ -142,8 +142,20 @@ export const getMyCoffeeChat = async (page) => {
     throw error;
   }
 };
+//내가 신청한 커피챗 목록 조회
 
-//내가 오픈한 커피챗 목록 조회
+export const getSignCoffeeChat = async (page) => {
+  try {
+    console.log("page check", page);
+    const res = await instance.get(
+      `/api/v1/coffeechats/guest?page=${page}&size=12`
+    );
+    return res.data.data;
+  } catch (error) {
+    console.error("getMyCoffeeChat API", error);
+    throw error;
+  }
+};
 
 //커피챗 목록 조회
 export const getCoffeeChat = async (page) => {
