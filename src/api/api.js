@@ -1,6 +1,7 @@
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
 const instance = axios.create({
+  withCredentials: true,
   baseURL: apiUrl,
   headers: {
     "Content-Type": "application/json",
@@ -25,9 +26,9 @@ export async function registerUserInfo(userInfo) {
 export async function checkNicknameDuplicate(nickName) {
   try {
     console.log(nickName);
-    const res = await instance.post("/api/v1/nickname/duplicate", { nickName });
-    console.log("checkNicknameDuplicate API", res.data);
-    return true;
+    const res = await instance.post("/api/v1/nickname/duplicate", nickName);
+    console.log("checkNicknameDuplicate API", res);
+    return res.status;
   } catch (error) {
     console.log("checkNicknameDuplicate API error", error);
     throw error;
@@ -40,7 +41,7 @@ export async function checkNicknameDuplicate(nickName) {
 export async function getHotSkills() {
   try {
     const res = await instance.get("/api/v1/skills/hot");
-    console.log("getHotSkills API", res.data);
+    // console.log("getHotSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getHotSkills API error", error);
@@ -50,6 +51,7 @@ export async function getHotSkills() {
 
 //회원 맞춤 기술스택 조회
 export async function getMemberSkills() {
+  console.log("아니 왜안돼");
   try {
     const res = await instance.get("/api/v1/skills/member");
     console.log("getMemberSkills API", res.data);
