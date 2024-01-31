@@ -6,14 +6,14 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AttachmentIcon from "@mui/icons-material/Attachment";
+// import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+// import RemoveIcon from "@mui/icons-material/Remove";
+// import AttachmentIcon from "@mui/icons-material/Attachment";
 
 import vector from "../../assets/images/vector.svg";
-import id from "date-fns/locale/id";
 
 const ToggleList = ({ datas }) => {
+  console.log("data", datas);
   return (
     <div style={{ marginTop: 42 }}>
       {datas.map((data) => (
@@ -22,7 +22,7 @@ const ToggleList = ({ datas }) => {
     </div>
   );
 };
-const TitleItem = ({ id, title, content, children }) => {
+const TitleItem = ({ title, content, children }) => {
   const [showItem, setShowItem] = useState(false);
 
   const toggleItem = () => {
@@ -71,7 +71,7 @@ const TitleItem = ({ id, title, content, children }) => {
           {children && (
             <Box>
               {children.map((child, index) => (
-                <TextItem key={child.id} {...child} />
+                <TextItem key={index} {...child} />
               ))}
             </Box>
           )}
@@ -83,7 +83,6 @@ const TitleItem = ({ id, title, content, children }) => {
 const TextItem = ({ title, content }) => {
   return (
     <Box
-      key={id}
       display="flex"
       flexDirection="column"
       sx={{
@@ -100,9 +99,6 @@ const TextItem = ({ title, content }) => {
       >
         {title}
       </Typography>
-      {/* {Array.isArray(content) && */}
-
-      {/* content.map((text, index) => ( */}
       <Typography
         // key={index}
         component="p"
@@ -116,7 +112,6 @@ const TextItem = ({ title, content }) => {
       >
         {content}
       </Typography>
-      {/* ))} */}
     </Box>
   );
 };
