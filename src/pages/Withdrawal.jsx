@@ -3,10 +3,24 @@ import Header from "../components/common/Header";
 import InputField from "../components/common/InputField";
 import { Box, Button, Container } from "@mui/material";
 import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnStyles";
+import { useNavigate } from "react-router-dom";
+import { deleteMember } from "../api/api";
 
 export default function Withdrawal() {
-  const handleSaveChanges = () => {
-    console.log("탈퇴합니다.");
+  const navigate = useNavigate();
+
+  const handleSaveChanges = async () => {
+    try {
+      const res = await deleteMember();
+      if (res) {
+        console.log(`${res}회원탈퇴합니다`);
+        //로그인 여부 상태값 변경
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Withdrawal파일 deleteMember 통신에러", error);
+    }
+    // console.log("탈퇴합니다.");
   };
   return (
     <Container

@@ -35,6 +35,19 @@ export async function checkNicknameDuplicate(nickName) {
   }
 }
 
+//회원 탈퇴
+export async function deleteMember() {
+  try {
+    // console.log(nickName);
+    const res = await instance.delete("/api/v1/withdraw");
+    console.log("deleteMember API", res);
+    return res.data;
+  } catch (error) {
+    console.log("deleteMember API error", error);
+    throw error;
+  }
+}
+
 // -------------------------------------------- skill
 
 //요즘 뜨는 기술스택 조회
