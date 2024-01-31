@@ -8,14 +8,21 @@ import person from "../../../assets/icons/person.svg";
 import { useState } from "react";
 import { VideoCardStyle } from "./CardStyle";
 import "./../../../styles/animations.scss";
+import { postFavoritVideo } from "../../../api/api";
 
 function VideoCard({ data }) {
   const [isLiked, setIsLiked] = useState(false);
-  //console.log(data);
+  console.log(data);
 
-  const handleLikeClick = (e) => {
+  const handleLikeClick = async (e) => {
     e.preventDefault();
-    setIsLiked((prevIsLiked) => !prevIsLiked);
+    try {
+      const res = await postFavoritVideo(data.lectureId, !isLiked);
+      setIsLiked((prevIsLiked) => !prevIsLiked);
+      console.log("좋아요 응답", res);
+    } catch (error) {
+      console.error("postFavoritVideo 통신에러", error);
+    }
   };
 
   return (
@@ -27,6 +34,7 @@ function VideoCard({ data }) {
         outline: "none",
         boxShadow: "none",
       }}
+      data-id={data.id} // 데이터의 ID를 data-id 속성으로 저장
     >
       <Box sx={{ my: 1, pointer: "cursor", position: "relative" }}>
         <CardMedia

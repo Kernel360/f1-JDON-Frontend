@@ -89,13 +89,29 @@ export async function getSkillsOnJD(jobCategoryId) {
 }
 
 // -------------------------------------------- favorite
-
 // 내가 찜한 영상 목록 조회
 export const getFavoritVideo = async (page) => {
   try {
     // console.log("page check", page);
     const res = await instance.get(`/api/v1/favorites?page=${page}&size=12`);
     console.log("pageCnt", res.headers);
+    return res.data;
+  } catch (error) {
+    console.error("getFavoritVideo API", error);
+    throw error;
+  }
+};
+
+//영상 찜하는 버튼 누르기
+export const postFavoritVideo = async (lectureId, isLiked) => {
+  try {
+    const postData = {
+      lectureId: lectureId,
+      isFavorite: isLiked,
+    };
+    console.log("postFavoritVideo check", postData);
+    const res = await instance.post(`/api/v1/favorites`, postData);
+    console.log("FavoritVideo", res);
     return res.data;
   } catch (error) {
     console.error("getFavoritVideo API", error);

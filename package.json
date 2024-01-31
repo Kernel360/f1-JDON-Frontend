@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@date-io/date-fns": "^2.17.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -52,5 +53,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://jdon.kr"
+  "proxy": "http://43.201.221.251:1221"
 }
