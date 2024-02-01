@@ -48,6 +48,19 @@ export async function getMemberInfo() {
   }
 }
 
+//회원정보 수정하기
+export async function changeMemberInfo() {
+  try {
+    // console.log(nickName);
+    const res = await instance.put("/api/v1/member");
+    console.log("getMemberInfo API", res);
+    return res.data;
+  } catch (error) {
+    console.log("getMemberInfo API error", error);
+    throw error;
+  }
+}
+
 //회원 탈퇴
 export async function deleteMember() {
   try {

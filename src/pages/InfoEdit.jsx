@@ -1,25 +1,28 @@
 // InfoEdit.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 
 import Header from "../components/common/Header";
 import { Box, Button, Container, Grid, Typography, Link } from "@mui/material";
-
 import SwipJobSkill from "../components/common/swipe/SwipJobSkill";
 import InputField from "../components/common/InputField";
 import DuplicateCheckButton from "../components/common/DuplicateCheckButton";
 import DatePickerField from "../components/common/DatePickerField";
 import GenderBtn from "../components/common/GenderBtn";
 import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnStyles";
+import { useLocation } from "react-router-dom";
+import { changeMemberInfo, getMemberInfo } from "../api/api";
 
 export default function InfoEdit() {
   const navigate = useNavigate();
 
+  const [memberInfo, setMemberInfo] = useState({});
   const [nickname, setNickname] = useState("");
   const [birthday, setBirthday] = useState(null); // or some default date
-  const [sex, setSex] = useState(""); // or
-  const [jobSkill, setJobSkill] = useState("");
+  const [gender, setGender] = useState(""); // or
+  const [skillList, setSkillList] = useState("");
+  const [jobCategoryId, setJobCategoryId] = useState("");
   // const [selectedDate, setSelectedDate] = useState(null);
 
   const [isNicknameValid, setNicknameValid] = useState(true);
@@ -31,9 +34,34 @@ export default function InfoEdit() {
     } else if (name === "birthday") {
       setBirthday(value);
     } else if (name === "sex") {
-      setSex(value);
+      setGender(value);
     }
   };
+
+  useEffect(() => {
+    const fetchMemberInfo = async () => {
+      try {
+        const memberData = await getMemberInfo();
+        console.log("member", memberData);
+        setMemberInfo(memberData.data);
+        setNickname(memberData.data.nickname || "");
+        setBirthday(memberData.data.birthday || null);
+        setGender(memberData.data.sex || "");
+        setSkillList(memberData.data.skillList || null);
+        setJobCategoryId(memberData.data.setJobCategoryId || null);
+      } catch (error) {
+        // 접근권한 없을때
+        if (error.response && error.response.status === 401) {
+          navigator("/signin");
+        }
+        console.error("회원 정보 가져오기 에러", error);
+      }
+    };
+
+    fetchMemberInfo();
+  }, []);
+
+  console.log("sssss", memberInfo);
 
   const handleCheckDuplicate = () => {
     // setNicknameValid(validateField(nickname));
@@ -45,11 +73,25 @@ export default function InfoEdit() {
   };
   const handleSexChange = (selectedGender) => {
     console.log("성별 선택", selectedGender);
+    setGender(selectedGender);
   };
-  const handleSaveChanges = () => {
-    // 여기서 변경된 정보를 저장하는 로직을 추가
-    // 저장이 완료되면 프로필 페이지로 이동
-    navigate("/mypage");
+  const handleSaveChanges = async () => {
+    // navigate("/mypage");
+    try {
+      await changeMemberInfo({
+        nickname,
+        birthday,
+        gender,
+        jobCategoryId,
+        skillList,
+      });
+
+      // 수정된 정보를 가져와서 상태 업데이트
+      const updatedMemberInfo = await getMemberInfo();
+      setMemberInfo(updatedMemberInfo.data);
+    } catch (error) {
+      console.error("회원 정보 수정 에러", error);
+    }
   };
 
   return (
@@ -70,10 +112,10 @@ export default function InfoEdit() {
             name="nickname"
             autoComplete="nickname"
             placeholder="사용하실 닉네임을 입력해주세요"
-            value={nickname}
+            value={nickname || ""}
             onChange={handleInputChange}
             error={!isNicknameValid}
-            helperText={!isNicknameValid ? "닉네임을 입력하세요." : ""}
+            helperText={!isNicknameValid ? "다른 닉네임으로 입력해주세요." : ""}
             inputProps={{
               endAdornment: (
                 <DuplicateCheckButton
@@ -92,10 +134,13 @@ export default function InfoEdit() {
               />
             </Grid>
             <Grid item xs={12}>
-              <GenderBtn handleSexChange={handleSexChange} />
+              <GenderBtn
+                initialGender={gender}
+                handleSexChange={handleSexChange}
+              />
             </Grid>
             <Grid item xs={12}>
-              <SwipJobSkill />
+              <SwipJobSkill data={memberInfo} />
             </Grid>
             <Grid item xs={12}>
               <Button

@@ -56,9 +56,9 @@ const ProfileSection = ({ data }) => (
             fontWeight: "600",
           }}
         >
-          {data || "닉네임 설정이 필요합니다"}
+          {data.nickname || "닉네임 설정이 필요합니다"}
         </Typography>
-        <Link to="/mypage/infoedit">
+        <Link to={{ pathname: "/mypage/infoedit", state: { data: data } }}>
           <IconButton
             aria-label="정보수정"
             color="black"
@@ -239,7 +239,7 @@ export default function MyPage() {
       >
         마이페이지
       </Typography>
-      <ProfileSection data={memberInfo.nickname} />
+      <ProfileSection data={memberInfo} />
       <ButtonSection />
       <ToggleList datas={noticeLists} />
       <Box sx={{ flexGrow: 1 }} />

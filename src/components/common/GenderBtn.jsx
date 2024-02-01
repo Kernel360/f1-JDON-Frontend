@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, FormLabel, Grid } from "@mui/material";
 import { infoBasicStyles } from "../../pages/info/InfoStyles";
 
-const GenderBtn = ({ handleSexChange }) => {
-  const [selectedGender, setSelectedGender] = useState(null);
+const GenderBtn = ({ initialGender, handleSexChange }) => {
+  const [selectedGender, setSelectedGender] = useState(initialGender);
+
+  useEffect(() => {
+    // 부모 컴포넌트에서 전달된 초기 성별 값이 변경되면 업데이트
+    setSelectedGender(initialGender);
+  }, [initialGender]);
 
   const handleClick = (gender) => {
     setSelectedGender(gender === selectedGender ? null : gender);
