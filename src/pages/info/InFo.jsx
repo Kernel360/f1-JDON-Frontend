@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { useLocation, useNavigate } from "react-router-dom/dist";
+import { useNavigate } from "react-router-dom/dist";
 import InFoBasic from "./InFoBasic";
 import InFoJD from "./InfoJD";
 import InfoSkill from "./InfoSkill";
