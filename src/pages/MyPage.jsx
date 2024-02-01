@@ -15,9 +15,10 @@ import BottomNav from "../components/common/BottomNav";
 import edit from "../assets/images/icn_edit.svg";
 // import BottomNav from "../components/common/BottomNav";
 import { Link } from "react-router-dom";
-import { getFAQ } from "../api/api";
+import { getFAQ, getMemberInfo } from "../api/api";
+import { set } from "date-fns/esm";
 
-const ProfileSection = () => (
+const ProfileSection = ({ data }) => (
   <Grid
     container
     spacing={2}
@@ -55,7 +56,7 @@ const ProfileSection = () => (
             fontWeight: "600",
           }}
         >
-          지렁이
+          {data || "닉네임 설정이 필요합니다"}
         </Typography>
         <Link to="/mypage/infoedit">
           <IconButton
@@ -110,6 +111,7 @@ const ButtonSection = () => (
 );
 
 export default function MyPage() {
+  const [memberInfo, setMemberInfo] = useState({});
   const [FAQ, setFAQ] = useState([]);
   const noticeLists = [
     {
@@ -198,16 +200,24 @@ export default function MyPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getFAQ();
-        const FAQData = data.faqList || [];
-        setFAQ(FAQData);
-        console.log("faq", data.faqList);
+        const memberData = await getMemberInfo();
+        const faqData = await getFAQ();
+
+        setMemberInfo(memberData.data);
+        // const FAQData = data.faqList || [];
+        setFAQ(faqData.faqList || []);
+        console.log("memberData", memberData.data.nickname);
+        console.log("faq", faqData.faqList);
       } catch (error) {
+        if (error.response && error.response.status === 401) {
+          // navigator("/");
+        }
         console.error("faq 에러", error);
       }
     };
     fetchData();
   }, []);
+  console.log("setmember", memberInfo.nickname);
   return (
     <Container
       maxWidth="md"
@@ -229,7 +239,7 @@ export default function MyPage() {
       >
         마이페이지
       </Typography>
-      <ProfileSection />
+      <ProfileSection data={memberInfo.nickname} />
       <ButtonSection />
       <ToggleList datas={noticeLists} />
       <Box sx={{ flexGrow: 1 }} />

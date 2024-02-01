@@ -35,6 +35,19 @@ export async function checkNicknameDuplicate(nickName) {
   }
 }
 
+//회원정보 불러오기
+export async function getMemberInfo() {
+  try {
+    // console.log(nickName);
+    const res = await instance.get("/api/v1/member");
+    console.log("getMemberInfo API", res);
+    return res.data;
+  } catch (error) {
+    console.log("getMemberInfo API error", error);
+    throw error;
+  }
+}
+
 //회원 탈퇴
 export async function deleteMember() {
   try {
