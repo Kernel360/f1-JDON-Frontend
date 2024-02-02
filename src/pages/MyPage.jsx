@@ -43,6 +43,7 @@ const ProfileSection = ({ data }) => (
             background: "inherit",
             width: "45px",
             height: "45px",
+            p: 1,
             border: "1px solid #FEC93A",
           }}
         />
@@ -84,7 +85,7 @@ const ButtonSection = () => (
     <Grid item xs={6}>
       <Link to="/mypage/video">
         <Button
-          sx={{ fontSize: "17px", paddingY: "12px" }}
+          sx={{ fontSize: "17px", paddingY: "12px", borderRadius: "8px" }}
           variant="contained"
           color="primary"
           fullWidth
@@ -97,7 +98,7 @@ const ButtonSection = () => (
     <Grid item xs={6}>
       <Link to="/mypage/coffee">
         <Button
-          sx={{ fontSize: "17px", paddingY: "12px" }}
+          sx={{ fontSize: "17px", paddingY: "12px", borderRadius: "8px" }}
           variant="contained"
           color="primary"
           fullWidth
@@ -226,20 +227,11 @@ export default function MyPage() {
         flexDirection: "column",
         minHeight: "95vh",
         minwidth: "100vw",
-        pb: 10,
+        py: 10,
       }}
     >
-      <Typography
-        variant="h1"
-        component="h1"
-        fontSize="1rem"
-        textAlign="center"
-        padding={2}
-        marginBottom={10}
-      >
-        마이페이지
-      </Typography>
       <ProfileSection data={memberInfo} />
+
       <ButtonSection />
       <ToggleList datas={noticeLists} />
       <Box sx={{ flexGrow: 1 }} />
@@ -248,7 +240,14 @@ export default function MyPage() {
         bottom="0"
         variant="secondary"
         size="large"
-        sx={{ width: "100%", backgroundColor: "#EBEBEB", fontSize: "1.05rem" }}
+        sx={{
+          width: "100%",
+          backgroundColor: "#EBEBEB",
+          fontSize: "1.05rem",
+          p: "13px",
+          borderRadius: 10,
+          color: "gray",
+        }}
       >
         로그아웃
       </Button>

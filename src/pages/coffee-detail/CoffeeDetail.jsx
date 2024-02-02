@@ -30,7 +30,7 @@ function CoffeeDetail({ host = true }) {
     try {
       await navigator.clipboard.writeText(coffeeChatData.openChatUrl);
       setIsCopied(true);
-      console.log("텍스트가 클립보드에 복사되었습니다.");
+      // console.log("텍스트가 클립보드에 복사되었습니다.");
     } catch (error) {
       console.error("클립보드 복사 실패:", error);
     }
@@ -127,7 +127,7 @@ function CoffeeDetail({ host = true }) {
                       {isCopied ? (
                         <p style={{ fontSize: "12px" }}>Copied!</p>
                       ) : (
-                        <FileCopyIcon sx={{ fontSize: 20, color: "gray" }} />
+                        <FileCopyIcon sx={{ fontSize: 20, color: "#BCBCC4" }} />
                       )}
                     </Button>
                   )}

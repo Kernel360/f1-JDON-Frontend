@@ -110,10 +110,12 @@ export default function SwipJobSkill({ skills = [] }) {
 
   return (
     <div>
-      <Typography sx={{ fontSize: "16px", color: "#545459" }}>
-        직무 및 기술 스택
-      </Typography>
-      <Button onClick={toggleDrawer(true)} fullWidth sx={skillsButton}>
+      <Button
+        // variant="outlined"
+        onClick={toggleDrawer(true)}
+        fullWidth
+        sx={skillsButton}
+      >
         클릭하여 선택하기
       </Button>
       <SwipeableDrawer

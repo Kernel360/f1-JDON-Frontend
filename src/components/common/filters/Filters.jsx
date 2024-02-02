@@ -7,10 +7,10 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Arrow from "../../../assets/icons/chip_arrow.svg";
 
-export function Filters() {
+export function Filters({ sorting, onChange }) {
   const [openFilter, setOpenFilter] = useState([false, false]);
   const handleClose = () => setOpenFilter(openFilter.map(() => false));
 
@@ -23,7 +23,7 @@ export function Filters() {
     <>
       <Box sx={{ display: "flex", gap: 1 }}>
         <Chip
-          label="최신순"
+          label={sorting === "createdDate,desc" ? "최신순" : "조회순"}
           clickable
           variant="outlined"
           onClick={() => handleChipClick(0)}
@@ -64,28 +64,26 @@ export function Filters() {
             <FormControl>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="최신순"
+                defaultValue={
+                  sorting === "createdDate,desc" ? "최신순" : "조회순"
+                }
                 name="radio-buttons-group"
               >
                 <FormControlLabel
                   value="최신순"
                   control={<Radio />}
                   label="최신순"
+                  onClick={() => {
+                    onChange("createdDate,desc");
+                  }}
                 />
                 <FormControlLabel
                   value="조회순"
                   control={<Radio />}
                   label="조회순"
-                />
-                <FormControlLabel
-                  value="인기 높은 순"
-                  control={<Radio />}
-                  label="인기 높은 순"
-                />
-                <FormControlLabel
-                  value="인기 낮은 순"
-                  control={<Radio />}
-                  label="인기 낮은 순"
+                  onClick={() => {
+                    onChange("viewCount,desc");
+                  }}
                 />
               </RadioGroup>
             </FormControl>

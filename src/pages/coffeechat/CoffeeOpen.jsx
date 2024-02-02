@@ -11,9 +11,11 @@ import NewInput from "../../components/common/new-input/NewInput";
 import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
 import { useState } from "react";
 import { registerCoffeeChat } from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 function Coffeeopen() {
   const [value, setValue] = useState([]);
+  const navigate = useNavigate();
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
   };
@@ -23,8 +25,21 @@ function Coffeeopen() {
     try {
       const data = await registerCoffeeChat(value);
       console.log("registerCoffeeChat 확인중", data);
+      handleConfirm();
     } catch (error) {
       console.error("Error fetching hot skills:", error);
+    }
+  };
+
+  const handleConfirm = () => {
+    if (
+      window.confirm("신청이 완료되었어요! 커피챗 신청 내역을 확인해보실래요?")
+    ) {
+      // 사용자가 '확인'을 클릭한 경우
+      navigate("/mypage");
+    } else {
+      // 사용자가 '취소'를 클릭한 경우
+      console.log("User clicked cancel.");
     }
   };
 
@@ -95,6 +110,7 @@ function Coffeeopen() {
                   <NewInput
                     placeholder="숫자만 입력해주세요"
                     label="총 모집 인원"
+                    type="number"
                     value={value.totalRecruitCount}
                     onChange={(e) => {
                       handleInputChange("totalRecruitCount", e.target.value);
