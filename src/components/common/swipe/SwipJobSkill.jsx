@@ -135,9 +135,6 @@ export default function SwipJobSkill({
 
   return (
     <div>
-      <Typography sx={{ fontSize: "16px", color: "#545459" }}>
-        직무 및 기술 스택
-      </Typography>
       <Button
         // variant="outlined"
         onClick={toggleDrawer(true)}

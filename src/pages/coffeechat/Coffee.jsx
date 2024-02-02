@@ -10,22 +10,24 @@ import { getCoffeeChat } from "../../api/api";
 export function Coffee() {
   const navigate = useNavigate();
   const [coffeeData, setCoffeeData] = useState([]);
+  const [sorting, setSorting] = useState("createdDate,desc");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getCoffeeChat(1);
+        const data = await getCoffeeChat(1, sorting);
         setCoffeeData(data);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
     };
+    console.log(sorting);
     fetchData();
-  }, []);
+  }, [sorting]);
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
       <SearchBar />
-      <Filters />
+      <Filters sorting={sorting} onChange={setSorting} />
       <Box display="flex" justifyContent="flex-end">
         <Button
           variant="contained"

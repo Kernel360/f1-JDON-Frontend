@@ -10,6 +10,7 @@ function NewInput({
   label,
   value,
   valid,
+  type,
   placeholder,
   helperText,
   onChange,
@@ -35,6 +36,7 @@ function NewInput({
         InputLabelProps={{ shrink: true }}
         placeholder={placeholder}
         onChange={onChange}
+        type={type}
         sx={nicknameTextField(value, valid)}
         InputProps={
           duplicate

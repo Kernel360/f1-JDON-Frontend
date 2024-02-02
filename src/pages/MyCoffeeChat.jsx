@@ -26,12 +26,12 @@ export default function MyCoffeeChat() {
     const fetchData = async () => {
       try {
         let res;
-        if (value == "1") {
+        if (value === "1") {
           res = await getMyCoffeeChat(currentPage);
           setCoffeeDatas(res.content);
 
           console.log(`${value} 내가 오픈한커피내용`, res);
-        } else if (value == "2") {
+        } else if (value === "2") {
           res = await getSignCoffeeChat(currentPage);
           console.log(`${value} 내가 신청한커피내용`, res);
 
