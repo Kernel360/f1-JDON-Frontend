@@ -75,6 +75,10 @@ export default function InfoEdit() {
   //     setSex(value);
   //   }
   // };
+  const handleGenderChange = (newValue) => {
+    setGender(newValue);
+    console.log("gender", newValue);
+  };
 
   const handleSaveChanges = () => {
     // 여기서 변경된 정보를 저장하는 로직을 추가
@@ -157,7 +161,7 @@ export default function InfoEdit() {
                   <Button
                     variant="outlined"
                     fullWidth
-                    onClick={() => handleInputChange("gender", item)}
+                    onClick={() => handleGenderChange(item)}
                     sx={OptionButton(gender === item)}
                   >
                     {item}
