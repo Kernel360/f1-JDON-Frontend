@@ -68,9 +68,9 @@ export const MainStyles = {
     },
   },
   TypoGraphy: {
-    fontSize: "20px",
-    fontWeight: 700,
-    color: "#545459",
+    fontSize: "18px",
+    fontWeight: 600,
+    color: "#323236",
     display: "flex",
     alignItems: "center",
   },

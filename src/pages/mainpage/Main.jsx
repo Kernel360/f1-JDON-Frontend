@@ -124,15 +124,14 @@ export function Main() {
         } catch (error) {
           console.error("Error fetching lecture by keyword:", error);
         }
+      } else if (searchKeyword === "" && !selectdChip.keyword) {
+        setSearchData("");
+        const lectureDataByKeyword = await getLectureByKeyword("");
+        setSelectedChip((prevState) => ({
+          ...prevState,
+          keyword: lectureDataByKeyword.keyword,
+        }));
       }
-      // if (searchKeyword === "") {
-      //   setSearchData("");
-      //   const lectureDataByKeyword = await getLectureByKeyword("");
-      //   setSelectedChip((prevState) => ({
-      //     ...prevState,
-      //     keyword: lectureDataByKeyword.keyword,
-      //   }));
-      // }
     };
     fetchLectureByKeyword();
   }, [searchData, searchKeyword]);

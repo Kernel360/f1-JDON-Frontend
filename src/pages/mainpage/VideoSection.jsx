@@ -17,9 +17,11 @@ function VideoSection({ selectdChip, data }) {
         <Box
           sx={{
             background: "#F9F9F9",
-            width: "100%",
+
             borderRadius: "10px",
             mt: 2,
+            width: "calc(100% + 32px)",
+            margin: "0 -16px",
           }}
         >
           {data.length > 0 ? (
