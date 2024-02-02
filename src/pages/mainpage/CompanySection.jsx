@@ -14,11 +14,7 @@ function CompanySection({ selectdChip, data }) {
       </Typography>
       <Box sx={{ width: "100%" }}>
         {data.length > 0 ? (
-          <Grid
-            container
-            spacing={{ xs: 2, sm: 3, md: 3 }}
-            sx={{ px: 2, py: 1 }}
-          >
+          <Grid container spacing={{ xs: 1, sm: 2, md: 2 }} sx={{ py: 1 }}>
             {data.map((item, index) => (
               <Grid item xs={6} sm={4} md={4} key={index}>
                 <CompanyCard data={item} />
