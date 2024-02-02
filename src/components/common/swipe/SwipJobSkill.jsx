@@ -20,8 +20,9 @@ import {
   skillsButton,
   infoBasicStyles,
 } from "../../../pages/info/InfoStyles.js";
+import { getJobCategory } from "../../../api/api";
 
-export default function SwipJobSkill({ skills = [] }) {
+export default function SwipJobSkill({ jobId, jobSkill }) {
   const SKILLS = [
     "JavaScript",
     "React",
@@ -34,9 +35,11 @@ export default function SwipJobSkill({ skills = [] }) {
     "금요일",
     "내일 주말",
   ];
-
-  const [checkedItems, setCheckedItems] = useState(skills || []);
+  console.log("jobId", jobId);
+  console.log("jobSkill", jobSkill);
+  const [checkedItems, setCheckedItems] = useState([]);
   const [tabValue, setTabValue] = useState(0);
+  const [jobCategories, setJobCategories] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const scrollRef = useRef(null);
@@ -44,6 +47,19 @@ export default function SwipJobSkill({ skills = [] }) {
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getJobCategory();
+        setJobCategories(data.jobGroupList[0].jobCategoryList);
+        console.log("직무확인", data.jobGroupList[0].jobCategoryList);
+      } catch (error) {
+        console.error("swipJobSkill 파일 통신에러", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleChangeTab = (event, newValue) => {
     setTabValue(newValue);
@@ -139,7 +155,7 @@ export default function SwipJobSkill({ skills = [] }) {
               flexGrow: 1,
               bgcolor: "background.paper",
               display: "flex",
-              height: "50vw",
+              // height: "50vw",
               "@media (min-width: 300px)": {
                 height: "450px",
               },
@@ -161,8 +177,8 @@ export default function SwipJobSkill({ skills = [] }) {
                 flex: "0 0 auto",
               }}
             >
-              {["프론트엔드", "백엔드"].map((label, index) => (
-                <Tab key={index} label={label} />
+              {jobCategories.map((category) => (
+                <Tab key={category.id} label={category.name} />
               ))}
             </Tabs>
             {["프론트엔드", "백엔드"].map((label, index) => (

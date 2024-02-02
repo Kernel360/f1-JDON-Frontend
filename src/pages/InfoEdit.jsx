@@ -37,6 +37,7 @@ export default function InfoEdit() {
   const [nickname, setNickname] = useState("");
   const [birthday, setBirthday] = useState(null); // or some default date
   const [gender, setGender] = useState("");
+  const [jobId, setJobId] = useState("");
   const [jobSkill, setJobSkill] = useState("");
 
   // 리코일 사용안하면
@@ -54,6 +55,8 @@ export default function InfoEdit() {
         setNickname(memberData.data.nickname || "닉네임 설정이 필요합니다.");
         setBirthday(memberData.data.birth || null);
         setGender(memberData.data.gender || "");
+        setJobId(memberData.data.jobCategoryId || "");
+        setJobSkill(memberData.data.skillList || "");
       } catch (error) {
         // 에러 처리 로직
         console.error("회원 정보 가져오기 에러", error);
@@ -63,7 +66,8 @@ export default function InfoEdit() {
     fetchMemberInfo(); // 통신 함수 호출
   }, []); // 빈 배
 
-  console.log("set멤버", birthday);
+  console.log("11set멤버", jobId);
+  console.log("22set멤버", jobSkill);
 
   // 초반에 정보들 넣어주기
   // const handleInputChange = (name, value) => {
@@ -187,7 +191,7 @@ export default function InfoEdit() {
             // value={gender}
             valid={validtion}
           >
-            <SwipJobSkill />
+            <SwipJobSkill jobId={jobId} jobSkill={jobSkill} />
           </TotalInputForm>
           <Button
             onClick={handleSaveChanges}
