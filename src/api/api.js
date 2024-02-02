@@ -239,8 +239,9 @@ export const getCoffeeChatDetail = async (id) => {
 
 //커피챗 등록
 export async function registerCoffeeChat(coffeeChat) {
+  console.log("333", coffeeChat);
   try {
-    const res = await instance.post("/api/v1/coffeechats", { coffeeChat });
+    const res = await instance.post("/api/v1/coffeechats", coffeeChat);
     console.log("registerCoffeeChat API", res.data);
     return res.data;
   } catch (error) {

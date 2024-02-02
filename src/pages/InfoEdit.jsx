@@ -40,7 +40,7 @@ export default function InfoEdit() {
 
   // 리코일 사용안하면
   const handleInputChange = async (field, newValue) => {
-    setValue((prev) => ({ ...prev, [field]: newValue }));
+    // setValue((prev) => ({ ...prev, [field]: newValue }));
   };
 
   useEffect(() => {
@@ -48,17 +48,18 @@ export default function InfoEdit() {
     const fetchMemberInfo = async () => {
       try {
         const memberData = await getMemberInfo();
+        console.log("men", memberData);
         setNickname(memberData.nickname || "닉네임 설정이 필요합니다.");
         setBirthday(memberData.birthday || null);
-        setGender(memberData.sex || "");
+        setGender(memberData.gender || "");
       } catch (error) {
         // 에러 처리 로직
         console.error("회원 정보 가져오기 에러", error);
       }
     };
 
-    fetchMemberInfo(); // 통신 함수 호출
-  }, []); // 빈 배
+    fetchMemberInfo();
+  }, []);
 
   // 초반에 정보들 넣어주기
   // const handleInputChange = (name, value) => {
@@ -142,10 +143,10 @@ export default function InfoEdit() {
           />
           <NewDayPicker
             label="생일"
-            value={value.birth}
+            // value={value.birth}
             onChange={(newDate) => handleInputChange("birth", newDate)}
           />
-          <TotalInputForm label="성별" value={value.gender} valid={validtion}>
+          <TotalInputForm label="성별" value={gender} valid={validtion}>
             <Grid container sx={infoBasicStyles.genderBtnContainer}>
               {["남성", "여성"].map((item) => (
                 <Grid item xs={5.5} key={item}>
@@ -153,7 +154,7 @@ export default function InfoEdit() {
                     variant="outlined"
                     fullWidth
                     onClick={() => handleInputChange("gender", item)}
-                    sx={OptionButton(value.gender === item)}
+                    // sx={OptionButton(value.gender === item)}
                   >
                     {item}
                   </Button>
@@ -163,7 +164,7 @@ export default function InfoEdit() {
           </TotalInputForm>
           <TotalInputForm
             label="직무 및 기술스택"
-            value={value.gender}
+            // value={value.gender}
             valid={validtion}
           >
             <SwipJobSkill />
