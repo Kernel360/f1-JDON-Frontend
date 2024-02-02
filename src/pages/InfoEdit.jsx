@@ -87,27 +87,29 @@ export default function InfoEdit() {
   };
 
   const checkNickname = async () => {
-    if (nick) {
+    console.log("checkNickname", nickname);
+    if (nickname) {
       try {
         const res = await checkNicknameDuplicate({
-          nickname: nick, //중간밸류 중복확인
+          nickname: nickname, //중간밸류 중복확인
         });
         if (res === 204) {
           //만약 사용가능하다면
           setValidation(true); // 유효성 o
           setHelperText("사용 가능한 닉네임입니다!");
-          handleInputChange("nickname", nick); // 진짜 밸류를 입력
+          // handleInputChange("nickname", nickname); // 진짜 밸류를 입력
+          setNickname(nickname);
         }
       } catch (error) {
         //그렇지 않다면
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
           setHelperText("이미 존재하는 닉네임입니다");
-          //setNick("");
+          setNickname("");
         } else {
           setValidation(false);
           setHelperText("오류가 발생했습니다");
-          setNick("");
+          setNickname("");
         }
       }
     }
@@ -142,7 +144,7 @@ export default function InfoEdit() {
             duplicate
             onChange={(e) => {
               setNickname(e.target.value);
-              if (nick) {
+              if (nickname) {
                 setValidation(false);
                 setHelperText("닉네임을 중복확인을 해주세요");
               }
