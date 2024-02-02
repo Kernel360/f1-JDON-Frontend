@@ -11,18 +11,19 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  Typography,
 } from "@mui/material";
 import { ChipStyle, MainStyles } from "../../../pages/PageStyles";
 import TabPanel from "./TabPanel";
 import { buttonStyle } from "../navigation-btn/NavigationBtnStyles";
-import {
-  skillsButton,
-  infoBasicStyles,
-} from "../../../pages/info/InfoStyles.js";
-import { getJobCategory } from "../../../api/api";
+import { skillsButton } from "../../../pages/info/InfoStyles.js";
+import { getJobCategory, getSkillsOnJD } from "../../../api/api";
 
-export default function SwipJobSkill({ jobId, jobSkill }) {
+export default function SwipJobSkill({
+  jobId,
+  setJobId,
+  selectedJobSkill,
+  setSelectedJobSkill,
+}) {
   const SKILLS = [
     "JavaScript",
     "React",
@@ -36,36 +37,46 @@ export default function SwipJobSkill({ jobId, jobSkill }) {
     "내일 주말",
   ];
   console.log("jobId", jobId);
-  console.log("jobSkill", jobSkill);
-  const [checkedItems, setCheckedItems] = useState([]);
-  const [tabValue, setTabValue] = useState(0);
+  console.log("selectedJobSkill", selectedJobSkill);
+  const [categoryId, setCategoryId] = useState(jobId);
+  const [checkedItems, setCheckedItems] = useState(selectedJobSkill);
+  // tabs의 선택시 배열의 순번이여서 id 값에서 -2로 해줌
+  const [tabValue, setTabValue] = useState(jobId == 2 ? 0 : 1);
   const [jobCategories, setJobCategories] = useState([]);
+  const [jobSkills, setJobSkills] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const scrollRef = useRef(null);
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
-
+  console.log("checkedItems 이상", checkedItems);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getJobCategory();
-        setJobCategories(data.jobGroupList[0].jobCategoryList);
-        console.log("직무확인", data.jobGroupList[0].jobCategoryList);
+        const categoryData = await getJobCategory();
+        setJobCategories(categoryData.jobGroupList[0].jobCategoryList);
+        const skillsData = await getSkillsOnJD(categoryId || jobId);
+        // console.log("ㄴㄴㄴ스킬확인", skillsData.skillList);
+        setJobSkills(skillsData.skillList);
+        if (jobId !== categoryId) {
+          setCheckedItems([]);
+        } else {
+          setCheckedItems(selectedJobSkill || []);
+        }
       } catch (error) {
         console.error("swipJobSkill 파일 통신에러", error);
       }
     };
     fetchData();
-  }, []);
+  }, [categoryId]);
 
   const handleChangeTab = (event, newValue) => {
     setTabValue(newValue);
+
+    setCategoryId(newValue == 0 ? 2 : 3);
   };
 
-  const handleCheckboxChange = (index, event) => {
+  const handleCheckboxChange = (skillId, event) => {
     const isChecked = event.target.checked;
 
     setCheckedItems((prevCheckedItems) => {
@@ -73,14 +84,15 @@ export default function SwipJobSkill({ jobId, jobSkill }) {
 
       if (isChecked) {
         if (checkedCount < 3) {
-          return [...prevCheckedItems, SKILLS[index]];
+          return [...prevCheckedItems, skillId];
         } else {
           return prevCheckedItems;
         }
       } else {
-        return prevCheckedItems.filter((el) => el !== SKILLS[index]);
+        return prevCheckedItems.filter((el) => el !== skillId);
       }
     });
+    console.log("체크된 기술", checkedItems);
   };
 
   const renderChips = () => {
@@ -88,17 +100,25 @@ export default function SwipJobSkill({ jobId, jobSkill }) {
       <Stack
         direction="row"
         spacing={0.8}
-        ref={scrollRef}
         sx={{ ...MainStyles.ChipContainer, padding: "10px 16px" }}
       >
-        {checkedItems.map((item, index) => (
-          <Chip
-            key={index}
-            label={item}
-            variant={"filled"}
-            sx={ChipStyle(true)}
-          />
-        ))}
+        {Array.isArray(checkedItems) &&
+          checkedItems.map((skillId) => {
+            const foundSkill = jobSkills.find(
+              (skill) => skill.skillId === skillId
+            );
+            const label = foundSkill ? foundSkill.keyword : "";
+            return (
+              label !== "" && (
+                <Chip
+                  key={skillId}
+                  label={label}
+                  variant={"filled"}
+                  sx={ChipStyle(true)}
+                />
+              )
+            );
+          })}
       </Stack>
     );
   };
@@ -107,16 +127,18 @@ export default function SwipJobSkill({ jobId, jobSkill }) {
     return (
       <FormControl component="fieldset">
         <FormGroup>
-          {SKILLS.map((item, index) => (
+          {jobSkills.map((item) => (
             <FormControlLabel
-              key={index}
+              key={item.skillId}
               control={
                 <Checkbox
-                  checked={checkedItems.includes(SKILLS[index])}
-                  onChange={(event) => handleCheckboxChange(index, event)}
+                  checked={checkedItems.includes(item.skillId)}
+                  onChange={(event) =>
+                    handleCheckboxChange(item.skillId, event)
+                  }
                 />
               }
-              label={item}
+              label={item.keyword}
             />
           ))}
         </FormGroup>
@@ -177,13 +199,13 @@ export default function SwipJobSkill({ jobId, jobSkill }) {
                 flex: "0 0 auto",
               }}
             >
-              {jobCategories.map((category) => (
-                <Tab key={category.id} label={category.name} />
+              {jobCategories.map((category, index) => (
+                <Tab key={category.id} label={category.name} value={index} />
               ))}
             </Tabs>
             {["프론트엔드", "백엔드"].map((label, index) => (
               <TabPanel key={index} value={tabValue} index={index}>
-                {label === "프론트엔드" ? renderCheckboxes() : "Item Two"}
+                {renderCheckboxes()}
               </TabPanel>
             ))}
           </Box>

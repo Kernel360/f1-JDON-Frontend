@@ -38,7 +38,7 @@ export default function InfoEdit() {
   const [birthday, setBirthday] = useState(null); // or some default date
   const [gender, setGender] = useState("");
   const [jobId, setJobId] = useState("");
-  const [jobSkill, setJobSkill] = useState("");
+  const [selectedJobSkill, setSelectedJobSkill] = useState("");
 
   // 리코일 사용안하면
   const handleInputChange = async (field, newValue) => {
@@ -56,7 +56,7 @@ export default function InfoEdit() {
         setBirthday(memberData.data.birth || null);
         setGender(memberData.data.gender || "");
         setJobId(memberData.data.jobCategoryId || "");
-        setJobSkill(memberData.data.skillList || "");
+        setSelectedJobSkill(memberData.data.skillList || "");
       } catch (error) {
         // 에러 처리 로직
         console.error("회원 정보 가져오기 에러", error);
@@ -67,7 +67,7 @@ export default function InfoEdit() {
   }, []); // 빈 배
 
   console.log("11set멤버", jobId);
-  console.log("22set멤버", jobSkill);
+  console.log("22set멤버", selectedJobSkill);
 
   // 초반에 정보들 넣어주기
   // const handleInputChange = (name, value) => {
@@ -191,7 +191,12 @@ export default function InfoEdit() {
             // value={gender}
             valid={validtion}
           >
-            <SwipJobSkill jobId={jobId} jobSkill={jobSkill} />
+            <SwipJobSkill
+              jobId={jobId}
+              setJobId={setJobId}
+              selectedJobSkill={selectedJobSkill}
+              setSelectedJobSkill={setSelectedJobSkill}
+            />
           </TotalInputForm>
           <Button
             onClick={handleSaveChanges}
