@@ -21,7 +21,7 @@ import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnSt
 import NewInput from "../components/common/new-input/NewInput";
 import { useRecoilState } from "recoil";
 import { userInfo } from "../recoil/atoms";
-import { checkNicknameDuplicate } from "../api/api";
+import { checkNicknameDuplicate, getMemberInfo } from "../api/api";
 import NewDayPicker from "../components/common/new-daypicker/NewDayPicker";
 import { OptionButton, infoBasicStyles } from "./info/InfoStyles";
 import TotalInputForm from "../components/common/total-input-form/TotalInputForm";
@@ -29,13 +29,37 @@ import TotalInputForm from "../components/common/total-input-form/TotalInputForm
 export default function InfoEdit() {
   const navigate = useNavigate();
   const [helperText, setHelperText] = useState("");
-  const [value, setValue] = useRecoilState(userInfo);
+  // const [value, setValue] = useRecoilState(userInfo);
   const [nick, setNick] = useState(""); //중간 밸류를 생성
   const [validtion, setValidation] = useState(false); // 이건 중간밸류 확인
 
+  const [nickname, setNickname] = useState("");
+  const [birthday, setBirthday] = useState(null); // or some default date
+  const [gender, setGender] = useState("");
+  const [jobSkill, setJobSkill] = useState("");
+
+  // 리코일 사용안하면
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
   };
+
+  useEffect(() => {
+    // 페이지가 로드될 때 회원 정보를 받아오는 통신 로직
+    const fetchMemberInfo = async () => {
+      try {
+        const memberData = await getMemberInfo();
+        setNickname(memberData.nickname || "닉네임 설정이 필요합니다.");
+        setBirthday(memberData.birthday || null);
+        setGender(memberData.sex || "");
+      } catch (error) {
+        // 에러 처리 로직
+        console.error("회원 정보 가져오기 에러", error);
+      }
+    };
+
+    fetchMemberInfo(); // 통신 함수 호출
+  }, []); // 빈 배
+
   // 초반에 정보들 넣어주기
   // const handleInputChange = (name, value) => {
   //   if (name === "nickname") {
