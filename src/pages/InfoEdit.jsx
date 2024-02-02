@@ -49,10 +49,10 @@ export default function InfoEdit() {
     const fetchMemberInfo = async () => {
       try {
         const memberData = await getMemberInfo();
-        console.log("men", memberData);
+        console.log("men", memberData.data.birth);
         setMemberInfo(memberData.data);
         setNickname(memberData.data.nickname || "닉네임 설정이 필요합니다.");
-        setBirthday(memberData.data.birthday || null);
+        setBirthday(memberData.data.birth || null);
         setGender(memberData.data.gender || "");
       } catch (error) {
         // 에러 처리 로직
@@ -63,7 +63,7 @@ export default function InfoEdit() {
     fetchMemberInfo(); // 통신 함수 호출
   }, []); // 빈 배
 
-  console.log("set멤버", memberInfo.nickname);
+  console.log("set멤버", birthday);
 
   // 초반에 정보들 넣어주기
   // const handleInputChange = (name, value) => {
@@ -78,6 +78,15 @@ export default function InfoEdit() {
   const handleGenderChange = (newValue) => {
     setGender(newValue);
     console.log("gender", newValue);
+  };
+
+  const handleBithdayChange = (newDate) => {
+    console.log("birth 넘어온 날것", newDate);
+    const formattedDate =
+      newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
+    console.log("birth 가공한 데이트", formattedDate);
+
+    setBirthday(formattedDate);
   };
 
   const handleSaveChanges = () => {
@@ -154,7 +163,8 @@ export default function InfoEdit() {
           <NewDayPicker
             label="생일"
             value={birthday}
-            onChange={(newDate) => handleInputChange("birth", newDate)}
+            onChange={(newValue) => handleBithdayChange(newValue)}
+            isMeetDay={false}
           />
           <TotalInputForm label="성별" value={gender} valid={validtion}>
             <Grid container sx={infoBasicStyles.genderBtnContainer}>

@@ -8,10 +8,27 @@ import {
 } from "../../../pages/info/InfoStyles";
 import TotalInputForm from "../total-input-form/TotalInputForm";
 
-function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
+function NewDayPicker({
+  label,
+  initialValue,
+  value,
+  valid,
+  isMeetDay,
+  onChange,
+}) {
   const handleDateChange = (newDate) => {
     onChange(newDate);
   };
+
+  const initialDate = new Date(initialValue);
+  // console.log("11피커에서 오는 날짜", initialValue);
+  console.log("22피커에서 오는 날짜", value);
+
+  const isDateString = (value) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(value);
+  };
+
   return (
     <TotalInputForm value={value} label={label} valid={valid}>
       <Grid container sx={datePickerContainer(value)}>
@@ -20,12 +37,13 @@ function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
           adapterLocale={format}
         >
           <DatePicker
-            value={value}
+            value={isDateString(value) ? new Date(value) : value}
             inputFormat="yyyy.MM.dd"
             onChange={handleDateChange}
             sx={datePicker(value)}
             renderInput={(params) => <TextField {...params} />}
-            minDate={isMeetDay && new Date()}
+            minDate={isMeetDay ? new Date() : undefined}
+            maxDate={isMeetDay ? undefined : new Date()}
           />
         </LocalizationProvider>
       </Grid>
