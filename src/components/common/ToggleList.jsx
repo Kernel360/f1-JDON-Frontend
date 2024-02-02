@@ -6,10 +6,6 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AttachmentIcon from "@mui/icons-material/Attachment";
-
 import vector from "../../assets/images/vector.svg";
 import id from "date-fns/locale/id";
 
@@ -30,16 +26,15 @@ const TitleItem = ({ id, title, content, children }) => {
   };
 
   return (
-    <Container sx={{ marginBottom: 3 }}>
+    <Container sx={{ marginBottom: 3, width: "100%", padding: 0 }}>
       <Box
         display="flex"
         alignItems="center"
-        gap={2}
+        gap={3}
         onClick={toggleItem}
         style={{
           cursor: "pointer",
           paddingBottom: 11,
-          paddingLeft: "16px",
         }}
       >
         <IconButton size="small">
