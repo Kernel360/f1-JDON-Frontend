@@ -28,14 +28,12 @@ export default function MyCoffeeChat() {
         let res;
         if (value === "1") {
           res = await getMyCoffeeChat(currentPage);
-          setCoffeeDatas(res.content);
-
+          setCoffeeDatas(res.content || []);
           console.log(`${value} 내가 오픈한커피내용`, res);
         } else if (value === "2") {
           res = await getSignCoffeeChat(currentPage);
           console.log(`${value} 내가 신청한커피내용`, res);
-
-          setCoffeeDatas(res);
+          setCoffeeDatas(res.content || []);
         }
 
         setPage(res.pageInfo || {});
@@ -90,14 +88,25 @@ export default function MyCoffeeChat() {
               </TabList>
             </Box>
             <TabPanel value="1" sx={{ width: "100%" }}>
-              <Grid container spacing={{ xs: 2, md: 2 }}>
-                {/* Item One */}
-                {coffeeDatas.map((data, index) => (
-                  <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} />
-                  </Grid>
-                ))}
-              </Grid>
+              {coffeeDatas.length === 0 ? (
+                <Typography
+                  variant="h6"
+                  color="textSecondary"
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  오픈한 커피챗이 없습니다!
+                </Typography>
+              ) : (
+                <Grid Grid container spacing={{ xs: 2, md: 2 }}>
+                  {coffeeDatas.map((data, index) => (
+                    <Grid item xs={12} sm={6} md={6} key={index}>
+                      <CoffeeChatCard data={data} />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
               <Box mt={4}>
                 <Pagenation
                   pageCount={page?.totalPages || 2}
@@ -106,22 +115,40 @@ export default function MyCoffeeChat() {
                 />
               </Box>
             </TabPanel>
-            <TabPanel value="2" sx={{ width: "100%" }}>
-              <Grid container spacing={{ xs: 2, md: 2 }}>
-                {/* Item Two */}
-                {coffeeDatas.map((data, index) => (
-                  <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} />
-                  </Grid>
-                ))}
-              </Grid>
-              <Box mt={4}>
-                <Pagenation
-                  pageCount={page?.totalPages || 2}
-                  currentPage={currentPage}
-                  onChange={handlePageChange}
-                />
-              </Box>
+            <TabPanel
+              value="2"
+              sx={{
+                width: "100%",
+              }}
+            >
+              {coffeeDatas.length === 0 ? (
+                <Typography
+                  variant="h6"
+                  color="textSecondary"
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  신청한 커피챗이 없습니다!
+                </Typography>
+              ) : (
+                <Grid container spacing={{ xs: 2, md: 2 }}>
+                  {coffeeDatas.map((data, index) => (
+                    <Grid item xs={12} sm={6} md={6} key={index}>
+                      <CoffeeChatCard data={data} />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+              {coffeeDatas.length > 0 && (
+                <Box mt={4}>
+                  <Pagenation
+                    pageCount={page?.totalPages || 2}
+                    currentPage={currentPage}
+                    onChange={handlePageChange}
+                  />
+                </Box>
+              )}
             </TabPanel>
           </TabContext>
         </Box>

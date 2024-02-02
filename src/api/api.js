@@ -161,7 +161,7 @@ export const getSignCoffeeChat = async (page) => {
   try {
     console.log("page check", page);
     const res = await instance.get(
-      `/api/v1/coffeechats/guest?page=${page}&size=12`
+      `/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate,desc`
     );
     return res.data.data;
   } catch (error) {
