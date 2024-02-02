@@ -17,11 +17,15 @@ function Coffeeopen() {
   const [value, setValue] = useState([]);
   const navigate = useNavigate();
   const handleInputChange = async (field, newValue) => {
-    setValue((prev) => ({ ...prev, [field]: newValue }));
+    setValue((prev) => ({
+      ...prev,
+      [field]: newValue,
+    }));
+    console.log("1111", value);
   };
 
   const hanldeRegister = async () => {
-    console.log(value);
+    console.log("2222", value);
     try {
       const data = await registerCoffeeChat(value);
       console.log("registerCoffeeChat 확인중", data);
@@ -113,7 +117,10 @@ function Coffeeopen() {
                     type="number"
                     value={value.totalRecruitCount}
                     onChange={(e) => {
-                      handleInputChange("totalRecruitCount", e.target.value);
+                      handleInputChange(
+                        "totalRecruitCount",
+                        Number(e.target.value)
+                      );
                     }}
                   />
                 </Grid>

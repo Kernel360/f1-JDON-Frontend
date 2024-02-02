@@ -12,6 +12,7 @@ function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
   const handleDateChange = (newDate) => {
     onChange(newDate);
   };
+
   return (
     <TotalInputForm value={value} label={label} valid={valid}>
       <Grid container sx={datePickerContainer(value)}>
@@ -21,7 +22,7 @@ function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
         >
           <DatePicker
             value={value}
-            inputFormat="yyyy.MM.dd"
+            inputFormat="yyyy-MM-dd"
             onChange={handleDateChange}
             sx={datePicker(value)}
             renderInput={(params) => <TextField {...params} />}
