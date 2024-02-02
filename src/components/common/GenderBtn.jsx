@@ -3,12 +3,18 @@ import { Box, Button, FormLabel, Grid } from "@mui/material";
 import { infoBasicStyles } from "../../pages/info/InfoStyles";
 
 const GenderBtn = ({ initialGender, handleSexChange }) => {
-  const [selectedGender, setSelectedGender] = useState(initialGender);
+  const [selectedGender, setSelectedGender] = useState("");
 
   useEffect(() => {
     // 부모 컴포넌트에서 전달된 초기 성별 값이 변경되면 업데이트
-    setSelectedGender(initialGender);
-  }, [initialGender]);
+    if (initialGender === "남성") {
+      setSelectedGender("남");
+      handleSexChange("남");
+    } else if (initialGender === "여성") {
+      setSelectedGender("여");
+      handleSexChange("여");
+    }
+  }, [initialGender, handleSexChange]);
 
   const handleClick = (gender) => {
     setSelectedGender(gender === selectedGender ? null : gender);

@@ -20,7 +20,7 @@ export default function InfoEdit() {
   const [memberInfo, setMemberInfo] = useState({});
   const [nickname, setNickname] = useState("");
   const [birthday, setBirthday] = useState(null); // or some default date
-  const [gender, setGender] = useState(""); // or
+  const [gender, setGender] = useState("");
   const [skillList, setSkillList] = useState("");
   const [jobCategoryId, setJobCategoryId] = useState("");
   // const [selectedDate, setSelectedDate] = useState(null);
@@ -46,7 +46,7 @@ export default function InfoEdit() {
         setMemberInfo(memberData.data);
         setNickname(memberData.data.nickname || "");
         setBirthday(memberData.data.birthday || null);
-        setGender(memberData.data.sex || "");
+        setGender(memberData.data.gender || "");
         setSkillList(memberData.data.skillList || null);
         setJobCategoryId(memberData.data.setJobCategoryId || null);
       } catch (error) {
@@ -62,6 +62,7 @@ export default function InfoEdit() {
   }, []);
 
   console.log("sssss", memberInfo);
+  console.log("ㄴㄴㄴㄴㄴ", gender);
 
   const handleCheckDuplicate = () => {
     // setNicknameValid(validateField(nickname));
