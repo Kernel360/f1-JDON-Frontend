@@ -29,10 +29,11 @@ import TotalInputForm from "../components/common/total-input-form/TotalInputForm
 export default function InfoEdit() {
   const navigate = useNavigate();
   const [helperText, setHelperText] = useState("");
-  // const [value, setValue] = useRecoilState(userInfo);
+  const [value, setValue] = useRecoilState(userInfo);
   const [nick, setNick] = useState(""); //중간 밸류를 생성
   const [validtion, setValidation] = useState(false); // 이건 중간밸류 확인
 
+  const [memberInfo, setMemberInfo] = useState({});
   const [nickname, setNickname] = useState("");
   const [birthday, setBirthday] = useState(null); // or some default date
   const [gender, setGender] = useState("");
@@ -40,7 +41,7 @@ export default function InfoEdit() {
 
   // 리코일 사용안하면
   const handleInputChange = async (field, newValue) => {
-    // setValue((prev) => ({ ...prev, [field]: newValue }));
+    setValue((prev) => ({ ...prev, [field]: newValue }));
   };
 
   useEffect(() => {
@@ -49,17 +50,20 @@ export default function InfoEdit() {
       try {
         const memberData = await getMemberInfo();
         console.log("men", memberData);
-        setNickname(memberData.nickname || "닉네임 설정이 필요합니다.");
-        setBirthday(memberData.birthday || null);
-        setGender(memberData.gender || "");
+        setMemberInfo(memberData.data);
+        setNickname(memberData.data.nickname || "닉네임 설정이 필요합니다.");
+        setBirthday(memberData.data.birthday || null);
+        setGender(memberData.data.gender || "");
       } catch (error) {
         // 에러 처리 로직
         console.error("회원 정보 가져오기 에러", error);
       }
     };
 
-    fetchMemberInfo();
-  }, []);
+    fetchMemberInfo(); // 통신 함수 호출
+  }, []); // 빈 배
+
+  console.log("set멤버", memberInfo.nickname);
 
   // 초반에 정보들 넣어주기
   // const handleInputChange = (name, value) => {
@@ -128,12 +132,12 @@ export default function InfoEdit() {
           <NewInput
             placeholder="사용하실 닉네임을 입력해주세요"
             label="닉네임"
-            value={nick}
+            value={nickname}
             valid={validtion}
             helperText={helperText}
             duplicate
             onChange={(e) => {
-              setNick(e.target.value);
+              setNickname(e.target.value);
               if (nick) {
                 setValidation(false);
                 setHelperText("닉네임을 중복확인을 해주세요");
@@ -143,7 +147,7 @@ export default function InfoEdit() {
           />
           <NewDayPicker
             label="생일"
-            // value={value.birth}
+            value={birthday}
             onChange={(newDate) => handleInputChange("birth", newDate)}
           />
           <TotalInputForm label="성별" value={gender} valid={validtion}>
@@ -154,7 +158,7 @@ export default function InfoEdit() {
                     variant="outlined"
                     fullWidth
                     onClick={() => handleInputChange("gender", item)}
-                    // sx={OptionButton(value.gender === item)}
+                    sx={OptionButton(gender === item)}
                   >
                     {item}
                   </Button>
@@ -164,7 +168,7 @@ export default function InfoEdit() {
           </TotalInputForm>
           <TotalInputForm
             label="직무 및 기술스택"
-            // value={value.gender}
+            // value={gender}
             valid={validtion}
           >
             <SwipJobSkill />
