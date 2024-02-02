@@ -84,6 +84,7 @@ export function Main() {
 
   useEffect(() => {
     //console.log(localStorage.getItem("isLoggedInState"));
+    console.log(selectdChip);
     const fetchHotSkills = async () => {
       try {
         const data = await getHotSkills();
@@ -94,14 +95,14 @@ export function Main() {
           setLecture(lectureData.lectureList);
           setCompanies(lectureData.jdList);
         }
-        if (!selectdChip.keyword) {
-          // 기술 칩 선택하지 않았을 때 = 메인 접속 하자마자
-          const lectureDataByKeyword = await getLectureByKeyword("");
-          setSelectedChip((prevState) => ({
-            ...prevState,
-            keyword: lectureDataByKeyword.keyword,
-          }));
-        }
+        // if (!selectdChip.keyword) {
+        //   // 기술 칩 선택하지 않았을 때 = 메인 접속 하자마자
+        //   const lectureDataByKeyword = await getLectureByKeyword("");
+        //   setSelectedChip((prevState) => ({
+        //     ...prevState,
+        //     keyword: lectureDataByKeyword.keyword,
+        //   }));
+        // }
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
@@ -124,14 +125,14 @@ export function Main() {
           console.error("Error fetching lecture by keyword:", error);
         }
       }
-      if (searchKeyword === "") {
-        setSearchData("");
-        const lectureDataByKeyword = await getLectureByKeyword("");
-        setSelectedChip((prevState) => ({
-          ...prevState,
-          keyword: lectureDataByKeyword.keyword,
-        }));
-      }
+      // if (searchKeyword === "") {
+      //   setSearchData("");
+      //   const lectureDataByKeyword = await getLectureByKeyword("");
+      //   setSelectedChip((prevState) => ({
+      //     ...prevState,
+      //     keyword: lectureDataByKeyword.keyword,
+      //   }));
+      // }
     };
     fetchLectureByKeyword();
   }, [searchData, searchKeyword]);
