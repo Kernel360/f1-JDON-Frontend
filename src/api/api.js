@@ -62,14 +62,25 @@ export async function getMemberSkills() {
   }
 }
 
-//기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
+//id로 - 기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
 export async function getLecture(skillId) {
   try {
     const res = await instance.get(`/api/v1/skills/search?skillId=${skillId}`);
-    console.log("getLecture API", res.data);
+    // console.log("getLecture API", res.data);
     return res.data.data;
   } catch (error) {
     console.error("getLecture API error", error);
+    throw error;
+  }
+}
+//키워드로 - 기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
+export async function getLectureByKeyword(keyword) {
+  try {
+    const res = await instance.get(`/api/v1/skills/search?keyword=${keyword}`);
+    //  console.log("getLectureByKeyword API", res.data);
+    return res.data.data;
+  } catch (error) {
+    console.error("getLectureByKeyword API error", error);
     throw error;
   }
 }
@@ -160,10 +171,13 @@ export const getSignCoffeeChat = async (page) => {
 };
 
 //커피챗 목록 조회
-export const getCoffeeChat = async (page) => {
+export const getCoffeeChat = async (page, sorting) => {
   try {
     console.log("page check", page);
-    const res = await instance.get(`/api/v1/coffeechats?page=${page}&size=12`);
+    console.log("sorting check", sorting);
+    const res = await instance.get(
+      `/api/v1/coffeechats?page=${page}&size=12&sort=${sorting}`
+    );
     // console.log("getCoffeeChat", res);
     return res.data.data;
   } catch (error) {
