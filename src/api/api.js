@@ -49,22 +49,9 @@ export async function getMemberInfo() {
 }
 
 //회원정보 수정하기
-export async function updateMemberInfo({
-  nickname,
-  birth,
-  gender,
-  jobCategoryId,
-  skillList,
-}) {
+export async function updateMemberInfo(data) {
   try {
-    console.log(
-      "업데이트 멤버 정보",
-      nickname,
-      birth,
-      gender,
-      jobCategoryId,
-      skillList
-    );
+    console.log("업데이트 멤버 정보", data);
     const res = await instance.put("/api/v1/member");
     console.log("getMemberInfo API", res);
     return res.data;

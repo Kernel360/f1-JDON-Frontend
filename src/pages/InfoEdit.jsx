@@ -28,7 +28,7 @@ export default function InfoEdit() {
   const [helperText, setHelperText] = useState("");
   // const [value, setValue] = useRecoilState(userInfo);
   // const [nick, setNick] = useState("");
-  const [validtion, setValidation] = useState(false);
+  const [validation, setValidation] = useState(true);
 
   const [memberInfo, setMemberInfo] = useState({});
   const [nickname, setNickname] = useState("");
@@ -72,26 +72,6 @@ export default function InfoEdit() {
     setBirthday(formattedDate);
   };
 
-  const handleSaveChanges = async () => {
-    try {
-      const res = await updateMemberInfo({
-        nickname,
-        birth: birthday,
-        gender,
-        jobCategoryId: jobId,
-        skillList: selectedJobSkill,
-      });
-      if (res) {
-        console.log("정보수정 성공! 수정 데이터: ", res);
-      }
-
-      // 저장이 완료되면 프로필 페이지로 이동
-      // navigate("/mypage");
-    } catch (error) {
-      console.error("회원 정보 업데이트 에러", error);
-    }
-  };
-
   const checkNickname = async () => {
     // console.log("checkNickname", nickname);
     if (nickname) {
@@ -121,6 +101,48 @@ export default function InfoEdit() {
     }
   };
 
+  const isSaveButtonDisabled = () => {
+    // 모든 필드에 대한 유효성 검사를 추가합니다.
+    const isNicknameValid = validation === true;
+    const isBirthdayValid = birthday !== null;
+    const isGenderValid = gender !== "";
+    const isJobIdValid = jobId !== "";
+    const isSelectedJobSkillValid = selectedJobSkill.length === 3;
+
+    // 모든 필드가 유효한 경우에만 버튼을 활성화합니다.
+    return !(
+      isNicknameValid &&
+      isBirthdayValid &&
+      isGenderValid &&
+      isJobIdValid &&
+      isSelectedJobSkillValid
+    );
+  };
+
+  const handleSaveChanges = async () => {
+    let data = {
+      nickname,
+      birth: birthday,
+      gender,
+      jobCategoryId: jobId,
+      skillList: selectedJobSkill,
+    };
+
+    try {
+      const res = await updateMemberInfo(data);
+      if (res) {
+        console.log("정보수정 성공! 수정 데이터: ", res);
+      }
+
+      // 저장이 완료되면 프로필 페이지로 이동
+      // navigate("/mypage");
+    } catch (error) {
+      console.error("회원 정보 업데이트 에러", error);
+    }
+  };
+
+  console.log("c총데이타", nickname, birthday, gender, jobId, selectedJobSkill);
+
   return (
     <Container
       maxWidth="sm"
@@ -145,7 +167,7 @@ export default function InfoEdit() {
             placeholder="사용하실 닉네임을 입력해주세요"
             label="닉네임"
             value={nickname}
-            valid={validtion}
+            valid={validation}
             helperText={helperText}
             duplicate
             onChange={(e) => {
@@ -163,7 +185,7 @@ export default function InfoEdit() {
             onChange={(newValue) => handleBithdayChange(newValue)}
             isMeetDay={false}
           />
-          <TotalInputForm label="성별" value={gender} valid={validtion}>
+          <TotalInputForm label="성별" value={gender} valid={validation}>
             <Grid container sx={infoBasicStyles.genderBtnContainer}>
               {GENDERS.map((item) => (
                 <Grid item xs={5.5} key={item}>
@@ -179,17 +201,19 @@ export default function InfoEdit() {
               ))}
             </Grid>
           </TotalInputForm>
-          <TotalInputForm label="직무 및 기술스택" valid={validtion}>
+          <TotalInputForm label="직무 및 기술스택" valid={validation}>
             <SwipJobSkill />
           </TotalInputForm>
           <Button
             type="submit"
             onClick={handleSaveChanges}
+            mt={2}
+            fullWidth
             sx={{
               ...buttonStyle.Button,
-              width: "100%",
-              marginTop: "30px",
+              ...(isSaveButtonDisabled() ? {} : buttonStyle.ActiveButton),
             }}
+            disabled={isSaveButtonDisabled()}
           >
             수정
           </Button>
