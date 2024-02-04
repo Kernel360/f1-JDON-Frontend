@@ -58,13 +58,12 @@ export default function InfoEdit() {
         setJobId(memberData.data.jobCategoryId || "");
         setSelectedJobSkill(memberData.data.skillList || "");
       } catch (error) {
-        // 에러 처리 로직
         console.error("회원 정보 가져오기 에러", error);
       }
     };
 
-    fetchMemberInfo(); // 통신 함수 호출
-  }, []); // 빈 배
+    fetchMemberInfo();
+  }, []);
 
   console.log("11set멤버", jobId);
   console.log("22set멤버", selectedJobSkill);
