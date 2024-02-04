@@ -1,26 +1,13 @@
-// InfoEdit.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import Header from "../components/common/Header";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-  Link,
-  CssBaseline,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Link, CssBaseline } from "@mui/material";
 import SwipJobSkill from "../components/common/swipe/SwipJobSkill";
-import InputField from "../components/common/InputField";
-import DuplicateCheckButton from "../components/common/DuplicateCheckButton";
-import DatePickerField from "../components/common/DatePickerField";
-import GenderBtn from "../components/common/GenderBtn";
 import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnStyles";
 import NewInput from "../components/common/new-input/NewInput";
 import { useRecoilState } from "recoil";
-import { userInfo } from "../recoil/atoms";
+import { userInfo, jobIdState, selectedJobSkillState } from "../recoil/atoms";
 import { checkNicknameDuplicate, getMemberInfo } from "../api/api";
 import NewDayPicker from "../components/common/new-daypicker/NewDayPicker";
 import { OptionButton, infoBasicStyles } from "./info/InfoStyles";
@@ -28,8 +15,12 @@ import TotalInputForm from "../components/common/total-input-form/TotalInputForm
 
 export default function InfoEdit() {
   const navigate = useNavigate();
+  const [jobId, setJobId] = useRecoilState(jobIdState);
+  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
+    selectedJobSkillState
+  );
   const [helperText, setHelperText] = useState("");
-  const [value, setValue] = useRecoilState(userInfo);
+  // const [value, setValue] = useRecoilState(userInfo);
   const [nick, setNick] = useState(""); //중간 밸류를 생성
   const [validtion, setValidation] = useState(false); // 이건 중간밸류 확인
 
@@ -37,13 +28,13 @@ export default function InfoEdit() {
   const [nickname, setNickname] = useState("");
   const [birthday, setBirthday] = useState(null); // or some default date
   const [gender, setGender] = useState("");
-  const [jobId, setJobId] = useState("");
-  const [selectedJobSkill, setSelectedJobSkill] = useState("");
+  // const [jobId, setJobId] = useState("");
+  // const [selectedJobSkill, setSelectedJobSkill] = useState("");
 
   // 리코일 사용안하면
-  const handleInputChange = async (field, newValue) => {
-    setValue((prev) => ({ ...prev, [field]: newValue }));
-  };
+  // const handleInputChange = async (field, newValue) => {
+  //   setValue((prev) => ({ ...prev, [field]: newValue }));
+  // };
 
   useEffect(() => {
     // 페이지가 로드될 때 회원 정보를 받아오는 통신 로직
@@ -68,16 +59,6 @@ export default function InfoEdit() {
   console.log("11set멤버", jobId);
   console.log("22set멤버", selectedJobSkill);
 
-  // 초반에 정보들 넣어주기
-  // const handleInputChange = (name, value) => {
-  //   if (name === "nickname") {
-  //     setNickname(value);
-  //   } else if (name === "birthday") {
-  //     setBirthday(value);
-  //   } else if (name === "sex") {
-  //     setSex(value);
-  //   }
-  // };
   const handleGenderChange = (newValue) => {
     setGender(newValue);
     console.log("gender", newValue);
@@ -190,12 +171,7 @@ export default function InfoEdit() {
             // value={gender}
             valid={validtion}
           >
-            <SwipJobSkill
-              jobId={jobId}
-              setJobId={setJobId}
-              selectedJobSkill={selectedJobSkill}
-              setSelectedJobSkill={setSelectedJobSkill}
-            />
+            <SwipJobSkill />
           </TotalInputForm>
           <Button
             onClick={handleSaveChanges}

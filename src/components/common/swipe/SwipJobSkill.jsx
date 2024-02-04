@@ -17,19 +17,10 @@ import TabPanel from "./TabPanel";
 import { buttonStyle } from "../navigation-btn/NavigationBtnStyles";
 import { skillsButton } from "../../../pages/info/InfoStyles.js";
 import { getJobCategory, getSkillsOnJD } from "../../../api/api";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { jobIdState, selectedJobSkillState } from "../../../recoil/atoms";
 
-export default function SwipJobSkill(
-  {
-    // jobId,
-    // setJobId,
-    // selectedJobSkill,
-    // setSelectedJobSkill,
-    // tabValue,
-    // setTabValue,
-  }
-) {
+export default function SwipJobSkill({}) {
   const [jobId, setJobId] = useRecoilState(jobIdState);
   const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
     selectedJobSkillState
@@ -38,8 +29,6 @@ export default function SwipJobSkill(
 
   const initialJobId = useRef(jobId);
   const initialSelectedJobSkill = useRef(selectedJobSkill);
-  // const [checkedItems, setCheckedItems] = useState(selectedJobSkill);
-  // const [tabValue, setTabValue] = useState(jobId);
   const [jobCategories, setJobCategories] = useState([]);
   const [jobSkills, setJobSkills] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -93,8 +82,6 @@ export default function SwipJobSkill(
   }, [jobId]);
 
   useEffect(() => {
-    // ...
-
     // 데이터 로드가 완료되면 로컬 스토리지에 저장
     localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
     localStorage.setItem("tabValue", JSON.stringify(tabValue));
@@ -190,7 +177,6 @@ export default function SwipJobSkill(
   };
 
   if (loading) {
-    // 로딩 중에는 로딩 상태를 표시하거나 원하는 동작을 수행
     return <p>Loading...</p>;
   }
 
