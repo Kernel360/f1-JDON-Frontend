@@ -84,18 +84,18 @@ export default function InfoEdit() {
           setValidation(true); // 유효성 o
           setHelperText("사용 가능한 닉네임입니다!");
           // handleInputChange("nickname", nickname); // 진짜 밸류를 입력
-          setNickname(nickname);
+          // setNickname(nickname);
         }
       } catch (error) {
         //그렇지 않다면
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
           setHelperText("이미 존재하는 닉네임입니다");
-          setNickname("");
+          // setNickname("");
         } else {
           setValidation(false);
           setHelperText("오류가 발생했습니다");
-          setNickname("");
+          // setNickname("");
         }
       }
     }
