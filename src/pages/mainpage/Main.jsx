@@ -23,7 +23,8 @@ export function Main() {
 
   const [lectureList, setLectureList] = useState([]);
   const [jdList, setJdList] = useState([]);
-  const [isLogin, setIsLogin] = useState(false);
+  const isLogin = localStorage.getItem("isLoggedInState");
+
   const [search, setSearch] = useState("");
   const scrollRef = useRef(null);
   const navigate = useNavigate();
@@ -217,7 +218,7 @@ export function Main() {
                   clickable={true}
                   variant="outlined"
                   sx={
-                    selectedChip === skill.keyword
+                    selectedChip.keyword === skill.keyword
                       ? ChipStyle(selectedChip)
                       : ChipStyle(undefined)
                   }

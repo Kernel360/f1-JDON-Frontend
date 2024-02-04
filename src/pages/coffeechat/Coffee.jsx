@@ -50,9 +50,9 @@ export function Coffee() {
     <Container maxWidth="md" sx={{ pt: 3, pb: 10 }}>
       <Box
         sx={{
-          background: "black",
+          background: "rgba(0, 0, 0 ,0.17)",
           borderRadius: "10px",
-          py: 6,
+          py: 3.5,
           mb: 3,
           position: "relative",
         }}
@@ -60,14 +60,15 @@ export function Coffee() {
         <Typography
           sx={{
             ml: 3,
-            color: "white",
+            color: "black",
             fontSize: "14px",
-            fontWeight: 500,
+            fontWeight: 400,
             letterSpacing: 2,
           }}
         >
           {" "}
-          💡 관심분야에서 커피챗을 이용해보세요
+          <span style={{ fontSize: "16px" }}>💡 </span>관심분야의 커피챗을
+          신청해보세요
         </Typography>
       </Box>
       <Filters sortData={sortData} onChange={setSortData} kindOfJd={kindOfJd} />
