@@ -90,7 +90,6 @@ export async function getHotSkills() {
 
 //회원 맞춤 기술스택 조회
 export async function getMemberSkills() {
-  console.log("아니 왜안돼");
   try {
     const res = await instance.get("/api/v1/skills/member");
     console.log("getMemberSkills API", res.data);
@@ -126,7 +125,7 @@ export async function getLectureByKeyword(keyword) {
 
 //직무 별 기술스택 조회하기
 export async function getSkillsOnJD(jobCategoryId) {
-  console.log("api에서 확인중", jobCategoryId);
+  // console.log("api에서 확인중", jobCategoryId);
   try {
     const res = await instance.get(
       `/api/v1/skills/job-category/${jobCategoryId}`
