@@ -20,13 +20,13 @@ const KakaoRedirectPage = () => {
     console.log(value, hmac, code);
     if (hmac) {
       navigate("/info");
+      localStorage.setItem("isLoggedInState", false);
       setData((prev) => ({ ...prev, encrypted: value, hmac: hmac }));
     } else {
       navigate("/");
       localStorage.setItem("isLoggedInState", true);
     }
-  }, [location, navigate]);
-  // userInfo에 이미 value와 hmac이 존재하는지 확인
+  }, [location, navigate, setData]);
 
   return (
     <div>
