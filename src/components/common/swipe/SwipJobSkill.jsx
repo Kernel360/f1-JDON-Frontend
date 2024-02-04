@@ -21,9 +21,7 @@ import {
   infoBasicStyles,
 } from "../../../pages/info/InfoStyles.js";
 
-export default function SwipJobSkill({
-  skills = ["JavaScript", "React", "Recoil"],
-}) {
+export default function SwipJobSkill({ skills = [] }) {
   const SKILLS = [
     "JavaScript",
     "React",
@@ -38,16 +36,10 @@ export default function SwipJobSkill({
   ];
 
   const [checkedItems, setCheckedItems] = useState(skills || []);
-  console.log("이건?", checkedItems, skills);
   const [tabValue, setTabValue] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const scrollRef = useRef(null);
-
-  useEffect(() => {
-    // setCheckedItems(skills);
-    console.log("직무선택", checkedItems);
-  }, [checkedItems]);
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -57,35 +49,20 @@ export default function SwipJobSkill({
     setTabValue(newValue);
   };
 
-  const a11yProps = (index) => {
-    return {
-      id: `vertical-tab-${index}`,
-      "aria-controls": `vertical-tabpanel-${index}`,
-    };
-  };
-
   const handleCheckboxChange = (index, event) => {
     const isChecked = event.target.checked;
-    console.log("체크값의 상태", SKILLS[index], isChecked);
-
-    if (isChecked === false && checkedItems.includes(SKILLS[index])) {
-      const newChecked = checkedItems.filter((el) => el !== SKILLS[index]);
-      console.log("!!!!!", newChecked);
-      setCheckedItems(newChecked);
-    }
 
     setCheckedItems((prevCheckedItems) => {
-      const newCheckedItems = [...prevCheckedItems];
-      newCheckedItems[index] = !newCheckedItems[index];
+      const checkedCount = prevCheckedItems.length;
 
-      // 최대 3개까지만 선택 가능하도록
-      const checkedCount = newCheckedItems.filter(Boolean).length;
-      if (checkedCount <= 3) {
-        return newCheckedItems;
+      if (isChecked) {
+        if (checkedCount < 3) {
+          return [...prevCheckedItems, SKILLS[index]];
+        } else {
+          return prevCheckedItems;
+        }
       } else {
-        // 이미 3개 이상이 선택되어 있으면 해당 항목의 체크를 되돌림
-        newCheckedItems[index] = !newCheckedItems[index];
-        return newCheckedItems.filter(Boolean); // undefined나 null을 필터링하여 제거
+        return prevCheckedItems.filter((el) => el !== SKILLS[index]);
       }
     });
   };
@@ -101,9 +78,7 @@ export default function SwipJobSkill({
         {checkedItems.map((item, index) => (
           <Chip
             key={index}
-            // onClick={() => setSelectedChip(SKILLS[index])}
-            label={SKILLS[index]}
-            // clickable={true}
+            label={item}
             variant={"filled"}
             sx={ChipStyle(true)}
           />
@@ -121,7 +96,7 @@ export default function SwipJobSkill({
               key={index}
               control={
                 <Checkbox
-                  checked={checkedItems[index] || false}
+                  checked={checkedItems.includes(SKILLS[index])}
                   onChange={(event) => handleCheckboxChange(index, event)}
                 />
               }
@@ -155,7 +130,7 @@ export default function SwipJobSkill({
         }}
       >
         <Box sx={{ width: "100%", padding: 3 }}>
-          <Box sx={{ paddig: "15px", borderBottom: "1px solid #F5F5F7" }}>
+          <Box sx={{ padding: "15px", borderBottom: "1px solid #F5F5F7" }}>
             {renderChips()}
           </Box>
 
@@ -187,7 +162,7 @@ export default function SwipJobSkill({
               }}
             >
               {["프론트엔드", "백엔드"].map((label, index) => (
-                <Tab key={index} label={label} {...a11yProps(index)} />
+                <Tab key={index} label={label} />
               ))}
             </Tabs>
             {["프론트엔드", "백엔드"].map((label, index) => (
