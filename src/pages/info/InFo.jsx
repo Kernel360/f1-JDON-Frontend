@@ -49,7 +49,7 @@ export default function Info() {
 
   useEffect(() => {
     console.log(data);
-    localStorage.setItem("userInfo", []);
+    // localStorage.setItem("userInfo", []);
     if (step === 0) {
       navigate("../");
     }
@@ -58,9 +58,9 @@ export default function Info() {
         try {
           const response = await registerUserInfo(data);
           console.log("회원 정보 등록 성공:", response);
-          // localStorage.setItem("userInfo", JSON.stringify(data));
+          localStorage.setItem("isLoggedInState", true);
           setIsLogin(true);
-          navigate("/main");
+          navigate("/");
         } catch (error) {
           console.error("회원 정보 등록 실패:", error);
           navigate("/fail");
@@ -68,7 +68,7 @@ export default function Info() {
       };
       registerData();
     }
-  }, [step, data, navigate]);
+  }, [step, data, navigate, setIsLogin]);
 
   useEffect(() => {
     const fetchData = async () => {

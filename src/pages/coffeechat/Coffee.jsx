@@ -46,12 +46,12 @@ export function Coffee() {
           mb: 3,
         }}
       >
-        <Typography sx={{ ml: 2, color: "white" }}>
+        <Typography sx={{ ml: 2, color: "white", fontSize: "14px" }}>
           {" "}
           관심분야에서 커피챗을 이용해보세요
         </Typography>
       </Box>
-      <Filters sorting={sorting} onChange={setSorting} kindOfJd={kindOfJd} />
+      {/* <Filters sorting={sorting} onChange={setSorting} kindOfJd={kindOfJd} /> */}
       <Box display="flex" justifyContent="flex-end">
         <Button
           variant="contained"
