@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import axios from "axios";
 
 const KakaoRedirectPage = () => {
+  console.log(2222);
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = useRecoilState(userInfo);

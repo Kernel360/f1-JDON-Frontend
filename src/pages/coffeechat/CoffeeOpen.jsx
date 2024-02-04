@@ -17,10 +17,7 @@ function Coffeeopen() {
   const [value, setValue] = useState([]);
   const navigate = useNavigate();
   const handleInputChange = async (field, newValue) => {
-    setValue((prev) => ({
-      ...prev,
-      [field]: newValue,
-    }));
+    setValue((prev) => ({ ...prev, [field]: newValue }));
     console.log("1111", value);
   };
 
@@ -34,6 +31,13 @@ function Coffeeopen() {
       console.error("Error fetching hot skills:", error);
     }
   };
+
+  function formatDateForStorage(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
 
   const handleConfirm = () => {
     if (
@@ -117,10 +121,17 @@ function Coffeeopen() {
                     type="number"
                     value={value.totalRecruitCount}
                     onChange={(e) => {
-                      handleInputChange(
-                        "totalRecruitCount",
-                        Number(e.target.value)
-                      );
+                      handleInputChange("totalRecruitCount", e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={5.6}>
+                  <NewInput
+                    placeholder="숫자만 입력해주세요"
+                    label="시간"
+                    value={value.totalRecruitCount}
+                    onChange={(e) => {
+                      handleInputChange("totalRecruitCount", e.target.value);
                     }}
                   />
                 </Grid>
@@ -131,7 +142,10 @@ function Coffeeopen() {
                     isMeetDay={true}
                     value={value.meetDate}
                     onChange={(newValue) => {
-                      handleInputChange("meetDate", newValue);
+                      const meetDate = new Date(newValue); // 예시로 현재 날짜를 사용
+                      const formattedMeetDate = formatDateForStorage(meetDate);
+                      console.log(formattedMeetDate);
+                      //  handleInputChange("meetDate", formattedMeetDate);
                     }}
                   />
                 </Grid>

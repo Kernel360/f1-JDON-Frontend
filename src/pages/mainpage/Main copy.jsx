@@ -10,7 +10,6 @@ import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
 import {
   getHotSkills,
-  getLecture,
   getLectureByKeyword,
   getMemberSkills,
 } from "../../api/api";
@@ -20,12 +19,16 @@ export function Main() {
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
-  const [selectedChip, setSelectedChip] = useState("");
 
-  const [lectureList, setLectureList] = useState([]);
-  const [jdList, setJdList] = useState([]);
+  const [selectdChip, setSelectedChip] = useState({});
+  const [lecture, setLecture] = useState([]);
+  const [companies, setCompanies] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
-  const [search, setSearch] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchData, setSearchData] = useState("");
+  // const [isLogin, setIsLogin] = useState(
+  //   localStorage.getItem("isLoggedInState")
+  // );
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
@@ -35,13 +38,6 @@ export function Main() {
     } else {
       setValue(newValue);
       GetMemberSkillData();
-    }
-  };
-  const handleConfirm = () => {
-    if (
-      window.confirm("[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다")
-    ) {
-      navigate("/signin");
     }
   };
 
@@ -56,7 +52,15 @@ export function Main() {
         console.error("Error fetching member skills:", error);
       }
     } else {
-      alert("로그인 후 [내 맞춤 키워드]를 확인 하실 수 있습니다");
+      handleConfirm();
+    }
+  };
+
+  const handleConfirm = () => {
+    if (
+      window.confirm("[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다")
+    ) {
+      navigate("/signin");
     }
   };
 
@@ -80,58 +84,54 @@ export function Main() {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && e.target.value) {
-      setSelectedChip((prev) => ({ ...prev, keyword: e.target.value }));
+      setSearchData(e.target.value);
     }
   };
 
   const handleSearchChange = (e) => {
-    const newSearch = e.target.value;
-    setSearch(newSearch);
-    if (!newSearch) {
-      setSelectedChip("");
-    }
+    setSearchKeyword(e.target.value);
   };
 
-  // hotSkills 데이터를 불러오는 함수
   useEffect(() => {
+    //console.log(localStorage.getItem("isLoggedInState"));
     const fetchHotSkills = async () => {
       try {
         const data = await getHotSkills();
-        setHotSkills(data.data.skillList);
-        // 선택된 칩이 없으면 첫 번째 핫스킬을 선택된 칩으로 설정
-        if (data.data.skillList.length > 0 && !selectedChip) {
-          setSelectedChip((prev) => ({
-            ...prev,
-            keyword: data.data.skillList[0].keyword,
-          }));
-        }
+        const hotSkillsData = data.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
+        setHotSkills(hotSkillsData);
+        // if (!searchData) {
+        //   const lectureData = await getLectureByKeyword(selectdChip.keyword);
+        //   setLecture(lectureData.lectureList);
+        //   setCompanies(lectureData.jdList);
+        // }
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
     };
     fetchHotSkills();
-  }, [selectedChip]);
+  }, [selectdChip]);
 
-  // 검색어가 변경될 때마다 해당 검색어로 강의 데이터를 불러오는 함수
   useEffect(() => {
-    console.log(selectedChip);
-    const fetchDataByKeyword = async () => {
+    const fetchLectureByKeyword = async () => {
       try {
-        const datas = await getLectureByKeyword(selectedChip.keyword);
-        console.log(datas);
-        setLectureList(datas.lectureList);
-        setJdList(datas.jdList);
+        const lectureDataBySearch = await getLectureByKeyword(searchData);
+        // setSelectedChip((prevState) => ({
+        //   ...prevState,
+        //   keyword: lectureDataBySearch.keyword,
+        // }));
+        setLecture(lectureDataBySearch.lectureList);
+        setCompanies(lectureDataBySearch.jdList);
       } catch (error) {
-        console.error("Error fetching data by keyword:", error);
+        console.error("Error fetching lecture by keyword:", error);
       }
     };
-    fetchDataByKeyword();
-  }, [selectedChip]);
+    fetchLectureByKeyword();
+  }, [searchData]);
 
   return (
     <Container maxWidth="md" sx={{ pb: 10, position: "relative" }}>
       <SearchBar
-        keyword={search}
+        keyword={searchKeyword}
         onChange={handleSearchChange}
         onKeyDown={handleKeyDown}
       />
@@ -171,17 +171,16 @@ export function Main() {
                 <Chip
                   key={skill.id}
                   onClick={() => {
-                    setSelectedChip((prev) => ({
-                      ...prev,
-                      keyword: skill.keyword,
-                    }));
+                    setSelectedChip(skill);
+                    setSearchData("");
+                    setSearchKeyword("");
                   }}
                   label={skill.keyword}
                   clickable={true}
                   variant="outlined"
                   sx={
-                    selectedChip.keyword === skill.keyword
-                      ? ChipStyle(selectedChip)
+                    selectdChip.keyword === skill.keyword
+                      ? ChipStyle(selectdChip)
                       : ChipStyle(undefined)
                   }
                 />
@@ -218,8 +217,8 @@ export function Main() {
                   clickable={true}
                   variant="outlined"
                   sx={
-                    selectedChip === skill.keyword
-                      ? ChipStyle(selectedChip)
+                    selectdChip === skill.keyword
+                      ? ChipStyle(selectdChip)
                       : ChipStyle(undefined)
                   }
                 />
@@ -235,9 +234,8 @@ export function Main() {
         </TabContext>
       </Box>
 
-      <VideoSection selectedChip={selectedChip} data={lectureList} />
-      <CompanySection selectedChip={selectedChip} data={jdList} />
-
+      <VideoSection selectdChip={selectdChip} data={lecture} />
+      <CompanySection selectdChip={selectdChip} data={companies} />
       <a
         href="https://docs.google.com/forms/d/e/1FAIpQLSfx9-ahkuQtQVy93P_nIhBbip-S4Q6RGnvqH1FeOA_Gu2F-Lg/viewform"
         target="_blank"

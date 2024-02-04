@@ -3,12 +3,12 @@ import { MainStyles } from "../PageStyles";
 import VideoCard from "../../components/common/card/VideoCard";
 import hot from "../../../src/assets/images/hot.svg";
 
-function VideoSection({ selectdChip, data }) {
+function VideoSection({ selectedChip, data }) {
   return (
     <Box sx={{ mt: 4 }}>
       <Typography sx={MainStyles.TypoGraphy}>
         <span style={{ fontWeight: 700, color: "black", margin: "2px 8px" }}>
-          {selectdChip.keyword}
+          {selectedChip.keyword}
         </span>
         추천 학습 영상
         <img src={hot} alt="hot" />
@@ -17,11 +17,9 @@ function VideoSection({ selectdChip, data }) {
         <Box
           sx={{
             background: "#F9F9F9",
-
             borderRadius: "10px",
             mt: 2,
-            width: "calc(100% + 32px)",
-            margin: "0 -16px",
+            width: "100%",
           }}
         >
           {data.length > 0 ? (

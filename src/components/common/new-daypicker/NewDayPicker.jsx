@@ -12,6 +12,14 @@ function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
   const handleDateChange = (newDate) => {
     onChange(newDate);
   };
+  const validateDate = (newDate) => {
+    // 유효한 날짜인지 확인
+    if (isNaN(newDate.getTime())) {
+      console.error("Invalid date");
+      return false;
+    }
+    return true;
+  };
 
   return (
     <TotalInputForm value={value} label={label} valid={valid}>
@@ -21,9 +29,14 @@ function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
           adapterLocale={format}
         >
           <DatePicker
-            value={value}
+            value={value || null}
             inputFormat="yyyy-MM-dd"
-            onChange={handleDateChange}
+            onChange={(newDate) => {
+              // 유효성 검사 후 변경
+              if (validateDate(newDate)) {
+                handleDateChange(newDate);
+              }
+            }}
             sx={datePicker(value)}
             renderInput={(params) => <TextField {...params} />}
             minDate={isMeetDay && new Date()}
