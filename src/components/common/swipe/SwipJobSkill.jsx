@@ -24,56 +24,57 @@ export default function SwipJobSkill({
   selectedJobSkill,
   setSelectedJobSkill,
 }) {
-  const SKILLS = [
-    "JavaScript",
-    "React",
-    "Recoil",
-    "Context Api",
-    "everland",
-    "I want to go",
-    "푸바오",
-    "보고시퍼요",
-    "금요일",
-    "내일 주말",
-  ];
   console.log("jobId", jobId);
   console.log("selectedJobSkill", selectedJobSkill);
-  const [categoryId, setCategoryId] = useState(jobId);
+  const initialJobId = useRef(jobId);
+  // const [categoryId, setCategoryId] = useState(jobId);
   const [checkedItems, setCheckedItems] = useState(selectedJobSkill);
-  // tabs의 선택시 배열의 순번이여서 id 값에서 -2로 해줌
+  // tabs은 컨트롤은 배열 0,1부터라 직군별 id에 따라 맞춤
   const [tabValue, setTabValue] = useState(jobId == 2 ? 0 : 1);
   const [jobCategories, setJobCategories] = useState([]);
   const [jobSkills, setJobSkills] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  // const categoryIdRef = useRef(categoryId);
+  // console.log("!!!categoryId", categoryId);
+
+  const LOCAL_STORAGE_KEY = "checkedItems";
+
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
-  console.log("checkedItems 이상", checkedItems);
+
+  // 초기 들어올때 세팅해야할 것
+  useEffect(() => {
+    setCheckedItems(selectedJobSkill);
+  }, []);
+
+  // 변경시 실행되야할 것
   useEffect(() => {
     const fetchData = async () => {
       try {
         const categoryData = await getJobCategory();
         setJobCategories(categoryData.jobGroupList[0].jobCategoryList);
-        const skillsData = await getSkillsOnJD(categoryId || jobId);
-        // console.log("ㄴㄴㄴ스킬확인", skillsData.skillList);
+
+        const skillsData = await getSkillsOnJD(jobId);
         setJobSkills(skillsData.skillList);
-        if (jobId !== categoryId) {
-          setCheckedItems([]);
-        } else {
-          setCheckedItems(selectedJobSkill || []);
-        }
       } catch (error) {
         console.error("swipJobSkill 파일 통신에러", error);
       }
     };
     fetchData();
-  }, [categoryId]);
+  }, []);
+
+  console.log("checkedItems 이상", checkedItems);
 
   const handleChangeTab = (event, newValue) => {
     setTabValue(newValue);
-
-    setCategoryId(newValue == 0 ? 2 : 3);
+    setJobId(newValue == 0 ? 2 : 3);
+    if (jobId !== initialJobId) {
+      setCheckedItems([]);
+    } else {
+      setCheckedItems(selectedJobSkill);
+    }
   };
 
   const handleCheckboxChange = (skillId, event) => {
@@ -92,6 +93,8 @@ export default function SwipJobSkill({
         return prevCheckedItems.filter((el) => el !== skillId);
       }
     });
+    // setSelectedJobSkill(checkedItems);
+
     console.log("체크된 기술", checkedItems);
   };
 
