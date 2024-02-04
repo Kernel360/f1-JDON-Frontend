@@ -7,16 +7,16 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Arrow from "../../../assets/icons/chip_arrow.svg";
 
-export function Filters({ sorting, onChange }) {
+export function Filters({ sorting, onChange, kindOfJd }) {
   const [openFilter, setOpenFilter] = useState([false, false]);
+
   const handleClose = () => setOpenFilter(openFilter.map(() => false));
 
   const handleChipClick = (value) => {
     setOpenFilter(openFilter.map((val, i) => (i === value ? !val : val)));
-    console.log(openFilter[value]);
   };
 
   return (
@@ -106,19 +106,19 @@ export function Filters({ sorting, onChange }) {
             <FormControl>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="frontend"
+                defaultValue={kindOfJd}
                 name="radio-buttons-group"
               >
-                <FormControlLabel
-                  value="frontend"
-                  control={<Radio />}
-                  label="frontend"
-                />
-                <FormControlLabel
-                  value="backend"
-                  control={<Radio />}
-                  label="backend"
-                />
+                {kindOfJd.map((item) => (
+                  <FormControlLabel
+                    value={item.name}
+                    control={<Radio />}
+                    label={item.name}
+                    onClick={() => {
+                      onChange(item.name);
+                    }}
+                  />
+                ))}
               </RadioGroup>
             </FormControl>
           </Box>

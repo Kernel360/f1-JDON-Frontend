@@ -68,7 +68,14 @@ function CoffeeChatCard({ data }) {
         >
           {data.title}
         </Typography>
-        <Typography variant="body2" color="#9A9AA1" fontSize="13px">
+        <Box
+          sx={{
+            mt: "22px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+          }}
+        >
           <Box
             sx={{
               pb: "5px",
@@ -110,7 +117,7 @@ function CoffeeChatCard({ data }) {
             <PeopleAltIcon sx={{ fontSize: "small", color: "#575757" }} />
             {data.currentRecruitCount} / {data.totalRecruitCount}
           </Box>
-        </Typography>
+        </Box>
       </Box>
     </Paper>
   );

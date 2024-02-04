@@ -42,7 +42,6 @@ function App() {
               <Route exact path="/mypage/video" element={<FavoritesVideo />} />
               <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
               <Route exact path="/mypage/coffee" element={<MyCoffeeChat />} />
-
               <Route
                 exact
                 path="/mypage/coffee/:id"
@@ -51,10 +50,9 @@ function App() {
 
               <Route path="/oauth/info" element={<KakaoRedirectPage />} />
               <Route
-                path="https://jdon.kr//oauth/login/success"
+                path="/oauth/login/success"
                 element={<KakaoRedirectPage />}
               />
-
               <Route path="/fail" element={<SignupFail />} />
               <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
             </Routes>
