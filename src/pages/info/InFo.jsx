@@ -35,7 +35,7 @@ export default function Info() {
         alert("직무를 선택해주세요");
         return false;
       }
-      if (step === 3 && data.skillList.length < 3) {
+      if (step === 3 && data.skillList.length !== 3) {
         alert("최소 3개 이상의 기술을 선택하세요");
         return false;
       }
@@ -49,9 +49,8 @@ export default function Info() {
 
   useEffect(() => {
     console.log(data);
-    // localStorage.setItem("userInfo", []);
     if (step === 0) {
-      navigate("../");
+      navigate("/");
     }
     if (step === 4) {
       const registerData = async () => {
@@ -118,7 +117,7 @@ export default function Info() {
             <InfoSkill step={step} onChange={handleChange} />
             <NavigationButtons
               step={step}
-              isActive={data.skillList.length > 2}
+              isActive={data.skillList.length === 3}
               onBefore={() => setStep(step - 1)}
               onNext={handleNextBtn}
             />
