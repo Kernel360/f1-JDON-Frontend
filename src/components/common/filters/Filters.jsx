@@ -7,43 +7,62 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Arrow from "../../../assets/icons/chip_arrow.svg";
 
-export function Filters({ sorting, onChange }) {
+export function Filters({ sortData, onChange, kindOfJd }) {
   const [openFilter, setOpenFilter] = useState([false, false]);
+
   const handleClose = () => setOpenFilter(openFilter.map(() => false));
 
   const handleChipClick = (value) => {
     setOpenFilter(openFilter.map((val, i) => (i === value ? !val : val)));
-    console.log(openFilter[value]);
   };
+
+  const getValueForRadioGroup = (jobcategory) => {
+    switch (jobcategory) {
+      case 2:
+        return "서버 개발자";
+      case 3:
+        return "프론트엔드 개발자";
+      default:
+        return ""; // 기본값은 빈 문자열
+    }
+  };
+  const radioValue = getValueForRadioGroup(sortData.jobcategory);
 
   return (
     <>
       <Box sx={{ display: "flex", gap: 1 }}>
         <Chip
-          label={sorting === "createdDate,desc" ? "최신순" : "조회순"}
+          label={sortData.sorting === "createdDate" ? "최신순" : "조회순"}
           clickable
           variant="outlined"
           onClick={() => handleChipClick(0)}
           onDelete={() => handleChipClick(0)}
           sx={{
             display: "flex",
-            width: "75px",
-            color: "#6E6E71",
-            borderColor: "#",
+            color: sortData.sorting !== "createdDate" ? "#6482FF" : "#6E6E71",
+            background: sortData.sorting !== "createdDate" && "#E2E7FF",
+            borderColor: sortData.sorting !== "createdDate" && "#6482FF",
+            fontWeight: sortData.sorting !== "createdDate" && 700,
           }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
         ></Chip>
 
         <Chip
-          label="직무"
+          label={sortData.jobcategory ? radioValue : "전체 직무"}
           clickable={true}
           variant="outlined"
           onClick={() => handleChipClick(1)}
           onDelete={() => handleChipClick(1)}
-          sx={{ display: "flex", width: "70px", color: "#6E6E71" }}
+          sx={{
+            display: "flex",
+            color: sortData.jobcategory ? "#6482FF" : "#6E6E71",
+            background: sortData.jobcategory && "#E2E7FF",
+            borderColor: sortData.jobcategory && "#6482FF",
+            fontWeight: sortData.jobcategory && 700,
+          }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
         />
 
@@ -56,7 +75,6 @@ export function Filters({ sorting, onChange }) {
               transform: "translate(-50%, -50%)",
               width: 328,
               bgcolor: "background.paper",
-              boxShadow: 24,
               p: 4,
               borderRadius: 8,
             }}
@@ -65,7 +83,7 @@ export function Filters({ sorting, onChange }) {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue={
-                  sorting === "createdDate,desc" ? "최신순" : "조회순"
+                  sortData.sorting === "createdDate" ? "최신순" : "조회순"
                 }
                 name="radio-buttons-group"
               >
@@ -74,7 +92,7 @@ export function Filters({ sorting, onChange }) {
                   control={<Radio />}
                   label="최신순"
                   onClick={() => {
-                    onChange("createdDate,desc");
+                    onChange((prev) => ({ ...prev, sorting: "createdDate" }));
                   }}
                 />
                 <FormControlLabel
@@ -82,7 +100,7 @@ export function Filters({ sorting, onChange }) {
                   control={<Radio />}
                   label="조회순"
                   onClick={() => {
-                    onChange("viewCount,desc");
+                    onChange((prev) => ({ ...prev, sorting: "viewCount" }));
                   }}
                 />
               </RadioGroup>
@@ -98,7 +116,6 @@ export function Filters({ sorting, onChange }) {
               transform: "translate(-50%, -50%)",
               width: 328,
               bgcolor: "background.paper",
-              boxShadow: 24,
               p: 4,
               borderRadius: 8,
             }}
@@ -106,19 +123,28 @@ export function Filters({ sorting, onChange }) {
             <FormControl>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="frontend"
                 name="radio-buttons-group"
+                defaultValue={radioValue}
               >
                 <FormControlLabel
-                  value="frontend"
+                  value={""}
                   control={<Radio />}
-                  label="frontend"
+                  label="전체"
+                  onClick={() => {
+                    onChange((prev) => ({ ...prev, jobcategory: "" }));
+                  }}
                 />
-                <FormControlLabel
-                  value="backend"
-                  control={<Radio />}
-                  label="backend"
-                />
+                {kindOfJd?.map((item) => (
+                  <FormControlLabel
+                    key={item.id}
+                    value={item.id}
+                    control={<Radio />}
+                    label={item.name}
+                    onClick={() => {
+                      onChange((prev) => ({ ...prev, jobcategory: item.id }));
+                    }}
+                  />
+                ))}
               </RadioGroup>
             </FormControl>
           </Box>

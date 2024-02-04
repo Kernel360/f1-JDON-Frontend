@@ -122,6 +122,7 @@ function Coffeeopen() {
                   <NewDayPicker
                     label="일시"
                     isMeetDay={true}
+                    daytime={true}
                     value={value.meetDate}
                     onChange={(newValue) => {
                       handleInputChange("meetDate", newValue);

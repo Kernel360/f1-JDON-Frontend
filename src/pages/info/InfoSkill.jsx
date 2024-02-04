@@ -14,17 +14,20 @@ function InfoSkill({ onChange }) {
   const handleClick = (newChip) => {
     setSelected((prev) => {
       if (prev.includes(newChip)) {
-        return prev.filter((chip) => chip !== newChip);
+        const updatedSelected = prev.filter((chip) => chip !== newChip);
+        handleInputChange("skillList", updatedSelected);
+        return updatedSelected;
       } else {
-        if (prev.length >= 3) {
+        if (prev.length === 3) {
           alert("3개만 선택할 수 있습니다");
           return prev;
         } else {
+          handleInputChange("skillList", [...prev, newChip]);
           return [...prev, newChip];
         }
       }
     });
-    handleInputChange("skillList", selected);
+    console.log(selected);
   };
 
   const handleInputChange = async (field, newValue) => {

@@ -19,11 +19,15 @@ function CoffeeChatCard({ data }) {
       sx={{
         pointer: "cursor",
         my: 1,
-        border: "1px solid #BCBCC4",
+        border: "1px solid #B9B9B9",
         borderRadius: "8px",
         height: "220px",
         position: "relative",
         opacity: data.status === "종료" ? 0.4 : 1,
+        transition: "transform 0.3s ease", // Add smooth transition
+        "&:hover": {
+          transform: "scale(1.03)", // Scale on hover
+        },
       }}
     >
       <Box
@@ -68,7 +72,14 @@ function CoffeeChatCard({ data }) {
         >
           {data.title}
         </Typography>
-        <Typography variant="body2" color="#9A9AA1" fontSize="13px">
+        <Box
+          sx={{
+            mt: "22px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+          }}
+        >
           <Box
             sx={{
               pb: "5px",
@@ -110,7 +121,7 @@ function CoffeeChatCard({ data }) {
             <PeopleAltIcon sx={{ fontSize: "small", color: "#575757" }} />
             {data.currentRecruitCount} / {data.totalRecruitCount}
           </Box>
-        </Typography>
+        </Box>
       </Box>
     </Paper>
   );

@@ -1,6 +1,12 @@
 import { RecoilRoot } from "recoil";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Router,
+  HashRouter,
+} from "react-router-dom";
 import "./App.css";
 import SignIn from "./pages/sign-in/SignIn";
 import Info from "./pages/info/InFo";
@@ -36,12 +42,12 @@ function App() {
               <Route exact path="/mypage/video" element={<FavoritesVideo />} />
               <Route exact path="/mypage/withdrawal" element={<Withdrawal />} />
               <Route exact path="/mypage/coffee" element={<MyCoffeeChat />} />
-              //손보기
               <Route
                 exact
                 path="/mypage/coffee/:id"
                 element={<CoffeeDetail />}
               />
+
               <Route path="/oauth/info" element={<KakaoRedirectPage />} />
               <Route
                 path="/oauth/login/success"

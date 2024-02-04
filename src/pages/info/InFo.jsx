@@ -35,7 +35,7 @@ export default function Info() {
         alert("직무를 선택해주세요");
         return false;
       }
-      if (step === 3 && data.skillList.length < 3) {
+      if (step === 3 && data.skillList.length !== 3) {
         alert("최소 3개 이상의 기술을 선택하세요");
         return false;
       }
@@ -49,18 +49,17 @@ export default function Info() {
 
   useEffect(() => {
     console.log(data);
-    localStorage.setItem("userInfo", []);
     if (step === 0) {
-      navigate("../");
+      navigate("/");
     }
     if (step === 4) {
       const registerData = async () => {
         try {
           const response = await registerUserInfo(data);
           console.log("회원 정보 등록 성공:", response);
-          // localStorage.setItem("userInfo", JSON.stringify(data));
+          localStorage.setItem("isLoggedInState", true);
           setIsLogin(true);
-          navigate("/main");
+          navigate("/");
         } catch (error) {
           console.error("회원 정보 등록 실패:", error);
           navigate("/fail");
@@ -68,7 +67,7 @@ export default function Info() {
       };
       registerData();
     }
-  }, [step, data, navigate]);
+  }, [step, data, navigate, setIsLogin]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -118,7 +117,7 @@ export default function Info() {
             <InfoSkill step={step} onChange={handleChange} />
             <NavigationButtons
               step={step}
-              isActive={data.skillList.length > 2}
+              isActive={data.skillList.length === 3}
               onBefore={() => setStep(step - 1)}
               onNext={handleNextBtn}
             />
