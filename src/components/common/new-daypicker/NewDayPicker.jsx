@@ -1,5 +1,9 @@
 import { Grid, TextField } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import {
+  DatePicker,
+  DateTimePicker,
+  LocalizationProvider,
+} from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import format from "date-fns/locale/ko";
 import {
@@ -8,7 +12,7 @@ import {
 } from "../../../pages/info/InfoStyles";
 import TotalInputForm from "../total-input-form/TotalInputForm";
 
-function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
+function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
   const handleDateChange = (newDate) => {
     onChange(newDate);
   };
@@ -28,19 +32,34 @@ function NewDayPicker({ label, value, valid, isMeetDay, onChange }) {
           dateAdapter={AdapterDateFns}
           adapterLocale={format}
         >
-          <DatePicker
-            value={value || null}
-            inputFormat="yyyy-MM-dd"
-            onChange={(newDate) => {
-              // 유효성 검사 후 변경
-              if (validateDate(newDate)) {
-                handleDateChange(newDate);
-              }
-            }}
-            sx={datePicker(value)}
-            renderInput={(params) => <TextField {...params} />}
-            minDate={isMeetDay && new Date()}
-          />
+          {daytime ? (
+            <DateTimePicker
+              value={value || null}
+              inputFormat="yyyy-MM-dd HH-mm"
+              sx={datePicker(value)}
+              onChange={(newDate) => {
+                // 유효성 검사 후 변경
+                if (validateDate(newDate)) {
+                  handleDateChange(newDate);
+                }
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          ) : (
+            <DatePicker
+              value={value || null}
+              inputFormat="yyyy-MM-dd"
+              onChange={(newDate) => {
+                // 유효성 검사 후 변경
+                if (validateDate(newDate)) {
+                  handleDateChange(newDate);
+                }
+              }}
+              sx={datePicker(value)}
+              renderInput={(params) => <TextField {...params} />}
+              minDate={isMeetDay && new Date()}
+            />
+          )}
         </LocalizationProvider>
       </Grid>
     </TotalInputForm>
