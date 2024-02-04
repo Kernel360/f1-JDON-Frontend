@@ -16,6 +16,7 @@ function NewInput({
   onChange,
   onClick,
   duplicate,
+  style,
 }) {
   const buttonStyle = {
     ...duplicateCheckButtonStyle,

@@ -10,7 +10,6 @@ import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
 import {
   getHotSkills,
-  getLecture,
   getLectureByKeyword,
   getMemberSkills,
 } from "../../api/api";

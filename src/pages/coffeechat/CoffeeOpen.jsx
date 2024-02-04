@@ -4,6 +4,7 @@ import {
   Container,
   CssBaseline,
   Grid,
+  TextField,
   Typography,
 } from "@mui/material";
 import Header from "../../components/common/Header";
@@ -12,17 +13,33 @@ import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
 import { useState } from "react";
 import { registerCoffeeChat } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
+import {
+  DatePicker,
+  DateTimePicker,
+  LocalizationProvider,
+  TimePicker,
+} from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { datePicker, datePickerContainer } from "../info/InfoStyles";
+
+// {
+// 				"title": "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.",
+// 				"totalRecruitCount": 20,
+// 				"meetDate": "2024-02-06 19:30",
+// 				"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo",
+// 				"openChatUrl": "openkakao.dfkjwhf.wdjfhwkj/wkdjfhwkj"
+// }
 
 function Coffeeopen() {
   const [value, setValue] = useState([]);
   const navigate = useNavigate();
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
-    console.log("1111", value);
   };
 
   const hanldeRegister = async () => {
-    console.log("2222", value);
+    console.log(value);
     try {
       const data = await registerCoffeeChat(value);
       console.log("registerCoffeeChat 확인중", data);
@@ -31,13 +48,6 @@ function Coffeeopen() {
       console.error("Error fetching hot skills:", error);
     }
   };
-
-  function formatDateForStorage(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
 
   const handleConfirm = () => {
     if (
@@ -125,27 +135,15 @@ function Coffeeopen() {
                     }}
                   />
                 </Grid>
-                <Grid item xs={5.6}>
-                  <NewInput
-                    placeholder="숫자만 입력해주세요"
-                    label="시간"
-                    value={value.totalRecruitCount}
-                    onChange={(e) => {
-                      handleInputChange("totalRecruitCount", e.target.value);
-                    }}
-                  />
-                </Grid>
 
                 <Grid item xs={5.6}>
                   <NewDayPicker
                     label="일시"
                     isMeetDay={true}
+                    daytime={true}
                     value={value.meetDate}
                     onChange={(newValue) => {
-                      const meetDate = new Date(newValue); // 예시로 현재 날짜를 사용
-                      const formattedMeetDate = formatDateForStorage(meetDate);
-                      console.log(formattedMeetDate);
-                      //  handleInputChange("meetDate", formattedMeetDate);
+                      handleInputChange("meetDate", newValue);
                     }}
                   />
                 </Grid>

@@ -4,19 +4,28 @@ import CoffeeChatCard from "../../components/common/card/CoffeeChatCard";
 import { Filters } from "../../components/common/filters/Filters";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCoffeeChat, getJobCategory, getSkillsOnJD } from "../../api/api";
+import { getCoffeeChat, getJobCategory } from "../../api/api";
 import PaginationComponent from "../../components/common/Pagenation";
 
 export function Coffee() {
   const navigate = useNavigate();
   const [coffeeData, setCoffeeData] = useState([]);
-  const [sorting, setSorting] = useState("createdDate,desc");
+  //const [sorting, setSorting] = useState("createdDate,desc");
+  const [sortData, setSortData] = useState({
+    sorting: "createdDate",
+    jobcategory: null,
+  });
+
   const [kindOfJd, setKindOfJd] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getCoffeeChat(1, sorting);
+        const data = await getCoffeeChat(
+          1,
+          sortData.sorting,
+          sortData.jobcategory
+        );
         setCoffeeData(data);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
@@ -28,30 +37,40 @@ export function Coffee() {
         console.log(data.jobGroupList[0].jobCategoryList);
         const kindOfJd = data.jobGroupList[0].jobCategoryList;
         setKindOfJd(kindOfJd);
+        console.log(kindOfJd);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
     };
-    console.log(sorting);
+    console.log(sortData);
     fetchData();
     fetchJobCategory();
-  }, []);
+  }, [sortData]);
   return (
     <Container maxWidth="md" sx={{ pt: 3, pb: 10 }}>
       <Box
         sx={{
-          bgcolor: "black",
+          background: "black",
           borderRadius: "10px",
           py: 6,
           mb: 3,
+          position: "relative",
         }}
       >
-        <Typography sx={{ ml: 2, color: "white" }}>
+        <Typography
+          sx={{
+            ml: 3,
+            color: "white",
+            fontSize: "14px",
+            fontWeight: 500,
+            letterSpacing: 2,
+          }}
+        >
           {" "}
-          관심분야에서 커피챗을 이용해보세요
+          💡 관심분야에서 커피챗을 이용해보세요
         </Typography>
       </Box>
-      <Filters sorting={sorting} onChange={setSorting} kindOfJd={kindOfJd} />
+      <Filters sortData={sortData} onChange={setSortData} kindOfJd={kindOfJd} />
       <Box display="flex" justifyContent="flex-end">
         <Button
           variant="contained"
