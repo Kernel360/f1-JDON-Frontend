@@ -1,11 +1,12 @@
 import { Button } from "@mui/material";
 import { theme } from "../../../styles/themeMuiStyle";
 
-function NewBtn({ title, onClick, isActive, styles }) {
+function NewBtn({ title, onClick, isActive, styles, disable }) {
   return (
     <Button
       type="submit"
       fullWidth
+      disabled={disable}
       sx={{
         mt: 5,
         mb: 2,
