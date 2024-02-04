@@ -4,7 +4,6 @@ import {
   Container,
   CssBaseline,
   Grid,
-  TextField,
   Typography,
 } from "@mui/material";
 import Header from "../../components/common/Header";
@@ -13,23 +12,6 @@ import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
 import { useState } from "react";
 import { registerCoffeeChat } from "../../api/api";
 import { useNavigate } from "react-router-dom";
-import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
-import {
-  DatePicker,
-  DateTimePicker,
-  LocalizationProvider,
-  TimePicker,
-} from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { datePicker, datePickerContainer } from "../info/InfoStyles";
-
-// {
-// 				"title": "주니어 백엔드 개발자를 대상으로 커피챗을 엽니다.",
-// 				"totalRecruitCount": 20,
-// 				"meetDate": "2024-02-06 19:30",
-// 				"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo",
-// 				"openChatUrl": "openkakao.dfkjwhf.wdjfhwkj/wkdjfhwkj"
-// }
 
 function Coffeeopen() {
   const [value, setValue] = useState([]);

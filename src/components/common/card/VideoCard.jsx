@@ -10,11 +10,12 @@ import { VideoCardStyle } from "./CardStyle";
 import "./../../../styles/animations.scss";
 
 function VideoCard({ data }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(data.isFavortie);
   //console.log(data);
 
   const handleLikeClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsLiked((prevIsLiked) => !prevIsLiked);
   };
 
