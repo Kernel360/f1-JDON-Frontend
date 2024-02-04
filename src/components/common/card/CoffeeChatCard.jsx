@@ -19,11 +19,15 @@ function CoffeeChatCard({ data }) {
       sx={{
         pointer: "cursor",
         my: 1,
-        border: "1px solid #BCBCC4",
+        border: "1px solid #B9B9B9",
         borderRadius: "8px",
         height: "220px",
         position: "relative",
         opacity: data.status === "종료" ? 0.4 : 1,
+        transition: "transform 0.3s ease", // Add smooth transition
+        "&:hover": {
+          transform: "scale(1.03)", // Scale on hover
+        },
       }}
     >
       <Box
