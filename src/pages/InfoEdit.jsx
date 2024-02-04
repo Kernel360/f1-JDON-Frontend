@@ -8,10 +8,16 @@ import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnSt
 import NewInput from "../components/common/new-input/NewInput";
 import { useRecoilState } from "recoil";
 import { userInfo, jobIdState, selectedJobSkillState } from "../recoil/atoms";
-import { checkNicknameDuplicate, getMemberInfo } from "../api/api";
+import {
+  checkNicknameDuplicate,
+  getMemberInfo,
+  updateMemberInfo,
+} from "../api/api";
 import NewDayPicker from "../components/common/new-daypicker/NewDayPicker";
 import { OptionButton, infoBasicStyles } from "./info/InfoStyles";
 import TotalInputForm from "../components/common/total-input-form/TotalInputForm";
+
+const GENDERS = ["남성", "여성"];
 
 export default function InfoEdit() {
   const navigate = useNavigate();
@@ -21,27 +27,20 @@ export default function InfoEdit() {
   );
   const [helperText, setHelperText] = useState("");
   // const [value, setValue] = useRecoilState(userInfo);
-  const [nick, setNick] = useState(""); //중간 밸류를 생성
-  const [validtion, setValidation] = useState(false); // 이건 중간밸류 확인
+  // const [nick, setNick] = useState("");
+  const [validtion, setValidation] = useState(false);
 
   const [memberInfo, setMemberInfo] = useState({});
   const [nickname, setNickname] = useState("");
-  const [birthday, setBirthday] = useState(null); // or some default date
+  const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState("");
-  // const [jobId, setJobId] = useState("");
-  // const [selectedJobSkill, setSelectedJobSkill] = useState("");
-
-  // 리코일 사용안하면
-  // const handleInputChange = async (field, newValue) => {
-  //   setValue((prev) => ({ ...prev, [field]: newValue }));
-  // };
 
   useEffect(() => {
     // 페이지가 로드될 때 회원 정보를 받아오는 통신 로직
     const fetchMemberInfo = async () => {
       try {
         const memberData = await getMemberInfo();
-        console.log("men", memberData.data.birth);
+        console.log("men", memberData.data);
         setMemberInfo(memberData.data);
         setNickname(memberData.data.nickname || "닉네임 설정이 필요합니다.");
         setBirthday(memberData.data.birth || null);
@@ -56,31 +55,45 @@ export default function InfoEdit() {
     fetchMemberInfo();
   }, []);
 
-  console.log("11set멤버", jobId);
-  console.log("22set멤버", selectedJobSkill);
+  // console.log("11set멤버", jobId);
+  // console.log("22set멤버", selectedJobSkill);
 
   const handleGenderChange = (newValue) => {
     setGender(newValue);
-    console.log("gender", newValue);
+    // console.log("gender", newValue);
   };
 
   const handleBithdayChange = (newDate) => {
-    console.log("birth 넘어온 날것", newDate);
+    // console.log("birth 넘어온 날것", newDate);
     const formattedDate =
       newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
-    console.log("birth 가공한 데이트", formattedDate);
+    // console.log("birth 가공한 데이트", formattedDate);
 
     setBirthday(formattedDate);
   };
 
-  const handleSaveChanges = () => {
-    // 여기서 변경된 정보를 저장하는 로직을 추가
-    // 저장이 완료되면 프로필 페이지로 이동
-    navigate("/mypage");
+  const handleSaveChanges = async () => {
+    try {
+      const res = await updateMemberInfo({
+        nickname,
+        birth: birthday,
+        gender,
+        jobCategoryId: jobId,
+        skillList: selectedJobSkill,
+      });
+      if (res) {
+        console.log("정보수정 성공! 수정 데이터: ", res);
+      }
+
+      // 저장이 완료되면 프로필 페이지로 이동
+      // navigate("/mypage");
+    } catch (error) {
+      console.error("회원 정보 업데이트 에러", error);
+    }
   };
 
   const checkNickname = async () => {
-    console.log("checkNickname", nickname);
+    // console.log("checkNickname", nickname);
     if (nickname) {
       try {
         const res = await checkNicknameDuplicate({
@@ -152,7 +165,7 @@ export default function InfoEdit() {
           />
           <TotalInputForm label="성별" value={gender} valid={validtion}>
             <Grid container sx={infoBasicStyles.genderBtnContainer}>
-              {["남성", "여성"].map((item) => (
+              {GENDERS.map((item) => (
                 <Grid item xs={5.5} key={item}>
                   <Button
                     variant="outlined"
@@ -166,14 +179,11 @@ export default function InfoEdit() {
               ))}
             </Grid>
           </TotalInputForm>
-          <TotalInputForm
-            label="직무 및 기술스택"
-            // value={gender}
-            valid={validtion}
-          >
+          <TotalInputForm label="직무 및 기술스택" valid={validtion}>
             <SwipJobSkill />
           </TotalInputForm>
           <Button
+            type="submit"
             onClick={handleSaveChanges}
             sx={{
               ...buttonStyle.Button,

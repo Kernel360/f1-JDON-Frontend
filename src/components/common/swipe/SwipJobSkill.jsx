@@ -36,7 +36,7 @@ export default function SwipJobSkill({}) {
 
   // console.log("왜안돼", tabValue);
 
-  console.log("로딩 중: ", loading);
+  // console.log("로딩 중: ", loading);
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -86,12 +86,11 @@ export default function SwipJobSkill({}) {
     localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
     localStorage.setItem("tabValue", JSON.stringify(tabValue));
 
-    console.log("로딩 후: ", loading);
-    console.log("initialJobId", initialJobId.current);
+    // console.log("로딩 후: ", loading);
+    // console.log("initialJobId", initialJobId.current);
     console.log("selectedJobSkill", selectedJobSkill);
   }, [loading]);
 
-  console.log("initialJobId", initialJobId.current);
   const handleChangeTab = (event, newValue) => {
     setTabValue(newValue);
     setJobId(newValue);
