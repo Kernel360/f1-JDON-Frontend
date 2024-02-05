@@ -65,7 +65,7 @@ export async function updateMemberInfo(data) {
 export async function logoutMember() {
   try {
     // console.log(nickName);
-    const res = await instance.post("/api/v1/logout");
+    const res = await instance.get("/api/v1/logout");
     console.log("logoutMember API", res);
     return res;
   } catch (error) {
