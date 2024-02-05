@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function BottomNav() {
-  const login = useState(localStorage.getItem("isLoggedInState"));
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("isLoggedInState")
+  );
   const navigate = useNavigate();
 
   const handleNavigationChange = (event, newValue) => {
@@ -18,7 +20,7 @@ export default function BottomNav() {
         navigate("/coffee");
         break;
       case 2:
-        navigate(login === "true" ? "/mypage" : "/signin");
+        navigate(isLogin === "true" ? "/mypage" : "/signin");
         break;
       default:
         break;
@@ -46,7 +48,7 @@ export default function BottomNav() {
         <BottomNavigationAction label="메인" icon={<Home />} />
         <BottomNavigationAction label="커피챗" icon={<Coffee />} />
         <BottomNavigationAction
-          label={login ? "마이페이지" : "로그인"}
+          label={isLogin === "true" ? "마이페이지" : "로그인"}
           icon={<Person />}
         />
       </BottomNavigation>
