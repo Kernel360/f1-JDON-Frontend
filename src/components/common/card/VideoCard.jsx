@@ -54,7 +54,8 @@ function VideoCard({ data }) {
         <Typography sx={VideoCardStyle.Title}>{data.title}</Typography>
         <Box>
           <Typography fontWeight="600" color="#545459">
-            {data.price} <span style={{ fontSize: "14px" }}>원</span>
+            {data.price.toLocaleString()}{" "}
+            <span style={{ fontSize: "14px" }}>원</span>
           </Typography>
         </Box>
         <Typography sx={VideoCardStyle.StudentCount}>
