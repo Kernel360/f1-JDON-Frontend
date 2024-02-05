@@ -20,6 +20,10 @@ export const buttonStyle = {
       backgroundColor: "#6482FF", // 클릭(마우스 오버) 시 배경색 변경
     },
   },
+  ActiveButton: {
+    color: "#ffffff",
+    backgroundColor: "#6482FF",
+  },
   EndButton: {
     mt: 7,
     mb: 2,

@@ -12,10 +12,19 @@ import {
 } from "../../../pages/info/InfoStyles";
 import TotalInputForm from "../total-input-form/TotalInputForm";
 
-function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
+function NewDayPicker({
+  label,
+  // initialValue,
+  value,
+  valid,
+  isMeetDay,
+  daytime,
+  onChange,
+}) {
   const handleDateChange = (newDate) => {
     onChange(newDate);
   };
+  // const initialDate = value || new Date(initialValue);
   const validateDate = (newDate) => {
     // 유효한 날짜인지 확인
     if (isNaN(newDate.getTime())) {
@@ -23,6 +32,11 @@ function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
       return false;
     }
     return true;
+  };
+
+  const isDateString = (value) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(value);
   };
 
   return (
@@ -47,15 +61,15 @@ function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
             />
           ) : (
             <DatePicker
-              value={value || null}
+              value={isDateString(value) ? new Date(value) : value}
               inputFormat="yyyy-MM-dd"
+              sx={datePicker(value)}
               onChange={(newDate) => {
                 // 유효성 검사 후 변경
                 if (validateDate(newDate)) {
                   handleDateChange(newDate);
                 }
               }}
-              sx={datePicker(value)}
               renderInput={(params) => <TextField {...params} />}
               minDate={isMeetDay && new Date()}
             />
