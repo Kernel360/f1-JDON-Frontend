@@ -218,6 +218,7 @@ export default function MyPage() {
     };
     fetchData();
   }, []);
+
   console.log("setmember", memberInfo.nickname);
   return (
     <Container

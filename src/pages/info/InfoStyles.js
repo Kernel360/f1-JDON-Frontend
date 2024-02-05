@@ -164,16 +164,18 @@ export const nicknameTextField = (value) => ({
   },
 });
 
-export const skillsButton = (value) => ({
+export const skillsButton = (isActive) => ({
   margin: "12px auto",
   padding: "16px 10px",
   borderRadius: "10px",
-  border: `1px solid ${theme.palette.primary.gray500}`,
+  border: `1px solid ${
+    isActive ? theme.palette.primary.main : theme.palette.primary.gray500
+  }`,
   textalign: "left",
   fontSize: "16px",
   // color: "#6482FF",
-  color: theme.palette.primary.gray500,
-  "&:hover": {
+  color: isActive ? theme.palette.primary.main : theme.palette.primary.gray500,
+  "&:hover, &:ative": {
     border: `1px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
   },

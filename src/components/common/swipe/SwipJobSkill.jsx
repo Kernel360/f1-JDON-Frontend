@@ -165,7 +165,11 @@ export default function SwipJobSkill({ jobCategories }) {
 
   return (
     <div>
-      <Button onClick={toggleDrawer(true)} fullWidth sx={skillsButton}>
+      <Button
+        onClick={toggleDrawer(true)}
+        fullWidth
+        sx={skillsButton(selectedJobSkill.length === 3)}
+      >
         클릭하여 선택하기
       </Button>
       <SwipeableDrawer
