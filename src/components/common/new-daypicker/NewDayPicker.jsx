@@ -49,7 +49,7 @@ function DatePickerComponent({ value, onChange, isMeetDay }) {
         onChange(newDate);
       }}
       renderInput={(params) => <TextField {...params} />}
-      minDate={isMeetDay && new Date()}
+      maxDate={new Date()}
     />
   );
 }
