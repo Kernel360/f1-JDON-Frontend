@@ -23,14 +23,15 @@ export function Main() {
 
   const [lectureList, setLectureList] = useState([]);
   const [jdList, setJdList] = useState([]);
-  const isLogin = localStorage.getItem("isLoggedInState");
+  const [isLogin, setISLogin] = useState(false);
+  console.log(isLogin);
 
   const [search, setSearch] = useState("");
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
   const handleTabChange = (e, newValue) => {
-    if (newValue === "2" && !isLogin) {
+    if (newValue === "2" && isLogin === false) {
       handleConfirm();
     } else {
       setValue(newValue);
@@ -39,14 +40,17 @@ export function Main() {
   };
   const handleConfirm = () => {
     if (
-      window.confirm("[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다")
+      window.confirm(
+        "[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
+      )
     ) {
       navigate("/signin");
     }
   };
 
   const GetMemberSkillData = async () => {
-    if (isLogin) {
+    const storedIsLoggedIn = localStorage.getItem("isLoggedInState");
+    if (storedIsLoggedIn === true) {
       try {
         const memData = await getMemberSkills();
         const memSkillsData = memData.data.skillList || { skillList: [] };
@@ -55,8 +59,6 @@ export function Main() {
       } catch (error) {
         console.error("Error fetching member skills:", error);
       }
-    } else {
-      alert("로그인 후 [내 맞춤 키워드]를 확인 하실 수 있습니다");
     }
   };
 

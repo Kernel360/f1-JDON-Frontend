@@ -22,9 +22,9 @@ export function Filters({ sortData, onChange, kindOfJd }) {
   const getValueForRadioGroup = (jobcategory) => {
     switch (jobcategory) {
       case 2:
-        return "서버 개발자";
+        return kindOfJd[0].name;
       case 3:
-        return "프론트엔드 개발자";
+        return kindOfJd[1].name;
       default:
         return ""; // 기본값은 빈 문자열
     }
