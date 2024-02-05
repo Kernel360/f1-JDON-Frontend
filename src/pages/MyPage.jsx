@@ -13,10 +13,8 @@ import profile from "../assets/profile.svg";
 import ToggleList from "../components/common/ToggleList";
 import BottomNav from "../components/common/BottomNav";
 import edit from "../assets/images/icn_edit.svg";
-// import BottomNav from "../components/common/BottomNav";
-import { Link } from "react-router-dom";
-import { getFAQ, getMemberInfo } from "../api/api";
-import { set } from "date-fns/esm";
+import { Link, useNavigate } from "react-router-dom";
+import { getFAQ, getMemberInfo, logoutMember } from "../api/api";
 
 const ProfileSection = ({ data }) => (
   <Grid
@@ -70,10 +68,7 @@ const ProfileSection = ({ data }) => (
               width: "17px",
               height: "17px",
             }}
-          >
-            {/* <ModeEditIcon />*/}
-            {/* <img src="{edit}" /> */}
-          </IconButton>
+          ></IconButton>
         </Link>
       </Grid>
     </Grid>
@@ -112,6 +107,8 @@ const ButtonSection = () => (
 );
 
 export default function MyPage() {
+  const navigate = useNavigate();
+
   const [memberInfo, setMemberInfo] = useState({});
   const [FAQ, setFAQ] = useState([]);
   const noticeLists = [
@@ -205,20 +202,33 @@ export default function MyPage() {
         const faqData = await getFAQ();
 
         setMemberInfo(memberData.data);
-        // const FAQData = data.faqList || [];
         setFAQ(faqData.faqList || []);
         console.log("memberData", memberData.data.nickname);
         console.log("faq", faqData.faqList);
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          // navigator("/");
+          navigator("/");
         }
         console.error("faq 에러", error);
       }
     };
     fetchData();
   }, []);
-  console.log("setmember", memberInfo.nickname);
+
+  const handleLogout = async () => {
+    try {
+      const res = await logoutMember();
+      console.log(res);
+
+      if (res === 302) {
+        localStorage.setItem("isLoggedInState", "false");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("로그아웃 에러", error);
+    }
+  };
+
   return (
     <Container
       maxWidth="md"
@@ -240,6 +250,7 @@ export default function MyPage() {
         bottom="0"
         variant="secondary"
         size="large"
+        onClick={handleLogout}
         sx={{
           width: "100%",
           backgroundColor: "#EBEBEB",

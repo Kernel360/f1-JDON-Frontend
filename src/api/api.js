@@ -49,14 +49,27 @@ export async function getMemberInfo() {
 }
 
 //회원정보 수정하기
-export async function changeMemberInfo() {
+export async function updateMemberInfo(data) {
   try {
-    // console.log(nickName);
+    console.log("업데이트 멤버 정보", data);
     const res = await instance.put("/api/v1/member");
     console.log("getMemberInfo API", res);
     return res.data;
   } catch (error) {
     console.log("getMemberInfo API error", error);
+    throw error;
+  }
+}
+
+//회원 로그아웃
+export async function logoutMember() {
+  try {
+    // console.log(nickName);
+    const res = await instance.get("/api/v1/logout");
+    console.log("logoutMember API", res);
+    return res;
+  } catch (error) {
+    console.log("logoutMember API error", error);
     throw error;
   }
 }
@@ -90,7 +103,6 @@ export async function getHotSkills() {
 
 //회원 맞춤 기술스택 조회
 export async function getMemberSkills() {
-  console.log("아니 왜안돼");
   try {
     const res = await instance.get("/api/v1/skills/member");
     console.log("getMemberSkills API", res.data);
@@ -126,6 +138,7 @@ export async function getLectureByKeyword(keyword) {
 
 //직무 별 기술스택 조회하기
 export async function getSkillsOnJD(jobCategoryId) {
+  // console.log("api에서 확인중", jobCategoryId);
   try {
     const res = await instance.get(
       `/api/v1/skills/job-category/${jobCategoryId}`

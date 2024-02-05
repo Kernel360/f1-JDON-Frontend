@@ -15,6 +15,7 @@ const InputField = ({
   error,
   helperText,
   inputProps,
+  onBlur,
 }) => {
   return (
     <Box width="100%" mb={4}>
@@ -34,6 +35,7 @@ const InputField = ({
         InputProps={{
           endAdornment: inputProps?.endAdornment,
         }}
+        onBlur={onBlur(name)}
         sx={nicknameTextField(value)}
       />
     </Box>

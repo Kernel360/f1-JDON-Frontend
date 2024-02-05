@@ -34,6 +34,7 @@ function NewInput({
       <TextField
         required
         fullWidth
+        value={value}
         InputLabelProps={{ shrink: true }}
         placeholder={placeholder}
         onChange={onChange}

@@ -11,96 +11,119 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  Typography,
 } from "@mui/material";
 import { ChipStyle, MainStyles } from "../../../pages/PageStyles";
 import TabPanel from "./TabPanel";
 import { buttonStyle } from "../navigation-btn/NavigationBtnStyles";
-import {
-  skillsButton,
-  infoBasicStyles,
-} from "../../../pages/info/InfoStyles.js";
+import { skillsButton } from "../../../pages/info/InfoStyles.js";
+import { getJobCategory, getSkillsOnJD } from "../../../api/api";
+import { useRecoilState } from "recoil";
+import { jobIdState, selectedJobSkillState } from "../../../recoil/atoms";
 
-export default function SwipJobSkill({ skills = [] }) {
-  const SKILLS = [
-    "JavaScript",
-    "React",
-    "Recoil",
-    "Context Api",
-    "everland",
-    "I want to go",
-    "푸바오",
-    "보고시퍼요",
-    "금요일",
-    "내일 주말",
-  ];
+export default function SwipJobSkill({ jobCategories }) {
+  const [jobId, setJobId] = useRecoilState(jobIdState);
+  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
+    selectedJobSkillState
+  );
+  const [tabValue, setTabValue] = useRecoilState(jobIdState);
 
-  const [checkedItems, setCheckedItems] = useState(skills || []);
-  const [tabValue, setTabValue] = useState(0);
+  const initialJobId = useRef(jobId);
+  const initialSelectedJobSkill = useRef(selectedJobSkill);
+  const [jobSkills, setJobSkills] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const scrollRef = useRef(null);
+  // console.log("왜안돼", tabValue);
+
+  // console.log("로딩 중: ", loading);
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
 
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        if (jobId) {
+          const skillsData = await getSkillsOnJD(jobId);
+          setJobSkills(skillsData.skillList);
+        }
+      } catch (error) {
+        console.error("getSkillsOnJD 오류", error);
+      } finally {
+        setLoading(false); // 데이터 로드가 완료되면 로딩 상태 갱신
+      }
+    };
+
+    // 데이터 로드가 완료되면 로컬 스토리지에 저장
+    localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
+    localStorage.setItem("tabValue", JSON.stringify(tabValue));
+
+    if (jobId !== initialJobId.current) {
+      setSelectedJobSkill([]);
+    } else {
+      setSelectedJobSkill(initialSelectedJobSkill.current);
+    }
+    fetchSkills();
+  }, [jobId]);
+
+  useEffect(() => {
+    // 데이터 로드가 완료되면 로컬 스토리지에 저장
+    localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
+    localStorage.setItem("tabValue", JSON.stringify(tabValue));
+
+    console.log("selectedJobSkill", selectedJobSkill);
+  }, [loading]);
+
   const handleChangeTab = (event, newValue) => {
     setTabValue(newValue);
+    setJobId(newValue);
   };
 
-  const handleCheckboxChange = (index, event) => {
+  const handleCheckboxChange = (skillId, event) => {
     const isChecked = event.target.checked;
 
-    setCheckedItems((prevCheckedItems) => {
+    setSelectedJobSkill((prevCheckedItems) => {
       const checkedCount = prevCheckedItems.length;
 
       if (isChecked) {
         if (checkedCount < 3) {
-          return [...prevCheckedItems, SKILLS[index]];
+          return [...prevCheckedItems, skillId];
         } else {
           return prevCheckedItems;
         }
       } else {
-        return prevCheckedItems.filter((el) => el !== SKILLS[index]);
+        return prevCheckedItems.filter((el) => el !== skillId);
       }
     });
   };
 
-  const renderChips = () => {
-    return (
-      <Stack
-        direction="row"
-        spacing={0.8}
-        ref={scrollRef}
-        sx={{ ...MainStyles.ChipContainer, padding: "10px 16px" }}
-      >
-        {checkedItems.map((item, index) => (
-          <Chip
-            key={index}
-            label={item}
-            variant={"filled"}
-            sx={ChipStyle(true)}
-          />
-        ))}
-      </Stack>
-    );
+  // console.log("확인", checkedItems.length);
+  const handleSave = () => {
+    if (selectedJobSkill.length === 3) {
+      setSelectedJobSkill(selectedJobSkill);
+      toggleDrawer(false)();
+    } else {
+      alert("스킬 3개를 선택 해주세요.");
+    }
   };
 
   const renderCheckboxes = () => {
     return (
       <FormControl component="fieldset">
         <FormGroup>
-          {SKILLS.map((item, index) => (
+          {jobSkills.map((item) => (
             <FormControlLabel
-              key={index}
+              key={item.skillId}
               control={
                 <Checkbox
-                  checked={checkedItems.includes(SKILLS[index])}
-                  onChange={(event) => handleCheckboxChange(index, event)}
+                  checked={selectedJobSkill.includes(item.skillId)}
+                  onChange={(event) =>
+                    handleCheckboxChange(item.skillId, event)
+                  }
                 />
               }
-              label={item}
+              label={item.keyword}
             />
           ))}
         </FormGroup>
@@ -108,13 +131,44 @@ export default function SwipJobSkill({ skills = [] }) {
     );
   };
 
+  const renderChips = () => {
+    return (
+      <Stack
+        direction="row"
+        spacing={0.8}
+        sx={{ ...MainStyles.ChipContainer, padding: "10px 16px" }}
+      >
+        {Array.isArray(selectedJobSkill) &&
+          selectedJobSkill.map((skillId) => {
+            const foundSkill = jobSkills.find(
+              (skill) => skill.skillId === skillId
+            );
+            const label = foundSkill ? foundSkill.keyword : "";
+            return (
+              label !== "" && (
+                <Chip
+                  key={skillId}
+                  label={label}
+                  variant={"filled"}
+                  sx={ChipStyle(true)}
+                />
+              )
+            );
+          })}
+      </Stack>
+    );
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
       <Button
-        // variant="outlined"
         onClick={toggleDrawer(true)}
         fullWidth
-        sx={skillsButton}
+        sx={skillsButton(selectedJobSkill.length === 3)}
       >
         클릭하여 선택하기
       </Button>
@@ -139,7 +193,6 @@ export default function SwipJobSkill({ skills = [] }) {
               flexGrow: 1,
               bgcolor: "background.paper",
               display: "flex",
-              height: "50vw",
               "@media (min-width: 300px)": {
                 height: "450px",
               },
@@ -157,17 +210,21 @@ export default function SwipJobSkill({ skills = [] }) {
               sx={{
                 borderRight: 1,
                 borderColor: "divider",
-                minWidth: "120px", // 탭의 최소 너비
+                minWidth: "120px",
                 flex: "0 0 auto",
               }}
             >
-              {["프론트엔드", "백엔드"].map((label, index) => (
-                <Tab key={index} label={label} />
+              {jobCategories.map((category) => (
+                <Tab
+                  key={category.id}
+                  label={category.name}
+                  value={category.id}
+                />
               ))}
             </Tabs>
-            {["프론트엔드", "백엔드"].map((label, index) => (
-              <TabPanel key={index} value={tabValue} index={index}>
-                {label === "프론트엔드" ? renderCheckboxes() : "Item Two"}
+            {jobCategories.map((category) => (
+              <TabPanel key={category.id} value={tabValue} index={category.id}>
+                {renderCheckboxes()}
               </TabPanel>
             ))}
           </Box>
@@ -176,8 +233,13 @@ export default function SwipJobSkill({ skills = [] }) {
         <Box sx={{ padding: "20px" }}>
           <Button
             fullWidth
-            sx={{ ...buttonStyle.Button, marginTop: "10px" }}
-            onClick={toggleDrawer(false)}
+            mt={1}
+            sx={{
+              ...buttonStyle.Button,
+              ...(selectedJobSkill.length === 3 && buttonStyle.ActiveButton),
+            }}
+            onClick={handleSave}
+            disabled={selectedJobSkill.length !== 3}
           >
             완료
           </Button>

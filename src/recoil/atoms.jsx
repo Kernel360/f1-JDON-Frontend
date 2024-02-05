@@ -17,3 +17,13 @@ export const userInfo = atom({
     skillList: [],
   },
 });
+
+export const jobIdState = atom({
+  key: "jobIdState",
+  default: "",
+});
+
+export const selectedJobSkillState = atom({
+  key: "selectedJobSkillState",
+  default: [],
+});
