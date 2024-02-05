@@ -15,12 +15,13 @@ import {
 } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../styles/themeMuiStyle";
+import { Sledding } from "@mui/icons-material";
 
 export function Main() {
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
-  const [selectedChip, setSelectedChip] = useState({ keyword: "" });
+  const [selectedChip, setSelectedChip] = useState({});
   const [isSelected, setIsSeletected] = useState(false);
 
   const [lectureList, setLectureList] = useState([]);
@@ -37,11 +38,12 @@ export function Main() {
     console.log(isLogin);
     if (newValue === "2" && isLogin === "false") {
       handleConfirm();
-    } else {
-      setValue(newValue);
+    } else if (newValue === "2" && isLogin === "true") {
       GetMemberSkillData();
     }
+    setValue(newValue);
   };
+
   const handleConfirm = () => {
     if (
       window.confirm(
@@ -50,6 +52,17 @@ export function Main() {
     ) {
       navigate("/signin");
     }
+  };
+
+  const handleSelectedChip = (keyword) => {
+    console.log(keyword);
+    if (keyword === "") {
+      setIsSeletected(false);
+    }
+    setSelectedChip({
+      keyword: keyword,
+    });
+    setIsSeletected(true);
   };
 
   const handleScroll = (direction) => {
@@ -71,19 +84,23 @@ export function Main() {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && e.target.value) {
+    if (e.key === "Enter") {
       setSelectedChip((prev) => ({ ...prev, keyword: e.target.value }));
+      setIsSeletected(true);
     }
   };
 
   const handleSearchChange = (e) => {
     const newSearch = e.target.value;
     setSearch(newSearch);
-    if (!newSearch) {
-      setSelectedChip((prev) => ({ ...prev, keyword: "" }));
-      setIsSeletected(false);
-    } else {
-      setIsSeletected(true);
+  };
+
+  const fetchHotSkills = async () => {
+    try {
+      const data = await getHotSkills();
+      setHotSkills(data.data.skillList);
+    } catch (error) {
+      console.error("Error fetching hot skills:", error);
     }
   };
 
@@ -103,67 +120,55 @@ export function Main() {
     }
   };
 
-  const fetchHotSkills = async () => {
-    try {
-      const data = await getHotSkills();
-      setHotSkills(data.data.skillList);
-    } catch (error) {
-      console.error("Error fetching hot skills:", error);
-    }
-  };
-
-  const fetchLectureData = async () => {
-    try {
-      const datas = await getLectureByKeyword(selectedChip.keyword);
-      setSelectedChip((prev) => ({
-        ...prev,
-        keyword: datas.keyword,
-      }));
-      setLectureList(datas.lectureList);
-      setJdList(datas.jdList);
-    } catch (error) {
-      console.error("Error fetching hot skills:", error);
-    }
-  };
-
-  // hotSkills 데이터를 불러오는 함수
+  // 최초 렌더링
   useEffect(() => {
     fetchHotSkills();
-  }, []);
-
-  //영상, 회사 데이터 불러오는 함수
-  useEffect(() => {
-    if (selectedChip.keyword === "") {
-      fetchLectureData();
-      console.log("최초");
-    }
-  }, [isSelected, selectedChip]);
-
-  useEffect(() => {
-    const storedIsLoggedIn = localStorage.getItem("isLoggedInState");
-    setIsLogin(storedIsLoggedIn);
-    console.log(storedIsLoggedIn);
-  }, [setIsLogin]);
-
-  // 검색어가 변경될 때마다 해당 검색어로 강의 데이터를 불러오는 함수
-  useEffect(() => {
-    const fetchDataByKeyword = async () => {
+    const fetchLectureData22 = async () => {
       try {
-        if (selectedChip.keyword !== "" && isSelected) {
-          // 선택이 발생하고 keyword가 비어있지 않을 때 호출
-          const datas = await getLectureByKeyword(selectedChip.keyword);
-          setLectureList(datas.lectureList);
-          setJdList(datas.jdList);
-          console.log("선택 시 수행되어야 하는 작업");
-        } else if (selectedChip.keyword === "") {
-          setIsSeletected(false);
-        }
+        const datas = await getLectureByKeyword("");
+        setSelectedChip({ keyword: datas.keyword });
+        setLectureList(datas.lectureList);
+        setJdList(datas.jdList);
+        setIsSeletected(false);
       } catch (error) {
         console.error("Error fetching data by keyword:", error);
       }
     };
-    fetchDataByKeyword();
-  }, [selectedChip, isSelected]);
+    fetchLectureData22();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const datas = await getLectureByKeyword(selectedChip.keyword);
+        // 여기서는 datas.keyword 대신 selectedChip.keyword를 사용해야 할 것 같습니다.
+        setLectureList(datas.lectureList);
+        setJdList(datas.jdList);
+        setIsSeletected(true);
+      } catch (error) {
+        console.error("Error fetching data by keyword:", error);
+      }
+    };
+
+    const fetchDataNone = async () => {
+      try {
+        const datas = await getLectureByKeyword("");
+        setLectureList(datas.lectureList);
+        setJdList(datas.jdList);
+        setIsSeletected(false);
+        setSelectedChip({ keyword: datas.keyword });
+      } catch (error) {
+        console.error("Error fetching data by keyword:", error);
+      }
+    };
+
+    if (isSelected && selectedChip.keyword !== "") {
+      fetchData();
+    }
+    if (selectedChip.keyword === "" && isSelected) {
+      fetchDataNone();
+    }
+  }, [selectedChip]);
 
   return (
     <Container maxWidth="md" sx={{ pb: 10, position: "relative" }}>
@@ -207,15 +212,9 @@ export function Main() {
               {hotSkills.map((skill) => (
                 <Chip
                   key={skill.id}
-                  onClick={() => {
-                    setSelectedChip((prev) => ({
-                      ...prev,
-                      keyword: skill.keyword,
-                    }));
-                    setIsSeletected(true);
-                  }}
+                  onClick={() => handleSelectedChip(skill.keyword)}
                   label={skill.keyword}
-                  clickable={true}
+                  clickable="true"
                   variant="outlined"
                   sx={
                     selectedChip.keyword === skill.keyword
@@ -250,14 +249,8 @@ export function Main() {
                 <Chip
                   key={skill.id}
                   label={skill.keyword}
-                  onClick={() => {
-                    setSelectedChip((prev) => ({
-                      ...prev,
-                      keyword: skill.keyword,
-                    }));
-                    setIsSeletected(true);
-                  }}
-                  clickable={true}
+                  onClick={() => handleSelectedChip(skill.keyword)}
+                  clickable="true"
                   variant="outlined"
                   sx={
                     selectedChip.keyword === skill.keyword
