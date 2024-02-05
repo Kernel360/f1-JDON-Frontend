@@ -61,6 +61,19 @@ export async function updateMemberInfo(data) {
   }
 }
 
+//회원 로그아웃
+export async function logoutMember() {
+  try {
+    // console.log(nickName);
+    const res = await instance.post("/api/v1/logout");
+    console.log("logoutMember API", res);
+    return res;
+  } catch (error) {
+    console.log("logoutMember API error", error);
+    throw error;
+  }
+}
+
 //회원 탈퇴
 export async function deleteMember() {
   try {
