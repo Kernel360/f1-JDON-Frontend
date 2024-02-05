@@ -48,7 +48,7 @@ const ProfileSection = ({ data }) => (
       </Grid>
       <Grid item container alignItems="center" justifyContent="center">
         <Typography
-          variant="h5"
+          variant="h6"
           sx={{
             textAlign: "center",
             marginLeft: "1.375rem",

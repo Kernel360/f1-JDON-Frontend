@@ -8,6 +8,7 @@ import { BadgeStyle, jobStyle } from "./CardStyle";
 import { useNavigate } from "react-router-dom";
 
 function CoffeeChatCard({ data }) {
+  //  console.log(data);
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`./${data.coffeeChatId}`);
@@ -23,7 +24,7 @@ function CoffeeChatCard({ data }) {
         borderRadius: "8px",
         height: "220px",
         position: "relative",
-        opacity: data.status === "종료" ? 0.4 : 1,
+        opacity: data.activeStatus === "종료" ? 0.4 : 1,
         transition: "transform 0.3s ease", // Add smooth transition
         "&:hover": {
           transform: "scale(1.03)", // Scale on hover
@@ -44,7 +45,7 @@ function CoffeeChatCard({ data }) {
             {data.job}
           </div>
         )}
-        <div style={BadgeStyle(data.status)}>{data.status}</div>
+        <div style={BadgeStyle(data.activeStatus)}>{data.activeStatus}</div>
       </Box>
       <Box
         sx={{
