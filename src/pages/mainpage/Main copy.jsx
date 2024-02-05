@@ -14,51 +14,39 @@ import {
   getMemberSkills,
 } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { theme } from "../../styles/themeMuiStyle";
 
 export function Main() {
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
+  const [selectedChip, setSelectedChip] = useState({ keyword: "" });
+  const [isSelected, setIsSeletected] = useState(false);
 
-  const [selectdChip, setSelectedChip] = useState({});
-  const [lecture, setLecture] = useState([]);
-  const [companies, setCompanies] = useState([]);
-  const [isLogin, setIsLogin] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchData, setSearchData] = useState("");
-  // const [isLogin, setIsLogin] = useState(
-  //   localStorage.getItem("isLoggedInState")
-  // );
+  const [lectureList, setLectureList] = useState([]);
+  const [jdList, setJdList] = useState([]);
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("isLoggedInState")
+  );
+
+  const [search, setSearch] = useState("");
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
   const handleTabChange = (e, newValue) => {
-    if (newValue === "2" && !isLogin) {
+    console.log(isLogin);
+    if (newValue === "2" && isLogin === "false") {
       handleConfirm();
     } else {
       setValue(newValue);
       GetMemberSkillData();
     }
   };
-
-  const GetMemberSkillData = async () => {
-    if (isLogin) {
-      try {
-        const memData = await getMemberSkills();
-        const memSkillsData = memData.data.skillList || { skillList: [] };
-        console.log("memSkillsData 확인중", memSkillsData);
-        setMemberSkills(memSkillsData);
-      } catch (error) {
-        console.error("Error fetching member skills:", error);
-      }
-    } else {
-      handleConfirm();
-    }
-  };
-
   const handleConfirm = () => {
     if (
-      window.confirm("[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다")
+      window.confirm(
+        "[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
+      )
     ) {
       navigate("/signin");
     }
@@ -83,55 +71,102 @@ export function Main() {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && e.target.value) {
-      setSearchData(e.target.value);
+    if (e.key === "Enter") {
+      setSelectedChip((prev) => ({ ...prev, keyword: e.target.value }));
+      setIsSeletected(true);
     }
   };
 
   const handleSearchChange = (e) => {
-    setSearchKeyword(e.target.value);
+    const newSearch = e.target.value;
+    setSearch(newSearch);
   };
 
-  useEffect(() => {
-    //console.log(localStorage.getItem("isLoggedInState"));
-    const fetchHotSkills = async () => {
+  const GetMemberSkillData = async () => {
+    const storedIsLoggedIn = localStorage.getItem("isLoggedInState");
+    setIsLogin(storedIsLoggedIn);
+    console.log(storedIsLoggedIn);
+    if (storedIsLoggedIn === "true") {
       try {
-        const data = await getHotSkills();
-        const hotSkillsData = data.data.skillList || { skillList: [] }; // 데이터가 없는 경우 빈 객체로 처리
-        setHotSkills(hotSkillsData);
-        // if (!searchData) {
-        //   const lectureData = await getLectureByKeyword(selectdChip.keyword);
-        //   setLecture(lectureData.lectureList);
-        //   setCompanies(lectureData.jdList);
-        // }
+        const memData = await getMemberSkills();
+        const memSkillsData = memData.data.skillList || { skillList: [] };
+        console.log("memSkillsData 확인중", memSkillsData);
+        setMemberSkills(memSkillsData);
       } catch (error) {
-        console.error("Error fetching hot skills:", error);
+        console.error("Error fetching member skills:", error);
       }
-    };
+    }
+  };
+
+  const fetchHotSkills = async () => {
+    try {
+      const data = await getHotSkills();
+      setHotSkills(data.data.skillList);
+    } catch (error) {
+      console.error("Error fetching hot skills:", error);
+    }
+  };
+
+  const fetchLectureData = async () => {
+    try {
+      const datas = await getLectureByKeyword(selectedChip.keyword);
+      setSelectedChip((prev) => ({
+        ...prev,
+        keyword: datas.keyword,
+      }));
+      setLectureList(datas.lectureList);
+      setJdList(datas.jdList);
+    } catch (error) {
+      console.error("Error fetching hot skills:", error);
+    }
+  };
+
+  // hotSkills 데이터를 불러오는 함수
+  useEffect(() => {
     fetchHotSkills();
-  }, [selectdChip]);
+  }, []);
+
+  //영상, 회사 데이터 불러오는 함수
+  useEffect(() => {
+    if (selectedChip.keyword === "") {
+      fetchLectureData();
+      console.log("최초");
+    }
+  }, [isSelected, selectedChip]);
 
   useEffect(() => {
-    const fetchLectureByKeyword = async () => {
-      try {
-        const lectureDataBySearch = await getLectureByKeyword(searchData);
-        // setSelectedChip((prevState) => ({
-        //   ...prevState,
-        //   keyword: lectureDataBySearch.keyword,
-        // }));
-        setLecture(lectureDataBySearch.lectureList);
-        setCompanies(lectureDataBySearch.jdList);
-      } catch (error) {
-        console.error("Error fetching lecture by keyword:", error);
+    const storedIsLoggedIn = localStorage.getItem("isLoggedInState");
+    setIsLogin(storedIsLoggedIn);
+    console.log(storedIsLoggedIn);
+  }, [setIsLogin]);
+
+  // 검색어가 변경될 때마다 해당 검색어로 강의 데이터를 불러오는 함수
+  useEffect(() => {
+    const fetchDataByKeyword = async () => {
+      // 선택이 발생하고 keyword가 비어있지 않을 때만 호출
+      if (selectedChip.keyword && isSelected) {
+        try {
+          const datas = await getLectureByKeyword(selectedChip.keyword);
+          // 여기서는 datas.keyword 대신 selectedChip.keyword를 사용해야 할 것 같습니다.
+          // setSelectedChip((prev) => ({ ...prev, keyword: datas.keyword }));
+          setLectureList(datas.lectureList);
+          setJdList(datas.jdList);
+          console.log("선택 시 수행되어야 하는 작업");
+        } catch (error) {
+          console.error("Error fetching data by keyword:", error);
+        }
       }
     };
-    fetchLectureByKeyword();
-  }, [searchData]);
+
+    fetchDataByKeyword();
+
+    // 이제 isSelected 상태는 이 useEffect에서 직접적으로 사용되지 않기 때문에, 의존성 배열에서 제거할 수 있습니다.
+  }, [selectedChip]);
 
   return (
     <Container maxWidth="md" sx={{ pb: 10, position: "relative" }}>
       <SearchBar
-        keyword={searchKeyword}
+        keyword={search}
         onChange={handleSearchChange}
         onKeyDown={handleKeyDown}
       />
@@ -171,16 +206,18 @@ export function Main() {
                 <Chip
                   key={skill.id}
                   onClick={() => {
-                    setSelectedChip(skill);
-                    setSearchData("");
-                    setSearchKeyword("");
+                    setSelectedChip((prev) => ({
+                      ...prev,
+                      keyword: skill.keyword,
+                    }));
+                    setIsSeletected(true);
                   }}
                   label={skill.keyword}
-                  clickable={true}
+                  clickable="true"
                   variant="outlined"
                   sx={
-                    selectdChip.keyword === skill.keyword
-                      ? ChipStyle(selectdChip)
+                    selectedChip.keyword === skill.keyword
+                      ? ChipStyle(selectedChip)
                       : ChipStyle(undefined)
                   }
                 />
@@ -212,13 +249,17 @@ export function Main() {
                   key={skill.id}
                   label={skill.keyword}
                   onClick={() => {
-                    setSelectedChip(skill);
+                    setSelectedChip((prev) => ({
+                      ...prev,
+                      keyword: skill.keyword,
+                    }));
+                    setIsSeletected(true);
                   }}
-                  clickable={true}
+                  clickable="true"
                   variant="outlined"
                   sx={
-                    selectdChip === skill.keyword
-                      ? ChipStyle(selectdChip)
+                    selectedChip.keyword === skill.keyword
+                      ? ChipStyle(selectedChip)
                       : ChipStyle(undefined)
                   }
                 />
@@ -234,15 +275,33 @@ export function Main() {
         </TabContext>
       </Box>
 
-      <VideoSection selectdChip={selectdChip} data={lecture} />
-      <CompanySection selectdChip={selectdChip} data={companies} />
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfx9-ahkuQtQVy93P_nIhBbip-S4Q6RGnvqH1FeOA_Gu2F-Lg/viewform"
-        target="_blank"
-        rel="noopener noreferrer"
+      <VideoSection selectedChip={selectedChip} data={lectureList} />
+      <CompanySection selectedChip={selectedChip} data={jdList} />
+      <div
+        style={{
+          background: theme.palette.primary.main,
+          height: 60,
+          borderRadius: "10px",
+          textAlign: "center",
+          lineHeight: "60px",
+          margin: "15px auto",
+        }}
       >
-        버그 제출
-      </a>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfx9-ahkuQtQVy93P_nIhBbip-S4Q6RGnvqH1FeOA_Gu2F-Lg/viewform"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            width: "100%",
+            fontWeight: 600,
+            color: "white",
+            fontSize: "18px",
+            textDecoration: "none",
+          }}
+        >
+          버그 제출
+        </a>
+      </div>
       <BottomNav></BottomNav>
     </Container>
   );
