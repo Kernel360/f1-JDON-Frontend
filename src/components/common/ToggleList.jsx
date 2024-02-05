@@ -26,7 +26,17 @@ const TitleItem = ({ title, content, children }) => {
   };
 
   return (
-    <Container sx={{ marginBottom: 3, width: "100%", padding: 0 }}>
+    <Container
+      maxWidth="md"
+      sx={{
+        marginBottom: 3,
+        width: "100%",
+        padding: {
+          xs: 0, // 모바일 크기일 때
+          md: 0, // 태블릿 이상의 크기일 때
+        },
+      }}
+    >
       <Box
         display="flex"
         alignItems="center"
@@ -99,7 +109,7 @@ const TextItem = ({ title, content }) => {
         component="p"
         sx={{
           fontSize: "14px",
-          paddingLeft: "15px",
+
           lineHeight: "1.6",
           color: "#333",
           whiteSpace: "pre-line",
