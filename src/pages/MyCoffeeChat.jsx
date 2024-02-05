@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Box, Button, Typography, Grid, Tab } from "@mui/material";
+import { Box, Typography, Grid, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Header from "../components/common/Header";
 import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
 import { getMyCoffeeChat, getSignCoffeeChat } from "../api/api";
 import Pagenation from "../components/common/Pagenation";
+import { MainStyles } from "./PageStyles";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");
@@ -49,18 +50,9 @@ export default function MyCoffeeChat() {
 
   return (
     <div>
-      <Container
-        maxWidth="md"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "95vh",
-          minwidth: "100%",
-          // pb: 10,
-        }}
-      >
+      <Box maxWidth="md" paddingX={"16px"} sx={{ width: "100%" }}>
         <Header title={"커피챗"} />
-        <Box mt={4} sx={{ width: "100%", typography: "body1" }}>
+        <Box mt={2} maxWidth="md" sx={{ padding: 0 }}>
           <TabContext value={value} sx={{ display: "flex" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <TabList
@@ -70,24 +62,24 @@ export default function MyCoffeeChat() {
                 <Tab
                   label="내가 오픈한 커피챗"
                   value="1"
-                  sx={{
-                    flex: 1,
-                    fontSize: "20px",
-                    maxWidth: "none",
-                  }}
+                  sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: "none" }}
                 />
                 <Tab
                   label="내가 신청한 커피챗"
                   value="2"
-                  sx={{
-                    flex: 1,
-                    fontSize: "20px",
-                    maxWidth: "none",
-                  }}
+                  sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: "none" }}
                 />
               </TabList>
             </Box>
-            <TabPanel value="1" sx={{ width: "100%" }}>
+            <TabPanel
+              value="1"
+              sx={{
+                width: "100%",
+                "&.MuiTabPanel-root": {
+                  paddingX: 0,
+                },
+              }}
+            >
               {coffeeDatas.length === 0 ? (
                 <Typography
                   variant="h6"
@@ -121,12 +113,14 @@ export default function MyCoffeeChat() {
                 width: "100%",
               }}
             >
-              {coffeeDatas.length === 0 ? (
+              {!coffeeDatas.length > 0 ? (
                 <Typography
                   variant="h6"
                   color="textSecondary"
                   sx={{
                     textAlign: "center",
+                    fontSize: 16,
+                    mt: 3,
                   }}
                 >
                   신청한 커피챗이 없습니다!
@@ -152,7 +146,7 @@ export default function MyCoffeeChat() {
             </TabPanel>
           </TabContext>
         </Box>
-      </Container>
+      </Box>
     </div>
   );
 }

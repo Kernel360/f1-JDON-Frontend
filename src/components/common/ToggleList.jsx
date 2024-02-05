@@ -53,7 +53,7 @@ const TitleItem = ({ title, content, children }) => {
         <Typography
           component="h2"
           sx={{
-            fontSize: "18px",
+            fontSize: "16px",
           }}
         >
           {title}
