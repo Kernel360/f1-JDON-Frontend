@@ -84,7 +84,7 @@ export function Main() {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
       setSelectedChip((prev) => ({ ...prev, keyword: e.target.value }));
       setIsSeletected(true);
     }
