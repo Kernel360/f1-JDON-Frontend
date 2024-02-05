@@ -1,5 +1,7 @@
 import React from "react";
-import { Container, Pagination, PaginationItem } from "@mui/material";
+import { Container } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
+import { Link } from "react-router-dom";
 
 export default function PaginationComponent({
   pageCount,
@@ -25,7 +27,11 @@ export default function PaginationComponent({
         variant="outlined"
         color="primary"
         // renderItem={(item) => (
-        //   <PaginationItem {...item} component={Link} to={`/page/${item.page}`} />
+        //   <PaginationItem
+        //     {...item}
+        //     component={Link}
+        //     to={`/page/${item.page}`}
+        //   />
         // )}
       />
     </Container>
