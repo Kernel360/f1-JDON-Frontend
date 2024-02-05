@@ -18,7 +18,7 @@ export default function BottomNav() {
         navigate("/coffee");
         break;
       case 2:
-        navigate(login ? "/mypage" : "/signin");
+        navigate(login === "true" ? "/mypage" : "/signin");
         break;
       default:
         break;

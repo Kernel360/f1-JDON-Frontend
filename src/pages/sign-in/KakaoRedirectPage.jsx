@@ -17,7 +17,7 @@ const KakaoRedirectPage = () => {
     const value = searchParams.get("value");
     const hmac = searchParams.get("hmac");
     const code = searchParams.get("code");
-    console.log(value, hmac, code);
+    // console.log(value, hmac, code);
     if (hmac) {
       navigate("/info");
       localStorage.setItem("isLoggedInState", false);

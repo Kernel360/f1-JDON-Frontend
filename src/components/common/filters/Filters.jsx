@@ -19,8 +19,8 @@ export function Filters({ sortData, onChange, kindOfJd }) {
     setOpenFilter(openFilter.map((val, i) => (i === value ? !val : val)));
   };
 
-  const getValueForRadioGroup = (jobcategory) => {
-    switch (jobcategory) {
+  const getValueForRadioGroup = (jobCategory) => {
+    switch (jobCategory) {
       case 2:
         return kindOfJd[0].name;
       case 3:
@@ -29,7 +29,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
         return ""; // 기본값은 빈 문자열
     }
   };
-  const radioValue = getValueForRadioGroup(sortData.jobcategory);
+  const radioValue = getValueForRadioGroup(sortData.jobCategory);
 
   return (
     <>
@@ -51,17 +51,17 @@ export function Filters({ sortData, onChange, kindOfJd }) {
         ></Chip>
 
         <Chip
-          label={sortData.jobcategory ? radioValue : "전체 직무"}
+          label={sortData.jobCategory ? radioValue : "전체 직무"}
           clickable={true}
           variant="outlined"
           onClick={() => handleChipClick(1)}
           onDelete={() => handleChipClick(1)}
           sx={{
             display: "flex",
-            color: sortData.jobcategory ? "#6482FF" : "#6E6E71",
-            background: sortData.jobcategory && "#E2E7FF",
-            borderColor: sortData.jobcategory && "#6482FF",
-            fontWeight: sortData.jobcategory && 700,
+            color: sortData.jobCategory ? "#6482FF" : "#6E6E71",
+            background: sortData.jobCategory && "#E2E7FF",
+            borderColor: sortData.jobCategory && "#6482FF",
+            fontWeight: sortData.jobCategory && 700,
           }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
         />
@@ -73,7 +73,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: 328,
+              width: "92%",
               bgcolor: "background.paper",
               p: 4,
               borderRadius: 8,
@@ -114,7 +114,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: 328,
+              width: "92%",
               bgcolor: "background.paper",
               p: 4,
               borderRadius: 8,
@@ -131,17 +131,17 @@ export function Filters({ sortData, onChange, kindOfJd }) {
                   control={<Radio />}
                   label="전체"
                   onClick={() => {
-                    onChange((prev) => ({ ...prev, jobcategory: "" }));
+                    onChange((prev) => ({ ...prev, jobCategory: "" }));
                   }}
                 />
                 {kindOfJd?.map((item) => (
                   <FormControlLabel
                     key={item.id}
-                    value={item.id}
+                    value={item.name}
                     control={<Radio />}
                     label={item.name}
                     onClick={() => {
-                      onChange((prev) => ({ ...prev, jobcategory: item.id }));
+                      onChange((prev) => ({ ...prev, jobCategory: item.id }));
                     }}
                   />
                 ))}
