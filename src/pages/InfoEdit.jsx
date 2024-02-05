@@ -10,6 +10,7 @@ import { useRecoilState } from "recoil";
 import { userInfo, jobIdState, selectedJobSkillState } from "../recoil/atoms";
 import {
   checkNicknameDuplicate,
+  getJobCategory,
   getMemberInfo,
   updateMemberInfo,
 } from "../api/api";
@@ -34,6 +35,7 @@ export default function InfoEdit() {
   const [nickname, setNickname] = useState("");
   const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState("");
+  const [jobCategories, setJobCategories] = useState([]);
 
   useEffect(() => {
     // 페이지가 로드될 때 회원 정보를 받아오는 통신 로직
@@ -47,6 +49,9 @@ export default function InfoEdit() {
         setGender(memberData.data.gender || "");
         setJobId(memberData.data.jobCategoryId || "");
         setSelectedJobSkill(memberData.data.skillList || "");
+
+        const categoryData = await getJobCategory();
+        setJobCategories(categoryData.jobGroupList[0].jobCategoryList);
       } catch (error) {
         console.error("회원 정보 가져오기 에러", error);
       }
@@ -54,9 +59,6 @@ export default function InfoEdit() {
 
     fetchMemberInfo();
   }, []);
-
-  // console.log("11set멤버", jobId);
-  // console.log("22set멤버", selectedJobSkill);
 
   const handleGenderChange = (newValue) => {
     setGender(newValue);
@@ -202,7 +204,7 @@ export default function InfoEdit() {
             </Grid>
           </TotalInputForm>
           <TotalInputForm label="직무 및 기술스택" valid={validation}>
-            <SwipJobSkill />
+            <SwipJobSkill jobCategories={jobCategories} />
           </TotalInputForm>
           <Button
             type="submit"

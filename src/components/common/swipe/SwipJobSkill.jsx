@@ -20,7 +20,7 @@ import { getJobCategory, getSkillsOnJD } from "../../../api/api";
 import { useRecoilState } from "recoil";
 import { jobIdState, selectedJobSkillState } from "../../../recoil/atoms";
 
-export default function SwipJobSkill({}) {
+export default function SwipJobSkill({ jobCategories }) {
   const [jobId, setJobId] = useRecoilState(jobIdState);
   const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
     selectedJobSkillState
@@ -29,7 +29,6 @@ export default function SwipJobSkill({}) {
 
   const initialJobId = useRef(jobId);
   const initialSelectedJobSkill = useRef(selectedJobSkill);
-  const [jobCategories, setJobCategories] = useState([]);
   const [jobSkills, setJobSkills] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -41,19 +40,6 @@ export default function SwipJobSkill({}) {
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const categoryData = await getJobCategory();
-        setJobCategories(categoryData.jobGroupList[0].jobCategoryList);
-      } catch (error) {
-        console.error("getJobCategory 오류", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -86,8 +72,6 @@ export default function SwipJobSkill({}) {
     localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
     localStorage.setItem("tabValue", JSON.stringify(tabValue));
 
-    // console.log("로딩 후: ", loading);
-    // console.log("initialJobId", initialJobId.current);
     console.log("selectedJobSkill", selectedJobSkill);
   }, [loading]);
 
