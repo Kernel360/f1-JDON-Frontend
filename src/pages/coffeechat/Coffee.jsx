@@ -10,10 +10,9 @@ import PaginationComponent from "../../components/common/Pagenation";
 export function Coffee() {
   const navigate = useNavigate();
   const [coffeeData, setCoffeeData] = useState([]);
-  //const [sorting, setSorting] = useState("createdDate,desc");
   const [sortData, setSortData] = useState({
     sorting: "createdDate",
-    jobcategory: null,
+    jobCategory: "",
   });
 
   const [kindOfJd, setKindOfJd] = useState();
@@ -24,13 +23,17 @@ export function Coffee() {
         const data = await getCoffeeChat(
           1,
           sortData.sorting,
-          sortData.jobcategory
+          sortData.jobCategory
         );
         setCoffeeData(data);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
     };
+    fetchData();
+  }, [sortData.sorting, sortData.jobCategory]);
+
+  useEffect(() => {
     const fetchJobCategory = async () => {
       try {
         const data = await getJobCategory();
@@ -42,10 +45,8 @@ export function Coffee() {
         console.error("Error fetching hot skills:", error);
       }
     };
-    console.log(sortData);
-    fetchData();
     fetchJobCategory();
-  }, [sortData]);
+  }, []);
   return (
     <Container maxWidth="md" sx={{ pt: 3, pb: 10 }}>
       <Box
@@ -71,13 +72,21 @@ export function Coffee() {
           신청해보세요
         </Typography>
       </Box>
-      <Filters sortData={sortData} onChange={setSortData} kindOfJd={kindOfJd} />
-      <Box display="flex" justifyContent="flex-end">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={0.5}
+      >
+        <Filters
+          sortData={sortData}
+          onChange={setSortData}
+          kindOfJd={kindOfJd}
+        />
         <Button
           variant="contained"
           disableElevation
           sx={{
-            mt: 3,
             fontWeight: 500,
             padding: "4px 10px",
             gap: 1,
