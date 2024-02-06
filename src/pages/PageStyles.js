@@ -68,11 +68,13 @@ export const MainStyles = {
     },
   },
   TypoGraphy: {
-    fontSize: "18px",
-    fontWeight: 600,
-    color: "#323236",
+    fontSize: "16px",
+    fontWeight: 500,
+    color: "black",
     display: "flex",
     alignItems: "center",
+    flexWrap: "wrap",
+    ml: 1,
   },
   TabIndicator: {
     height: 3, // 언더라인 두께

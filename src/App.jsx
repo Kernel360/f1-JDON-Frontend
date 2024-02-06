@@ -1,12 +1,6 @@
 import { RecoilRoot } from "recoil";
 
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Router,
-  HashRouter,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import SignIn from "./pages/sign-in/SignIn";
 import Info from "./pages/info/InFo";
@@ -49,6 +43,10 @@ function App() {
               />
 
               <Route path="/oauth/info" element={<KakaoRedirectPage />} />
+              <Route
+                path="/login/oauth2/code/github"
+                element={<KakaoRedirectPage />}
+              />
               <Route
                 path="/oauth/login/success"
                 element={<KakaoRedirectPage />}
