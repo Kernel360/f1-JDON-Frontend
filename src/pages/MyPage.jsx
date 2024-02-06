@@ -201,10 +201,11 @@ export default function MyPage() {
         const memberData = await getMemberInfo();
         const faqData = await getFAQ();
 
-        setMemberInfo(memberData.data);
+        // if(memberData)
+        setMemberInfo(memberData.data.response.status);
         setFAQ(faqData.faqList || []);
-        console.log("memberData", memberData.data.nickname);
-        console.log("faq", faqData.faqList);
+        // // console.log("memberData", memberData.data.nickname);
+        // // console.log("faq", faqData.faqList);
       } catch (error) {
         if (error.response && error.response.status === 401) {
           navigator("/");
@@ -219,6 +220,9 @@ export default function MyPage() {
     try {
       const res = await logoutMember();
       console.log(res);
+
+      // localStorage.setItem("isLoggedInState", "false");
+      // navigate("/");
 
       if (res === 302) {
         localStorage.setItem("isLoggedInState", "false");

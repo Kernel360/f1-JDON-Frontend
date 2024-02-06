@@ -123,7 +123,7 @@ export function Main() {
 
   // 최초 렌더링
   useEffect(() => {
-    localStorage.setItem("isLoggedInState", false);
+    // localStorage.setItem("isLoggedInState", false);/
     fetchHotSkills();
     const fetchLectureData22 = async () => {
       try {
