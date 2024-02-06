@@ -6,26 +6,22 @@ import VideoCard from "../components/common/card/VideoCard";
 import { getFavoritVideo } from "../api/api";
 import Header from "../components/common/Header";
 import PaginationComponent from "../components/common/Pagenation";
+import Pagenation from "../components/common/Pagenation";
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState({});
 
   console.log("datas", datas);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getFavoritVideo(currentPage);
-        setDatas(res.data);
+        const res = await getFavoritVideo();
+        setDatas(res.content);
+        setPage(res.pageInfo);
         console.log("찜 확인", res.data);
         console.log("datas", datas);
-
-        // 최초 렌더링 시에만 전체 데이터의 양을 가져오고 페이지 수를 계산
-        // if (currentPage === 1) {
-        //   const calculatedTotalPages = Math.ceil(totalCount / 12);
-        //   setTotalPages(calculatedTotalPages);
-        // }
       } catch (error) {
         console.error("getFavoritVideo API 에러", error);
       }
@@ -38,7 +34,6 @@ export default function FavoritesVideo() {
   }, [currentPage, datas]);
 
   const handlePageChange = (event, value) => {
-    // 페이지 변경 시 처리 로직 추가
     console.log(`현재 페이지: ${value}`);
     setCurrentPage(value);
   };
@@ -63,23 +58,30 @@ export default function FavoritesVideo() {
             </Grid>
           ))
         ) : (
-          <Typography
-            variant="body1"
-            component="p"
-            textAlign="center"
-            mt={4}
-            mb={4}
-          >
-            찜한 영상이 없습니다!
-          </Typography>
+          <Box mt={9} sx={{ width: "100%" }}>
+            <Typography
+              variant="h6"
+              color="textSecondary"
+              sx={{
+                textAlign: "center",
+                fontSize: 16,
+                mt: 3,
+              }}
+            >
+              찜한 영상이 없습니다!
+            </Typography>
+          </Box>
         )}
       </Grid>
-      <Box sx={{ flexGrow: 1 }} />
-      <PaginationComponent
-        pageCount={10} // 총 페이지 수 나중에 페이지네이션 api 개발 후 자동화해야함
-        currentPage={currentPage}
-        onChange={handlePageChange}
-      />
+      {datas && (
+        <Box mt={4}>
+          <Pagenation
+            pageCount={page?.totalPages}
+            currentPage={currentPage}
+            onChange={handlePageChange}
+          />
+        </Box>
+      )}
       <BottomNav></BottomNav>
     </Container>
   );
