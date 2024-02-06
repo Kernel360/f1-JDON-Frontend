@@ -58,7 +58,7 @@ export default function Info() {
           const response = await registerUserInfo(data);
           console.log("회원 정보 등록 성공:", response);
           localStorage.setItem("isLoggedInState", true);
-          setIsLogin(true);
+          // setIsLogin(true);
           navigate("/");
         } catch (error) {
           console.error("회원 정보 등록 실패:", error);
