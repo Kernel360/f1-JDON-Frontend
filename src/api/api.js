@@ -225,7 +225,7 @@ export const getSignCoffeeChat = async (page) => {
 //커피챗 목록 조회
 export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
   try {
-    console.log(" check eveything", page, sorting, jobCategory);
+    console.log(" check eveything", page, size, sorting, jobCategory);
     const res = await instance.get(
       `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`
     );
