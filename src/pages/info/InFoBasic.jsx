@@ -1,4 +1,19 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Grid,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { OptionButton, infoBasicStyles } from "./InfoStyles";
 import NewInput from "../../components/common/new-input/NewInput";
@@ -7,16 +22,27 @@ import { userInfo } from "../../recoil/atoms";
 import { useRecoilState } from "recoil";
 import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
+import { AGREE_DATA } from "./agreeData";
 
-function InFoBasic({ onChange }) {
+function InFoBasic({ onChange, agree, setAgree }) {
   const [helperText, setHelperText] = useState("");
   const [value, setValue] = useRecoilState(userInfo);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [currentDialog, setCurrentDialog] = useState(null);
+
   const [nick, setNick] = useState(""); //중간 밸류를 생성
   const [validtion, setValidation] = useState(false); // 이건 중간밸류 확인
 
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
     //onChange({ [field]: newValue });
+  };
+
+  const handleAgreeChange = (event) => {
+    setAgree({
+      ...agree,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const checkNickname = async () => {
@@ -47,7 +73,8 @@ function InFoBasic({ onChange }) {
   };
   useEffect(() => {
     console.log(value);
-  }, [value, validtion]);
+    console.log(agree);
+  }, [value, validtion, agree]);
 
   return (
     <>
@@ -95,8 +122,109 @@ function InFoBasic({ onChange }) {
             ))}
           </Grid>
         </TotalInputForm>
+        <Box>
+          <Divider />
+          <Box>
+            <FormLabel component="legend">
+              <Typography fontSize="0.875rem" paddingY={2}>
+                * 서비스 가입을 위한 이용약관에 동의해주세요
+              </Typography>
+            </FormLabel>
+            <FormGroup>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={agree[1]}
+                      onChange={handleAgreeChange}
+                      name="1"
+                    />
+                  }
+                  label={
+                    <Typography fontSize="0.875rem" color="#383838">
+                      개인정보 수집 및 이용 (필수)
+                    </Typography>
+                  }
+                />
+                <Button
+                  onClick={() => setCurrentDialog("privacy")}
+                  size="small"
+                >
+                  보기
+                </Button>
+                <DetailDialog
+                  open={currentDialog === "privacy"}
+                  handleClose={() => setCurrentDialog(null)}
+                  title=" 개인정보 수집 및 이용"
+                  content={TermsAndConditions(0)}
+                />
+              </Box>
+
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={agree[2]}
+                      onChange={handleAgreeChange}
+                      name="2"
+                    />
+                  }
+                  label={
+                    <Typography fontSize="0.875rem" color="#383838">
+                      서비스 이용 약관 (필수)
+                    </Typography>
+                  }
+                />
+                <Button onClick={() => setCurrentDialog("terms")} size="small">
+                  보기
+                </Button>
+                <DetailDialog
+                  open={currentDialog === "terms"}
+                  handleClose={() => setCurrentDialog(null)}
+                  title="서비스 이용 약관"
+                  content={TermsAndConditions(1)}
+                />
+              </Box>
+            </FormGroup>
+          </Box>
+        </Box>
       </Box>
     </>
+  );
+}
+
+function DetailDialog({ open, handleClose, title, content }) {
+  return (
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>{content}</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>닫기</Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+function TermsAndConditions(i) {
+  return (
+    <div>
+      {AGREE_DATA[i].children.map((item, index) => (
+        <div key={index}>
+          <h4 style={{ fontSize: 16 }}>{item.title}</h4>
+          <p style={{ fontSize: 12 }}>{item.content}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 
