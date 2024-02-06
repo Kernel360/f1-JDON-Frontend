@@ -12,31 +12,51 @@ import {
 } from "../../../pages/info/InfoStyles";
 import TotalInputForm from "../total-input-form/TotalInputForm";
 
-function NewDayPicker({
-  label,
-  // initialValue,
-  value,
-  valid,
-  isMeetDay,
-  daytime,
-  onChange,
-}) {
+const isDateString = (value) => {
+  console.log("[날짜 x]New Date:", value);
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
+  return regex.test(value);
+};
+const validateDate = (newDate) => {
+  console.log("New Date:", newDate);
+  const regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
+  return regex.test(newDate);
+};
+function DateTimePickerComponent({ value, onChange }) {
+  const now = new Date();
+  return (
+    <DateTimePicker
+      value={validateDate(value) || null}
+      inputFormat="yyyy-MM-dd HH:mm"
+      defaultValue={new Date()}
+      sx={datePicker(value)}
+      onChange={(newDate) => {
+        onChange(newDate);
+      }}
+      renderInput={(params) => <TextField {...params} />}
+      minDateTime={now}
+    />
+  );
+}
+
+function DatePickerComponent({ value, onChange, isMeetDay }) {
+  return (
+    <DatePicker
+      value={value}
+      inputFormat="yyyy-MM-dd"
+      sx={datePicker(value)}
+      onChange={(newDate) => {
+        onChange(newDate);
+      }}
+      renderInput={(params) => <TextField {...params} />}
+      maxDate={new Date()}
+    />
+  );
+}
+
+function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
   const handleDateChange = (newDate) => {
     onChange(newDate);
-  };
-  // const initialDate = value || new Date(initialValue);
-  const validateDate = (newDate) => {
-    // 유효한 날짜인지 확인
-    if (isNaN(newDate.getTime())) {
-      console.error("Invalid date");
-      return false;
-    }
-    return true;
-  };
-
-  const isDateString = (value) => {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    return regex.test(value);
   };
 
   return (
@@ -47,31 +67,15 @@ function NewDayPicker({
           adapterLocale={format}
         >
           {daytime ? (
-            <DateTimePicker
-              value={value || null}
-              inputFormat="yyyy-MM-dd HH-mm"
-              sx={datePicker(value)}
-              onChange={(newDate) => {
-                // 유효성 검사 후 변경
-                if (validateDate(newDate)) {
-                  handleDateChange(newDate);
-                }
-              }}
-              renderInput={(params) => <TextField {...params} />}
+            <DateTimePickerComponent
+              value={validateDate(value) || new Date(value) || value}
+              onChange={handleDateChange}
             />
           ) : (
-            <DatePicker
+            <DatePickerComponent
               value={isDateString(value) ? new Date(value) : value}
-              inputFormat="yyyy-MM-dd"
-              sx={datePicker(value)}
-              onChange={(newDate) => {
-                // 유효성 검사 후 변경
-                if (validateDate(newDate)) {
-                  handleDateChange(newDate);
-                }
-              }}
-              renderInput={(params) => <TextField {...params} />}
-              minDate={isMeetDay && new Date()}
+              onChange={handleDateChange}
+              isMeetDay={isMeetDay}
             />
           )}
         </LocalizationProvider>

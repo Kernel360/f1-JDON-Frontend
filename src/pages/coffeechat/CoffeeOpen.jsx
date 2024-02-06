@@ -31,6 +31,46 @@ function Coffeeopen() {
     }
   };
 
+  //시간 데이터 가공
+  const formatDateTime = (date) => {
+    console.log("@@날것확인", date);
+    const dateString = date.toString(); // date 객체를 문자열로 변환
+
+    // const formattedDate = dateString.split("T")[0];
+
+    const formattedDate = new Date(dateString).toLocaleString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false, // 24시간 형식으로 표시
+    });
+
+    console.log("@@dateString 확인", dateString);
+    console.log("@@포맷확인", formattedDate);
+
+    // 시간이 없는 경우, 기본 시간을 추가
+    // if (!dateString.includes(" ")) {
+    //   formattedDate += " 00:00";
+    // }
+    // console.log("@@시간추가 확인", formattedDate);
+
+    // 직접 형식을 지정하여 문자열 생성
+    const year = String(new Date(dateString).getFullYear());
+    const month = String(new Date(dateString).getMonth() + 1).padStart(2, "0");
+    const day = String(new Date(dateString).getDate()).padStart(2, "0");
+    const hours = String(new Date(dateString).getHours()).padStart(2, "0");
+    const minutes = String(new Date(dateString).getMinutes()).padStart(2, "0");
+
+    const customFormattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
+
+    console.log("@@customFormattedDate 확인", customFormattedDate);
+
+    handleInputChange("meetDate", customFormattedDate);
+  };
+
+  // 완료후 안내
   const handleConfirm = () => {
     if (
       window.confirm("신청이 완료되었어요! 커피챗 신청 내역을 확인해보실래요?")
@@ -113,7 +153,10 @@ function Coffeeopen() {
                     type="number"
                     value={value.totalRecruitCount}
                     onChange={(e) => {
-                      handleInputChange("totalRecruitCount", e.target.value);
+                      handleInputChange(
+                        "totalRecruitCount",
+                        Number(e.target.value)
+                      );
                     }}
                   />
                 </Grid>
@@ -125,7 +168,8 @@ function Coffeeopen() {
                     daytime={true}
                     value={value.meetDate}
                     onChange={(newValue) => {
-                      handleInputChange("meetDate", newValue);
+                      formatDateTime(newValue);
+                      console.log("바로확인", newValue);
                     }}
                   />
                 </Grid>

@@ -152,12 +152,29 @@ export async function getSkillsOnJD(jobCategoryId) {
 }
 
 // -------------------------------------------- favorite
+// 영상 찜하기 등록
+export const postFavoritVideo = async (lectureId, isFavorite) => {
+  let data = {
+    lectureId: lectureId,
+    isFavorite: isFavorite,
+  };
+  console.log("!!vedio data check", data);
+
+  try {
+    const res = await instance.post(`/api/v1/favorites`);
+    console.log("postFavoritVideo 응답", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("getFavoritVideo API", error);
+    throw error;
+  }
+};
 
 // 내가 찜한 영상 목록 조회
-export const getFavoritVideo = async (page) => {
+export const getFavoritVideo = async () => {
   try {
     // console.log("page check", page);
-    const res = await instance.get(`/api/v1/favorites?page=${page}&size=12`);
+    const res = await instance.get(`/api/v1/favorites?page=page&size=12`);
     console.log("pageCnt", res.headers);
     return res.data;
   } catch (error) {
@@ -225,7 +242,7 @@ export const getSignCoffeeChat = async (page) => {
 //커피챗 목록 조회
 export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
   try {
-    console.log(" check eveything", page, sorting, jobCategory);
+    console.log(" check eveything", page, size, sorting, jobCategory);
     const res = await instance.get(
       `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`
     );
