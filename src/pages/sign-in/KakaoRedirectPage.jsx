@@ -17,16 +17,16 @@ const KakaoRedirectPage = () => {
     const value = searchParams.get("value");
     const hmac = searchParams.get("hmac");
     const code = searchParams.get("code");
-    // console.log(value, hmac, code);
+    console.log(value, hmac, code);
     if (hmac) {
       navigate("/info");
-      localStorage.setItem("isLoggedInState", false);
       setData((prev) => ({ ...prev, encrypted: value, hmac: hmac }));
     } else {
       navigate("/");
       localStorage.setItem("isLoggedInState", true);
     }
-  }, [location, navigate, setData]);
+  }, [location, navigate]);
+  // userInfo에 이미 value와 hmac이 존재하는지 확인
 
   return (
     <div>

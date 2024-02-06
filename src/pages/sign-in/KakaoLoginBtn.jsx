@@ -1,4 +1,5 @@
 import { BtnStyle } from "../PageStyles";
+import kakao from "../../assets/images/kakao.svg";
 
 export function KaKaoLoginButton() {
   const handleLogin = () => {
@@ -7,7 +8,17 @@ export function KaKaoLoginButton() {
 
   return (
     <div onClick={handleLogin} style={BtnStyle("kakao")}>
-      <div style={{ color: "#191919", fontSize: "16px", fontWeight: "600" }}>
+      <div
+        style={{
+          color: "#191919",
+          fontSize: "14px",
+          fontWeight: "600",
+          display: "flex",
+          alignItems: "center",
+          gap: "20px",
+        }}
+      >
+        <img src={kakao} />
         <span>카카오톡 로그인</span>
       </div>
     </div>
