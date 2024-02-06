@@ -11,7 +11,13 @@ export function Coffee() {
   const navigate = useNavigate();
   const [coffeeData, setCoffeeData] = useState({
     content: [],
-    pageInfo: {},
+    pageInfo: {
+      totalPages: 0,
+      pageSize: 12,
+      first: true,
+      last: false,
+      empty: true,
+    },
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [sortData, setSortData] = useState({
@@ -22,49 +28,39 @@ export function Coffee() {
   const [kindOfJd, setKindOfJd] = useState();
 
   const handlePageChange = (event, newPage) => {
-    // if (coffeeData.pageInfo.last === true) {
-    //   console.log(coffeeData.pageInfo.last);
-    //   alert("마지막 페이지입니다.");
-    // } else {
     setCurrentPage(newPage);
-    console.log(newPage);
-    fetchData(newPage, coffeeData.pageInfo.pageSize);
-  };
-
-  const fetchData = async (page, size) => {
-    try {
-      const data = await getCoffeeChat(
-        page - 1,
-        size,
-        sortData.sorting,
-        sortData.jobCategory
-      );
-      setCoffeeData(data);
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching hot skills:", error);
-    }
-  };
-
-  const fetchJobCategory = async () => {
-    try {
-      const data = await getJobCategory();
-      console.log(data.jobGroupList[0].jobCategoryList);
-      const kindOfJd = data.jobGroupList[0].jobCategoryList;
-      setKindOfJd(kindOfJd);
-      console.log(kindOfJd);
-    } catch (error) {
-      console.error("Error fetching hot skills:", error);
-    }
+    //  console.log(newPage);
+    //fetchData(newPage);
   };
 
   useEffect(() => {
-    fetchData(currentPage, coffeeData?.pageInfo.pageSize);
+    const fetchData = async (page) => {
+      try {
+        const data = await getCoffeeChat(
+          page - 1,
+          coffeeData.pageInfo.pageSize,
+          sortData.sorting,
+          sortData.jobCategory
+        );
+        setCoffeeData(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching hot skills:", error);
+      }
+    };
+    fetchData();
   }, [sortData.sorting, sortData.jobCategory, currentPage]);
-  //console.log(coffeeData?.pageInfo.pageSize || 12);
 
+  // 직무 카테고리 데이터 불러오기 - 컴포넌트가 마운트될 때만 실행
   useEffect(() => {
-    fetchData(currentPage, coffeeData.pageInfo.pageSize);
+    const fetchJobCategory = async () => {
+      try {
+        const { jobGroupList } = await getJobCategory();
+        setKindOfJd(jobGroupList[0].jobCategoryList);
+      } catch (error) {
+        console.error("Error fetching job categories:", error);
+      }
+    };
     fetchJobCategory();
   }, []);
 
@@ -114,23 +110,31 @@ export function Coffee() {
           }}
           onClick={() => navigate("/coffeechat-open")}
         >
-          커피챗 오픈
+          + New
         </Button>
       </Box>
       <Grid container spacing={{ xs: 2, md: 2 }}>
-        {coffeeData?.content?.length > 0
-          ? coffeeData.content.map((item, index) => (
-              <Grid item xs={12} sm={6} md={6} key={index}>
-                <CoffeeChatCard data={item}></CoffeeChatCard>
-              </Grid>
-            ))
-          : coffeeData.pageInfo.totalPage < 1 && (
-              <Typography
-                sx={{ ml: 2, mt: 7, width: "100%", textAlign: "center" }}
-              >
-                커피챗 정보가 없습니다.
-              </Typography>
-            )}
+        {coffeeData?.content?.length > 0 ? (
+          coffeeData.content.map((item, index) => (
+            <Grid item xs={12} sm={6} md={6} key={index}>
+              <CoffeeChatCard data={item}></CoffeeChatCard>
+            </Grid>
+          ))
+        ) : (
+          <Typography
+            sx={{
+              ml: 2,
+              mt: 8,
+              width: "100%",
+              textAlign: "center",
+              fontSize: "16px",
+              color: "#B9B9B9",
+              fontWeight: 600,
+            }}
+          >
+            커피챗 정보가 없습니다.
+          </Typography>
+        )}
       </Grid>
       {coffeeData?.content?.length > 0 && (
         <Box

@@ -153,7 +153,10 @@ function Coffeeopen() {
                     type="number"
                     value={value.totalRecruitCount}
                     onChange={(e) => {
-                      handleInputChange("totalRecruitCount", e.target.value);
+                      handleInputChange(
+                        "totalRecruitCount",
+                        Number(e.target.value)
+                      );
                     }}
                   />
                 </Grid>
