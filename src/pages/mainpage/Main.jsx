@@ -22,13 +22,12 @@ export function Main() {
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
   const [selectedChip, setSelectedChip] = useState({});
-  const [isSelected, setIsSeletected] = useState(
-    localStorage.getItem("isLoggedInState")
-  );
-
+  const [isSelected, setIsSeletected] = useState(false);
   const [lectureList, setLectureList] = useState([]);
   const [jdList, setJdList] = useState([]);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("isLoggedInState")
+  );
 
   const [search, setSearch] = useState("");
   const scrollRef = useRef(null);
@@ -36,7 +35,7 @@ export function Main() {
 
   const handleTabChange = (e, newValue) => {
     if (newValue === "2") {
-      if (!isLogin) {
+      if (isLogin === "false") {
         handleConfirm();
         return;
       } else {
