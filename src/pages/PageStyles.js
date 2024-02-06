@@ -38,7 +38,7 @@ export const signInTextFieldStyles = (value) => ({
 
 export const MainStyles = {
   Tab: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#BCBCC4",
   },
   TabPanel: {
@@ -68,11 +68,13 @@ export const MainStyles = {
     },
   },
   TypoGraphy: {
-    fontSize: "18px",
-    fontWeight: 600,
-    color: "#323236",
+    fontSize: "16px",
+    fontWeight: 500,
+    color: "black",
     display: "flex",
     alignItems: "center",
+    flexWrap: "wrap",
+    ml: 1,
   },
   TabIndicator: {
     height: 3, // 언더라인 두께
@@ -84,7 +86,9 @@ export const ChipStyle = (click) => ({
   color: click ? "#6482FF" : "#ADADAD",
   borderColor: click ? "#6482FF" : "#ADADAD",
   background: click ? "#E2E7FF" : "",
+  fontWeight: click && "bold",
   fontSize: "14px",
+  justifyContent: "center",
   height: "32px",
   borderRadius: "999px",
   "&&:hover": {

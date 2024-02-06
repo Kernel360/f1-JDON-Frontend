@@ -1,7 +1,7 @@
 import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 import heart from "../../../assets/icons/heart.svg";
 import heartFilled from "../../../assets/icons/heart_filled.svg";
 import person from "../../../assets/icons/person.svg";
@@ -9,10 +9,35 @@ import { useState, useEffect } from "react";
 import { VideoCardStyle } from "./CardStyle";
 import "./../../../styles/animations.scss";
 import { postFavoritVideo } from "../../../api/api";
+import { useNavigate } from "react-router-dom";
 
 function VideoCard({ data }) {
   const [isLiked, setIsLiked] = useState(data.isFavortie || false);
-  // console.log("비디오 data", data);
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("isLoggedInState")
+  );
+
+  const handleConfirm = () => {
+    if (
+      window.confirm(
+        "[찜]은 로그인 후 이용하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
+      )
+    ) {
+      navigate("/signin");
+    }
+  };
+
+  const handleLikeClick = async (e) => {
+    e.stopPropagation();
+
+    if (isLogin === "false") {
+      handleConfirm();
+      return;
+    } else {
+      setIsLiked(!isLiked);
+    }
+  };
 
   useEffect(() => {
     if (data.isFavortie !== undefined) {
@@ -20,23 +45,14 @@ function VideoCard({ data }) {
     }
   }, [data.isFavortie]);
 
-  const handleLikeClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsLiked((prevIsLiked) => !prevIsLiked);
-    // console.log("클릭하자마자", isLiked);
-  };
-
   useEffect(() => {
-    if (data.lectureId) {
-      console.log("체크된 것", data, isLiked);
+    if (isLiked && data.lectureId) {
       const fetchVideoData = async () => {
         try {
           const vedioData = {
             lectureId: data.lectureId,
             isFavorite: isLiked,
           };
-          // console.log("통신을 위한 데이터 가공vedioData", vedioData);
           await postFavoritVideo(vedioData);
         } catch (error) {
           console.error("viedoCard파일 postFavoritVideo 통신에러", error);
@@ -64,7 +80,7 @@ function VideoCard({ data }) {
         }}
       />
       <img
-        src={isLiked ? heartFilled : heart}
+        src={isLiked === true ? heartFilled : heart}
         alt="heart"
         onClick={handleLikeClick}
         style={{

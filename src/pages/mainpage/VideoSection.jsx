@@ -7,7 +7,14 @@ function VideoSection({ selectedChip, data }) {
   return (
     <Box sx={{ mt: 4 }}>
       <Typography sx={MainStyles.TypoGraphy}>
-        <span style={{ fontWeight: 700, color: "black", margin: "2px 8px" }}>
+        <span
+          style={{
+            fontWeight: 700,
+            color: "black",
+            marginRight: 7,
+            fontSize: "18px",
+          }}
+        >
           {selectedChip.keyword}
         </span>
         추천 학습 영상
@@ -24,9 +31,9 @@ function VideoSection({ selectedChip, data }) {
         >
           {data.length > 0 ? (
             <Grid container spacing={{ xs: 2, md: 2 }} sx={{ px: 2, py: 1 }}>
-              {data.map((item, index) => (
-                <Grid item xs={12} sm={4} md={4} key={index}>
-                  <VideoCard data={item} />
+              {data.map((video, index) => (
+                <Grid item xs={12} sm={4} md={4} key={video.lectureId}>
+                  <VideoCard data={video} />
                 </Grid>
               ))}
             </Grid>

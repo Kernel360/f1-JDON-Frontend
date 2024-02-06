@@ -153,15 +153,11 @@ export async function getSkillsOnJD(jobCategoryId) {
 
 // -------------------------------------------- favorite
 // 영상 찜하기 등록
-export const postFavoritVideo = async (lectureId, isFavorite) => {
-  let data = {
-    lectureId: lectureId,
-    isFavorite: isFavorite,
-  };
+export const postFavoritVideo = async (data) => {
   console.log("!!vedio data check", data);
 
   try {
-    const res = await instance.post(`/api/v1/favorites`);
+    const res = await instance.post(`/api/v1/favorites`, data);
     console.log("postFavoritVideo 응답", res.data);
     return res.data;
   } catch (error) {
