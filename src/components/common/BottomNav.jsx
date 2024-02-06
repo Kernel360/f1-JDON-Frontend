@@ -11,6 +11,7 @@ export default function BottomNav() {
   const navigate = useNavigate();
   const location = useLocation();
   const [value, setValue] = useState(0);
+  const isLogin = localStorage.getItem("isLoggedInState") === "true";
 
   useEffect(() => {
     switch (location.pathname) {
@@ -39,7 +40,6 @@ export default function BottomNav() {
         navigate("/coffee");
         break;
       case 2:
-        const isLogin = localStorage.getItem("isLoggedInState") === "true";
         navigate(isLogin ? "/mypage" : "/signin");
         break;
       default:
@@ -69,7 +69,7 @@ export default function BottomNav() {
           icon={<CoffeeIcon fontSize="medium" />}
         />
         <BottomNavigationAction
-          label="마이페이지"
+          label={isLogin ? "마이페이지" : "로그인"}
           icon={<PersonIcon fontSize="medium" />}
         />
       </BottomNavigation>
