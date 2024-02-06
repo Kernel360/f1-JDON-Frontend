@@ -5,19 +5,46 @@ import { Box, Link } from "@mui/material";
 import heart from "../../../assets/icons/heart.svg";
 import heartFilled from "../../../assets/icons/heart_filled.svg";
 import person from "../../../assets/icons/person.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { VideoCardStyle } from "./CardStyle";
 import "./../../../styles/animations.scss";
+import { postFavoritVideo } from "../../../api/api";
 
 function VideoCard({ data }) {
-  const [isLiked, setIsLiked] = useState(data.isFavortie);
-  //console.log(data);
+  const [isLiked, setIsLiked] = useState(data.isFavortie || false);
+  // console.log("비디오 data", data);
+
+  useEffect(() => {
+    if (data.isFavortie !== undefined) {
+      setIsLiked(data.isFavortie);
+    }
+  }, [data.isFavortie]);
 
   const handleLikeClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setIsLiked((prevIsLiked) => !prevIsLiked);
+    // console.log("클릭하자마자", isLiked);
   };
+
+  useEffect(() => {
+    if (data.lectureId) {
+      console.log("체크된 것", data, isLiked);
+      const fetchVideoData = async () => {
+        try {
+          const vedioData = {
+            lectureId: data.lectureId,
+            isFavorite: isLiked,
+          };
+          // console.log("통신을 위한 데이터 가공vedioData", vedioData);
+          await postFavoritVideo(vedioData);
+        } catch (error) {
+          console.error("viedoCard파일 postFavoritVideo 통신에러", error);
+        }
+      };
+      fetchVideoData();
+    }
+  }, [isLiked, data.lectureId]);
 
   const handleCardClick = () => {
     window.open(data.lectureUrl, "_blank");
