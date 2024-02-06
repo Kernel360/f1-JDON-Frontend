@@ -28,7 +28,7 @@ function VideoCard({ data }) {
   };
 
   useEffect(() => {
-    if (data.lectureId) {
+    if (isLiked && data.lectureId) {
       console.log("체크된 것", data, isLiked);
       const fetchVideoData = async () => {
         try {
@@ -36,7 +36,7 @@ function VideoCard({ data }) {
             lectureId: data.lectureId,
             isFavorite: isLiked,
           };
-          // console.log("통신을 위한 데이터 가공vedioData", vedioData);
+          console.log("통신을 위한 데이터 가공vedioData", vedioData);
           await postFavoritVideo(vedioData);
         } catch (error) {
           console.error("viedoCard파일 postFavoritVideo 통신에러", error);
