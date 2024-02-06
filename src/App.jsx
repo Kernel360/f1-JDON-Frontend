@@ -23,7 +23,7 @@ import SignupFail from "./pages/info/SignupFail";
 // const isJSessionID = () => {
 //   return document.cookie.includes("JSESSIONID");
 // };
-const access = localStorage.getItem("isLoggedIn");
+const access = localStorage.getItem("isLoggedInState");
 
 console.log("!!로긴 유무", access);
 
