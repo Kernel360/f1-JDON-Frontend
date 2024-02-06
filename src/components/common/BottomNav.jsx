@@ -1,17 +1,36 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import { Paper } from "@mui/material";
-import { Coffee, Home, Person } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Box } from "@mui/material";
+import HomeIcon from "@mui/icons-material/CottageTwoTone";
+import CoffeeIcon from "@mui/icons-material/EmojiFoodBeverageTwoTone";
+import PersonIcon from "@mui/icons-material/AccountCircleTwoTone";
 
 export default function BottomNav() {
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("isLoggedInState")
-  );
   const navigate = useNavigate();
+  const location = useLocation();
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/":
+        setValue(0);
+        break;
+      case "/coffee":
+        setValue(1);
+        break;
+      case "/mypage":
+      case "/signin":
+        setValue(2);
+        break;
+      default:
+        break;
+    }
+  }, [location]);
 
   const handleNavigationChange = (event, newValue) => {
+    setValue(newValue);
     switch (newValue) {
       case 0:
         navigate("/");
@@ -20,7 +39,8 @@ export default function BottomNav() {
         navigate("/coffee");
         break;
       case 2:
-        navigate(isLogin === "true" ? "/mypage" : "/signin");
+        const isLogin = localStorage.getItem("isLoggedInState") === "true";
+        navigate(isLogin ? "/mypage" : "/signin");
         break;
       default:
         break;
@@ -28,30 +48,31 @@ export default function BottomNav() {
   };
 
   return (
-    <Paper
-      sx={{
-        maxWidth: "1000px",
-        width: "100%",
-        position: "fixed",
-        bottom: 0,
-        right: 0,
-        height: "70px",
-        left: "50%",
-        transform: "translateX(-50%)",
-      }}
-    >
+    <Box sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
       <BottomNavigation
-        showLabels
+        value={value}
         onChange={handleNavigationChange}
-        sx={{ height: "70px" }}
+        showLabels
+        sx={{
+          height: 80,
+          display: "flex",
+          gap: "8%",
+          borderTop: "1px solid light-gray",
+        }}
       >
-        <BottomNavigationAction label="메인" icon={<Home />} />
-        <BottomNavigationAction label="커피챗" icon={<Coffee />} />
         <BottomNavigationAction
-          label={isLogin === "true" ? "마이페이지" : "로그인"}
-          icon={<Person />}
+          label="메인"
+          icon={<HomeIcon fontSize="medium" />}
+        />
+        <BottomNavigationAction
+          label="커피챗"
+          icon={<CoffeeIcon fontSize="medium" />}
+        />
+        <BottomNavigationAction
+          label="마이페이지"
+          icon={<PersonIcon fontSize="medium" />}
         />
       </BottomNavigation>
-    </Paper>
+    </Box>
   );
 }

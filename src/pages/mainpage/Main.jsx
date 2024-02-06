@@ -6,6 +6,7 @@ import arrowLeft from "../../../src/assets/icons/arrow-left.svg";
 import arrowRight from "../../../src/assets/icons/arrow-right.svg";
 import SearchBar from "../../components/common/search-bar/SearchBar";
 import BottomNav from "../../components/common/BottomNav";
+import logo from "../../../src/assets/images/logo.svg";
 import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
 import {
@@ -15,31 +16,32 @@ import {
 } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../styles/themeMuiStyle";
-import { Sledding } from "@mui/icons-material";
 
 export function Main() {
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
   const [selectedChip, setSelectedChip] = useState({});
-  const [isSelected, setIsSeletected] = useState(false);
+  const [isSelected, setIsSeletected] = useState(
+    localStorage.getItem("isLoggedInState")
+  );
 
   const [lectureList, setLectureList] = useState([]);
   const [jdList, setJdList] = useState([]);
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("isLoggedInState")
-  );
+  const [isLogin, setIsLogin] = useState(false);
 
   const [search, setSearch] = useState("");
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
   const handleTabChange = (e, newValue) => {
-    console.log(isLogin);
-    if (newValue === "2" && isLogin === "false") {
-      handleConfirm();
-    } else if (newValue === "2" && isLogin === "true") {
-      GetMemberSkillData();
+    if (newValue === "2") {
+      if (!isLogin) {
+        handleConfirm();
+        return;
+      } else {
+        GetMemberSkillData();
+      }
     }
     setValue(newValue);
   };
@@ -122,6 +124,7 @@ export function Main() {
 
   // 최초 렌더링
   useEffect(() => {
+    localStorage.setItem("isLoggedInState", false);
     fetchHotSkills();
     const fetchLectureData22 = async () => {
       try {
@@ -172,6 +175,12 @@ export function Main() {
 
   return (
     <Container maxWidth="md" sx={{ pb: 10, position: "relative" }}>
+      <img
+        src={logo}
+        alt="logo"
+        width={80}
+        style={{ height: 50, marginTop: 10 }}
+      />
       <SearchBar
         keyword={search}
         onChange={handleSearchChange}

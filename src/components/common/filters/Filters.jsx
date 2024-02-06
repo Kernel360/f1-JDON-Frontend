@@ -76,7 +76,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
               width: "328px",
               bgcolor: "background.paper",
               p: 4,
-              borderRadius: 8,
+              borderRadius: 4,
             }}
           >
             <FormControl>
@@ -117,7 +117,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
               width: "328px",
               bgcolor: "background.paper",
               p: 4,
-              borderRadius: 8,
+              borderRadius: 4,
             }}
           >
             <FormControl>
