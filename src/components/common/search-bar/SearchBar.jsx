@@ -9,6 +9,9 @@ function SearchBar({ keyword, onChange, onKeyDown }) {
       maxWidth="md"
       sx={{
         padding: "0 !important",
+        "& .MuiInputBase-input": {
+          padding: "12px",
+        },
       }}
     >
       <TextField

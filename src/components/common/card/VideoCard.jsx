@@ -1,7 +1,7 @@
 import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 import heart from "../../../assets/icons/heart.svg";
 import heartFilled from "../../../assets/icons/heart_filled.svg";
 import person from "../../../assets/icons/person.svg";
@@ -21,7 +21,6 @@ function VideoCard({ data }) {
   }, [data.isFavortie]);
 
   const handleLikeClick = (e) => {
-    e.preventDefault();
     e.stopPropagation();
     setIsLiked((prevIsLiked) => !prevIsLiked);
     // console.log("클릭하자마자", isLiked);

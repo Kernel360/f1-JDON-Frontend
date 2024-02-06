@@ -38,7 +38,7 @@ export const signInTextFieldStyles = (value) => ({
 
 export const MainStyles = {
   Tab: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#BCBCC4",
   },
   TabPanel: {
@@ -84,7 +84,9 @@ export const ChipStyle = (click) => ({
   color: click ? "#6482FF" : "#ADADAD",
   borderColor: click ? "#6482FF" : "#ADADAD",
   background: click ? "#E2E7FF" : "",
+  fontWeight: click && "bold",
   fontSize: "14px",
+  justifyContent: "center",
   height: "32px",
   borderRadius: "999px",
   "&&:hover": {
