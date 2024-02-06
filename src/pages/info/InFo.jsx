@@ -16,6 +16,7 @@ import { useRecoilState } from "recoil";
 
 export default function Info() {
   const [step, setStep] = useState(1);
+  const [agree, setAgree] = useState({});
   const [data, setData] = useRecoilState(userInfo);
   const [isLogin, setIsLogin] = useRecoilState(isLoggedInState);
   const [jobCategory, setJobCategory] = useState();
@@ -86,10 +87,21 @@ export default function Info() {
       case 1:
         return (
           <>
-            <InFoBasic step={step} onChange={handleChange} />
+            <InFoBasic
+              step={step}
+              onChange={handleChange}
+              agree={agree}
+              setAgree={setAgree}
+            />
             <NavigationButtons
               step={step}
-              isActive={data.nickname && data.birth && data.gender}
+              isActive={
+                data.nickname &&
+                data.birth &&
+                data.gender &&
+                agree[1] &&
+                agree[2]
+              }
               onBefore={() => setStep(step - 1)}
               onNext={handleNextBtn}
             />

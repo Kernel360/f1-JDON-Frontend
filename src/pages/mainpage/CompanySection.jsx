@@ -7,7 +7,14 @@ function CompanySection({ selectedChip, data }) {
     <Box sx={{ mt: 8 }}>
       <Typography sx={MainStyles.TypoGraphy}>
         {/* Typography 내부에 span 사용시 불필요한 중괄호 제거 */}
-        <span style={{ color: "black", fontWeight: 600, margin: "2px 8px" }}>
+        <span
+          style={{
+            color: "black",
+            fontWeight: 700,
+            marginRight: 7,
+            fontSize: "18px",
+          }}
+        >
           {selectedChip.keyword}
         </span>
         에 관심있는 회사에요!
