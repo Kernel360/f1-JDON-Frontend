@@ -38,7 +38,7 @@ export function Coffee() {
       try {
         const data = await getCoffeeChat(
           page - 1,
-          coffeeData.pageInfo.pageSize,
+          coffeeData.pageInfo.pageSize || 12,
           sortData.sorting,
           sortData.jobCategory
         );
@@ -48,7 +48,7 @@ export function Coffee() {
         console.error("Error fetching hot skills:", error);
       }
     };
-    fetchData();
+    fetchData(currentPage);
   }, [sortData.sorting, sortData.jobCategory, currentPage]);
 
   // 직무 카테고리 데이터 불러오기 - 컴포넌트가 마운트될 때만 실행
