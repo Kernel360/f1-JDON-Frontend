@@ -74,13 +74,7 @@ export default function FavoritesVideo() {
         )}
       </Grid>
       {datas && (
-        // <Box mt={4} sx={{ flexGrow: 1 }} />
         <Box mt={4}>
-          {/* <PaginationComponent
-            pageCount={10} 
-            currentPage={currentPage}
-            onChange={handlePageChange}
-          /> */}
           <Pagenation
             pageCount={page?.totalPages}
             currentPage={currentPage}
