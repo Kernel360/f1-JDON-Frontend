@@ -9,6 +9,7 @@ import PaginationComponent from "../../components/common/Pagenation";
 
 export function Coffee() {
   const navigate = useNavigate();
+  const [login, setLogin] = useState(localStorage.getItem("isLoggedInState"));
   const [coffeeData, setCoffeeData] = useState({
     content: [],
     pageInfo: {
@@ -29,8 +30,26 @@ export function Coffee() {
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
-    //  console.log(newPage);
-    //fetchData(newPage);
+  };
+
+  const handleConfirm = () => {
+    if (
+      window.confirm(
+        "[커피챗 오픈]은 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
+      )
+    ) {
+      navigate("/signin");
+    }
+  };
+
+  const handleOpenCoffee = (event, newPage) => {
+    console.log(login);
+    if (login === "false") {
+      handleConfirm();
+      return;
+    } else {
+      navigate("./coffee-open");
+    }
   };
 
   useEffect(() => {
@@ -104,11 +123,12 @@ export function Coffee() {
           variant="contained"
           disableElevation
           sx={{
-            fontWeight: 500,
+            fontWeight: 600,
+            fontSize: 12,
             padding: "4px 10px",
             gap: 1,
           }}
-          onClick={() => navigate("/coffeechat-open")}
+          onClick={handleOpenCoffee}
         >
           + New
         </Button>

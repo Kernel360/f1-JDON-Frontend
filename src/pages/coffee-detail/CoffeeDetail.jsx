@@ -30,7 +30,6 @@ function CoffeeDetail({ host = true }) {
     try {
       await navigator.clipboard.writeText(coffeeChatData.openChatUrl);
       setIsCopied(true);
-      // console.log("텍스트가 클립보드에 복사되었습니다.");
     } catch (error) {
       console.error("클립보드 복사 실패:", error);
     }
