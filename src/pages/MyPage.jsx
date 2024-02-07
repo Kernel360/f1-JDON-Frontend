@@ -55,7 +55,7 @@ const ProfileSection = ({ data }) => (
             fontWeight: "600",
           }}
         >
-          {data.data.nickname || "닉네임 설정이 필요합니다"}
+          {data.nickname || "닉네임 설정이 필요합니다"}
         </Typography>
         <Link to={{ pathname: "/mypage/infoedit", state: { data: data } }}>
           <IconButton
