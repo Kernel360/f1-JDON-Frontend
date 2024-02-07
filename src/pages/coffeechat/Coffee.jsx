@@ -61,7 +61,7 @@ export function Coffee() {
           sortData.sorting,
           sortData.jobCategory
         );
-        setCoffeeData(data);
+        setCoffeeData(data.data.data);
         console.log(data);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
