@@ -40,7 +40,7 @@ export default function BottomNav() {
         navigate("/coffee");
         break;
       case 2:
-        navigate(isLogin ? "/mypage" : "/signin");
+        navigate(isLogin === "true" ? "/mypage" : "/signin");
         break;
       default:
         break;
@@ -69,7 +69,7 @@ export default function BottomNav() {
           icon={<CoffeeIcon fontSize="medium" />}
         />
         <BottomNavigationAction
-          label={isLogin ? "마이페이지" : "로그인"}
+          label={isLogin === "true" ? "마이페이지" : "로그인"}
           icon={<PersonIcon fontSize="medium" />}
         />
       </BottomNavigation>
