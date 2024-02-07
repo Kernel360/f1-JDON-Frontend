@@ -72,7 +72,7 @@ export async function logoutMember() {
     return res;
   } catch (error) {
     console.log("logoutMember API error", error);
-    throw error;
+    // throw error;
   }
 }
 
