@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Grid, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import Header from "../components/common/Header";
-import CoffeeChatCard from "../components/common/card/CoffeeChatCard";
-import { getMyCoffeeChat, getSignCoffeeChat } from "../api/api";
-import Pagenation from "../components/common/Pagenation";
-import { MainStyles } from "./PageStyles";
+import Header from "../../components/common/Header";
+import CoffeeChatCard from "../../components/common/card/CoffeeChatCard";
+import { getMyCoffeeChat, getSignCoffeeChat } from "../../api/api";
+import Pagenation from "../../components/common/Pagenation";
+import { MainStyles } from "../PageStyles";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");

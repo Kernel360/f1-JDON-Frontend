@@ -15,7 +15,7 @@ import { URLInput } from "../PageStyles";
 import Buttons from "./Button";
 import eye from "../../assets/icons/eye.svg";
 import { useEffect, useRef, useState } from "react";
-import { getCoffeeChatDetail } from "../../api/api";
+import { getCoffeeChatDetail, getMemberInfo } from "../../api/api";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 import { useParams } from "react-router-dom";
 import { jobStyle } from "../../components/common/card/CardStyle";
@@ -25,6 +25,9 @@ function CoffeeDetail({ host = true }) {
   const [coffeeChatData, setCoffeeChatData] = useState({});
   const [isCopied, setIsCopied] = useState(false);
   const inputRef = useRef(null);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  console.log(user.nickname, coffeeChatData.nickname);
 
   const handleCopyClick = async () => {
     try {
@@ -39,14 +42,23 @@ function CoffeeDetail({ host = true }) {
     const fetchData = async () => {
       try {
         const res = await getCoffeeChatDetail(params.id);
-        console.log(res.title);
         setCoffeeChatData(res);
         return res.data;
       } catch (error) {
         console.error("Error fetching getCoffeeChatDetail:", error);
       }
     };
+    const fetchUserData = async () => {
+      try {
+        const res = await getMemberInfo();
+        console.log(res);
+        return res.data;
+      } catch (error) {
+        console.error("유저 정보 에러:", error);
+      }
+    };
     fetchData();
+    fetchUserData();
   }, [params.id]);
 
   return (
@@ -111,7 +123,9 @@ function CoffeeDetail({ host = true }) {
             sx={URLInput}
             ref={inputRef}
             value={
-              host ? coffeeChatData.openChatUrl : "신청 후 확인 가능합니다"
+              user.nickname === coffeeChatData.nickname
+                ? coffeeChatData.openChatUrl
+                : "신청 후 확인 가능합니다"
             }
             InputProps={{
               readOnly: true,
@@ -121,7 +135,7 @@ function CoffeeDetail({ host = true }) {
                   position="end"
                   sx={{ background: "transparent" }}
                 >
-                  {host && (
+                  {user.nickname === coffeeChatData.nickname && (
                     <Button onClick={handleCopyClick}>
                       {isCopied ? (
                         <p style={{ fontSize: "12px" }}>Copied!</p>
@@ -135,7 +149,7 @@ function CoffeeDetail({ host = true }) {
             }}
           ></TextField>
         </TotalInputForm>
-        <Buttons host={false}></Buttons>
+        <Buttons host={user.nickname === coffeeChatData.nickname}></Buttons>
       </Box>
     </Container>
   );

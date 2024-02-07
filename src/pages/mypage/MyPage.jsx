@@ -8,13 +8,12 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-
-import profile from "../assets/profile.svg";
-import ToggleList from "../components/common/ToggleList";
-import BottomNav from "../components/common/BottomNav";
-import edit from "../assets/images/icn_edit.svg";
+import profile from "../../assets/profile.svg";
+import ToggleList from "../../components/common/ToggleList";
+import BottomNav from "../../components/common/BottomNav";
+import edit from "../../assets/images/icn_edit.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { getFAQ, getMemberInfo, logoutMember } from "../api/api";
+import { getFAQ, getMemberInfo, logoutMember } from "../../api/api";
 
 const ProfileSection = ({ data }) => (
   <Grid
@@ -199,9 +198,9 @@ export default function MyPage() {
     const fetchData = async () => {
       try {
         const memberData = await getMemberInfo();
+        console.log(memberData.data);
         const faqData = await getFAQ();
-
-        setMemberInfo(memberData.data.response.status);
+        setMemberInfo(memberData.data);
         console.log("!!!1ddd", memberData.data.response.status);
         setFAQ(faqData.faqList || []);
         console.log("memberData", memberData.data.nickname);
@@ -215,15 +214,13 @@ export default function MyPage() {
       }
     };
     fetchData();
+    console.log(memberInfo);
   }, []);
 
   const handleLogout = async () => {
     try {
       const res = await logoutMember();
       console.log(res);
-
-      // localStorage.setItem("isLoggedInState", "false");
-      // navigate("/");
 
       if (res === 302) {
         localStorage.setItem("isLoggedInState", "false");

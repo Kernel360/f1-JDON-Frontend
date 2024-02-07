@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
@@ -8,28 +7,23 @@ import { Layout } from "./components/layout/Layout";
 import { ThemeProvider } from "@mui/material/styles";
 import { Coffee } from "./pages/coffeechat/Coffee";
 import { theme } from "./styles/themeMuiStyle";
-import MyPage from "./pages/MyPage";
-import InfoEdit from "./pages/InfoEdit";
 import CoffeeDetail from "./pages/coffee-detail/CoffeeDetail";
-import { Main } from "./pages/mainpage/Main";
 import Coffeeopen from "./pages/coffeechat/CoffeeOpen";
-import Withdrawal from "./pages/Withdrawal";
-import FavoritesVideo from "./pages/FavoritesVideo";
 import KakaoRedirectPage from "./pages/sign-in/KakaoRedirectPage";
-import MyCoffeeChat from "./pages/MyCoffeeChat";
 import SignupFail from "./pages/info/SignupFail";
-
-// const access = localStorage.getItem("isLoggedInState");
+import MyCoffeeChat from "./pages/mypage/MyCoffeeChat";
+import FavoritesVideo from "./pages/mypage/FavoritesVideo";
+import InfoEdit from "./pages/mypage/InfoEdit";
+import MyPage from "./pages/mypage/MyPage";
+import { Main } from "./pages/mainpage/Main";
+import Withdrawal from "./pages/mypage/Withdrawal";
+import React from "react";
 
 const access = localStorage.getItem("isLoggedInState") === "true";
 
 console.log("!!로긴 유무", access);
 
 function App() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(
-  //   localStorage.getItem("isLoggedInState") === "true"
-  // );
-
   const PrivateRoute = ({ authenticated, component: Component }) => {
     // console.log("확인", authenticated);
     // console.log("무가", Component);
