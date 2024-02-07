@@ -219,12 +219,13 @@ export default function MyPage() {
 
   const handleLogout = async () => {
     try {
+      localStorage.setItem("isLoggedInState", "false");
       const res = await logoutMember();
-      console.log(res);
+      // console.log(res);
+      navigate("/");
 
       // if (res === 302) {
-      localStorage.setItem("isLoggedInState", "false");
-      navigate("/");
+
       // }
     } catch (error) {
       console.error("로그아웃 에러", error);
