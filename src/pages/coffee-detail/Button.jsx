@@ -3,20 +3,38 @@ import { buttonStyles } from "./ButtonStyle";
 import ShareIcon from "@mui/icons-material/Share";
 import NewBtn from "../../components/common/new-btn/NewBtn";
 import { theme } from "../../styles/themeMuiStyle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { applyCoffeechat, registerCoffeeChat } from "../../api/api";
 
 function Buttons({ host }) {
+  const params = useParams();
   const navigate = useNavigate();
+
   const handleConfirm = () => {
-    if (
-      window.confirm("신청이 완료되었어요! 커피챗 신청 내역을 확인해보실래요?")
-    ) {
-      // 사용자가 '확인'을 클릭한 경우
-      navigate("/mypage");
-    } else {
-      // 사용자가 '취소'를 클릭한 경우
-      console.log("User clicked cancel.");
-    }
+    // console.log(params.id);
+
+    const registerData = async () => {
+      try {
+        const response = await applyCoffeechat(params.id);
+        console.log("회원 정보 등록 성공:", response);
+        if (
+          window.confirm(
+            "신청이 완료되었어요! 커피챗 신청 내역을 확인해보실래요?"
+          )
+        ) {
+          // 사용자가 '확인'을 클릭한 경우
+          navigate("/mypage");
+        } else {
+          // 사용자가 '취소'를 클릭한 경우
+          console.log("User clicked cancel.");
+        }
+      } catch (error) {
+        console.error("회원 정보 등록 실패:", error);
+        navigate("/fail");
+      }
+    };
+    registerData();
   };
 
   const copyUrlToClipboard = () => {
@@ -31,6 +49,24 @@ function Buttons({ host }) {
         console.error("URL 복사에 실패했습니다.", err);
       });
   };
+
+  // const handleSaveChanges = async () => {
+  //   let data = {
+  //     nickname,
+  //     birth: birthday,
+  //     gender,
+  //     jobCategoryId: jobId,
+  //     skillList: selectedJobSkill,
+  //   };
+  //   try {
+  //     const res = await updateCoffeechat(params.id, data);
+  //     if (res) {
+  //       console.log("정보수정 성공! 수정 데이터: ", res);
+  //     }
+  //   } catch (error) {
+  //     console.error("회원 정보 업데이트 에러", error);
+  //   }
+  // };
 
   return (
     <Box sx={buttonStyles.Container}>
@@ -52,6 +88,7 @@ function Buttons({ host }) {
                   background: theme.palette.primary.main,
                   color: "white",
                 }}
+                onClick={() => {}}
               ></NewBtn>
               <NewBtn
                 type="submit"

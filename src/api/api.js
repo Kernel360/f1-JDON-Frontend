@@ -279,9 +279,9 @@ export async function registerCoffeeChat(coffeeChat) {
 }
 
 //커피챗 수정
-export async function updateCoffeechat(id) {
+export async function updateCoffeechat(id, data) {
   try {
-    const res = await instance.put(`/api/v1/coffeechats/${id}`);
+    const res = await instance.put(`/api/v1/coffeechats/${id}`, data);
     console.log("getMemberInfo API", res);
     return res.data;
   } catch (error) {
