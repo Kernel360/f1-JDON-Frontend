@@ -24,17 +24,19 @@ const access = localStorage.getItem("isLoggedInState");
 console.log("!!로긴 유무", access);
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedInState") === "true"
-  );
+  // const [isLoggedIn, setIsLoggedIn] = useState(
+  //   localStorage.getItem("isLoggedInState") === "true"
+  // );
+
+  // const isLoggedIn = localStorage.getItem("isLoggedInState") === "true";
 
   const PrivateRoute = ({ element }) => {
-    return isLoggedIn ? (
+    return access ? (
       element
     ) : (
       <Navigate
         to="/signin"
-        state={{ alert: "접근할 수 없는 페이지입니다." }}
+        // state={{ alert: "접근할 수 없는 페이지입니다." }}
       />
     );
   };
