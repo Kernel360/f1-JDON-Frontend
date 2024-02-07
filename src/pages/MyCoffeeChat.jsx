@@ -86,6 +86,8 @@ export default function MyCoffeeChat() {
                   color="textSecondary"
                   sx={{
                     textAlign: "center",
+                    fontSize: 16,
+                    mt: 3,
                   }}
                 >
                   오픈한 커피챗이 없습니다!
@@ -99,13 +101,16 @@ export default function MyCoffeeChat() {
                   ))}
                 </Grid>
               )}
-              <Box mt={4}>
-                <Pagenation
-                  pageCount={page?.totalPages || 2}
-                  currentPage={currentPage}
-                  onChange={handlePageChange}
-                />
-              </Box>
+
+              {coffeeDatas.length > 0 && (
+                <Box mt={4}>
+                  <Pagenation
+                    pageCount={page?.totalPages}
+                    currentPage={currentPage}
+                    onChange={handlePageChange}
+                  />
+                </Box>
+              )}
             </TabPanel>
             <TabPanel
               value="2"
@@ -137,7 +142,7 @@ export default function MyCoffeeChat() {
               {coffeeDatas.length > 0 && (
                 <Box mt={4}>
                   <Pagenation
-                    pageCount={page?.totalPages || 2}
+                    pageCount={page?.totalPages}
                     currentPage={currentPage}
                     onChange={handlePageChange}
                   />

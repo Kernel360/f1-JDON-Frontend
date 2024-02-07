@@ -208,7 +208,8 @@ export default function MyPage() {
         // // console.log("faq", faqData.faqList);
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          navigator("/");
+          alert("접근할 수 없는 페이지 입니다.");
+          navigate("/signin");
         }
         console.error("faq 에러", error);
       }
