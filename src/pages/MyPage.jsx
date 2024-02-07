@@ -55,7 +55,7 @@ const ProfileSection = ({ data }) => (
             fontWeight: "600",
           }}
         >
-          {data.nickname || "닉네임 설정이 필요합니다"}
+          {data.data.nickname || "닉네임 설정이 필요합니다"}
         </Typography>
         <Link to={{ pathname: "/mypage/infoedit", state: { data: data } }}>
           <IconButton
@@ -201,11 +201,11 @@ export default function MyPage() {
         const memberData = await getMemberInfo();
         const faqData = await getFAQ();
 
-        // if(memberData)
         setMemberInfo(memberData.data.response.status);
+        console.log("!!!1ddd", memberData.data.response.status);
         setFAQ(faqData.faqList || []);
-        // // console.log("memberData", memberData.data.nickname);
-        // // console.log("faq", faqData.faqList);
+        console.log("memberData", memberData.data.nickname);
+        console.log("faq", faqData.faqList);
       } catch (error) {
         if (error.response && error.response.status === 401) {
           alert("접근할 수 없는 페이지 입니다.");
