@@ -172,7 +172,7 @@ export const postFavoritVideo = async (data) => {
 export const getFavoritVideo = async () => {
   try {
     const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
-    console.log("getFavoritVideo api 파일", res.data);
+    console.log("getFavoritVideo api 파일", res);
     return res.data;
   } catch (error) {
     console.error("getFavoritVideo API", error);

@@ -25,8 +25,8 @@ console.log("!!로긴 유무", access);
 
 function App() {
   const PrivateRoute = ({ authenticated, component: Component }) => {
-    console.log("확인", authenticated);
-    console.log("무가", Component);
+    // console.log("확인", authenticated);
+    // console.log("무가", Component);
 
     return authenticated ? (
       Component
