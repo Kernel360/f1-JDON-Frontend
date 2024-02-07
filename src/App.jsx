@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
@@ -18,24 +18,26 @@ import FavoritesVideo from "./pages/FavoritesVideo";
 import KakaoRedirectPage from "./pages/sign-in/KakaoRedirectPage";
 import MyCoffeeChat from "./pages/MyCoffeeChat";
 import SignupFail from "./pages/info/SignupFail";
-// import { isLoggedInState } from "./recoil/atoms";
 
-// const isJSessionID = () => {
-//   return document.cookie.includes("JSESSIONID");
-// };
 const access = localStorage.getItem("isLoggedInState");
 
 console.log("!!로긴 유무", access);
 
-function PrivateRoute({ authenticated, component: Component }) {
-  return authenticated ? (
-    Component
-  ) : (
-    <Navigate to="/signin" state={{ alert: "접근할 수 없는 페이지입니다." }} />
-  );
-}
-
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedInState") === "true"
+  );
+
+  const PrivateRoute = ({ element }) => {
+    return isLoggedIn ? (
+      element
+    ) : (
+      <Navigate
+        to="/signin"
+        state={{ alert: "접근할 수 없는 페이지입니다." }}
+      />
+    );
+  };
   return (
     <RecoilRoot>
       <BrowserRouter>
