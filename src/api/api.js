@@ -247,7 +247,7 @@ export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
     const res = await instance.get(
       `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`
     );
-    return res.data.data;
+    return res;
   } catch (error) {
     console.error("getCoffeeChat API", error);
     throw error;
@@ -280,9 +280,9 @@ export async function registerCoffeeChat(coffeeChat) {
 }
 
 //커피챗 수정
-export async function updateCoffeechat(id) {
+export async function updateCoffeechat(id, data) {
   try {
-    const res = await instance.put(`/api/v1/coffeechats/${id}`);
+    const res = await instance.put(`/api/v1/coffeechats/${id}`, data);
     console.log("getMemberInfo API", res);
     return res.data;
   } catch (error) {

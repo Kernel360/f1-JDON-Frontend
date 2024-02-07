@@ -20,7 +20,7 @@ import TotalInputForm from "../../components/common/total-input-form/TotalInputF
 import { useParams } from "react-router-dom";
 import { jobStyle } from "../../components/common/card/CardStyle";
 
-function CoffeeDetail({ host = true }) {
+function CoffeeDetail() {
   const params = useParams();
   const [coffeeChatData, setCoffeeChatData] = useState({});
   const [isCopied, setIsCopied] = useState(false);
