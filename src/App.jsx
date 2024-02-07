@@ -19,7 +19,9 @@ import KakaoRedirectPage from "./pages/sign-in/KakaoRedirectPage";
 import MyCoffeeChat from "./pages/MyCoffeeChat";
 import SignupFail from "./pages/info/SignupFail";
 
-const access = localStorage.getItem("isLoggedInState");
+// const access = localStorage.getItem("isLoggedInState");
+
+const access = localStorage.getItem("isLoggedInState") === "true";
 
 console.log("!!로긴 유무", access);
 
@@ -28,16 +30,14 @@ function App() {
   //   localStorage.getItem("isLoggedInState") === "true"
   // );
 
-  // const isLoggedIn = localStorage.getItem("isLoggedInState") === "true";
+  const PrivateRoute = ({ authenticated, component: Component }) => {
+    console.log("확인", authenticated);
+    console.log("무가", Component);
 
-  const PrivateRoute = ({ element }) => {
-    return access ? (
-      element
+    return authenticated ? (
+      Component
     ) : (
-      <Navigate
-        to="/signin"
-        // state={{ alert: "접근할 수 없는 페이지입니다." }}
-      />
+      <Navigate to="/" {...alert("접근할 수 없는 페이지입니다.")} />
     );
   };
   return (
