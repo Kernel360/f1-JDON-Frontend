@@ -202,6 +202,7 @@ export default function MyPage() {
         const faqData = await getFAQ();
 
         setMemberInfo(memberData.data.response.status);
+        console.log("!!!1ddd", memberData.data.response.status);
         setFAQ(faqData.faqList || []);
         console.log("memberData", memberData.data.nickname);
         console.log("faq", faqData.faqList);

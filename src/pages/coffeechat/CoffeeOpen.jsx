@@ -12,10 +12,12 @@ import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
 import { useState } from "react";
 import { registerCoffeeChat } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { theme } from "../../styles/themeMuiStyle";
 
 function Coffeeopen() {
   const [value, setValue] = useState([]);
   const navigate = useNavigate();
+
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
   };
@@ -133,6 +135,7 @@ function Coffeeopen() {
               placeholder="커피챗 내용을 입력해주세요"
               label="상세 내용"
               value={value.content}
+              isMultiline={true}
               onChange={(e) => {
                 handleInputChange("content", e.target.value);
               }}
@@ -151,11 +154,12 @@ function Coffeeopen() {
                     placeholder="숫자만 입력해주세요"
                     label="총 모집 인원"
                     type="number"
-                    value={value.totalRecruitCount}
+                    value={value.totalRecruitCount && value.totalRecruitCount}
                     onChange={(e) => {
+                      const newValue = e.target.value;
                       handleInputChange(
                         "totalRecruitCount",
-                        Number(e.target.value)
+                        newValue ? parseInt(newValue, 10) : ""
                       );
                     }}
                   />
@@ -164,12 +168,11 @@ function Coffeeopen() {
                 <Grid item xs={5.6}>
                   <NewDayPicker
                     label="일시"
-                    isMeetDay={true}
                     daytime={true}
                     value={value.meetDate}
                     onChange={(newValue) => {
                       formatDateTime(newValue);
-                      console.log("바로확인", newValue);
+                      // console.log("바로확인", newValue);
                     }}
                   />
                 </Grid>
@@ -191,13 +194,23 @@ function Coffeeopen() {
                 width: "100%",
                 p: "13px",
                 borderRadius: "999px",
-                background: "#6482FF",
-                color: "#ffffff",
+                background:
+                  value.title &&
+                  value.content &&
+                  value.openChatUrl &&
+                  value.meetDate &&
+                  value.totalRecruitCount
+                    ? theme.palette.primary.main
+                    : "#EBEBEB",
+                color:
+                  value.title &&
+                  value.content &&
+                  value.openChatUrl &&
+                  value.meetDate &&
+                  value.totalRecruitCount
+                    ? "white"
+                    : "#BCBCC4",
                 fontSize: "16px",
-                "&:hover": {
-                  color: "#ffffff",
-                  backgroundColor: "#6482FF", // 클릭(마우스 오버) 시 배경색 변경
-                },
               }}
             >
               등록하기
