@@ -188,7 +188,7 @@ export const getFAQ = async () => {
   try {
     // console.log("FAQ");
     const res = await instance.get(`/api/v1/faqs`);
-    return res.data.data;
+    return res;
   } catch (error) {
     console.error("getFAQ API 통신에러", error);
     throw error;
@@ -246,7 +246,7 @@ export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
     const res = await instance.get(
       `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`
     );
-    return res.data.data;
+    return res;
   } catch (error) {
     console.error("getCoffeeChat API", error);
     throw error;
