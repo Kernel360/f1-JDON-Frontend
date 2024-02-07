@@ -48,7 +48,7 @@ export function Coffee() {
       handleConfirm();
       return;
     } else {
-      navigate("./coffee-open");
+      navigate("./coffeechat-open");
     }
   };
 
