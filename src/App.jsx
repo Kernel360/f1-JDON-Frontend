@@ -31,7 +31,7 @@ function App() {
   // const isLoggedIn = localStorage.getItem("isLoggedInState") === "true";
 
   const PrivateRoute = ({ element }) => {
-    return access ? (
+    return access === "true" ? (
       element
     ) : (
       <Navigate
