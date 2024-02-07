@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
-import Header from "../components/common/Header";
+import Header from "../../components/common/Header";
 import { Box, Button, Container, Grid, Link, CssBaseline } from "@mui/material";
-import SwipJobSkill from "../components/common/swipe/SwipJobSkill";
-import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnStyles";
-import NewInput from "../components/common/new-input/NewInput";
+import SwipJobSkill from "../../components/common/swipe/SwipJobSkill";
+import { buttonStyle } from "../../components/common/navigation-btn/NavigationBtnStyles";
+import NewInput from "../../components/common/new-input/NewInput";
 import { useRecoilState } from "recoil";
-import { userInfo, jobIdState, selectedJobSkillState } from "../recoil/atoms";
+import {
+  userInfo,
+  jobIdState,
+  selectedJobSkillState,
+} from "../../recoil/atoms";
 import {
   checkNicknameDuplicate,
   getJobCategory,
   getMemberInfo,
   updateMemberInfo,
-} from "../api/api";
-import NewDayPicker from "../components/common/new-daypicker/NewDayPicker";
-import { OptionButton, infoBasicStyles } from "./info/InfoStyles";
-import TotalInputForm from "../components/common/total-input-form/TotalInputForm";
+} from "../../api/api";
+import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
+import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
+import { OptionButton, infoBasicStyles } from "../info/InfoStyles";
+// import {
+//   checkNicknameDuplicate,
+//   getJobCategory,
+//   getMemberInfo,
+//   updateMemberInfo,
+// } from "../api/api";
+// import NewDayPicker from "../components/common/new-daypicker/NewDayPicker";
+// import { OptionButton, infoBasicStyles } from "./info/InfoStyles";
+// import TotalInputForm from "../components/common/total-input-form/TotalInputForm";
 
 const GENDERS = ["남성", "여성"];
 
@@ -27,8 +40,6 @@ export default function InfoEdit() {
     selectedJobSkillState
   );
   const [helperText, setHelperText] = useState("");
-  // const [value, setValue] = useRecoilState(userInfo);
-  // const [nick, setNick] = useState("");
   const [validation, setValidation] = useState(true);
 
   const [memberInfo, setMemberInfo] = useState({});
