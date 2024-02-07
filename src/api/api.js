@@ -6,6 +6,7 @@ const instance = axios.create({
   headers: {
     "Content-Type": "application/json",
     // 기타 필요한 헤더 설정(JWT토큰)
+    Origin: "https://jdon.kr",
   },
 });
 
