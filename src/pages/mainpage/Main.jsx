@@ -12,6 +12,7 @@ import VideoSection from "./VideoSection";
 import {
   getHotSkills,
   getLectureByKeyword,
+  getMemberInfo,
   getMemberSkills,
 } from "../../api/api";
 import { useNavigate } from "react-router-dom";
@@ -136,6 +137,17 @@ export function Main() {
         console.error("Error fetching data by keyword:", error);
       }
     };
+    const fetchData = async () => {
+      try {
+        const memberData = await getMemberInfo();
+        localStorage.setItem("user", JSON.stringify(memberData.data));
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+        }
+        console.error("faq 에러", error);
+      }
+    };
+    fetchData();
     fetchLectureData22();
   }, []);
 

@@ -11,7 +11,7 @@ function CoffeeChatCard({ data }) {
   //  console.log(data);
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`./${data.coffeeChatId}`);
+    navigate(`/coffee/${data.coffeeChatId}`);
   };
   return (
     <Paper

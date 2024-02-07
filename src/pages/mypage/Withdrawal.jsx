@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Header from "../components/common/Header";
-import InputField from "../components/common/InputField";
-import { Box, Button, Container } from "@mui/material";
-import { buttonStyle } from "../components/common/navigation-btn/NavigationBtnStyles";
+import Header from "../../components/common/Header";
+import InputField from "../../components/common/InputField";
+import { Button, Container } from "@mui/material";
+import { buttonStyle } from "../../components/common/navigation-btn/NavigationBtnStyles";
 import { useNavigate } from "react-router-dom";
-import { deleteMember } from "../api/api";
+import { deleteMember } from "../../api/api";
 
 // 이메일 유효성 검사 함수
 const isValidEmail = (email) => {

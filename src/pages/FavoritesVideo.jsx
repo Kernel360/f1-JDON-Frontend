@@ -10,7 +10,7 @@ import Pagenation from "../components/common/Pagenation";
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState({});
 
   console.log("datas", datas);
@@ -18,10 +18,10 @@ export default function FavoritesVideo() {
     const fetchData = async () => {
       try {
         const res = await getFavoritVideo();
-        setDatas(res.content);
-        setPage(res.pageInfo);
-        console.log("찜 확인", res.data);
-        console.log("datas", datas);
+        setDatas(res.data.content);
+        setPage(res.data.pageInfo);
+        // console.log("찜 확인11", res);
+        // console.log("datas", datas);
       } catch (error) {
         console.error("getFavoritVideo API 에러", error);
       }

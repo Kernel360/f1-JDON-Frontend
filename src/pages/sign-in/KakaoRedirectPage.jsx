@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userInfo } from "../../recoil/atoms";
 import { useRecoilState } from "recoil";
-import axios from "axios";
 
 const KakaoRedirectPage = () => {
-  console.log(2222);
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = useRecoilState(userInfo);

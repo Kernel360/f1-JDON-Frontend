@@ -173,7 +173,7 @@ export const postFavoritVideo = async (data) => {
 export const getFavoritVideo = async () => {
   try {
     const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
-    console.log("getFavoritVideo api 파일", res.data);
+    console.log("getFavoritVideo api 파일", res);
     return res.data;
   } catch (error) {
     console.error("getFavoritVideo API", error);
@@ -280,9 +280,40 @@ export async function registerCoffeeChat(coffeeChat) {
 }
 
 //커피챗 수정
+export async function updateCoffeechat(id) {
+  try {
+    const res = await instance.put(`/api/v1/coffeechats/${id}`);
+    console.log("getMemberInfo API", res);
+    return res.data;
+  } catch (error) {
+    console.log("getMemberInfo API error", error);
+    throw error;
+  }
+}
 
 //커피챗 삭제
+export async function deleteCoffeechat(id) {
+  try {
+    // console.log(nickName);
+    const res = await instance.delete(`/api/v1/coffeechats/${id}`);
+    console.log("deleteCoffeechat API", res);
+    return res.data;
+  } catch (error) {
+    console.log("deleteCoffeechat API error", error);
+    throw error;
+  }
+}
 
 //커피챗 신청
+export async function applyCoffeechat(id) {
+  try {
+    const res = await instance.post(`/api/v1/coffeechats/${id}`);
+    console.log("applyCoffeechat API", res);
+    return res.data;
+  } catch (error) {
+    console.log("applyCoffeechat API error", error);
+    throw error;
+  }
+}
 
 // -------------------------------------------- faq

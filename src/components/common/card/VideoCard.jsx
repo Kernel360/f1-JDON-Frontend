@@ -11,8 +11,10 @@ import "./../../../styles/animations.scss";
 import { postFavoritVideo } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
-function VideoCard({ data }) {
-  const [isLiked, setIsLiked] = useState(data.isFavortie || false);
+function VideoCard({ data, myFavorite }) {
+  const [isLiked, setIsLiked] = useState(
+    myFavorite ? true : data.isFavortie || false
+  );
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(
     localStorage.getItem("isLoggedInState")
