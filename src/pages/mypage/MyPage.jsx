@@ -201,10 +201,10 @@ export default function MyPage() {
         console.log(memberData.data);
         const faqData = await getFAQ();
         setMemberInfo(memberData.data);
-        console.log("!!!1ddd", memberData.data.response.status);
+        // console.log("!!!1ddd", memberData.data.response.status);
+        // console.log("faq", faqData);
         setFAQ(faqData.faqList || []);
-        console.log("memberData", memberData.data.nickname);
-        console.log("faq", faqData.faqList);
+        // console.log("memberData", memberData.data.nickname);
       } catch (error) {
         if (error.response && error.response.status === 401) {
           // alert("접근할 수 없는 페이지 입니다.");

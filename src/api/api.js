@@ -188,7 +188,7 @@ export const getFAQ = async () => {
   try {
     // console.log("FAQ");
     const res = await instance.get(`/api/v1/faqs`);
-    return res;
+    return res.data.data;
   } catch (error) {
     console.error("getFAQ API 통신에러", error);
     throw error;
