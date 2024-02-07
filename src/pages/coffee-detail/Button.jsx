@@ -3,10 +3,14 @@ import { buttonStyles } from "./ButtonStyle";
 import ShareIcon from "@mui/icons-material/Share";
 import NewBtn from "../../components/common/new-btn/NewBtn";
 import { theme } from "../../styles/themeMuiStyle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { updateCoffeechat } from "../../api/api";
 
 function Buttons({ host }) {
+  const params = useParams();
   const navigate = useNavigate();
+
   const handleConfirm = () => {
     if (
       window.confirm("신청이 완료되었어요! 커피챗 신청 내역을 확인해보실래요?")
@@ -32,6 +36,24 @@ function Buttons({ host }) {
       });
   };
 
+  // const handleSaveChanges = async () => {
+  //   let data = {
+  //     nickname,
+  //     birth: birthday,
+  //     gender,
+  //     jobCategoryId: jobId,
+  //     skillList: selectedJobSkill,
+  //   };
+  //   try {
+  //     const res = await updateCoffeechat(params.id, data);
+  //     if (res) {
+  //       console.log("정보수정 성공! 수정 데이터: ", res);
+  //     }
+  //   } catch (error) {
+  //     console.error("회원 정보 업데이트 에러", error);
+  //   }
+  // };
+
   return (
     <Box sx={buttonStyles.Container}>
       <Grid container spacing={3}>
@@ -52,6 +74,7 @@ function Buttons({ host }) {
                   background: theme.palette.primary.main,
                   color: "white",
                 }}
+                onClick={() => {}}
               ></NewBtn>
               <NewBtn
                 type="submit"
