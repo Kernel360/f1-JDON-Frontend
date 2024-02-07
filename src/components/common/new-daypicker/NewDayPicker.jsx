@@ -22,14 +22,13 @@ const validateDate = (newDate) => {
   const regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
   return regex.test(newDate);
 };
-function DateTimePickerComponent({ value, onChange }) {
+function DateTimePickerComponent({ value, onChange, style }) {
   const now = new Date();
   return (
     <DateTimePicker
       value={validateDate(value) || null}
-      inputFormat="yyyy-MM-dd HH:mm"
       defaultValue={new Date()}
-      sx={datePicker(value)}
+      sx={{ ...datePicker(value), ...style }}
       onChange={(newDate) => {
         onChange(newDate);
       }}
@@ -39,12 +38,12 @@ function DateTimePickerComponent({ value, onChange }) {
   );
 }
 
-function DatePickerComponent({ value, onChange, isMeetDay }) {
+function DatePickerComponent({ value, onChange, isMeetDay, style }) {
   return (
     <DatePicker
       value={value}
       inputFormat="yyyy-MM-dd"
-      sx={datePicker(value)}
+      sx={{ ...datePicker(value), ...style }}
       onChange={(newDate) => {
         onChange(newDate);
       }}

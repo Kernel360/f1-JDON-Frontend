@@ -1,6 +1,5 @@
 import { Box, Button, Grid } from "@mui/material";
 import { buttonStyles } from "./ButtonStyle";
-import share from "../../assets/icons/btn_share.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import NewBtn from "../../components/common/new-btn/NewBtn";
 import { theme } from "../../styles/themeMuiStyle";
@@ -19,6 +18,20 @@ function Buttons({ host }) {
       console.log("User clicked cancel.");
     }
   };
+
+  const copyUrlToClipboard = () => {
+    const url = window.location.href;
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        alert("URL이 클립보드에 복사되었습니다.");
+      })
+      .catch((err) => {
+        console.error("URL 복사에 실패했습니다.", err);
+      });
+  };
+
   return (
     <Box sx={buttonStyles.Container}>
       <Grid container spacing={3}>
@@ -64,7 +77,12 @@ function Buttons({ host }) {
           )}
         </Grid>
         <Grid item xs={3} sm={3}>
-          <Button type="submit" fullWidth sx={buttonStyles.ShareButton}>
+          <Button
+            type="submit"
+            fullWidth
+            sx={buttonStyles.ShareButton}
+            onClick={copyUrlToClipboard}
+          >
             <ShareIcon sx={{ color: theme.palette.primary.main }} />
           </Button>
         </Grid>

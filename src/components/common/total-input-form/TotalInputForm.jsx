@@ -7,6 +7,8 @@ function TotalInputForm({ value, label, valid, helperText, children }) {
       style={{
         position: "relative",
         padding: "4px 0 16px",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <FormLabel sx={{ fontSize: "14px", fontWeight: 500 }}>{label}</FormLabel>

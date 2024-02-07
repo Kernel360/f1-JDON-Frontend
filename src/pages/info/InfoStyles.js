@@ -83,10 +83,17 @@ export const datePicker = (birthday) => ({
       : theme.palette.primary.gray500,
   },
   "& .MuiOutlinedInput-root": {
-    border: "none",
+    color: birthday
+      ? theme.palette.primary.main
+      : theme.palette.primary.gray500,
+    "&::placeholder": {
+      // 이 부분은 작동하지 않을 것입니다. 아래 renderInput에서 수정을 해야 합니다.
+      color: theme.palette.primary.gray500,
+    },
   },
   "& .MuiOutlinedInput-notchedOutline": {
     border: "none",
+    color: "none",
   },
 });
 
