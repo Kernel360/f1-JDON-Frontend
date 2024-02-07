@@ -5,7 +5,7 @@ const instance = axios.create({
   baseURL: apiUrl,
   headers: {
     "Content-Type": "application/json",
-    Origin: "https://jdon.kr",
+    // Origin: "https://jdon.kr",
 
     // 기타 필요한 헤더 설정(JWT토큰)
     Origin: "https://jdon.kr",

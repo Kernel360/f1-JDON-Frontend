@@ -9,7 +9,7 @@ import { MainStyles } from "./PageStyles";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState({});
   const [coffeeDatas, setCoffeeDatas] = useState([]);
 
