@@ -220,9 +220,9 @@ export default function MyPage() {
   const handleLogout = async () => {
     try {
       localStorage.setItem("isLoggedInState", "false");
+      navigate("/");
       const res = await logoutMember();
       // console.log(res);
-      navigate("/");
 
       // if (res === 302) {
 
