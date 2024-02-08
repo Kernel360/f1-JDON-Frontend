@@ -12,9 +12,8 @@ import { postFavoritVideo } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
 function VideoCard({ data, myFavorite }) {
-  const [isLiked, setIsLiked] = useState(
-    myFavorite ? true : data.isFavortie || false
-  );
+  const [isLiked, setIsLiked] = useState(myFavorite ? true : data.isFavortie);
+  console.log(data);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(
     localStorage.getItem("isLoggedInState")
