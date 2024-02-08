@@ -17,9 +17,9 @@ import InfoEdit from "./pages/mypage/InfoEdit";
 import MyPage from "./pages/mypage/MyPage";
 import { Main } from "./pages/mainpage/Main";
 import Withdrawal from "./pages/mypage/Withdrawal";
+
 import React, { useState, useEffect } from "react";
 
-import React from "react";
 // import Test from "./../Test";
 
 const access = localStorage.getItem("isLoggedInState");
@@ -27,7 +27,6 @@ const access = localStorage.getItem("isLoggedInState");
 console.log("!!로긴 유무", access);
 
 function App() {
-  //JSESSIONID;
   const [access, setAccess] = useState(
     localStorage.getItem("isLoggedInState") === "true"
   );
