@@ -17,11 +17,11 @@ import {
 } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../styles/themeMuiStyle";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 
 export function Main() {
-  const [cookies, setCookies, removeCookies] = useCookies(["JSESSIONID"]);
-  console.log(cookies.JSESSIONID);
+  // const [cookies, setCookies, removeCookies] = useCookies(["JSESSIONID"]);
+  // console.log(cookies.JSESSIONID);
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
