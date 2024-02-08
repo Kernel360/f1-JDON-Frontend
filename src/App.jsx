@@ -19,11 +19,15 @@ import { Main } from "./pages/mainpage/Main";
 import Withdrawal from "./pages/mypage/Withdrawal";
 import React, { useState, useEffect } from "react";
 
-const access = localStorage.getItem("isLoggedInState") === "true";
+import React from "react";
+// import Test from "./../Test";
+
+const access = localStorage.getItem("isLoggedInState");
 
 console.log("!!로긴 유무", access);
 
 function App() {
+  //JSESSIONID;
   const [access, setAccess] = useState(
     localStorage.getItem("isLoggedInState") === "true"
   );
@@ -53,6 +57,7 @@ function App() {
               <Routes>
                 {/* 로그인이 필요하지 않은 페이지 */}
                 <Route exact path="/" element={<Main />} />
+                {/* <Route exact path="/test" element={<Test />} /> */}
                 <Route exact path="/signin" element={<SignIn />} />
                 <Route exact path="/info" element={<Info />} />
                 <Route exact path="/coffee" element={<Coffee />} />

@@ -5,14 +5,26 @@ const instance = axios.create({
   baseURL: apiUrl,
   headers: {
     "Content-Type": "application/json",
-    // Origin: "https://jdon.kr",
 
-    // 기타 필요한 헤더 설정(JWT토큰)
-    Origin: "https://jdon.kr",
+    "Access-Control-Allow-Origin": "*",
+
   },
 });
 
 // -------------------------------------------- member
+//최종 회원 정보 등록
+export async function Outh() {
+  try {
+    const res = await instance.get("/oauth2/authorization/kakao", {
+      withCredentials: true,
+    });
+    console.log("Outh API", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("Outh API error", error);
+    throw error;
+  }
+}
 //최종 회원 정보 등록
 export async function registerUserInfo(userInfo) {
   try {
