@@ -29,6 +29,18 @@ function VideoCard({ data, myFavorite }) {
     }
   };
 
+  const fetchVideoData = async () => {
+    try {
+      const vedioData = {
+        lectureId: data.lectureId,
+        isFavorite: isLiked,
+      };
+      await postFavoritVideo(vedioData);
+    } catch (error) {
+      console.error("viedoCard파일 postFavoritVideo 통신에러", error);
+    }
+  };
+
   const handleLikeClick = async (e) => {
     e.stopPropagation();
 
@@ -36,6 +48,7 @@ function VideoCard({ data, myFavorite }) {
       handleConfirm();
       return;
     } else {
+      fetchVideoData();
       setIsLiked(!isLiked);
     }
   };
@@ -48,17 +61,6 @@ function VideoCard({ data, myFavorite }) {
 
   useEffect(() => {
     if (isLiked && data.lectureId) {
-      const fetchVideoData = async () => {
-        try {
-          const vedioData = {
-            lectureId: data.lectureId,
-            isFavorite: isLiked,
-          };
-          await postFavoritVideo(vedioData);
-        } catch (error) {
-          console.error("viedoCard파일 postFavoritVideo 통신에러", error);
-        }
-      };
       fetchVideoData();
     }
   }, [isLiked, data.lectureId]);
