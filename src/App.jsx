@@ -17,15 +17,25 @@ import InfoEdit from "./pages/mypage/InfoEdit";
 import MyPage from "./pages/mypage/MyPage";
 import { Main } from "./pages/mainpage/Main";
 import Withdrawal from "./pages/mypage/Withdrawal";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const access = localStorage.getItem("isLoggedInState") === "true";
 
 console.log("!!로긴 유무", access);
 
 function App() {
+  const [access, setAccess] = useState(
+    localStorage.getItem("isLoggedInState") === "true"
+  );
+
+  // 매번 localStorage를 감시하고, 값이 변경되면 상태를 업데이트
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedInState") === "true";
+    setAccess(isLoggedIn);
+  }, [access]); // access 값이 변경될 때마다 실행
+
   const PrivateRoute = ({ authenticated, component: Component }) => {
-    // console.log("확인", authenticated);
+    console.log("확인", authenticated);
     // console.log("무가", Component);
 
     return authenticated ? (
