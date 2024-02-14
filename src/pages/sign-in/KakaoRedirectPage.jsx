@@ -12,6 +12,12 @@ const KakaoRedirectPage = () => {
     localStorage.setItem("isLoggedInState", false);
     const searchParams = new URLSearchParams(location.search);
     console.log(searchParams);
+    const errorMessage = searchParams.get("error_message");
+
+    // 에러 메시지가 있으면 알림
+    if (errorMessage) {
+      alert(errorMessage);
+    }
     const value = searchParams.get("value");
     const hmac = searchParams.get("hmac");
     const code = searchParams.get("code");
