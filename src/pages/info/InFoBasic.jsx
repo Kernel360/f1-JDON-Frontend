@@ -27,7 +27,6 @@ import { AGREE_DATA } from "./agreeData";
 function InFoBasic({ onChange, agree, setAgree }) {
   const [helperText, setHelperText] = useState("");
   const [value, setValue] = useRecoilState(userInfo);
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [currentDialog, setCurrentDialog] = useState(null);
 
   const [nick, setNick] = useState(""); //중간 밸류를 생성
@@ -35,7 +34,6 @@ function InFoBasic({ onChange, agree, setAgree }) {
 
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
-    //onChange({ [field]: newValue });
   };
 
   const handleAgreeChange = (event) => {
@@ -62,7 +60,6 @@ function InFoBasic({ onChange, agree, setAgree }) {
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
           setHelperText("이미 존재하는 닉네임입니다");
-          //setNick("");
         } else {
           setValidation(false);
           setHelperText("오류가 발생했습니다");

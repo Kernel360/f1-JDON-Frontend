@@ -13,12 +13,10 @@ import {
 import TotalInputForm from "../total-input-form/TotalInputForm";
 
 const isDateString = (value) => {
-  console.log("[날짜 x]New Date:", value);
   const regex = /^\d{4}-\d{2}-\d{2}$/;
   return regex.test(value);
 };
 const validateDate = (newDate) => {
-  console.log("New Date:", newDate);
   const regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
   return regex.test(newDate);
 };
@@ -30,7 +28,10 @@ function DateTimePickerComponent({ value, onChange, style }) {
       defaultValue={new Date()}
       sx={{ ...datePicker(value), ...style }}
       onChange={(newDate) => {
-        onChange(newDate);
+        console.log(now);
+        if (newDate >= now) {
+          onChange(newDate);
+        }
       }}
       renderInput={(params) => <TextField {...params} />}
       minDateTime={now}
@@ -54,8 +55,15 @@ function DatePickerComponent({ value, onChange, isMeetDay, style }) {
 }
 
 function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
+  const now = new Date();
   const handleDateChange = (newDate) => {
     onChange(newDate);
+  };
+  const handleDateTimeChange = (newDate) => {
+    console.log(now);
+    if (newDate >= now) {
+      onChange(newDate);
+    }
   };
 
   return (
@@ -68,7 +76,7 @@ function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
           {daytime ? (
             <DateTimePickerComponent
               value={validateDate(value) || new Date(value) || value}
-              onChange={handleDateChange}
+              onChange={handleDateTimeChange}
             />
           ) : (
             <DatePickerComponent

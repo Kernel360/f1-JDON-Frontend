@@ -29,4 +29,12 @@ export const buttonStyles = {
     border: "1px solid #6482FF",
     fontSize: "16px",
   },
+
+  UpTitle: {
+    px: "6px",
+    paddingTop: "20px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 };

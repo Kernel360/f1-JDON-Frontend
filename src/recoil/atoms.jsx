@@ -13,7 +13,7 @@ export const userInfo = atom({
     nickname: "",
     birth: "",
     gender: "",
-    jobCategoryId: "",
+    jobCategoryId: null,
     skillList: [],
   },
 });
