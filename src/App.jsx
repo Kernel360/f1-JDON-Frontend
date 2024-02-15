@@ -9,7 +9,6 @@ import { Coffee } from "./pages/coffeechat/Coffee";
 import { theme } from "./styles/themeMuiStyle";
 import CoffeeDetail from "./pages/coffee-detail/CoffeeDetail";
 import Coffeeopen from "./pages/coffeechat/CoffeeOpen";
-import KakaoRedirectPage from "./pages/sign-in/KakaoRedirectPage";
 import SignupFail from "./pages/info/SignupFail";
 import MyCoffeeChat from "./pages/mypage/MyCoffeeChat";
 import FavoritesVideo from "./pages/mypage/FavoritesVideo";
@@ -17,8 +16,8 @@ import InfoEdit from "./pages/mypage/InfoEdit";
 import MyPage from "./pages/mypage/MyPage";
 import { Main } from "./pages/mainpage/Main";
 import Withdrawal from "./pages/mypage/Withdrawal";
-
 import React, { useState, useEffect } from "react";
+import RedirectPage from "./pages/sign-in/RedirectPage";
 
 // import Test from "./../Test";
 
@@ -62,11 +61,8 @@ function App() {
                 <Route exact path="/coffee" element={<Coffee />} />
                 <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
                 <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
-                <Route path="/oauth/info" element={<KakaoRedirectPage />} />
-                <Route
-                  path="/oauth/login/success"
-                  element={<KakaoRedirectPage />}
-                />
+                <Route path="/oauth/info" element={<RedirectPage />} />
+                <Route path="/oauth/login/success" element={<RedirectPage />} />
                 <Route path="/fail" element={<SignupFail />} />
 
                 {/* 로그인이 필요한 페이지 */}
