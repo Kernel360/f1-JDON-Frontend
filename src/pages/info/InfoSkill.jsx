@@ -45,7 +45,7 @@ function InfoSkill({ onChange }) {
       }
     };
     fetchSkill();
-  });
+  }, [value.jobCategoryId]);
 
   return (
     <>

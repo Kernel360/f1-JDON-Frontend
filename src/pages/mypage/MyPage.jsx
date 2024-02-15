@@ -109,6 +109,7 @@ export default function MyPage() {
   const navigate = useNavigate();
 
   const [memberInfo, setMemberInfo] = useState({});
+
   const [FAQ, setFAQ] = useState([]);
   const noticeLists = [
     {
@@ -219,13 +220,12 @@ export default function MyPage() {
 
   const handleLogout = async () => {
     try {
-      localStorage.setItem("isLoggedInState", "false");
-      navigate("/");
       const res = await logoutMember();
-      // console.log(res);
+      console.log(res);
 
       // if (res === 302) {
-
+      localStorage.setItem("isLoggedInState", "false");
+      navigate("/");
       // }
     } catch (error) {
       console.error("로그아웃 에러", error);

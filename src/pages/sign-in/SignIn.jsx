@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { SignInStyle } from "../PageStyles";
 import TitleLogo from "./TitleLogo";
-import { KaKaoLoginButton } from "./KakaoLoginBtn";
-import { GitHubLoginButton } from "./GithubLoginBtn";
+import kakao from "../../assets/images/kakao.svg";
+import git from "../../assets/images/github.svg";
+import { LoginBtn } from "./LoginBtn";
 
 export default function SignIn() {
   return (
@@ -15,8 +16,18 @@ export default function SignIn() {
         <Box textAlign="center" width="100%">
           <TitleLogo />
           <Box sx={SignInStyle.BtnContainer}>
-            <KaKaoLoginButton></KaKaoLoginButton>
-            <GitHubLoginButton></GitHubLoginButton>
+            <LoginBtn
+              title="카카오톡 로그인"
+              color="#191919"
+              social="kakao"
+              logo={kakao}
+            />
+            <LoginBtn
+              title="깃허브 로그인"
+              color="white"
+              social="github"
+              logo={git}
+            />
           </Box>
         </Box>
       </Box>
