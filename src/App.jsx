@@ -1,6 +1,7 @@
 import { RecoilRoot } from "recoil";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
+import { Helmet } from "react-helmet";
 import SignIn from "./pages/sign-in/SignIn";
 import Info from "./pages/info/InFo";
 import { Layout } from "./components/layout/Layout";
@@ -119,6 +120,14 @@ function App() {
                 />
               </Routes>
             </React.Fragment>
+            <Helmet>
+              <title>JDON</title>
+              <meta
+                name="description"
+                content="최근 채용공고에 많이 언급된 직군별 기술스택에 맞는 영상을 추천 사이트"
+              />
+              <meta name="keywords" content="개발자, 채용, 커피챗" />
+            </Helmet>
           </Layout>
         </ThemeProvider>
       </BrowserRouter>

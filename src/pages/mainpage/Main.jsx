@@ -9,10 +9,12 @@ import StickyTabSection from "./StickyTabSection";
 import { fetchLectureData, fetchUserInfo } from "./apiFunction";
 
 export function Main() {
-  const [selectedChip, setSelectedChip] = useState({
-    keyword: "",
-    userSelected: false,
-  });
+
+  const [value, setValue] = useState("1");
+  const [hotSkills, setHotSkills] = useState([]);
+  const [memberSkills, setMemberSkills] = useState([]);
+  const [selectedChip, setSelectedChip] = useState({});
+  const [isSelected, setIsSeletected] = useState(false);
   const [lectureList, setLectureList] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [jdList, setJdList] = useState([]);
