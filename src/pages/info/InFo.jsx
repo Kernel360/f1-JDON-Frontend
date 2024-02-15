@@ -27,29 +27,25 @@ export default function Info() {
   };
 
   const handleNextBtn = () => {
-    const validateStep = () => {
-      if (step === 1 && !(data.nickname && data.birth && data.gender)) {
-        alert("값을 다 입력하세요");
-        return false;
-      }
-      if (step === 2 && !data.jobCategoryId) {
-        alert("직무를 선택해주세요");
-        return false;
-      }
-      if (step === 3 && data.skillList.length !== 3) {
-        alert("최소 3개 이상의 기술을 선택하세요");
-        return false;
-      }
-      return true;
-    };
-
-    if (validateStep()) {
-      setStep(step + 1);
+    if (step === 1 && !(data.nickname && data.birth && data.gender)) {
+      alert("값을 다 입력하세요");
+      return false;
     }
+    if (step === 2 && !data.jobCategoryId) {
+      alert("직무를 선택해주세요");
+      return false;
+    }
+    if (step === 3 && data.skillList.length !== 3) {
+      alert("최소 3개 이상의 기술을 선택하세요");
+      return false;
+    }
+    setStep(step + 1);
+    return true;
   };
 
   useEffect(() => {
     console.log(data);
+    console.log(step);
     if (step === 0) {
       navigate("/");
     }
@@ -71,16 +67,19 @@ export default function Info() {
   }, [step, data, navigate, setIsLogin]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    if (!data.encrypted) {
+      alert("이미 회원입니다");
+      navigate("/");
+    }
+    (async () => {
       try {
         const data = await getJobCategory();
         setJobCategory(data.jobGroupList[0].jobCategoryList);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }
-    };
-    fetchData();
-  }, []);
+    })();
+  }, [navigate, data.encrypted]);
 
   const renderStepComponent = () => {
     switch (step) {
@@ -142,7 +141,7 @@ export default function Info() {
 
   return (
     <div style={{ position: "relative" }}>
-      {step < 4 && <ProgressBar step={step}></ProgressBar>}
+      {step < 4 && <ProgressBar step={step} />}
       <Container maxWidth="sm">
         <CssBaseline />
         {step < 4 && (

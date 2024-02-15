@@ -36,7 +36,6 @@ const RedirectPage = () => {
     const handleLogin = async () => {
       try {
         const searchParams = new URLSearchParams(location.search);
-
         const value = searchParams.get("value");
         const hmac = searchParams.get("hmac");
         const code = searchParams.get("code");

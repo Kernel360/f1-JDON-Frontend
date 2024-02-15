@@ -150,16 +150,19 @@ function UpdateCoffeeForm() {
                     placeholder="숫자만 입력해주세요"
                     label="총 모집 인원"
                     type="number"
+                    min={0}
                     value={
                       coffeeChatData.totalRecruitCount &&
                       coffeeChatData.totalRecruitCount
                     }
                     onChange={(e) => {
                       const newValue = e.target.value;
-                      handleInputChange(
-                        "totalRecruitCount",
-                        newValue ? parseInt(newValue, 10) : ""
-                      );
+                      if (!isNaN(newValue) && parseInt(newValue, 10) >= 0) {
+                        handleInputChange(
+                          "totalRecruitCount",
+                          parseInt(newValue, 10)
+                        );
+                      }
                     }}
                   />
                 </Grid>

@@ -149,12 +149,11 @@ export async function getLectureByKeyword(keyword) {
 
 //직무 별 기술스택 조회하기
 export async function getSkillsOnJD(jobCategoryId) {
-  // console.log("api에서 확인중", jobCategoryId);
   try {
     const res = await instance.get(
       `/api/v1/skills/job-category/${jobCategoryId}`
     );
-    //  console.log("getSkillsOnJD API", res.data.data);
+
     return res.data.data;
   } catch (error) {
     console.error("getSkillsOnJD API error", error);
