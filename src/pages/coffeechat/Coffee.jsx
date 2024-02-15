@@ -9,7 +9,7 @@ import PaginationComponent from "../../components/common/Pagenation";
 
 export function Coffee() {
   const navigate = useNavigate();
-  const [login, setLogin] = useState(localStorage.getItem("isLoggedInState"));
+  const login = localStorage.getItem("isLoggedInState");
   const [coffeeData, setCoffeeData] = useState({
     content: [],
     pageInfo: {
@@ -62,7 +62,6 @@ export function Coffee() {
           sortData.jobCategory
         );
         setCoffeeData(data.data.data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching hot skills:", error);
       }

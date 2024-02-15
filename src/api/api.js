@@ -1,11 +1,10 @@
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
-const instance = axios.create({
+export const instance = axios.create({
   withCredentials: true,
   baseURL: apiUrl,
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
   },
 });
 
@@ -51,7 +50,6 @@ export async function checkNicknameDuplicate(nickName) {
 //회원정보 불러오기
 export async function getMemberInfo() {
   try {
-    // console.log(nickName);
     const res = await instance.get("/api/v1/member");
     console.log("getMemberInfo API", res);
     return res.data;
@@ -302,10 +300,10 @@ export async function updateCoffeechat(id, data) {
 }
 
 //커피챗 삭제
-export async function deleteCoffeechat(id) {
+export async function deleteCoffeechat(id, data) {
   try {
     // console.log(nickName);
-    const res = await instance.delete(`/api/v1/coffeechats/${id}`);
+    const res = await instance.delete(`/api/v1/coffeechats/${id}`, data);
     console.log("deleteCoffeechat API", res);
     return res.data;
   } catch (error) {
@@ -315,9 +313,13 @@ export async function deleteCoffeechat(id) {
 }
 
 //커피챗 신청
-export async function applyCoffeechat(id) {
+export async function applyCoffeechat(id, coffeeChatData) {
+  console.log(coffeeChatData);
   try {
-    const res = await instance.post(`/api/v1/coffeechats/${id}`);
+    const res = await instance.post(
+      `/api/v1/coffeechats/${id}`,
+      coffeeChatData
+    );
     console.log("applyCoffeechat API", res);
     return res.data;
   } catch (error) {

@@ -5,72 +5,55 @@ import { Box } from "@mui/material";
 import heart from "../../../assets/icons/heart.svg";
 import heartFilled from "../../../assets/icons/heart_filled.svg";
 import person from "../../../assets/icons/person.svg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { VideoCardStyle } from "./CardStyle";
 import "./../../../styles/animations.scss";
 import { postFavoritVideo } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
-function VideoCard({ data, myFavorite }) {
-  const [isLiked, setIsLiked] = useState(myFavorite ? true : data.isFavortie);
-  console.log(data);
-  const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("isLoggedInState")
+function VideoCard({ data, onSuccess, myFavorite, onError }) {
+  const [isFavorite, setIsFavorite] = useState(
+    myFavorite ? true : data.isFavorite
   );
+  // 로그인 상태 확인
+  const isLogin = localStorage.getItem("isLoggedInState") === "true";
+  const navigate = useNavigate();
+  const toggleFavoriteStatus = async (e) => {
+    e.stopPropagation();
 
-  const handleConfirm = () => {
-    if (
-      window.confirm(
-        "[찜]은 로그인 후 이용하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
-      )
-    ) {
+    if (!isLogin) {
+      promptLogin();
+      return;
+    }
+    try {
+      const res = await postFavoritVideo({
+        lectureId: data.lectureId,
+        isFavorite: !isFavorite,
+      });
+      console.log(res);
+      setIsFavorite(!isFavorite);
+      if (onSuccess) onSuccess(isFavorite);
+    } catch (error) {
+      if (onError) onError(error);
+    }
+  };
+  const promptLogin = () => {
+    const confirmResult = window.confirm(
+      "[찜]은 로그인 후 이용할 수 있습니다. 로그인 페이지로 이동하시겠습니까?"
+    );
+    if (confirmResult) {
       navigate("/signin");
     }
   };
 
-  const handleLikeClick = async (e) => {
-    e.stopPropagation();
-
-    if (isLogin === "false") {
-      handleConfirm();
-      return;
-    } else {
-      setIsLiked(!isLiked);
-    }
-  };
-
-  useEffect(() => {
-    if (data.isFavortie !== undefined) {
-      setIsLiked(data.isFavortie);
-    }
-  }, [data.isFavortie]);
-
-  useEffect(() => {
-    if (isLiked && data.lectureId) {
-      const fetchVideoData = async () => {
-        try {
-          const vedioData = {
-            lectureId: data.lectureId,
-            isFavorite: isLiked,
-          };
-          await postFavoritVideo(vedioData);
-        } catch (error) {
-          console.error("viedoCard파일 postFavoritVideo 통신에러", error);
-        }
-      };
-      fetchVideoData();
-    }
-  }, [isLiked, data.lectureId]);
-
-  const handleCardClick = () => {
+  const goToLecture = () => {
     window.open(data.lectureUrl, "_blank");
   };
 
   return (
     <Box
       sx={{ my: 1, pointer: "cursor", position: "relative" }}
-      onClick={handleCardClick}
+      onClick={goToLecture}
     >
       <CardMedia
         component="img"
@@ -81,14 +64,14 @@ function VideoCard({ data, myFavorite }) {
         }}
       />
       <img
-        src={isLiked === true ? heartFilled : heart}
+        src={isFavorite ? heartFilled : heart}
         alt="heart"
-        onClick={handleLikeClick}
+        onClick={toggleFavoriteStatus}
         style={{
           position: "absolute",
           top: 6,
           right: 6,
-          animation: isLiked ? "pop 0.3s ease" : "none",
+          animation: data.isFavorite ? "pop 0.3s ease" : "none",
         }}
       />
       <Box sx={{ mt: 1 }}>

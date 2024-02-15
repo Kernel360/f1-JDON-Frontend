@@ -8,8 +8,8 @@ export const fetchUserInfo = async () => {
     return memberData;
   } catch (error) {
     if (error.response && error.response.status === 401) {
+      console.error("faq 에러", error);
     }
-    console.error("faq 에러", error);
   }
 };
 

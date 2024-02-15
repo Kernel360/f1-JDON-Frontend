@@ -18,6 +18,7 @@ import { Main } from "./pages/mainpage/Main";
 import Withdrawal from "./pages/mypage/Withdrawal";
 import React, { useState, useEffect } from "react";
 import RedirectPage from "./pages/sign-in/RedirectPage";
+import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
 
 // import Test from "./../Test";
 
@@ -60,6 +61,11 @@ function App() {
                 <Route exact path="/info" element={<Info />} />
                 <Route exact path="/coffee" element={<Coffee />} />
                 <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
+                <Route
+                  exact
+                  path="edit-coffee/:id"
+                  element={<UpdateCoffeeForm />}
+                />
                 <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
                 <Route path="/oauth/info" element={<RedirectPage />} />
                 <Route path="/oauth/login/success" element={<RedirectPage />} />
