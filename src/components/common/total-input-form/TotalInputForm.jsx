@@ -1,30 +1,32 @@
-import { FormLabel } from "@mui/material";
+import { Box, FormLabel, Typography } from "@mui/material";
 import { theme } from "../../../styles/themeMuiStyle";
+
+function HelperText({ value, valid, helperText }) {
+  return (
+    <Typography
+      position="absolute"
+      bottom={0}
+      left={2}
+      fontSize={12}
+      color={valid ? theme.palette.primary.main : "red"}
+    >
+      {value && helperText}
+    </Typography>
+  );
+}
 
 function TotalInputForm({ value, label, valid, helperText, children }) {
   return (
-    <div
-      style={{
-        position: "relative",
-        padding: "4px 0 16px",
-        display: "flex",
-        flexDirection: "column",
-      }}
+    <Box
+      position="relative"
+      p="4px 0 16px"
+      display="flex"
+      flexDirection="column"
     >
       <FormLabel sx={{ fontSize: "14px", fontWeight: 500 }}>{label}</FormLabel>
       {children}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "0px",
-          left: "2px",
-          fontSize: "12px",
-          color: valid ? theme.palette.primary.main : "red",
-        }}
-      >
-        {value && helperText}
-      </div>
-    </div>
+      <HelperText valid={valid} value={value} helperText={helperText} />
+    </Box>
   );
 }
 

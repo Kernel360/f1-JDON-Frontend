@@ -20,6 +20,7 @@ const validateDate = (newDate) => {
   const regex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
   return regex.test(newDate);
 };
+
 function DateTimePickerComponent({ value, onChange, style }) {
   const now = new Date();
   return (
@@ -39,7 +40,7 @@ function DateTimePickerComponent({ value, onChange, style }) {
   );
 }
 
-function DatePickerComponent({ value, onChange, isMeetDay, style }) {
+function DatePickerComponent({ value, onChange, style }) {
   return (
     <DatePicker
       value={value}
@@ -54,10 +55,14 @@ function DatePickerComponent({ value, onChange, isMeetDay, style }) {
   );
 }
 
-function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
+function NewDayPicker({ label, value, helperText, valid, daytime, onChange }) {
+  console.log(555555555, value, valid, helperText);
   const now = new Date();
+
   const handleDateChange = (newDate) => {
-    onChange(newDate);
+    if (newDate < now) {
+      onChange(newDate);
+    }
   };
   const handleDateTimeChange = (newDate) => {
     console.log(now);
@@ -67,7 +72,12 @@ function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
   };
 
   return (
-    <TotalInputForm value={value} label={label} valid={valid}>
+    <TotalInputForm
+      value={value}
+      label={label}
+      valid={valid}
+      helperText={helperText}
+    >
       <Grid container sx={datePickerContainer(value)}>
         <LocalizationProvider
           dateAdapter={AdapterDateFns}
@@ -82,7 +92,6 @@ function NewDayPicker({ label, value, valid, isMeetDay, daytime, onChange }) {
             <DatePickerComponent
               value={isDateString(value) ? new Date(value) : value}
               onChange={handleDateChange}
-              isMeetDay={isMeetDay}
             />
           )}
         </LocalizationProvider>

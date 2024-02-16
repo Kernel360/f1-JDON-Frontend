@@ -67,10 +67,10 @@ export default function Info() {
   }, [step, data, navigate, setIsLogin]);
 
   useEffect(() => {
-    if (!data.encrypted) {
-      alert("이미 회원입니다");
-      navigate("/");
-    }
+    // if (!data.encrypted) {
+    //   alert("이미 회원입니다");
+    //   navigate("/");
+    // }
     (async () => {
       try {
         const data = await getJobCategory();

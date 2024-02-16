@@ -23,6 +23,11 @@ export const jobIdState = atom({
   default: "",
 });
 
+export const kindOfJdState = atom({
+  key: "kindOfJdState",
+  default: [],
+});
+
 export const selectedJobSkillState = atom({
   key: "selectedJobSkillState",
   default: [],
