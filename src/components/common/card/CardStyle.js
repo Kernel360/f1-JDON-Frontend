@@ -10,11 +10,16 @@ export const BadgeStyle = (status) => ({
 export const jobStyle = (status) => ({
   width: "fit-content",
   background: "white",
-  border: status === "서버 개발자" ? "1px solid #FF814D" : "1px solid #20A51D",
+  border:
+    status === 2
+      ? "1px solid #FF814D"
+      : status === 3
+      ? "1px solid #20A51D"
+      : "1px solid #A449FF",
   borderRadius: "4px",
   padding: "3px 5px",
   fontSize: "10px",
-  color: status === "서버 개발자" ? "#FF814D" : "#20A51D",
+  color: status === 2 ? "#FF814D" : status === 3 ? "#20A51D" : " #A449FF",
   fontWeight: 600,
 });
 

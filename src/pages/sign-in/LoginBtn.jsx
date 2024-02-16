@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { BtnStyle } from "../PageStyles";
-import { Outh } from "../../api/api";
 
 export function LoginBtn({ social, color, title, logo }) {
   const handleLogin = () => {

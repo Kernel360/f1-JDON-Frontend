@@ -1,7 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import { jobStyle } from "../../components/common/card/CardStyle";
 import { buttonStyles } from "./ButtonStyle";
-import eye from "../../assets/icons/eye.svg";
+import eyeIcon from "../../assets/icons/eye.svg";
+import { useRecoilValue } from "recoil";
+import { kindOfJdState } from "../../recoil/atoms";
+
+const JobBadge = ({ job }) => {
+  const kindOfJd = useRecoilValue(kindOfJdState);
+  const jobNum = kindOfJd.find((jd) => jd.name === job)?.id;
+  return jobNum ? <Box sx={jobStyle(jobNum)}>{job}</Box> : null;
+};
 
 function HostInfoWithViewcount({ coffeeChatData }) {
   return (
@@ -12,9 +20,7 @@ function HostInfoWithViewcount({ coffeeChatData }) {
         >
           {coffeeChatData.nickname}
         </Typography>
-        {coffeeChatData.job && (
-          <div style={jobStyle(coffeeChatData.job)}>{coffeeChatData.job}</div>
-        )}
+        {coffeeChatData.job && <JobBadge job={coffeeChatData.job} />}
       </Box>
       <Typography
         sx={{
@@ -25,7 +31,7 @@ function HostInfoWithViewcount({ coffeeChatData }) {
           gap: "4px",
         }}
       >
-        <img src={eye} alt="조회수" />
+        <img src={eyeIcon} alt="조회수" />
         {coffeeChatData.viewCount}
       </Typography>
     </Box>

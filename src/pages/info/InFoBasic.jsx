@@ -24,8 +24,9 @@ import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 import { AGREE_DATA } from "./agreeData";
 
-function InFoBasic({ onChange, agree, setAgree }) {
+function InFoBasic({ agree, setAgree }) {
   const [helperText, setHelperText] = useState("");
+  const [dateHelperText, setDateHelperText] = useState("");
   const [value, setValue] = useRecoilState(userInfo);
   const [currentDialog, setCurrentDialog] = useState(null);
 
@@ -68,10 +69,6 @@ function InFoBasic({ onChange, agree, setAgree }) {
       }
     }
   };
-  useEffect(() => {
-    console.log(value);
-    console.log(agree);
-  }, [value, validtion, agree]);
 
   return (
     <>
@@ -101,7 +98,17 @@ function InFoBasic({ onChange, agree, setAgree }) {
         <NewDayPicker
           label="생일"
           value={value.birth}
-          onChange={(newDate) => handleInputChange("birth", newDate)}
+          valid={validtion}
+          helperText={dateHelperText}
+          onChange={(newDate) => {
+            const now = new Date();
+            if (newDate <= now) {
+              handleInputChange("birth", newDate);
+            } else {
+              setValidation(false);
+              setDateHelperText("현재시간보다 이후입니다");
+            }
+          }}
         />
         <TotalInputForm label="성별" value={value.gender} valid={validtion}>
           <Grid container sx={infoBasicStyles.genderBtnContainer}>

@@ -18,17 +18,14 @@ export default function FavoritesVideo() {
         const res = await getFavoritVideo();
         setDatas(res.data.content);
         setPage(res.data.pageInfo);
-        console.log("찜 확인", res.data);
-        console.log("datas", datas);
       } catch (error) {
         console.error("getFavoritVideo API 에러", error);
       }
     };
-    // 최초 렌더링 시에만 fetchData 호출
+
     if (!datas) {
       fetchData();
     }
-    // fetchData();
   }, [currentPage, datas]);
 
   const handlePageChange = (event, value) => {

@@ -6,13 +6,23 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { Box, Paper } from "@mui/material";
 import { BadgeStyle, jobStyle } from "./CardStyle";
 import { useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 
-function CoffeeChatCard({ data }) {
-  //  console.log(data);
+function CoffeeChatCard({ data, kindOfJd }) {
   const navigate = useNavigate();
+  const jobNum = useMemo(
+    () => kindOfJd.find((jd) => jd.name === data.job)?.id,
+    [kindOfJd, data.job]
+  );
+
   const handleClick = () => {
-    navigate(`/coffee/${data.coffeeChatId}`);
+    if (data.activeStatus !== "모집종료")
+      navigate(`/coffee/${data.coffeeChatId}`);
+    else alert("종료된 커피챗입니다");
   };
+  const formattedDate = data.meetDate.split(" ")[0].replace(/-/g, ".");
+  const formattedTime = data.meetDate.split(" ")[1];
+
   return (
     <Paper
       onClick={handleClick}
@@ -24,10 +34,10 @@ function CoffeeChatCard({ data }) {
         borderRadius: "8px",
         height: "220px",
         position: "relative",
-        opacity: data.activeStatus === "종료" ? 0.4 : 1,
-        transition: "transform 0.3s ease", // Add smooth transition
+        opacity: data.activeStatus === "모집종료" ? 0.4 : 1,
+        transition: "transform 0.3s ease",
         "&:hover": {
-          transform: "scale(1.03)", // Scale on hover
+          transform: "scale(1.03)",
         },
       }}
     >
@@ -41,7 +51,7 @@ function CoffeeChatCard({ data }) {
         }}
       >
         {data.job && (
-          <div color="#FF814D" style={jobStyle(data.job)}>
+          <div color="#FF814D" style={jobStyle(jobNum)}>
             {data.job}
           </div>
         )}
@@ -81,51 +91,40 @@ function CoffeeChatCard({ data }) {
             gap: "6px",
           }}
         >
-          <Box
-            sx={{
-              pb: "5px",
-              color: "#9A9AA1",
-              fontSize: "12px",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <CalendarMonthIcon sx={{ fontSize: "small", color: "#FF6565" }} />{" "}
-            {data.meetDate.split(" ")[0].replace(/-/g, ".")}
-          </Box>
-          <Box
-            sx={{
-              pb: "5px",
-              color: "#9A9AA1",
-              fontSize: "12px",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <AccessTimeFilledIcon
-              sx={{ fontSize: "small", color: "#52BF91" }}
-            />
-            {data.meetDate.split(" ")[1]}
-          </Box>
-          <Box
-            sx={{
-              pb: "5px",
-              color: "#9A9AA1",
-              fontSize: "12px",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <PeopleAltIcon sx={{ fontSize: "small", color: "#575757" }} />
-            {data.currentRecruitCount} / {data.totalRecruitCount}
-          </Box>
+          <DetailItem
+            Icon={CalendarMonthIcon}
+            text={formattedDate}
+            color="#FF6565"
+          />
+          <DetailItem
+            Icon={AccessTimeFilledIcon}
+            text={formattedTime}
+            color="#52BF91"
+          />
+          <DetailItem
+            Icon={PeopleAltIcon}
+            text={`${data.currentRecruitCount} / ${data.totalRecruitCount}`}
+            color="#575757"
+          />
         </Box>
       </Box>
     </Paper>
   );
 }
+
+const DetailItem = ({ Icon, text, color }) => (
+  <Box
+    sx={{
+      pb: "5px",
+      color: "#9A9AA1",
+      fontSize: "12px",
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+    }}
+  >
+    <Icon sx={{ fontSize: "small", color }} /> {text}
+  </Box>
+);
 
 export default CoffeeChatCard;
