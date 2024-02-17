@@ -6,6 +6,7 @@ import {
   LocalizationProvider,
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { parseISO } from "date-fns";
 import format from "date-fns/locale/ko";
 import TotalInputForm from "../total-input-form/TotalInputForm";
 
@@ -58,8 +59,10 @@ function NewDayPicker({ label, value, onChange, daytime }) {
   }, [error]);
 
   const now = new Date();
-
   const handleDateChange = (newDate) => {
+    if (typeof newDate === "string") {
+      newDate = parseISO(newDate); // 문자열을 날짜로 변환
+    }
     if (newDate < now) {
       onChange(newDate);
     }
