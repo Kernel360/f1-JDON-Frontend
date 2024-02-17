@@ -11,7 +11,7 @@ import { useMemo } from "react";
 function CoffeeChatCard({ data, kindOfJd }) {
   const navigate = useNavigate();
   const jobNum = useMemo(
-    () => kindOfJd.find((jd) => jd.name === data.job)?.id,
+    () => kindOfJd?.find((jd) => jd.name === data.job)?.id,
     [kindOfJd, data.job]
   );
 
@@ -51,6 +51,7 @@ function CoffeeChatCard({ data, kindOfJd }) {
         }}
       >
         {data.job && (
+          // <div color="#FF814D" style={jobStyle(jodNum)}>
           <div color="#FF814D" style={jobStyle(jobNum)}>
             {data.job}
           </div>
