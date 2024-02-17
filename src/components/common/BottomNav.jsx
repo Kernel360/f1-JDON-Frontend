@@ -14,15 +14,17 @@ export default function BottomNav() {
   const isLogin = localStorage.getItem("isLoggedInState");
 
   useEffect(() => {
-    switch (location.pathname) {
-      case "/":
+    switch (true) {
+      case location.pathname === "/":
         setValue(0);
         break;
-      case "/coffee":
+      case location.pathname === "/coffee":
         setValue(1);
         break;
-      case "/mypage":
-      case "/signin":
+      case location.pathname === "/signin":
+        setValue(2);
+        break;
+      case location.pathname.startsWith("/mypage"):
         setValue(2);
         break;
       default:
