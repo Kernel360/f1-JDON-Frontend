@@ -8,7 +8,7 @@ import Pagenation from "../../components/common/Pagenation";
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState({});
   const [isFavoriteChanged, setIsFavoriteChanged] = useState(false);
 

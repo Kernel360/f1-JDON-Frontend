@@ -265,7 +265,7 @@ export default function MyPage() {
       >
         로그아웃
       </Button>
-      <BottomNav></BottomNav>
+      <BottomNav />
     </Container>
   );
 }
