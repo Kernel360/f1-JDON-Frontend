@@ -12,11 +12,14 @@ import { postFavoritVideo } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
 function VideoCard({ data, onSuccess, myFavorite, onError }) {
-  console.log(data);
-  const [isFavorite, setIsFavorite] = useState(data.isFavorite);
+  console.log("ㅇㅇㅇ", data);
+  const [isFavorite, setIsFavorite] = useState(
+    myFavorite ? true : data.isFavorite
+  );
   // 로그인 상태 확인
   const isLogin = localStorage.getItem("isLoggedInState") === "true";
   const navigate = useNavigate();
+
   const toggleFavoriteStatus = async (e) => {
     e.stopPropagation();
 
@@ -29,8 +32,10 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
         lectureId: data.lectureId,
         isFavorite: !isFavorite,
       });
-      console.log(res);
-      setIsFavorite(!isFavorite);
+      //마이페이지 찜화면에서는 좋아요표시를 안바꿔도되서 조건을 넣음
+      if (!myFavorite) {
+        setIsFavorite(!isFavorite);
+      }
       if (onSuccess) onSuccess(isFavorite);
     } catch (error) {
       if (onError) onError(error);

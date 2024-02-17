@@ -10,6 +10,7 @@ export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
+  const [isFavoriteChanged, setIsFavoriteChanged] = useState(true);
 
   console.log("datas", datas);
   useEffect(() => {
@@ -23,14 +24,21 @@ export default function FavoritesVideo() {
       }
     };
 
-    if (!datas) {
+    if (!datas || isFavoriteChanged) {
+      // isFavoriteChanged 상태에 따라 데이터 다시 가져오기
       fetchData();
+      setIsFavoriteChanged(false); // isFavoriteChanged 상태 초기화
     }
-  }, [currentPage, datas]);
+  }, [currentPage, datas, isFavoriteChanged]);
 
   const handlePageChange = (event, value) => {
     console.log(`현재 페이지: ${value}`);
     setCurrentPage(value);
+  };
+
+  const handleFavoriteChange = () => {
+    // 추가: isFavorite 상태가 변경될 때 호출되는 함수
+    setIsFavoriteChanged(true);
   };
 
   return (
@@ -41,7 +49,11 @@ export default function FavoritesVideo() {
           {datas && datas.length > 0 ? (
             datas.map((item, index) => (
               <Grid item xs={12} sm={4} md={4} key={index}>
-                <VideoCard data={item} myFavorite={true} />
+                <VideoCard
+                  data={item}
+                  myFavorite={true}
+                  onSuccess={handleFavoriteChange}
+                />
               </Grid>
             ))
           ) : (
@@ -69,7 +81,7 @@ export default function FavoritesVideo() {
             />
           </Box>
         )}
-        <BottomNav></BottomNav>
+        <BottomNav />
       </Box>
     </Box>
   );
