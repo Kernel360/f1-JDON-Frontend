@@ -62,10 +62,7 @@ export default function MyCoffeeChat() {
     >
       <Header title={"커피챗"} />
       <Box mt={2}>
-        <TabContext
-          value={value}
-          // sx={{ display: "flex", flexDirection: "column", minHeight: "95vh" }}
-        >
+        <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleChange}
@@ -86,8 +83,6 @@ export default function MyCoffeeChat() {
           <TabPanel
             value="1"
             sx={{
-              // width: "100%",
-              // height: "100%",
               flexGrow: 1,
               "&.MuiTabPanel-root": {
                 paddingX: 0,
@@ -128,8 +123,8 @@ export default function MyCoffeeChat() {
           <TabPanel
             value="2"
             sx={{
-              // width: "100%",
-              // height: "100%",
+              // display: "flex",
+              // flexDirection: "column",
               flexGrow: 1,
             }}
           >
@@ -154,15 +149,14 @@ export default function MyCoffeeChat() {
                 ))}
               </Grid>
             )}
+            <Box sx={{ flexGrow: 1 }} />
 
             {coffeeDatas.length > 0 && (
-              <Box mt={4}>
-                <Pagenation
-                  pageCount={page?.totalPages}
-                  currentPage={currentPage}
-                  onChange={handlePageChange}
-                />
-              </Box>
+              <Pagenation
+                pageCount={page?.totalPages}
+                currentPage={currentPage}
+                onChange={handlePageChange}
+              />
             )}
           </TabPanel>
         </TabContext>
