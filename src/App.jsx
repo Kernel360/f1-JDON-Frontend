@@ -20,12 +20,7 @@ import Withdrawal from "./pages/mypage/Withdrawal";
 import React, { useState, useEffect } from "react";
 import RedirectPage from "./pages/sign-in/RedirectPage";
 import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
-
-// import Test from "./../Test";
-
-const access = localStorage.getItem("isLoggedInState");
-
-console.log("!!로긴 유무", access);
+import ScrollToTop from "./pages/mainpage/ScrollToTop";
 
 function App() {
   const [access, setAccess] = useState(
@@ -118,6 +113,7 @@ function App() {
                     />
                   }
                 />
+                <Route path="/test" element={<ScrollToTop />} />
               </Routes>
             </React.Fragment>
             <Helmet>
