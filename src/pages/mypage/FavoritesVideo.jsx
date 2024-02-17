@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Container } from "@mui/material";
 import { getFavoritVideo } from "../../api/api";
 import Header from "../../components/common/Header";
 import VideoCard from "../../components/common/card/VideoCard";
@@ -10,9 +10,9 @@ export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
-  const [isFavoriteChanged, setIsFavoriteChanged] = useState(true);
+  const [isFavoriteChanged, setIsFavoriteChanged] = useState(false);
 
-  console.log("datas", datas);
+  console.log("datas", page);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,7 +25,6 @@ export default function FavoritesVideo() {
     };
 
     if (!datas || isFavoriteChanged) {
-      // isFavoriteChanged 상태에 따라 데이터 다시 가져오기
       fetchData();
       setIsFavoriteChanged(false); // isFavoriteChanged 상태 초기화
     }
@@ -42,9 +41,17 @@ export default function FavoritesVideo() {
   };
 
   return (
-    <Box maxWidth="md" paddingX={"16px"} sx={{ width: "100%" }}>
+    <Container
+      maxWidth="md"
+      paddingX={"16px"}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
       <Header title={"찜"} />
-      <Box mt={2} maxWidth="md" sx={{ padding: 0 }}>
+      <Box mt={2}>
         <Grid container spacing={{ xs: 2, md: 2 }} sx={{ py: 1 }}>
           {datas && datas.length > 0 ? (
             datas.map((item, index) => (
@@ -72,17 +79,18 @@ export default function FavoritesVideo() {
             </Box>
           )}
         </Grid>
-        {datas && (
-          <Box mt={4}>
-            <Pagenation
-              pageCount={page?.totalPages}
-              currentPage={currentPage}
-              onChange={handlePageChange}
-            />
-          </Box>
-        )}
-        <BottomNav />
       </Box>
-    </Box>
+      <Box sx={{ flexGrow: 1 }} />
+      {datas && (
+        <Box mb={11}>
+          <Pagenation
+            pageCount={page?.totalPages}
+            currentPage={currentPage}
+            onChange={handlePageChange}
+          />
+        </Box>
+      )}
+      <BottomNav />
+    </Container>
   );
 }
