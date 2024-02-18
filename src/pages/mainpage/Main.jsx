@@ -48,6 +48,7 @@ export function Main() {
     <div ref={topRef}>
       <Container maxWidth="md" sx={{ pb: 10, position: "relative" }}>
         <HeaderWithSearchBar setSelectedChip={setSelectedChip} />
+        <SrcollToTop topRef={topRef} />
         <StickyTabSection
           selectedChip={selectedChip}
           setSelectedChip={setSelectedChip}
@@ -55,7 +56,6 @@ export function Main() {
         <VideoSection selectedChip={selectedChip} data={lectureList} />
         <CompanySection selectedChip={selectedChip} data={jdList} />
         <SubmitBug />
-        <SrcollToTop topRef={topRef} />
         <BottomNav />
       </Container>
     </div>
