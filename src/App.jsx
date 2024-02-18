@@ -20,29 +20,45 @@ import Withdrawal from "./pages/mypage/Withdrawal";
 import React, { useState, useEffect } from "react";
 import RedirectPage from "./pages/sign-in/RedirectPage";
 import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
-import ScrollToTop from "./pages/mainpage/ScrollToTop";
 
 function App() {
   const [access, setAccess] = useState(
     localStorage.getItem("isLoggedInState") === "true"
   );
 
-  // 매번 localStorage를 감시하고, 값이 변경되면 상태를 업데이트
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedInState") === "true";
     setAccess(isLoggedIn);
-  }, [access]); // access 값이 변경될 때마다 실행
+  }, [access]);
+
+  const privateRoutes = [
+    { path: "/mypage", element: <MyPage /> },
+    { path: "/mypage/infoedit", element: <InfoEdit /> },
+    { path: "/mypage/video", element: <FavoritesVideo /> },
+    { path: "/mypage/withdrawal", element: <Withdrawal /> },
+    { path: "/mypage/coffee", element: <MyCoffeeChat /> },
+  ];
+  const publickRoutes = [
+    { path: "/", element: <Main /> },
+    { path: "/signin", element: <SignIn /> },
+    { path: "/info", element: <Info /> },
+    { path: "/coffee", element: <Coffee /> },
+    { path: "/coffee/:id", element: <CoffeeDetail /> },
+    { path: "edit-coffee/:id", element: <UpdateCoffeeForm /> },
+    { path: "/coffeechat-open", element: <Coffeeopen /> },
+    { path: "/oauth/info", element: <RedirectPage /> },
+    { path: "/oauth/login/success", element: <RedirectPage /> },
+    { path: "/fail", element: <SignupFail /> },
+  ];
 
   const PrivateRoute = ({ authenticated, component: Component }) => {
-    console.log("확인", authenticated);
-    // console.log("무가", Component);
-
     return authenticated ? (
       Component
     ) : (
       <Navigate to="/" {...alert("접근할 수 없는 페이지입니다.")} />
     );
   };
+
   return (
     <RecoilRoot>
       <BrowserRouter>
@@ -50,70 +66,24 @@ function App() {
           <Layout>
             <React.Fragment>
               <Routes>
-                {/* 로그인이 필요하지 않은 페이지 */}
-                <Route exact path="/" element={<Main />} />
-                {/* <Route exact path="/test" element={<Test />} /> */}
-                <Route exact path="/signin" element={<SignIn />} />
-                <Route exact path="/info" element={<Info />} />
-                <Route exact path="/coffee" element={<Coffee />} />
-                <Route exact path="/coffee/:id" element={<CoffeeDetail />} />
-                <Route
-                  exact
-                  path="edit-coffee/:id"
-                  element={<UpdateCoffeeForm />}
-                />
-                <Route exact path="/coffeechat-open" element={<Coffeeopen />} />
-                <Route path="/oauth/info" element={<RedirectPage />} />
-                <Route path="/oauth/login/success" element={<RedirectPage />} />
-                <Route path="/fail" element={<SignupFail />} />
-
-                {/* 로그인이 필요한 페이지 */}
-                <Route
-                  path="/mypage"
-                  element={
-                    <PrivateRoute
-                      authenticated={access}
-                      component={<MyPage />}
-                    />
-                  }
-                />
-                <Route
-                  path="/mypage/infoedit"
-                  element={
-                    <PrivateRoute
-                      authenticated={access}
-                      component={<InfoEdit />}
-                    />
-                  }
-                />
-                <Route
-                  path="/mypage/video"
-                  element={
-                    <PrivateRoute
-                      authenticated={access}
-                      component={<FavoritesVideo />}
-                    />
-                  }
-                />
-                <Route
-                  path="/mypage/withdrawal"
-                  element={
-                    <PrivateRoute
-                      authenticated={access}
-                      component={<Withdrawal />}
-                    />
-                  }
-                />
-                <Route
-                  path="/mypage/coffee"
-                  element={
-                    <PrivateRoute
-                      authenticated={access}
-                      component={<MyCoffeeChat />}
-                    />
-                  }
-                />
-                <Route path="/test" element={<ScrollToTop />} />
+                {privateRoutes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={
+                      <PrivateRoute authenticated={access}>
+                        {route.element}
+                      </PrivateRoute>
+                    }
+                  />
+                ))}
+                {publickRoutes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
               </Routes>
             </React.Fragment>
             <Helmet>
