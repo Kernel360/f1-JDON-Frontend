@@ -2,7 +2,7 @@ import { Container, CssBaseline } from "@mui/material";
 import Header from "../../components/common/Header";
 import CoffeeChatInfo from "./CoffeeChatInfo";
 import { useEffect, useState } from "react";
-import { getCoffeeChatDetail } from "../../api/api";
+import { getCoffeeChatDetail, getFavoritVideo } from "../../api/api";
 import { useParams } from "react-router-dom";
 import HostInfoWithViewcount from "./HostInfoWithViewcount";
 import CoffeeDetailButtons from "./CoffeeDetailButtons";
@@ -26,19 +26,18 @@ function CoffeeDetail() {
     return <div>존재하지 않는 커피챗입니다</div>;
   }
 
-  const userIsHost =
-    JSON.parse(localStorage.getItem("user"))?.nickname ===
-    coffeeChatData.nickname;
-
   return (
     <Container maxWidth="md">
       <CssBaseline />
       <Header title={coffeeChatData.title} />
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
-      <CoffeeChatInfo coffeeChatData={coffeeChatData} userIsHost={userIsHost} />
+      <CoffeeChatInfo
+        coffeeChatData={coffeeChatData}
+        userIsHost={coffeeChatData.isAuthor}
+      />
       <CoffeeDetailButtons
         id={id}
-        host={userIsHost}
+        host={coffeeChatData.isAuthor}
         coffeeChatData={coffeeChatData}
       />
     </Container>

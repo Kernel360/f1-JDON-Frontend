@@ -2,8 +2,12 @@ export const buttonStyles = {
   Container: {
     position: "relative",
     width: "100%",
+    flexGrow: 1,
     "& .MuiContainer-root": {
       padding: 0,
+      width: "100%",
+      gap: 10,
+      flexGrow: 1,
     },
   },
 
@@ -28,6 +32,7 @@ export const buttonStyles = {
     background: "white",
     border: "1px solid #6482FF",
     fontSize: "16px",
+    width: "100%",
   },
 
   UpTitle: {

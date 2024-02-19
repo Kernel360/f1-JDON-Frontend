@@ -26,7 +26,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
       case 3:
         return kindOfJd[1].name;
       default:
-        return ""; // 기본값은 빈 문자열
+        return "";
     }
   };
   const radioValue = getValueForRadioGroup(sortData.jobCategory);

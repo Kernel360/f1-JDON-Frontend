@@ -51,9 +51,9 @@ function App() {
     { path: "/fail", element: <SignupFail /> },
   ];
 
-  const PrivateRoute = ({ authenticated, component: Component }) => {
+  const PrivateRoute = ({ authenticated, children }) => {
     return authenticated ? (
-      Component
+      children
     ) : (
       <Navigate to="/" {...alert("접근할 수 없는 페이지입니다.")} />
     );

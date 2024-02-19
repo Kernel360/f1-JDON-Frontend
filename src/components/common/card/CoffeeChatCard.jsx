@@ -51,7 +51,6 @@ function CoffeeChatCard({ data, kindOfJd }) {
         }}
       >
         {data.job && (
-          // <div color="#FF814D" style={jobStyle(jodNum)}>
           <div color="#FF814D" style={jobStyle(jobNum)}>
             {data.job}
           </div>
