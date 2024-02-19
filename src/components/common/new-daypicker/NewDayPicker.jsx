@@ -18,15 +18,16 @@ const isDateString = (value) => {
 function InputComponent({
   value,
   onChange,
-  renderInput,
+  children,
   disablePast,
   maxDate,
   setError,
   errorMessage,
 }) {
+  console.log("dddd", children);
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={format}>
-      {React.cloneElement(renderInput, {
+      {React.cloneElement(children, {
         value: value,
         onChange: onChange,
         maxDate: maxDate,
@@ -60,10 +61,10 @@ function NewDayPicker({ label, value, onChange, daytime }) {
 
   const now = new Date();
   const handleDateChange = (newDate) => {
-    if (typeof newDate === "string") {
-      newDate = parseISO(newDate); // 문자열을 날짜로 변환
-    }
-    if (newDate < now) {
+    console.log("handleDateChange called with newDate:", newDate);
+    console.log("handleDateChange called with now:", now);
+    if (newDate > now) {
+      console.log("통과");
       onChange(newDate);
     }
   };
@@ -74,8 +75,8 @@ function NewDayPicker({ label, value, onChange, daytime }) {
         {daytime ? (
           <InputComponent
             value={value}
-            onChange={handleDateChange}
-            renderInput={
+            // onChange={handleDateChange}
+            children={
               <DateTimePicker
                 sx={{ width: "100%" }}
                 renderInput={(params) => <TextField {...params} />}
@@ -89,7 +90,7 @@ function NewDayPicker({ label, value, onChange, daytime }) {
           <InputComponent
             value={isDateString(value) ? new Date(value) : value}
             onChange={handleDateChange}
-            renderInput={
+            children={
               <DatePicker
                 inputFormat="yyyy-MM-dd"
                 sx={{ width: "100%" }}
