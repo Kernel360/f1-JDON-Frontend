@@ -10,27 +10,27 @@ import { useEffect, useState } from "react";
 function CoffeeDetailButtons({ id, host, coffeeChatData }) {
   const navigate = useNavigate();
   const [applyCoffee, setApplyCoffee] = useState({});
-  const [alreadyApplied, setAlreadyApplyed] = useState(false);
+  const [isApplied, setIsApplied] = useState(false);
 
   const applyForCoffeeChat = async () => {
     try {
       await applyCoffeechat(id, applyCoffee);
       if (
-        window.confirm(
-          "신청이 완료되었습니다. 커피챗 신청 내역을 확인하시겠습니까?"
-        )
-      ) {
-        navigate("/mypage");
-      }
+        !window.confirm("신청이 완료되었습니다. 내 커피챗을 확인하시겠습니까?")
+      )
+        return;
+      navigate("/mypage");
     } catch (error) {
-      if (error.response?.status === 409) {
-        setAlreadyApplyed(true);
-        alert("이미 신청된 커피챗입니다.");
-      } else {
-        console.error("신청 중 에러가 발생했습니다.", error);
+      if (error.response?.status !== 409) {
+        console.log("신청 중 에러가 발생했습니다.");
+        return;
       }
+      alert("이미 신청된 커피챗입니다.");
+      setIsApplied(true);
+      return;
     }
   };
+
   const editCoffeeChat = async () => {
     navigate(`/edit-coffee/${id}`);
   };
@@ -38,13 +38,15 @@ function CoffeeDetailButtons({ id, host, coffeeChatData }) {
   const removeCoffeeChat = async () => {
     try {
       await deleteCoffeechat(id, applyCoffee);
+      alert("삭제가 완료되었습니다");
+      navigate("/coffee");
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    const fetchCoffeeChatData = async () => {
+    (async () => {
       setApplyCoffee({
         title: coffeeChatData.title,
         content: coffeeChatData.content,
@@ -52,8 +54,7 @@ function CoffeeDetailButtons({ id, host, coffeeChatData }) {
         meetDate: coffeeChatData.meetDate,
         openChatUrl: coffeeChatData.openChatUrl,
       });
-    };
-    fetchCoffeeChatData();
+    })();
   }, [id, coffeeChatData]);
 
   const copyUrlToClipboard = () => {
@@ -70,13 +71,21 @@ function CoffeeDetailButtons({ id, host, coffeeChatData }) {
 
   return (
     <Box sx={buttonStyles.Container}>
-      <Grid container spacing={3}>
+      <Box
+        container
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "20px",
+        }}
+      >
         <Grid
           item
-          xs={9}
-          sm={9}
+          xs={8}
+          sm={8}
           fullwidth
-          sx={{ display: "flex", gap: "12px" }}
+          sx={{ display: "flex", gap: "12px", flexGrow: 1 }}
         >
           {host ? (
             <>
@@ -102,18 +111,18 @@ function CoffeeDetailButtons({ id, host, coffeeChatData }) {
               title="신청하기"
               onClick={applyForCoffeeChat}
               styles={{
-                background: theme.palette.primary.main,
-                color: "white",
+                background: !isApplied && theme.palette.primary.main,
+                color: !isApplied && "white",
               }}
             ></NewBtn>
           )}
         </Grid>
-        <Grid item xs={3} sm={3}>
+        <Box item>
           <Button sx={buttonStyles.ShareButton} onClick={copyUrlToClipboard}>
             <ShareIcon sx={{ color: theme.palette.primary.main }} />
           </Button>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 }
