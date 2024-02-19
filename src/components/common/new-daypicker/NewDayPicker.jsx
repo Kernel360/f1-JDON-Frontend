@@ -61,7 +61,7 @@ function NewDayPicker({ label, value, onChange, daytime }) {
   const now = new Date();
   const handleDateChange = (newDate) => {
     if (typeof newDate === "string") {
-      newDate = parseISO(newDate); // 문자열을 날짜로 변환
+      newDate = parseISO(newDate);
     }
     if (newDate < now) {
       onChange(newDate);
