@@ -14,10 +14,10 @@ import { URLInput } from "../PageStyles";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 import { useRef, useState } from "react";
 
-function CoffeeChatInfo({ coffeeChatData, userIsHost }) {
+function CoffeeChatInfo({ coffeeChatData, userIsHost, LikedCoffeeChat }) {
   const [isCopied, setIsCopied] = useState(false);
   const inputRef = useRef(null);
-  const user = JSON.parse(localStorage.getItem("user"));
+
   const dateTime = coffeeChatData.meetDate;
 
   const date = new Date(dateTime);
@@ -117,22 +117,25 @@ function CoffeeChatInfo({ coffeeChatData, userIsHost }) {
           sx={URLInput}
           ref={inputRef}
           value={
-            userIsHost ? coffeeChatData.openChatUrl : "신청 후 확인 가능합니다"
+            userIsHost || LikedCoffeeChat
+              ? coffeeChatData.openChatUrl
+              : "신청 후 확인 가능합니다"
           }
           InputProps={{
             readOnly: true,
             disabled: true,
             endAdornment: (
               <InputAdornment position="end" sx={{ background: "transparent" }}>
-                {user.nickname === coffeeChatData.nickname && (
-                  <Button onClick={handleCopyClick}>
-                    {isCopied ? (
-                      <p style={{ fontSize: "12px" }}>Copied!</p>
-                    ) : (
-                      <FileCopyIcon sx={{ fontSize: 20, color: "#BCBCC4" }} />
-                    )}
-                  </Button>
-                )}
+                {userIsHost ||
+                  (LikedCoffeeChat && (
+                    <Button onClick={handleCopyClick}>
+                      {isCopied ? (
+                        <p style={{ fontSize: "12px" }}>Copied!</p>
+                      ) : (
+                        <FileCopyIcon sx={{ fontSize: 20, color: "#BCBCC4" }} />
+                      )}
+                    </Button>
+                  ))}
               </InputAdornment>
             ),
           }}

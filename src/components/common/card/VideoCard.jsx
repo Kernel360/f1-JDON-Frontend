@@ -12,11 +12,10 @@ import { postFavoritVideo } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
 function VideoCard({ data, onSuccess, myFavorite, onError }) {
-  console.log("ㅇㅇㅇ", data);
   const [isFavorite, setIsFavorite] = useState(
     myFavorite ? true : data.isFavorite
   );
-  // 로그인 상태 확인
+
   const isLogin = localStorage.getItem("isLoggedInState") === "true";
   const navigate = useNavigate();
 
@@ -28,7 +27,7 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
       return;
     }
     try {
-      const res = await postFavoritVideo({
+      await postFavoritVideo({
         lectureId: data.lectureId,
         isFavorite: !isFavorite,
       });
