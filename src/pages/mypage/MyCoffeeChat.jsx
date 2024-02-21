@@ -9,7 +9,7 @@ import { MainStyles } from "../PageStyles";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
   const [coffeeDatas, setCoffeeDatas] = useState([]);
 
@@ -28,11 +28,11 @@ export default function MyCoffeeChat() {
       try {
         let res;
         if (value === "1") {
-          res = await getMyCoffeeChat(currentPage);
+          res = await getMyCoffeeChat(currentPage - 1);
           setCoffeeDatas(res.content || []);
           console.log(`${value} 내가 오픈한커피내용`, res);
         } else if (value === "2") {
-          res = await getSignCoffeeChat(currentPage);
+          res = await getSignCoffeeChat(currentPage - 1);
           console.log(`${value} 내가 신청한커피내용`, res);
           setCoffeeDatas(res.content || []);
         }
