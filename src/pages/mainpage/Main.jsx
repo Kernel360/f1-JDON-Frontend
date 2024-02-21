@@ -1,15 +1,19 @@
-import { Container } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
-import BottomNav from "../../components/common/BottomNav";
-import CompanySection from "./CompanySection";
-import VideoSection from "./VideoSection";
-import HeaderWithSearchBar from "./HeaderWithSearchBar";
-import SubmitBug from "./SubmitBug";
-import StickyTabSection from "./StickyTabSection";
-import { fetchLectureData, fetchUserInfo } from "./apiFunction";
-import SrcollToTop from "./ScrollToTop";
+import { Container } from '@mui/material';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import BottomNav from '../../components/common/BottomNav';
+import CompanySection from './CompanySection';
+import VideoSection from './VideoSection';
+import HeaderWithSearchBar from './HeaderWithSearchBar';
+import SubmitBug from './SubmitBug';
+import StickyTabSection from './StickyTabSection';
+import { fetchLectureData, fetchUserInfo } from './apiFunction';
+import SrcollToTop from './ScrollToTop';
+import { Authentication } from '../../api/api';
+import { useRecoilState } from 'recoil';
+import { isLoggedInState } from '../../recoil/atoms';
 
 export function Main() {
+  const [isLogin, setIsLogin] = useRecoilState(isLoggedInState);
   const [selectedChip, setSelectedChip] = useState({});
   const [lectureList, setLectureList] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -30,8 +34,17 @@ export function Main() {
   );
 
   useEffect(() => {
+    const fetchData = async () => {
+      const state = await Authentication();
+      setIsLogin(state);
+    };
+    fetchData();
+  }, [setIsLogin]);
+  console.log('호출하는중', isLogin);
+
+  useEffect(() => {
     if (isInitialLoad) {
-      loadData("", false);
+      loadData('', false);
       fetchUserInfo();
       setIsInitialLoad(false);
     }
@@ -46,13 +59,10 @@ export function Main() {
 
   return (
     <div ref={topRef}>
-      <Container maxWidth="md" sx={{ pb: 10, position: "relative" }}>
+      <Container maxWidth="md" sx={{ pb: 10, position: 'relative' }}>
         <HeaderWithSearchBar setSelectedChip={setSelectedChip} />
         <SrcollToTop topRef={topRef} />
-        <StickyTabSection
-          selectedChip={selectedChip}
-          setSelectedChip={setSelectedChip}
-        />
+        <StickyTabSection selectedChip={selectedChip} setSelectedChip={setSelectedChip} />
         <VideoSection selectedChip={selectedChip} data={lectureList} />
         <CompanySection selectedChip={selectedChip} data={jdList} />
         <SubmitBug />

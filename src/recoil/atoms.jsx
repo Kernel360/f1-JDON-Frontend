@@ -1,34 +1,39 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const isLoggedInState = atom({
-  key: "isLoggedInState",
+  key: 'isLoggedInState',
   default: false, // 초기값은 로그인되어 있지 않음을 나타냅니다.
 });
 
 export const userInfo = atom({
-  key: "userInfoValues",
+  key: 'userInfoValues',
   default: {
-    encrypted: "",
-    hmac: "",
-    nickname: "",
-    birth: "",
-    gender: "",
+    encrypted: '',
+    hmac: '',
+    nickname: '',
+    birth: '',
+    gender: '',
     jobCategoryId: null,
     skillList: [],
   },
 });
 
 export const jobIdState = atom({
-  key: "jobIdState",
-  default: "",
+  key: 'jobIdState',
+  default: '',
 });
 
 export const kindOfJdState = atom({
-  key: "kindOfJdState",
+  key: 'kindOfJdState',
   default: [],
 });
 
 export const selectedJobSkillState = atom({
-  key: "selectedJobSkillState",
+  key: 'selectedJobSkillState',
   default: [],
+});
+
+export const userLoginState = atom({
+  key: 'userLoginState',
+  default: false,
 });
