@@ -8,6 +8,20 @@ export const instance = axios.create({
   },
 });
 
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      if (window.confirm("로그인하겠습니까?")) {
+        window.location.href = "/signin";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 // -------------------------------------------- member
 //최종 회원 정보 등록
 export async function Outh() {
@@ -104,7 +118,6 @@ export async function deleteMember() {
 export async function getHotSkills() {
   try {
     const res = await instance.get("/api/v1/skills/hot");
-    // console.log("getHotSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getHotSkills API error", error);
@@ -116,7 +129,6 @@ export async function getHotSkills() {
 export async function getMemberSkills() {
   try {
     const res = await instance.get("/api/v1/skills/member");
-    console.log("getMemberSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getMemberSkills API error", error);
