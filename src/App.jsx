@@ -1,4 +1,4 @@
-import { RecoilRoot } from "recoil";
+import { useRecoilValue } from "recoil";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import { Helmet } from "react-helmet";
@@ -17,19 +17,13 @@ import InfoEdit from "./pages/mypage/InfoEdit";
 import MyPage from "./pages/mypage/MyPage";
 import { Main } from "./pages/mainpage/Main";
 import Withdrawal from "./pages/mypage/Withdrawal";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import RedirectPage from "./pages/sign-in/RedirectPage";
 import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
+import { isLoggedInState } from "./recoil/atoms";
 
 function App() {
-  const [access, setAccess] = useState(
-    localStorage.getItem("isLoggedInState") === "true"
-  );
-
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedInState") === "true";
-    setAccess(isLoggedIn);
-  }, [access]);
+  const userLoggedIn = useRecoilValue(isLoggedInState);
 
   const privateRoutes = [
     { path: "/mypage", element: <MyPage /> },
@@ -55,12 +49,11 @@ function App() {
     return authenticated ? (
       children
     ) : (
-      <Navigate to="/" {...alert("접근할 수 없는 페이지입니다.")} />
+      <Navigate to="/signin" {...alert("로그인이 필요한 페이지입니다.")}/>
     );
   };
 
   return (
-    <RecoilRoot>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Layout>
@@ -71,7 +64,7 @@ function App() {
                     key={index}
                     path={route.path}
                     element={
-                      <PrivateRoute authenticated={access}>
+                      <PrivateRoute authenticated={userLoggedIn}>
                         {route.element}
                       </PrivateRoute>
                     }
@@ -97,7 +90,6 @@ function App() {
           </Layout>
         </ThemeProvider>
       </BrowserRouter>
-    </RecoilRoot>
   );
 }
 
