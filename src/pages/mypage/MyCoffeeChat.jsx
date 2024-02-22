@@ -15,7 +15,7 @@ export default function MyCoffeeChat() {
 
   const handleChange = (event, value) => {
     setValue(value);
-    setCurrentPage(0);
+    setCurrentPage(1);
   };
 
   const handlePageChange = (event, value) => {
