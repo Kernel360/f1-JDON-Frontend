@@ -20,6 +20,8 @@ import Withdrawal from "./pages/mypage/Withdrawal";
 import React, { useState, useEffect } from "react";
 import RedirectPage from "./pages/sign-in/RedirectPage";
 import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
+import { JdDetail } from "./pages/coffee-detail/jd-detail/JdDetail";
+import { FailPage } from "./pages/sign-in/FailPage";
 
 function App() {
   const [access, setAccess] = useState(
@@ -48,6 +50,12 @@ function App() {
     { path: "/coffeechat-open", element: <Coffeeopen /> },
     { path: "/oauth/info", element: <RedirectPage /> },
     { path: "/oauth/login/success", element: <RedirectPage /> },
+    { path: "/oauth/login/fail/not-found-email", element: <FailPage /> },
+    {
+      path: "/oauth/login/fail//not-match-provider",
+      element: <FailPage />,
+    },
+    { path: "/jd/:id", element: <JdDetail /> },
     { path: "/fail", element: <SignupFail /> },
   ];
 
