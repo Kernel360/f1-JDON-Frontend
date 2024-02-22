@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import BottomNav from "../../components/common/BottomNav";
 import CompanySection from "./CompanySection";
 import VideoSection from "./VideoSection";
