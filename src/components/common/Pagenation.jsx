@@ -18,7 +18,7 @@ export default function PaginationComponent({
     >
       <Pagination
         count={pageCount} // 전체 페이지 수
-        page={currentPage + 1} // 현재 페이지
+        page={currentPage} // 현재 페이지
         onChange={onChange}
         variant="outlined"
         color="primary"

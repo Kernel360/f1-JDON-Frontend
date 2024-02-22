@@ -1,28 +1,25 @@
 import { Box, Button } from "@mui/material";
 import { Filters } from "../../components/common/filters/Filters";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../../recoil/atoms";
 
 function FiltersAndButton({ sortData, kindOfJd, onChange }) {
   const navigate = useNavigate();
-  const login = localStorage.getItem("isLoggedInState");
+  const isLogin = useRecoilValue(isLoggedInState);
 
   const handleConfirm = () => {
-    if (
-      window.confirm(
-        "[커피챗 오픈]은 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
-      )
-    ) {
-      navigate("/signin");
-    }
+    window.confirm(
+      "[커피챗 오픈]은 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까??"
+    ) && navigate("/signin");
   };
 
   const handleOpenCoffee = () => {
-    if (login === "false") {
+    if (!isLogin) {
       handleConfirm();
       return;
-    } else {
-      navigate("/coffeechat-open");
     }
+    navigate("/coffeechat-open");
   };
   return (
     <Box
