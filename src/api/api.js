@@ -14,9 +14,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      if (window.confirm("로그인하겠습니까?")) {
-        window.location.href = "/signin";
-      }
+      window.location.href = "/signin";
     }
     return Promise.reject(error);
   }
