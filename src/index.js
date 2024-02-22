@@ -5,11 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 
 import App from "./App.jsx";
 import HttpsRedirect from "react-https-redirect";
+import { RecoilRoot } from "recoil";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <HttpsRedirect>
-    <App />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
   </HttpsRedirect>
 );
 reportWebVitals();
