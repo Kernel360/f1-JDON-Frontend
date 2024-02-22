@@ -6,8 +6,6 @@ import arrowLeft from "../../../src/assets/icons/arrow-left.svg";
 import arrowRight from "../../../src/assets/icons/arrow-right.svg";
 import { useNavigate } from "react-router-dom";
 import { getHotSkills, getMemberSkills } from "../../api/api";
-import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../../recoil/atoms";
 
 function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
   const scrollRef = useRef(null);
@@ -17,13 +15,9 @@ function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
   const [memberSkills, setMemberSkills] = useState([]);
 
   const handleConfirm = () => {
-    if (
-      window.confirm(
-        "[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
-      )
-    ) {
-      navigate("/signin");
-    }
+    window.confirm(
+      "[내 맞춤 키워드]는 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
+    ) && navigate("/signin");
   };
 
   const GetMemberSkillData = async () => {

@@ -1,13 +1,17 @@
 import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea, Link, Paper } from "@mui/material";
+import { Box, CardActionArea, Paper } from "@mui/material";
 
 import { CompanyCardStyle } from "./CardStyle";
+import { useNavigate } from "react-router-dom";
 
 export default function CompanyCard({ data }) {
+  console.log(data);
+  const navigate = useNavigate();
   const handleCardClick = () => {
-    window.open(data.jdUrl, "_blank");
+    // window.open(data.jdUrl, "_blank");
+    navigate("/jd/1");
   };
   return (
     <Paper elevation={0} sx={{ my: 1 }} onClick={handleCardClick}>
