@@ -23,6 +23,17 @@ instance.interceptors.response.use(
 );
 
 // -------------------------------------------- member
+// 회원 로그인 상태 판별
+export async function Authentication() {
+  try {
+    const res = await instance.get("/api/v1/authenticate");
+    return res.data.data.isLoginUser;
+  } catch (error) {
+    console.error("user login state", error);
+    throw error;
+  }
+}
+
 //최종 회원 정보 등록
 export async function Outh() {
   try {
@@ -118,6 +129,7 @@ export async function deleteMember() {
 export async function getHotSkills() {
   try {
     const res = await instance.get("/api/v1/skills/hot");
+    // console.log("getHotSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getHotSkills API error", error);
@@ -129,6 +141,7 @@ export async function getHotSkills() {
 export async function getMemberSkills() {
   try {
     const res = await instance.get("/api/v1/skills/member");
+    console.log("getMemberSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getMemberSkills API error", error);
