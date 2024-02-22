@@ -70,6 +70,15 @@ function InFoBasic({ agree, setAgree }) {
     }
   };
 
+  const handleBithdayChange = (newDate) => {
+    console.log("birth 넘어온 날것", newDate);
+    const formattedDate =
+      newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
+    console.log("birth 가공한 데이트", formattedDate);
+
+    handleInputChange("birth", formattedDate);
+  };
+
   return (
     <>
       <Typography width="100%" sx={infoBasicStyles.typographyTitle}>
@@ -98,16 +107,18 @@ function InFoBasic({ agree, setAgree }) {
         <NewDayPicker
           label="생일"
           value={value.birth}
-          valid={validtion}
-          helperText={dateHelperText}
+          // valid={validtion}
+          isMeetDay={false}
+          // helperText={dateHelperText}
           onChange={(newDate) => {
-            const now = new Date();
-            if (newDate <= now) {
-              handleInputChange("birth", newDate);
-            } else {
-              setValidation(false);
-              setDateHelperText("현재시간보다 이후입니다");
-            }
+            handleBithdayChange(newDate);
+            // const now = new Date();
+            // if (newDate <= now) {
+            //   handleInputChange("birth", newDate);
+            // } else {
+            //   setValidation(false);
+            //   setDateHelperText("현재시간보다 이후입니다");
+            // }
           }}
         />
         <TotalInputForm label="성별" value={value.gender} valid={validtion}>

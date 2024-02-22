@@ -77,10 +77,10 @@ export default function InfoEdit() {
   };
 
   const handleBithdayChange = (newDate) => {
-    // console.log("birth 넘어온 날것", newDate);
+    console.log("birth 넘어온 날것", newDate);
     const formattedDate =
       newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
-    // console.log("birth 가공한 데이트", formattedDate);
+    console.log("birth 가공한 데이트", formattedDate);
 
     setBirthday(formattedDate);
   };
