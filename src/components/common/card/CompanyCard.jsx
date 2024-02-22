@@ -7,11 +7,9 @@ import { CompanyCardStyle } from "./CardStyle";
 import { useNavigate } from "react-router-dom";
 
 export default function CompanyCard({ data }) {
-  console.log(data);
   const navigate = useNavigate();
   const handleCardClick = () => {
-    // window.open(data.jdUrl, "_blank");
-    navigate("/jd/1");
+    navigate(`/jd/${data.id}`);
   };
   return (
     <Paper elevation={0} sx={{ my: 1 }} onClick={handleCardClick}>
