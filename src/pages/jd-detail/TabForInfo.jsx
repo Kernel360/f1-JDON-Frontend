@@ -1,5 +1,5 @@
-import { Box, Button, Typography } from "@mui/material";
-import NewBtn from "../../../components/common/new-btn/NewBtn";
+import { Box, Typography } from "@mui/material";
+import NewBtn from "../../components/common/new-btn/NewBtn";
 
 function JdInfoForm({ title, mockData }) {
   return (

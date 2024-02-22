@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { theme } from "../../../styles/themeMuiStyle";
+import { theme } from "../../styles/themeMuiStyle";
 import { ReviewItem } from "./ReviewItem";
-import add from "../../../assets/icons/review_add.svg";
+import add from "../../assets/icons/review_add.svg";
 
 export function TabForReview({ reviewData, openPopup }) {
   return (

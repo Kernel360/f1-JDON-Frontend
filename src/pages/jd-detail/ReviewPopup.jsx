@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { PopupFrame } from "./PopupFrame";
-import { BackDrop } from "../../../components/common/BackDrop";
-import NewInput from "../../../components/common/new-input/NewInput";
+import { BackDrop } from "../../components/common/BackDrop";
+import NewInput from "../../components/common/new-input/NewInput";
 import { Box } from "@mui/material";
-import NewBtn from "../../../components/common/new-btn/NewBtn";
+import NewBtn from "../../components/common/new-btn/NewBtn";
 
 export function ReviewPopup({ isOpen, closePopup, reviewData }) {
   const [review, setReview] = useState();

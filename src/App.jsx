@@ -20,7 +20,7 @@ import Withdrawal from "./pages/mypage/Withdrawal";
 import React, { useState, useEffect } from "react";
 import RedirectPage from "./pages/sign-in/RedirectPage";
 import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
-import { JdDetail } from "./pages/coffee-detail/jd-detail/JdDetail";
+import { JdDetail } from "./pages/jd-detail/JdDetail";
 import { FailPage } from "./pages/sign-in/FailPage";
 
 function App() {

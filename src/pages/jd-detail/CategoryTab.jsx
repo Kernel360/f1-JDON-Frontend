@@ -1,12 +1,13 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
-import { MainStyles } from "../../PageStyles";
+
 import { useState } from "react";
 import { mock, reviewMock } from "./mock";
 import { usePopup } from "./usePopup";
 import { TabForInfo } from "./TabForInfo";
 import { TabForReview } from "./TabForReview";
 import { ReviewPopup } from "./ReviewPopup";
+import { MainStyles } from "../PageStyles";
 
 export function CategoryTab() {
   const { isOpen, openPopup, closePopup } = usePopup();
