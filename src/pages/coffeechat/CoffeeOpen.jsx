@@ -38,13 +38,9 @@ function Coffeeopen() {
     try {
       await registerCoffeeChat(formValue);
       setIsRegistered(true);
-      if (
-        window.confirm(
-          "신청이 완료되었습니다. 커피챗 신청 내역을 확인하시겠습니까?"
-        )
-      ) {
-        navigate("/mypage");
-      }
+      window.confirm(
+        "신청이 완료되었습니다. 커피챗 신청 내역을 확인하시겠습니까?"
+      ) && navigate("/mypage");
     } catch (error) {
       console.error("Error registering coffee chat:", error);
     }
