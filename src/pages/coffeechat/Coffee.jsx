@@ -101,11 +101,7 @@ export function Coffee() {
   );
 }
 
-export default function BasicPagination({
-  coffeeData,
-  currentPage,
-  handlePageChange,
-}) {
+function BasicPagination({ coffeeData, currentPage, handlePageChange }) {
   return (
     <Box
       sx={{

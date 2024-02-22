@@ -6,13 +6,12 @@ import arrowLeft from "../../../src/assets/icons/arrow-left.svg";
 import arrowRight from "../../../src/assets/icons/arrow-right.svg";
 import { useNavigate } from "react-router-dom";
 import { getHotSkills, getMemberSkills } from "../../api/api";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../../recoil/atoms";
 
-function StickyTabSection({ selectedChip, setSelectedChip }) {
+function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
   const scrollRef = useRef(null);
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("isLoggedInState")
-  );
   const [value, setValue] = useState("1");
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
@@ -28,10 +27,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
   };
 
   const GetMemberSkillData = async () => {
-    const storedIsLoggedIn = localStorage.getItem("isLoggedInState");
-    setIsLogin(storedIsLoggedIn);
-    console.log(storedIsLoggedIn);
-    if (storedIsLoggedIn === "true") {
+    if (isLogin) {
       try {
         const memData = await getMemberSkills();
         const memSkillsData = memData.data.skillList || { skillList: [] };
@@ -114,7 +110,11 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
             TabIndicatorProps={{ style: MainStyles.TabIndicator }}
           >
             <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
-            <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} />
+            {isLogin ? (
+              <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} />
+            ) : (
+              ""
+            )}
           </TabList>
 
           <TabPanel value="1" sx={MainStyles.TabPanel}>

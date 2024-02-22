@@ -8,7 +8,30 @@ export const instance = axios.create({
   },
 });
 
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      window.location.href = "/signin";
+    }
+    return Promise.reject(error);
+  }
+);
+
 // -------------------------------------------- member
+// 회원 로그인 상태 판별
+export async function Authentication() {
+  try {
+    const res = await instance.get("/api/v1/authenticate");
+    return res.data.data.isLoginUser;
+  } catch (error) {
+    console.error("user login state", error);
+    throw error;
+  }
+}
+
 //최종 회원 정보 등록
 export async function Outh() {
   try {
