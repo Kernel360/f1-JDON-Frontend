@@ -20,7 +20,10 @@ import Withdrawal from "./pages/mypage/Withdrawal";
 import React from "react";
 import RedirectPage from "./pages/sign-in/RedirectPage";
 import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
+import { JdDetail } from "./pages/jd-detail/JdDetail";
+import { FailPage } from "./pages/sign-in/FailPage";
 import { isLoggedInState } from "./recoil/atoms";
+
 
 function App() {
   const userLoggedIn = useRecoilValue(isLoggedInState);
@@ -42,6 +45,12 @@ function App() {
     { path: "/coffeechat-open", element: <Coffeeopen /> },
     { path: "/oauth/info", element: <RedirectPage /> },
     { path: "/oauth/login/success", element: <RedirectPage /> },
+    { path: "/oauth/login/fail/not-found-email", element: <FailPage /> },
+    {
+      path: "/oauth/login/fail//not-match-provider",
+      element: <FailPage />,
+    },
+    { path: "/jd/:id", element: <JdDetail /> },
     { path: "/fail", element: <SignupFail /> },
   ];
 
