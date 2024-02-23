@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SearchBar from '../../../components/common/search-bar/SearchBar';
+import SearchBar from '../../components/common/search-bar/SearchBar';
 
 function JDSearchBar({ setSelectedChip }) {
     const [search, setSearch] = useState("");

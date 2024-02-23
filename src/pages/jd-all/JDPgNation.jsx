@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import React, { useState } from "react";
-import PaginationComponent from "../../../components/common/Pagenation";
+import PaginationComponent from "../../components/common/Pagenation";
 
 function JDPgNation() {
   const [currentPage, setCurrentPage] = useState(1);

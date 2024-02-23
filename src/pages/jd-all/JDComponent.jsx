@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material'
 import React from 'react'
-import { SAMPLE_DATA } from '../mock'
-import CompanyCard from '../../../components/common/card/CompanyCard'
+import { SAMPLE_DATA } from './mock'
+import CompanyCard from '../../components/common/card/CompanyCard'
 
 function JDComponent() {
   return (
