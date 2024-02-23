@@ -8,12 +8,15 @@ function Header({ title }) {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <Box onClick={goBackHandler} sx={{ py: 3 }}>
+        <Box
+          onClick={goBackHandler}
+          sx={{ py: 3, display: "flex", gap: 2, cursor: "pointer" }}
+        >
           <img src={back} alt="백" />
+          <Typography fontSize="1rem" fontWeight={400}>
+            {title}
+          </Typography>
         </Box>
-        <Typography fontSize="1rem" fontWeight={400}>
-          {title}
-        </Typography>
       </Box>
     </>
   );
