@@ -36,6 +36,17 @@ export const signInTextFieldStyles = (value) => ({
   },
 });
 
+const TypoGraphyStyle =
+{
+  fontSize: "16px",
+  fontWeight: 500,
+  color: "black",
+  display: "flex",
+  alignItems: "center",
+  flexWrap: "wrap",
+  ml: 1,
+};
+
 export const MainStyles = {
   Tab: {
     fontSize: 16,
@@ -67,14 +78,10 @@ export const MainStyles = {
       display: "none", // 스크롤바 숨기기 (선택적)
     },
   },
-  TypoGraphy: {
-    fontSize: "16px",
-    fontWeight: 500,
-    color: "black",
-    display: "flex",
-    alignItems: "center",
-    flexWrap: "wrap",
-    ml: 1,
+  TypoGraphy: TypoGraphyStyle,
+  JDTypoGraphy: {
+    ...TypoGraphyStyle,
+    justifyContent: "space-between",
   },
   TabIndicator: {
     height: 3, // 언더라인 두께

@@ -23,6 +23,7 @@ import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
 import { JdDetail } from "./pages/jd-detail/JdDetail";
 import { FailPage } from "./pages/sign-in/FailPage";
 import { isLoggedInState } from "./recoil/atoms";
+import JdAll from "./pages/jd-all";
 
 function App() {
   const userLoggedIn = useRecoilValue(isLoggedInState);
@@ -34,7 +35,7 @@ function App() {
     { path: "/mypage/withdrawal", element: <Withdrawal /> },
     { path: "/mypage/coffee", element: <MyCoffeeChat /> },
   ];
-  const publickRoutes = [
+  const publicRoutes = [
     { path: "/", element: <Main /> },
     { path: "/signin", element: <SignIn /> },
     { path: "/info", element: <Info /> },
@@ -49,6 +50,7 @@ function App() {
       path: "/oauth/login/fail//not-match-provider",
       element: <FailPage />,
     },
+    { path: "/jd", element: <JdAll /> },
     { path: "/jd/:id", element: <JdDetail /> },
     { path: "/fail", element: <SignupFail /> },
   ];
@@ -78,7 +80,7 @@ function App() {
                   }
                 />
               ))}
-              {publickRoutes.map((route, index) => (
+              {publicRoutes.map((route, index) => (
                 <Route key={index} path={route.path} element={route.element} />
               ))}
             </Routes>
