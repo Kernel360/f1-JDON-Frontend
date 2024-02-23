@@ -6,7 +6,7 @@ import { userInfo } from "../../recoil/atoms";
 const RedirectPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [data, setData] = useRecoilState(userInfo);
+  const [, setData] = useRecoilState(userInfo);
 
   useEffect(() => {
     localStorage.setItem("isLoggedInState", false);

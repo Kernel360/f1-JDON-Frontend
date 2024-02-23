@@ -11,7 +11,7 @@ import { useAuth } from "./useAuth";
 import { useLoadData } from "./useLoadData";
 
 export function Main() {
-  const isLogin = useAuth(); // 로그인 상태 관리
+  const isLogin = useAuth();
   const { selectedChip, setSelectedChip, lectureList, jdList } = useLoadData(); // 데이터 로딩 및 상태 관리
   const topRef = useRef(null);
 

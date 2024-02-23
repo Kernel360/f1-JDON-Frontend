@@ -8,11 +8,11 @@ export function useLoadData() {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const loadData = useCallback(
-    async (keyword, userSelected = false) => {
+    async (keyword, userSelected) => {
       const lectureData = await fetchLectureData(keyword);
       setLectureList(lectureData.lectureList);
       setJdList(lectureData.jdList);
-      if (isInitialLoad || userSelected) {
+      if (isInitialLoad) {
         setSelectedChip({ keyword: lectureData.keyword, userSelected });
         setIsInitialLoad(false);
       }
@@ -29,6 +29,7 @@ export function useLoadData() {
   useEffect(() => {
     if (selectedChip.userSelected) {
       loadData(selectedChip.keyword, true);
+      setIsInitialLoad(false);
     }
   }, [selectedChip, loadData]);
 

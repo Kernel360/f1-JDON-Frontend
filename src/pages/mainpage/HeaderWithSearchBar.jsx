@@ -19,6 +19,7 @@ function HeaderWithSearchBar({ setSelectedChip }) {
     const newSearch = e.target.value;
     setSearch(newSearch);
   };
+
   return (
     <>
       <img

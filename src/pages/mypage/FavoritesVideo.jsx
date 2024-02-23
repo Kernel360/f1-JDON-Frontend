@@ -11,7 +11,6 @@ export default function FavoritesVideo() {
   const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {

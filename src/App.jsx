@@ -25,7 +25,6 @@ import { FailPage } from "./pages/sign-in/FailPage";
 import { isLoggedInState } from "./recoil/atoms";
 import JdAll from "./pages/jd-all";
 
-
 function App() {
   const userLoggedIn = useRecoilValue(isLoggedInState);
 
@@ -60,47 +59,43 @@ function App() {
     return authenticated ? (
       children
     ) : (
-      <Navigate to="/signin" {...alert("로그인이 필요한 페이지입니다.")}/>
+      <Navigate to="/signin" {...alert("로그인이 필요한 페이지입니다.")} />
     );
   };
 
   return (
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <Layout>
-            <React.Fragment>
-              <Routes>
-                {privateRoutes.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    element={
-                      <PrivateRoute authenticated={userLoggedIn}>
-                        {route.element}
-                      </PrivateRoute>
-                    }
-                  />
-                ))}
-                {publicRoutes.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    element={route.element}
-                  />
-                ))}
-              </Routes>
-            </React.Fragment>
-            <Helmet>
-              <title>JDON</title>
-              <meta
-                name="description"
-                content="최근 채용공고에 많이 언급된 직군별 기술스택에 맞는 영상을 추천 사이트"
-              />
-              <meta name="keywords" content="개발자, 채용, 커피챗" />
-            </Helmet>
-          </Layout>
-        </ThemeProvider>
-      </BrowserRouter>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <React.Fragment>
+            <Routes>
+              {privateRoutes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    <PrivateRoute authenticated={userLoggedIn}>
+                      {route.element}
+                    </PrivateRoute>
+                  }
+                />
+              ))}
+              {publicRoutes.map((route, index) => (
+                <Route key={index} path={route.path} element={route.element} />
+              ))}
+            </Routes>
+          </React.Fragment>
+          <Helmet>
+            <title>JDON</title>
+            <meta
+              name="description"
+              content="최근 채용공고에 많이 언급된 직군별 기술스택에 맞는 영상을 추천 사이트"
+            />
+            <meta name="keywords" content="개발자, 채용, 커피챗" />
+          </Helmet>
+        </Layout>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

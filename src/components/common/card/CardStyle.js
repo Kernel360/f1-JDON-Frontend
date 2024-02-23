@@ -31,9 +31,9 @@ export const VideoCardStyle = {
     display: "-webkit-box",
     overflow: "hidden",
     WebkitBoxOrient: "vertical",
-    WebkitLineClamp: 2, // 이 값으로 표시할 줄 수를 설정합니다.
+    WebkitLineClamp: 2,
     textOverflow: "ellipsis",
-    height: 42, // 이 값은 줄 수와 폰트 크기에 따라 조정될 수 있습니다.
+    height: 42,
   },
   Instructor: {
     color: "#9A9AA1",

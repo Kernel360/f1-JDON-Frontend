@@ -15,19 +15,19 @@ function CoffeeDetailButtons({ id, host, coffeeChatData }) {
   const applyForCoffeeChat = async () => {
     try {
       await applyCoffeechat(id, applyCoffee);
-      if (
-        !window.confirm("신청이 완료되었습니다. 내 커피챗을 확인하시겠습니까?")
-      )
-        return;
-      navigate("/mypage");
+      const userConfirmed = window.confirm(
+        "신청이 완료되었습니다. 내 커피챗을 확인하시겠습니까?"
+      );
+      if (userConfirmed) {
+        navigate("/mypage");
+      }
     } catch (error) {
-      if (error.response?.status !== 409) {
-        console.log("신청 중 에러가 발생했습니다.");
+      const { status, message } = error.response.data;
+      if (status === 400 || status === 409) {
+        alert(message);
         return;
       }
-      alert("이미 신청된 커피챗입니다.");
       setIsApplied(true);
-      return;
     }
   };
 
