@@ -6,8 +6,6 @@ import arrowLeft from "../../../src/assets/icons/arrow-left.svg";
 import arrowRight from "../../../src/assets/icons/arrow-right.svg";
 import { useNavigate } from "react-router-dom";
 import { getHotSkills, getMemberSkills } from "../../api/api";
-import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../../recoil/atoms";
 
 function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
   const scrollRef = useRef(null);
