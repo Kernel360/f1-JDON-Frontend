@@ -8,10 +8,10 @@ import Pagenation from "../../components/common/Pagenation";
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
 
-  console.log("datas", datas);
+
   useEffect(() => {
     const fetchData = async () => {
       try {

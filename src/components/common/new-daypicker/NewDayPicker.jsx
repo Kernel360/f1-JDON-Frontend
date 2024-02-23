@@ -1,18 +1,30 @@
-import React, { useState, useMemo } from 'react';
-import { Grid, TextField } from '@mui/material';
-import { DatePicker, DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { parseISO } from 'date-fns';
-import format from 'date-fns/locale/ko';
-import TotalInputForm from '../total-input-form/TotalInputForm';
+import React, { useState, useMemo } from "react";
+import { Grid, TextField } from "@mui/material";
+import {
+  DatePicker,
+  DateTimePicker,
+  LocalizationProvider,
+} from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { parseISO } from "date-fns";
+import format from "date-fns/locale/ko";
+import TotalInputForm from "../total-input-form/TotalInputForm";
 
 const isDateString = (value) => {
   const regex = /^\d{4}-\d{2}-\d{2}$/;
   return regex.test(value);
 };
 
-function InputComponent({ value, onChange, children, disablePast, maxDate, setError, errorMessage }) {
-  console.log('dddd', children);
+function InputComponent({
+  value,
+  onChange,
+  children,
+  disablePast,
+  maxDate,
+  setError,
+  errorMessage,
+}) {
+  // console.log("dddd", children);
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={format}>
       {React.cloneElement(children, {
@@ -36,23 +48,24 @@ function NewDayPicker({ label, value, onChange, daytime }) {
 
   const errorMessage = useMemo(() => {
     switch (error) {
-      case 'disablePast':
-        return '! 커피챗 날짜는 오늘부터만 가능합니다.';
-      case 'maxDate':
-        return '! 유효하지 않는 생일입니다. 다시 입력해주세요.';
-      case 'invalidDate':
-        return '유효하지 않는 값입니다. 입력해주세요.';
+      case "disablePast":
+        return "! 커피챗 날짜는 오늘부터만 가능합니다.";
+      case "maxDate":
+        return "! 유효하지 않는 생일입니다. 다시 입력해주세요.";
+      case "invalidDate":
+        return "유효하지 않는 값입니다. 입력해주세요.";
       default:
-        return '';
+        return "";
     }
   }, [error]);
 
   const now = new Date();
   const handleDateChange = (newDate) => {
-    if (typeof newDate === 'string') {
+    // console.log("커피챗 수정시", newDate);
+    if (typeof newDate === "string") {
       newDate = parseISO(newDate);
     }
-    if (newDate < now) {
+    if (newDate > now) {
       onChange(newDate);
     }
   };
@@ -62,9 +75,15 @@ function NewDayPicker({ label, value, onChange, daytime }) {
       <Grid container>
         {daytime ? (
           <InputComponent
-            value={value}
-            // onChange={handleDateChange}
-            children={<DateTimePicker sx={{ width: '100%' }} renderInput={(params) => <TextField {...params} />} />}
+            value={value ? parseISO(value) : now}
+            onChange={handleDateChange}
+            children={
+              <DateTimePicker
+                // inputFormat="yyyy-MM-dd"
+                sx={{ width: "100%" }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            }
             disablePast
             setError={setError}
             errorMessage={errorMessage}
@@ -72,11 +91,11 @@ function NewDayPicker({ label, value, onChange, daytime }) {
         ) : (
           <InputComponent
             value={isDateString(value) ? new Date(value) : value}
-            onChange={handleDateChange}
+            onChange={onChange}
             children={
               <DatePicker
                 inputFormat="yyyy-MM-dd"
-                sx={{ width: '100%' }}
+                sx={{ width: "100%" }}
                 renderInput={(params) => <TextField {...params} />}
               />
             }

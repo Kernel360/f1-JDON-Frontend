@@ -33,7 +33,3 @@ export const selectedJobSkillState = atom({
   default: [],
 });
 
-export const userLoginState = atom({
-  key: "userLoginState",
-  default: false,
-});

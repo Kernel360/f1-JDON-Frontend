@@ -36,6 +36,7 @@ function Coffeeopen() {
       return;
     }
     try {
+      console.log("등록시", formValue);
       await registerCoffeeChat(formValue);
       setIsRegistered(true);
       window.confirm(
@@ -47,14 +48,34 @@ function Coffeeopen() {
   };
 
   const formatDateTime = (date) => {
-    const dateString = date.toString(); // date 객체를 문자열로 변환
-    const year = String(new Date(dateString).getFullYear());
-    const month = String(new Date(dateString).getMonth() + 1).padStart(2, "0");
-    const day = String(new Date(dateString).getDate()).padStart(2, "0");
-    const hours = String(new Date(dateString).getHours()).padStart(2, "0");
-    const minutes = String(new Date(dateString).getMinutes()).padStart(2, "0");
-    const customFormattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-    updateFormValue("meetDate", customFormattedDate);
+    if (!date) return;
+    console.log("변환전 데이터", date);
+
+    // const dateString = date.toString(); // date 객체를 문자열로 변환
+    // const year = String(new Date(dateString).getFullYear());
+    // const month = String(new Date(dateString).getMonth() + 1).padStart(2, "0");
+    // const day = String(new Date(dateString).getDate()).padStart(2, "0");
+    // const hours = String(new Date(dateString).getHours()).padStart(2, "0");
+    // const minutes = String(new Date(dateString).getMinutes()).padStart(2, "0");
+    // const customFormattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
+
+    const time = date.getHours() + ":" + date.getMinutes();
+
+    const isoDate = date.toISOString();
+
+    // ISO 형식에서 날짜와 시간 부분을 추출
+    const [datePart] = isoDate.split("T");
+
+    // 시간 부분을 hh:mm 형식으로 추출
+    // const time = timePart.substring(0, 5);
+
+    // 날짜 부분을 yyyy-mm-dd 형식으로 추출
+    const [year, month, day] = datePart.split("-");
+    const formattedDate = `${year}-${month}-${day} ${time}`;
+
+    updateFormValue("meetDate", formattedDate);
+
+    console.log("변환한 데이터", formattedDate);
   };
 
   const allFieldsFilled = Object.values(formValue).every((value) => value);

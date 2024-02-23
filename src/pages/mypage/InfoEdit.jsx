@@ -21,15 +21,6 @@ import {
 import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 import { OptionButton, infoBasicStyles } from "../info/InfoStyles";
-// import {
-//   checkNicknameDuplicate,
-//   getJobCategory,
-//   getMemberInfo,
-//   updateMemberInfo,
-// } from "../api/api";
-// import NewDayPicker from "../components/common/new-daypicker/NewDayPicker";
-// import { OptionButton, infoBasicStyles } from "./info/InfoStyles";
-// import TotalInputForm from "../components/common/total-input-form/TotalInputForm";
 
 const GENDERS = ["남성", "여성"];
 
@@ -42,11 +33,19 @@ export default function InfoEdit() {
   const [helperText, setHelperText] = useState("");
   const [validation, setValidation] = useState(true);
 
-  const [memberInfo, setMemberInfo] = useState({});
+  // const [memberInfo, setMemberInfo] = useState({});
   const [nickname, setNickname] = useState("");
   const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState("");
   const [jobCategories, setJobCategories] = useState([]);
+
+  const setMemberInfo = (memberData) => {
+    setNickname(memberData.nickname || "");
+    setBirthday(memberData.birth ?? null);
+    setGender(memberData.gender ?? "");
+    setJobId(memberData.jobCategoryId ?? "");
+    setSelectedJobSkill(memberData.skillList ?? []);
+  };
 
   useEffect(() => {
     // 페이지가 로드될 때 회원 정보를 받아오는 통신 로직
@@ -54,12 +53,17 @@ export default function InfoEdit() {
       try {
         const memberData = await getMemberInfo();
         console.log("men", memberData.data);
+
         setMemberInfo(memberData.data);
-        setNickname(memberData.data.nickname || "닉네임 설정이 필요합니다.");
-        setBirthday(memberData.data.birth || null);
-        setGender(memberData.data.gender || "");
-        setJobId(memberData.data.jobCategoryId || "");
-        setSelectedJobSkill(memberData.data.skillList || "");
+        // setSelectedJobSkill(memberData.data.skillList || []);
+
+        // setUserInfo(memberData.data);
+        // setMemberInfo(memberData.data);
+        // setNickname(memberData.data.nickname || "닉네임 설정이 필요합니다.");
+        // setBirthday(memberData.data.birth || null);
+        // setGender(memberData.data.gender || "");
+        // setJobId(memberData.data.jobCategoryId || "");
+        // setSelectedJobSkill(memberData.data.skillList || "");
 
         const categoryData = await getJobCategory();
         setJobCategories(categoryData.jobGroupList[0].jobCategoryList);
@@ -71,16 +75,21 @@ export default function InfoEdit() {
     fetchMemberInfo();
   }, []);
 
+  // selectedJobSkill이 변경될 때마다 로컬 스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
+  }, [selectedJobSkill]);
+
   const handleGenderChange = (newValue) => {
     setGender(newValue);
     // console.log("gender", newValue);
   };
 
   const handleBithdayChange = (newDate) => {
-    // console.log("birth 넘어온 날것", newDate);
+    console.log("birth 넘어온 날것", newDate);
     const formattedDate =
       newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
-    // console.log("birth 가공한 데이트", formattedDate);
+    console.log("birth 가공한 데이트", formattedDate);
 
     setBirthday(formattedDate);
   };
@@ -146,9 +155,6 @@ export default function InfoEdit() {
       if (res) {
         console.log("정보수정 성공! 수정 데이터: ", res);
       }
-
-      // 저장이 완료되면 프로필 페이지로 이동
-      // navigate("/mypage");
     } catch (error) {
       console.error("회원 정보 업데이트 에러", error);
     }
