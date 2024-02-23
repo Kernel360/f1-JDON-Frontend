@@ -26,7 +26,7 @@ function CompanySection({ selectedChip, data }) {
           </span>
           에 관심있는 회사에요!
         </p>
-        <Button variant="outlined" onClick={pageHandler}>더 보기</Button>
+        <Button variant="outlined" onClick={pageHandler} sx={{ px:1, py:0.5 }}>더 보기</Button>
       </Typography>
       <Box sx={{ width: "100%" }}>
         {data.length > 0 ? (
