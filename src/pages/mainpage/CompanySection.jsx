@@ -1,23 +1,32 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import CompanyCard from "../../components/common/card/CompanyCard";
 import { MainStyles } from "../PageStyles";
+import { useNavigate } from "react-router-dom";
 
 function CompanySection({ selectedChip, data }) {
+  const navigate = useNavigate();
+
+  const pageHandler = () => {
+    navigate("/jd")
+  }
   return (
     <Box sx={{ mt: 8 }}>
-      <Typography sx={MainStyles.TypoGraphy}>
+      <Typography sx={MainStyles.JDTypoGraphy}>
         {/* Typography 내부에 span 사용시 불필요한 중괄호 제거 */}
-        <span
-          style={{
-            color: "black",
-            fontWeight: 700,
-            marginRight: 7,
-            fontSize: "18px",
-          }}
-        >
-          {selectedChip.keyword}
-        </span>
-        에 관심있는 회사에요!
+        <p>
+          <span
+            style={{
+              color: "black",
+              fontWeight: 700,
+              marginRight: 7,
+              fontSize: "18px",
+            }}
+          >
+            {selectedChip.keyword}
+          </span>
+          에 관심있는 회사에요!
+        </p>
+        <Button variant="outlined" onClick={pageHandler}>더 보기</Button>
       </Typography>
       <Box sx={{ width: "100%" }}>
         {data.length > 0 ? (
