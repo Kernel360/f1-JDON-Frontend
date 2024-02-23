@@ -6,6 +6,7 @@ import { getCoffeeChatDetail } from "../../api/api";
 import { useParams } from "react-router-dom";
 import HostInfoWithViewcount from "./HostInfoWithViewcount";
 import CoffeeDetailButtons from "./CoffeeDetailButtons";
+import { BeatLoader } from "react-spinners";
 
 function CoffeeDetail() {
   const { id } = useParams();
@@ -27,7 +28,20 @@ function CoffeeDetail() {
   }, [id]);
 
   if (isLoading) {
-    return <div>로딩중입니다...</div>;
+    return (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          background: "rgba(255, 255, 255, 0.6)",
+        }}
+      >
+        <BeatLoader />
+      </div>
+    );
   }
 
   if (!coffeeChatData) {
