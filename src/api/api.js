@@ -38,7 +38,6 @@ export async function Outh() {
     const res = await instance.get("/oauth2/authorization/kakao", {
       withCredentials: true,
     });
-    console.log("Outh API", res.data);
     return res.data;
   } catch (error) {
     console.error("Outh API error", error);
@@ -49,7 +48,6 @@ export async function Outh() {
 export async function registerUserInfo(userInfo) {
   try {
     const res = await instance.post("/api/v1/register", userInfo);
-    console.log("registerUserInfo API", res.data);
     return res.data;
   } catch (error) {
     console.error("registerUserInfo API error", error);
@@ -60,9 +58,7 @@ export async function registerUserInfo(userInfo) {
 //닉네임 중복 확인
 export async function checkNicknameDuplicate(nickName) {
   try {
-    console.log(nickName);
     const res = await instance.post("/api/v1/nickname/duplicate", nickName);
-    console.log("checkNicknameDuplicate API", res);
     return res.status;
   } catch (error) {
     console.log("checkNicknameDuplicate API error", error);
@@ -74,7 +70,6 @@ export async function checkNicknameDuplicate(nickName) {
 export async function getMemberInfo() {
   try {
     const res = await instance.get("/api/v1/member");
-    console.log("getMemberInfo API", res);
     return res.data;
   } catch (error) {
     console.log("getMemberInfo API error", error);
@@ -85,9 +80,7 @@ export async function getMemberInfo() {
 //회원정보 수정하기
 export async function updateMemberInfo(data) {
   try {
-    console.log("업데이트 멤버 정보", data);
     const res = await instance.put("/api/v1/member");
-    console.log("getMemberInfo API", res);
     return res.data;
   } catch (error) {
     console.log("getMemberInfo API error", error);
@@ -98,9 +91,7 @@ export async function updateMemberInfo(data) {
 //회원 로그아웃
 export async function logoutMember() {
   try {
-    // console.log(nickName);
     const res = await instance.post("/api/v1/logout");
-    console.log("logoutMember API", res);
     return res;
   } catch (error) {
     console.log("logoutMember API error", error);
@@ -127,7 +118,6 @@ export async function deleteMember() {
 export async function getHotSkills() {
   try {
     const res = await instance.get("/api/v1/skills/hot");
-    // console.log("getHotSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getHotSkills API error", error);
@@ -139,7 +129,6 @@ export async function getHotSkills() {
 export async function getMemberSkills() {
   try {
     const res = await instance.get("/api/v1/skills/member");
-    console.log("getMemberSkills API", res.data);
     return res.data;
   } catch (error) {
     console.error("getMemberSkills API error", error);
@@ -151,7 +140,6 @@ export async function getMemberSkills() {
 export async function getLectureByKeyword(keyword) {
   try {
     const res = await instance.get(`/api/v1/skills/search?keyword=${keyword}`);
-    //  console.log("getLectureByKeyword API", res.data);
     return res.data.data;
   } catch (error) {
     console.error("getLectureByKeyword API error", error);
@@ -176,11 +164,8 @@ export async function getSkillsOnJD(jobCategoryId) {
 // -------------------------------------------- favorite
 // 영상 찜하기 등록
 export const postFavoritVideo = async (data) => {
-  console.log("!!vedio data check", data);
-
   try {
     const res = await instance.post(`/api/v1/favorites`, data);
-    console.log("postFavoritVideo 응답", res.data);
     return res.data;
   } catch (error) {
     console.error("getFavoritVideo API", error);
@@ -192,7 +177,6 @@ export const postFavoritVideo = async (data) => {
 export const getFavoritVideo = async () => {
   try {
     const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
-    console.log("getFavoritVideo api 파일", res);
     return res.data;
   } catch (error) {
     console.error("getFavoritVideo API", error);
@@ -206,7 +190,6 @@ export const getFavoritVideo = async () => {
 
 export const getFAQ = async () => {
   try {
-    // console.log("FAQ");
     const res = await instance.get(`/api/v1/faqs`);
     return res.data.data;
   } catch (error) {
@@ -230,10 +213,7 @@ export const getJobCategory = async () => {
 //내가 오픈한 커피챗 목록 조회
 
 export const getMyCoffeeChat = async (page) => {
-  console.log("@@@page", page);
-
   try {
-    console.log("page check", page);
     const res = await instance.get(
       `/api/v1/coffeechats/host?page=${page}&size=12`
     );
@@ -248,7 +228,6 @@ export const getMyCoffeeChat = async (page) => {
 export const getSignCoffeeChat = async (page) => {
   console.log("!!!page", page);
   try {
-    console.log("page check", page);
     const res = await instance.get(
       `/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate`
     );
@@ -262,7 +241,6 @@ export const getSignCoffeeChat = async (page) => {
 //커피챗 목록 조회
 export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
   try {
-    console.log(" check eveything", page, size, sorting, jobCategory);
     const res = await instance.get(
       `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`
     );
@@ -277,7 +255,6 @@ export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
 export const getCoffeeChatDetail = async (id) => {
   try {
     const res = await instance.get(`api/v1/coffeechats/${id}`);
-    console.log("getCoffeeChatDetail", res.data);
     return res.data.data;
   } catch (error) {
     console.error("getCoffeeChatDetail API", error);
@@ -290,7 +267,6 @@ export async function registerCoffeeChat(coffeeChat) {
   console.log("333", JSON.stringify(coffeeChat));
   try {
     const res = await instance.post("/api/v1/coffeechats", coffeeChat);
-    console.log("registerCoffeeChat API", res.data);
     return res.data;
   } catch (error) {
     console.error("registerCoffeeChat API error", error);
@@ -302,7 +278,6 @@ export async function registerCoffeeChat(coffeeChat) {
 export async function updateCoffeechat(id, data) {
   try {
     const res = await instance.put(`/api/v1/coffeechats/${id}`, data);
-    console.log("getMemberInfo API", res);
     return res.data;
   } catch (error) {
     console.log("getMemberInfo API error", error);
@@ -325,7 +300,6 @@ export async function deleteCoffeechat(id, data) {
 
 //커피챗 신청
 export async function applyCoffeechat(id, coffeeChatData) {
-  console.log(coffeeChatData);
   try {
     const res = await instance.post(
       `/api/v1/coffeechats/${id}`,
@@ -340,3 +314,15 @@ export async function applyCoffeechat(id, coffeeChatData) {
 }
 
 // -------------------------------------------- faq
+// -------------------------------------------- wantedjd
+
+//커피챗 상세 조회
+export const getJdDetail = async (id) => {
+  try {
+    const res = await instance.get(`api/v1/jds/${id}`);
+    return res.data.data;
+  } catch (error) {
+    console.error("getJdDetail API", error);
+    throw error;
+  }
+};
