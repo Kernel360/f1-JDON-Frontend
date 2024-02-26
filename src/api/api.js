@@ -316,7 +316,7 @@ export async function applyCoffeechat(id, coffeeChatData) {
 // -------------------------------------------- faq
 // -------------------------------------------- wantedjd
 
-//커피챗 상세 조회
+//jd 상세 조회
 export const getJdDetail = async (id) => {
   try {
     const res = await instance.get(`api/v1/jds/${id}`);
