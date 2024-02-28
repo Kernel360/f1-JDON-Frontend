@@ -1,4 +1,4 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue as useRecoilState } from "recoil";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import { Helmet } from "react-helmet";
@@ -22,11 +22,11 @@ import RedirectPage from "./pages/sign-in/RedirectPage";
 import UpdateCoffeeForm from "./pages/coffee-detail/UpdateCoffeeForm";
 import { JdDetail } from "./pages/jd-detail/JdDetail";
 import { FailPage } from "./pages/sign-in/FailPage";
-import { isLoggedInState } from "./recoil/atoms";
 import JdAll from "./pages/jd-all";
+import { useAuth } from "./pages/mainpage/useAuth";
 
 function App() {
-  const userLoggedIn = useRecoilValue(isLoggedInState);
+  const { loginUser } = useAuth();
 
   const privateRoutes = [
     { path: "/mypage", element: <MyPage /> },
@@ -74,7 +74,7 @@ function App() {
                   key={index}
                   path={route.path}
                   element={
-                    <PrivateRoute authenticated={userLoggedIn}>
+                    <PrivateRoute authenticated={loginUser}>
                       {route.element}
                     </PrivateRoute>
                   }

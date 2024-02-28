@@ -4,15 +4,18 @@ import { ReviewItem } from "./ReviewItem";
 import add from "../../assets/icons/review_add.svg";
 import { useCallback, useEffect, useState } from "react";
 import { getReivew } from "../../api/api";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../../recoil/atoms";
 
 export function TabForReview({ id, openPopup }) {
+  const loginState = useRecoilValue(isLoggedInState);
   const [reviewData, setReviewData] = useState({ content: [], pageInfo: {} });
   const [isLoading, setIsLoading] = useState(false);
-  // 데이터 불러오는 함수
+
   const fetchReviewData = async (page) => {
     setIsLoading(true);
     try {
-      const res = await getReivew(id, page); // getReview 함수가 페이지 번호를 인자로 받도록 수정 필요
+      const res = await getReivew(id, page);
       setReviewData((prev) => ({
         content: [...prev.content, ...res.content],
         pageInfo: res.pageInfo,
@@ -24,7 +27,6 @@ export function TabForReview({ id, openPopup }) {
     }
   };
 
-  // 스크롤 이벤트 핸들러
   const handleScroll = useCallback(() => {
     console.log(window.innerHeight + document.documentElement.scrollTop);
     if (
@@ -39,7 +41,7 @@ export function TabForReview({ id, openPopup }) {
   }, [isLoading, reviewData.pageInfo]);
 
   useEffect(() => {
-    fetchReviewData(0); // 초기 데이터 로드
+    fetchReviewData(0);
   }, []);
 
   useEffect(() => {
@@ -74,7 +76,12 @@ export function TabForReview({ id, openPopup }) {
         </Box>
       </Box>
       {reviewData.content.map((item) => (
-        <ReviewItem review={item} reviewData={reviewData} />
+        <ReviewItem
+          review={item}
+          isWritter={loginState.memberId === item.memberId}
+          reviewData={reviewData}
+          loginUser={loginState.loginUser}
+        />
       ))}
     </>
   );

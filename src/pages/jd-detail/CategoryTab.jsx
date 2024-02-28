@@ -39,7 +39,13 @@ export function CategoryTab() {
           TabIndicatorProps={{ style: MainStyles.TabIndicator }}
         >
           <Tab label="상세 정보" value="1" sx={MainStyles.Tab} />
-          <Tab label="리뷰" value="2" sx={MainStyles.Tab} />
+          <Tab
+            label={`리뷰(${
+              jdData.reviewCount < 9 ? jdData.reviewCount : "9+"
+            })`}
+            value="2"
+            sx={MainStyles.Tab}
+          />
         </TabList>
 
         <TabPanelItem value="1">

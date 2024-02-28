@@ -17,5 +17,5 @@ export function useAuth() {
 
   const { memberId, loginUser } = loginState;
 
-  return { memberId, loginUser };
+  return { memberId, loginUser, setLoginState };
 }

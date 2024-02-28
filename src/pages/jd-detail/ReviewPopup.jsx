@@ -15,9 +15,10 @@ export function ReviewPopup({ isOpen, closePopup }) {
     if (e.target === e.currentTarget) closePopup();
   };
 
-  const plusReview = async () => {
-    await addReivew({ jdId: Number(id), content: review });
+  const plusReview = () => {
+    addReivew({ jdId: Number(id), content: review });
     alert("리뷰가 등록되었습니다");
+    setReview("");
     closePopup();
   };
   return (
