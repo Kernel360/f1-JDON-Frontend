@@ -3,42 +3,39 @@ import { theme } from "../../styles/themeMuiStyle";
 import { ReviewItem } from "./ReviewItem";
 import add from "../../assets/icons/review_add.svg";
 import { useCallback, useEffect, useState } from "react";
-import { getReivew } from "../../api/api";
+import { addReivew, delReivew, getReivew } from "../../api/api";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../recoil/atoms";
+import { ReviewPopup } from "./ReviewPopup";
+import { usePopup } from "../../components/common/usePopup";
 
-export function TabForReview({ id, openPopup }) {
+export function TabForReview({ id }) {
+  const { isOpen, openPopup, closePopup } = usePopup();
   const loginState = useRecoilValue(isLoggedInState);
   const [reviewData, setReviewData] = useState({ content: [], pageInfo: {} });
-  const [isLoading, setIsLoading] = useState(false);
 
   const fetchReviewData = async (page) => {
-    setIsLoading(true);
     try {
       const res = await getReivew(id, page);
-      setReviewData((prev) => ({
-        content: [...prev.content, ...res.content],
+      setReviewData({
+        content: [...res.content],
         pageInfo: res.pageInfo,
-      }));
+      });
     } catch (error) {
       console.error("Failed to fetch review data:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const handleScroll = useCallback(() => {
-    console.log(window.innerHeight + document.documentElement.scrollTop);
     if (
       window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight ||
-      isLoading
+      document.documentElement.scrollHeight
     )
       return;
     if (!reviewData.pageInfo.last) {
       fetchReviewData(reviewData.pageInfo.pageNumber + 1);
     }
-  }, [isLoading, reviewData.pageInfo]);
+  }, [reviewData.pageInfo]);
 
   useEffect(() => {
     fetchReviewData(0);
@@ -49,6 +46,19 @@ export function TabForReview({ id, openPopup }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const addReviewAndUpdate = async (newReview) => {
+    await addReivew({ jdId: Number(id), content: newReview.content });
+    fetchReviewData(0);
+    alert("리뷰가 등록되었습니다");
+    closePopup();
+  };
+
+  const deleteReviewAndUpdate = async (reviewId) => {
+    await delReivew(reviewId);
+    fetchReviewData(0);
+    alert("리뷰가 정상적으로 삭제되었습니다");
+  };
+
   return (
     <>
       <Box
@@ -58,6 +68,12 @@ export function TabForReview({ id, openPopup }) {
           justifyContent: "right",
         }}
       >
+        <ReviewPopup
+          id={id}
+          isOpen={isOpen}
+          closePopup={closePopup}
+          addReviewAndUpdate={addReviewAndUpdate}
+        />
         <Box
           sx={{
             cursor: "potiner",
@@ -81,6 +97,7 @@ export function TabForReview({ id, openPopup }) {
           isWritter={loginState.memberId === item.memberId}
           reviewData={reviewData}
           loginUser={loginState.loginUser}
+          deleteReviewAndUpdate={deleteReviewAndUpdate}
         />
       ))}
     </>

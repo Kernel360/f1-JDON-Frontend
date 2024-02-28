@@ -1,17 +1,16 @@
 import { Box, Typography } from "@mui/material";
-import { delReivew } from "../../api/api";
 
-export function ReviewItem({ review, isWritter }) {
+export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
   const deleteReivew = async () => {
     try {
-      await delReivew(review.id);
-      alert("리뷰가 정상적으로 삭제되었습니다");
+      await deleteReviewAndUpdate(review.id);
     } catch (error) {
       const { message } = error.response.data;
       alert(message);
       return;
     }
   };
+
   return (
     <Box sx={{ borderBottom: "1px solid #EBEBEB", py: 2 }}>
       <Box display="flex" justifyContent="space-between">
