@@ -26,9 +26,10 @@ export function TabForReview({ id, openPopup }) {
 
   // 스크롤 이벤트 핸들러
   const handleScroll = useCallback(() => {
+    console.log(window.innerHeight + document.documentElement.scrollTop);
     if (
-      window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight ||
+      window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight ||
       isLoading
     )
       return;
@@ -39,7 +40,7 @@ export function TabForReview({ id, openPopup }) {
 
   useEffect(() => {
     fetchReviewData(0); // 초기 데이터 로드
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
