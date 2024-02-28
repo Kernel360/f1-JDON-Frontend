@@ -22,7 +22,7 @@ function JDComponent() {
   });
 
   useEffect(() => {
-    resetSearchValue(); // 페이지 재 진입시 검색 값 초기화
+    resetSearchValue(); // 페이지 진입시 검색 값 초기화
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
