@@ -1,21 +1,20 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
-
 import { useEffect, useState } from "react";
-import { reviewMock } from "./mock";
 import { usePopup } from "./usePopup";
 import { TabForInfo } from "./TabForInfo";
 import { TabForReview } from "./TabForReview";
 import { ReviewPopup } from "./ReviewPopup";
 import { MainStyles } from "../PageStyles";
 import { getJdDetail } from "../../api/api";
+import { useParams } from "react-router-dom";
 
 export function CategoryTab() {
   const { isOpen, openPopup, closePopup } = usePopup();
   const [value, setValue] = useState("1");
-  // const mockData = mock;
   const [jdData, setJdData] = useState({});
-  const reviewData = reviewMock;
+
+  const { id } = useParams();
 
   const handleTabChange = (e, newValue) => {
     setValue(newValue);
@@ -23,12 +22,12 @@ export function CategoryTab() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = getJdDetail();
+      const res = await getJdDetail(id);
       setJdData(res);
-      console.log(res);
     };
+
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <Box>
@@ -44,10 +43,10 @@ export function CategoryTab() {
         </TabList>
 
         <TabPanelItem value="1">
-          <TabForInfo mockData={jdData} />
+          <TabForInfo jdData={jdData} />
         </TabPanelItem>
         <TabPanelItem value="2">
-          <TabForReview reviewData={reviewData} openPopup={openPopup} />
+          <TabForReview id={id} openPopup={openPopup} />
         </TabPanelItem>
       </TabContext>
     </Box>

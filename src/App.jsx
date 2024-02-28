@@ -51,7 +51,7 @@ function App() {
       element: <FailPage />,
     },
     { path: "/jd", element: <JdAll /> },
-    { path: "/jd/:id", element: <JdDetail /> },
+    { path: "/jds/:id", element: <JdDetail /> },
     { path: "/fail", element: <SignupFail /> },
   ];
 

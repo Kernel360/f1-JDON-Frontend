@@ -4,17 +4,21 @@ import { BackDrop } from "../../components/common/BackDrop";
 import NewInput from "../../components/common/new-input/NewInput";
 import { Box } from "@mui/material";
 import NewBtn from "../../components/common/new-btn/NewBtn";
+import { addReivew } from "../../api/api";
+import { useParams } from "react-router-dom";
 
-export function ReviewPopup({ isOpen, closePopup, reviewData }) {
+export function ReviewPopup({ isOpen, closePopup }) {
   const [review, setReview] = useState();
+  const { id } = useParams();
 
   const handleClose = (e) => {
     if (e.target === e.currentTarget) closePopup();
   };
 
-  const addReview = () => {
-    // reviewData.push(review);
+  const plusReview = async () => {
+    await addReivew({ jdId: Number(id), content: review });
     alert("리뷰가 등록되었습니다");
+    closePopup();
   };
   return (
     <>
@@ -30,7 +34,7 @@ export function ReviewPopup({ isOpen, closePopup, reviewData }) {
                 label="리뷰를 남겨주세요!"
                 onChange={(e) => setReview(e.target.value)}
               />
-              <NewBtn title="등록하기" onClick={addReview} />
+              <NewBtn title="등록하기" onClick={plusReview} />
             </Box>
           </PopupFrame>
         </BackDrop>

@@ -14,28 +14,29 @@ function JdInfoForm({ title, mockData }) {
   );
 }
 
-export function TabForInfo({ mockData }) {
+export function TabForInfo({ jdData }) {
   const handleClick = () => {
-    window.open(mockData.jdUrl, "_blank");
+    window.open(jdData.jdUrl, "_blank");
   };
   return (
     <Box>
-      <Box height={300} bgcolor="#9A9AA1" borderRadius="8px"></Box>
-      {/* //imageUrl */}
+      <Box height={300} bgcolor="#9A9AA1" borderRadius="8px">
+        <img src={jdData.imageUrl} alt="imageUrl" height={300} width="100%" />
+      </Box>
       <Box sx={{ paddingY: 3, borderBottom: "1px solid #EBEBEB" }}>
         <Typography variant="body3" component="p" color="#9A9AA1" fontSize={14}>
-          {mockData.company}
+          {jdData.company}
         </Typography>
         <Typography color="#545459" fontSize="18px" fontWeight="500">
-          {mockData.title}
+          {jdData.title}
         </Typography>
       </Box>
       <Box sx={{ marginY: "10px" }}>
-        <JdInfoForm title="자격 요견" mockData={mockData.requirements} />
-        <JdInfoForm title="주요 업무" mockData={mockData.mainTasks} />
-        <JdInfoForm title="소개글" mockData={mockData.intro} />
-        <JdInfoForm title="혜택 및 복지" mockData={mockData.benefits} />
-        <JdInfoForm title="우대사항" mockData={mockData.preferredPoints} />
+        <JdInfoForm title="자격 요견" mockData={jdData.requirements} />
+        <JdInfoForm title="주요 업무" mockData={jdData.mainTasks} />
+        <JdInfoForm title="소개글" mockData={jdData.intro} />
+        <JdInfoForm title="혜택 및 복지" mockData={jdData.benefits} />
+        <JdInfoForm title="우대사항" mockData={jdData.preferredPoints} />
       </Box>
       <NewBtn title="사이트로 이동하기" onClick={handleClick} isActive={true} />
     </Box>

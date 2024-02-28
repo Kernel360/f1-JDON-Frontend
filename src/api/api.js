@@ -264,7 +264,6 @@ export const getCoffeeChatDetail = async (id) => {
 
 //커피챗 등록
 export async function registerCoffeeChat(coffeeChat) {
-  console.log("333", JSON.stringify(coffeeChat));
   try {
     const res = await instance.post("/api/v1/coffeechats", coffeeChat);
     return res.data;
@@ -314,15 +313,50 @@ export async function applyCoffeechat(id, coffeeChatData) {
 }
 
 // -------------------------------------------- faq
-// -------------------------------------------- wantedjd
 
+// -------------------------------------------- wantedjd
 //jd 상세 조회
 export const getJdDetail = async (id) => {
   try {
     const res = await instance.get(`api/v1/jds/${id}`);
+
     return res.data.data;
   } catch (error) {
     console.error("getJdDetail API", error);
+    throw error;
+  }
+};
+// -------------------------------------------- review
+
+//리뷰 조회
+export const getReivew = async (id, page) => {
+  try {
+    const res = await instance.get(`api/v1/reviews/${id}?page=${page}&size=5`);
+    return res.data.data;
+  } catch (error) {
+    console.error("getReivew API", error);
+    throw error;
+  }
+};
+
+//리뷰 수정
+export const addReivew = async (reviewData) => {
+  try {
+    const res = await instance.post("api/v1/reviews", reviewData);
+    return res.data.data;
+  } catch (error) {
+    console.error("addReivew API", error);
+    throw error;
+  }
+};
+
+//리뷰 삭제
+export const delReivew = async (id) => {
+  try {
+    const res = await instance.delete(`api/v1/reviews/${id}`);
+    return res.data.data;
+  } catch (error) {
+    console.error("delReivew API", error);
     throw error;
   }
 };
