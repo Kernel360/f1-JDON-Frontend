@@ -1,4 +1,3 @@
-import { useRecoilValue as useRecoilState } from "recoil";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import { Helmet } from "react-helmet";
