@@ -25,7 +25,7 @@ instance.interceptors.response.use(
 export async function Authentication() {
   try {
     const res = await instance.get("/api/v1/authenticate");
-    return res.data.data.isLoginUser;
+    return res.data.data;
   } catch (error) {
     console.error("user login state", error);
     throw error;

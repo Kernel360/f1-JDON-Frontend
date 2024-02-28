@@ -4,13 +4,18 @@ import { isLoggedInState } from "../../recoil/atoms";
 import { Authentication } from "../../api/api";
 
 export function useAuth() {
-  const [isLogin, setIsLogin] = useRecoilState(isLoggedInState);
+  const [loginState, setLoginState] = useRecoilState(isLoggedInState);
   useEffect(() => {
     (async () => {
       const state = await Authentication();
-      setIsLogin(state);
+      setLoginState({
+        memberId: state.memberId,
+        loginUser: state.loginUser,
+      });
     })();
-  }, [setIsLogin]);
+  }, []);
 
-  return isLogin;
+  const { memberId, loginUser } = loginState;
+
+  return { memberId, loginUser };
 }
