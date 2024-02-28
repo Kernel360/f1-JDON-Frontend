@@ -7,14 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { applyCoffeechat, deleteCoffeechat } from "../../api/api";
 import { useEffect, useState } from "react";
 
-function CoffeeDetailButtons({ id, host, coffeeChatData }) {
+function CoffeeDetailButtons({
+  id,
+  host,
+  coffeeChatData,
+  isParticipant,
+  setIsShowLink,
+}) {
   const navigate = useNavigate();
   const [applyCoffee, setApplyCoffee] = useState({});
-  const [isApplied, setIsApplied] = useState(false);
 
   const applyForCoffeeChat = async () => {
     try {
       await applyCoffeechat(id, applyCoffee);
+      setIsShowLink(true);
       const userConfirmed = window.confirm(
         "신청이 완료되었습니다. 내 커피챗을 확인하시겠습니까?"
       );
@@ -27,7 +33,6 @@ function CoffeeDetailButtons({ id, host, coffeeChatData }) {
         alert(message);
         return;
       }
-      setIsApplied(true);
     }
   };
 
@@ -111,10 +116,10 @@ function CoffeeDetailButtons({ id, host, coffeeChatData }) {
               title="신청하기"
               onClick={applyForCoffeeChat}
               styles={{
-                background: !isApplied && theme.palette.primary.main,
-                color: !isApplied && "white",
+                background: isParticipant ? "gray" : theme.palette.primary.main,
+                color: "white",
               }}
-            ></NewBtn>
+            />
           )}
         </Grid>
         <Box item>
