@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 import NewBtn from "../../components/common/new-btn/NewBtn";
 
 function JdInfoForm({ title, mockData }) {
@@ -30,6 +30,18 @@ export function TabForInfo({ jdData }) {
         <Typography color="#545459" fontSize="18px" fontWeight="500">
           {jdData.title}
         </Typography>
+      </Box>
+      <Box sx={{ marginY: "10px" }}>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+          {jdData.skillList?.map((item) => (
+            <Chip
+              label={item.keyword}
+              variant="outlined"
+              size="medium"
+              clickable={false}
+            />
+          ))}
+        </Stack>
       </Box>
       <Box sx={{ marginY: "10px" }}>
         <JdInfoForm title="자격 요견" mockData={jdData.requirements} />
