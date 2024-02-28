@@ -1,6 +1,16 @@
 import { Box, Typography } from "@mui/material";
 
-export function ReviewItem({ review }) {
+export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
+  const deleteReivew = async () => {
+    try {
+      await deleteReviewAndUpdate(review.id);
+    } catch (error) {
+      const { message } = error.response.data;
+      alert(message);
+      return;
+    }
+  };
+
   return (
     <Box sx={{ borderBottom: "1px solid #EBEBEB", py: 2 }}>
       <Box display="flex" justifyContent="space-between">
@@ -27,18 +37,18 @@ export function ReviewItem({ review }) {
       <Typography variant="body3" component="p" color="#545459" fontSize={14}>
         {review.content}
       </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          gap: "6px",
-          pt: 2,
-          width: "100%",
-          justifyContent: "right",
-        }}
-      >
-        <CommonButton title="수정" onClick={() => {}} />
-        <CommonButton title="삭제" onClick={() => {}} />
-      </Box>
+      {isWritter && (
+        <Box
+          sx={{
+            display: "flex",
+            pt: 2,
+            width: "100%",
+            justifyContent: "right",
+          }}
+        >
+          <CommonButton title="삭제" onClick={deleteReivew} />
+        </Box>
+      )}
     </Box>
   );
 }

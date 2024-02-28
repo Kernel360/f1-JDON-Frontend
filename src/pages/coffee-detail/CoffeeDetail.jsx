@@ -7,11 +7,16 @@ import { useParams } from "react-router-dom";
 import HostInfoWithViewcount from "./HostInfoWithViewcount";
 import CoffeeDetailButtons from "./CoffeeDetailButtons";
 import { BeatLoader } from "react-spinners";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../../recoil/atoms";
 
 function CoffeeDetail() {
   const { id } = useParams();
   const [coffeeChatData, setCoffeeChatData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isShowLink, setIsShowLink] = useState(false);
+  const loginState = useRecoilValue(isLoggedInState);
+  console.log(loginState);
 
   useEffect(() => {
     (async () => {
@@ -19,6 +24,7 @@ function CoffeeDetail() {
       try {
         const res = await getCoffeeChatDetail(id);
         setCoffeeChatData(res);
+        console.log(res);
       } catch (error) {
         console.error("Error fetching getCoffeeChatDetail:", error);
       } finally {
@@ -55,12 +61,19 @@ function CoffeeDetail() {
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
       <CoffeeChatInfo
         coffeeChatData={coffeeChatData}
-        userIsHost={coffeeChatData.isAuthor}
+        canView={
+          coffeeChatData.hostId === loginState.memberId ||
+          coffeeChatData.isParticipant
+        }
+        isShowLink={isShowLink}
       />
+
       <CoffeeDetailButtons
         id={id}
-        host={coffeeChatData.isAuthor}
+        host={coffeeChatData.hostId === loginState.memberId}
+        isParticipant={coffeeChatData.isParticipant}
         coffeeChatData={coffeeChatData}
+        setIsShowLink={setIsShowLink}
       />
     </Container>
   );

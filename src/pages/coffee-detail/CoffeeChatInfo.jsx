@@ -14,7 +14,12 @@ import { URLInput } from "../PageStyles";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 import { useRef, useState } from "react";
 
-function CoffeeChatInfo({ coffeeChatData, userIsHost, LikedCoffeeChat }) {
+function CoffeeChatInfo({
+  coffeeChatData,
+  canView,
+  isShowLink,
+  LikedCoffeeChat,
+}) {
   const [isCopied, setIsCopied] = useState(false);
   const inputRef = useRef(null);
 
@@ -117,7 +122,7 @@ function CoffeeChatInfo({ coffeeChatData, userIsHost, LikedCoffeeChat }) {
           sx={URLInput}
           ref={inputRef}
           value={
-            userIsHost || LikedCoffeeChat
+            canView || isShowLink
               ? coffeeChatData.openChatUrl
               : "신청 후 확인 가능합니다"
           }
@@ -126,7 +131,7 @@ function CoffeeChatInfo({ coffeeChatData, userIsHost, LikedCoffeeChat }) {
             disabled: true,
             endAdornment: (
               <InputAdornment position="end" sx={{ background: "transparent" }}>
-                {userIsHost ||
+                {canView ||
                   (LikedCoffeeChat && (
                     <Button onClick={handleCopyClick}>
                       {isCopied ? (

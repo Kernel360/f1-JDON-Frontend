@@ -11,7 +11,7 @@ import "./../../../styles/animations.scss";
 import { postFavoritVideo } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
-function VideoCard({ data, onSuccess, myFavorite, onError }) {
+function VideoCard({ data, myFavorite, onError }) {
   const [isFavorite, setIsFavorite] = useState(
     myFavorite ? true : data.isFavorite
   );
@@ -35,7 +35,6 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
       if (!myFavorite) {
         setIsFavorite(!isFavorite);
       }
-      if (onSuccess) onSuccess(isFavorite);
     } catch (error) {
       if (onError) onError(error);
     }
