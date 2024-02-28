@@ -70,7 +70,7 @@ export default function BottomNav() {
         }}
       >
         <BottomNavigationAction label="메인" icon={<HomeIcon fontSize="medium" />} />
-        <BottomNavigationAction label="JD ON" icon={<WorkIcon fontSize="medium" />} />
+        <BottomNavigationAction label="JD-ON" icon={<WorkIcon fontSize="medium" />} />
         <BottomNavigationAction label="커피챗" icon={<CoffeeIcon fontSize="medium" />} />
         <BottomNavigationAction
           label={isLogin === 'true' ? 'My page' : '로그인'}
