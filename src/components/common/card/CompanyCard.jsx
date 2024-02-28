@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function CompanyCard({ data }) {
   const navigate = useNavigate();
   const handleCardClick = () => {
-    navigate(`/jd/${data.id}`);
+    navigate(`/jds/${data.id}`);
   };
   return (
     <Paper elevation={0} sx={{ my: 1 }} onClick={handleCardClick}>
