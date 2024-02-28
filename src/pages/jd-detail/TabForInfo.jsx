@@ -39,6 +39,7 @@ export function TabForInfo({ jdData }) {
               variant="outlined"
               size="medium"
               clickable={false}
+              sx={{ color: "#6482FF", borderColor: "#6482FF" }}
             />
           ))}
         </Stack>
