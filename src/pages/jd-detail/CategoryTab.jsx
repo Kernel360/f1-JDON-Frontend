@@ -27,6 +27,8 @@ function TabPanelItem({ children, value }) {
 export function CategoryTab() {
   const [value, setValue] = useState("1");
   const [jdData, setJdData] = useState({});
+  const [reviewNum, setReviewNum] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
 
@@ -36,8 +38,11 @@ export function CategoryTab() {
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true); // 데이터 로딩 시작
       const res = await getJdDetail(id);
       setJdData(res);
+      setReviewNum(res.reviewCount);
+      setIsLoading(false); // 데이터 로딩 완료
     })();
   }, [id]);
 
@@ -51,9 +56,11 @@ export function CategoryTab() {
         >
           <Tab label="상세 정보" value="1" sx={MainStyles.Tab} />
           <Tab
-            label={`리뷰(${
-              jdData.reviewCount < 9 ? jdData.reviewCount : "9+"
-            })`}
+            label={
+              isLoading
+                ? "리뷰 로딩 중..."
+                : `리뷰(${reviewNum < 9 ? reviewNum : "9+"})`
+            }
             value="2"
             sx={MainStyles.Tab}
           />
@@ -62,7 +69,7 @@ export function CategoryTab() {
           <TabForInfo jdData={jdData} />
         </TabPanelItem>
         <TabPanelItem value="2">
-          <TabForReview id={id} />
+          <TabForReview id={id} setReviewNum={setReviewNum} />
         </TabPanelItem>
       </TabContext>
     </Box>
