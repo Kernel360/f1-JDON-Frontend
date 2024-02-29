@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import CompanyCard from '../../components/common/card/CompanyCard';
 import { getAllJDByKeyword } from '../../api/api';
 import PaginationComponent from '../../components/common/Pagenation';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { jdSearchValue } from '../../recoil/atoms';
 
 function JDComponent() {
   const searchValue = useRecoilValue(jdSearchValue);
-
+  const resetSearchValue = useResetRecoilState(jdSearchValue);
+  const [currentPage, setCurrentPage] = useState(1);
   const [jobData, setJobData] = useState({
     content: [],
     pageInfo: {
@@ -19,11 +20,15 @@ function JDComponent() {
       empty: true,
     },
   });
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = (_, newPage) => {
-    setCurrentPage(newPage);
-  };
+  useEffect(() => {
+    resetSearchValue(); // 페이지 진입시 검색 값 초기화
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1); // 키워드 검색 시 페이지네이션 인덱스 초기화
+  }, [searchValue]);
 
   useEffect(() => {
     (async (currentPage) => {
@@ -35,6 +40,10 @@ function JDComponent() {
       }
     })(currentPage);
   }, [currentPage, jobData.pageInfo.pageSize, searchValue]);
+
+  const handlePageChange = (_, newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <>
