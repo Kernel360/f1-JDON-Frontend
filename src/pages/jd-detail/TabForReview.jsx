@@ -9,7 +9,7 @@ import { isLoggedInState } from "../../recoil/atoms";
 import { ReviewPopup } from "./ReviewPopup";
 import { usePopup } from "../../components/common/usePopup";
 
-export function TabForReview({ id }) {
+export function TabForReview({ id, setReviewNum }) {
   const { isOpen, openPopup, closePopup } = usePopup();
   const loginState = useRecoilValue(isLoggedInState);
   const [reviewData, setReviewData] = useState({ content: [], pageInfo: {} });
@@ -50,6 +50,7 @@ export function TabForReview({ id }) {
     await addReivew({ jdId: Number(id), content: newReview.content });
     fetchReviewData(0);
     alert("리뷰가 등록되었습니다");
+    setReviewNum((prev) => prev + 1);
     closePopup();
   };
 
@@ -57,6 +58,7 @@ export function TabForReview({ id }) {
     await delReivew(reviewId);
     fetchReviewData(0);
     alert("리뷰가 정상적으로 삭제되었습니다");
+    setReviewNum((prev) => prev - 1);
   };
 
   return (
