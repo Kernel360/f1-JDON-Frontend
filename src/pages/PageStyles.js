@@ -36,8 +36,7 @@ export const signInTextFieldStyles = (value) => ({
   },
 });
 
-const TypoGraphyStyle =
-{
+const TypoGraphyStyle = {
   fontSize: "16px",
   fontWeight: 500,
   color: "black",
@@ -125,7 +124,7 @@ export const URLInput = () => ({
 export const BtnStyle = (value) => ({
   width: "100%",
   height: "55px",
-  background: value === "github" ? "black" : "#FEE500",
+  background: value === "github" ? "black" : "#FFD600",
   borderRadius: "10px",
   display: "flex",
   alignItems: "center",
