@@ -16,7 +16,7 @@ function CoffeeDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const [isShowLink, setIsShowLink] = useState(false);
   const loginState = useRecoilValue(isLoggedInState);
-  console.log(loginState);
+  const [isParticipant, setIsParticipant] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -24,7 +24,7 @@ function CoffeeDetail() {
       try {
         const res = await getCoffeeChatDetail(id);
         setCoffeeChatData(res);
-        console.log(res);
+        setIsParticipant(res.isParticipant);
       } catch (error) {
         console.error("Error fetching getCoffeeChatDetail:", error);
       } finally {
@@ -66,12 +66,14 @@ function CoffeeDetail() {
           coffeeChatData.isParticipant
         }
         isShowLink={isShowLink}
+        isParticipant={isParticipant}
       />
 
       <CoffeeDetailButtons
         id={id}
         host={coffeeChatData.hostId === loginState.memberId}
-        isParticipant={coffeeChatData.isParticipant}
+        isParticipant={isParticipant}
+        setIsParticipant={setIsParticipant}
         coffeeChatData={coffeeChatData}
         setIsShowLink={setIsShowLink}
       />
