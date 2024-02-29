@@ -34,9 +34,8 @@ function CoffeeDetailButtons({
   const applyForCoffeeChat = async () => {
     try {
       await applyCoffeechat(id, applyCoffee);
+      alert("신청이 완료되었습니다.");
       setIsParticipant(true);
-      alert("신청이 완료되었습니다. 내 커피챗을 확인하시겠습니까?");
-      navigate(`/coffee/${id}`);
     } catch (error) {
       if (error.response?.status !== 409) {
         console.log("신청 중 에러가 발생했습니다.");
@@ -124,15 +123,13 @@ function CoffeeDetailButtons({
             </>
           ) : (
             <NewBtn
-              title={
-                isParticipant ? "이미 신청한 커피챗입니다" : applyButtonText()
-              }
-              styles={{
-                background: isButtonDisables
-                  ? "#EBEBEB"
-                  : theme.palette.primary.main,
-                color: "white",
-              }}
+              title={isParticipant ? "신청완료" : applyButtonText()}
+              // styles={{
+              //   background: isButtonDisables
+              //     ? "#EBEBEB"
+              //     : theme.palette.primary.main,
+              //   color: "white",
+              // }}
               onClick={applyForCoffeeChat}
               disable={isButtonDisables}
             />

@@ -14,7 +14,6 @@ function CoffeeDetail() {
   const { id } = useParams();
   const [coffeeChatData, setCoffeeChatData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isShowLink, setIsShowLink] = useState(false);
   const loginState = useRecoilValue(isLoggedInState);
   const [isParticipant, setIsParticipant] = useState(false);
 
@@ -65,7 +64,6 @@ function CoffeeDetail() {
           coffeeChatData.hostId === loginState.memberId ||
           coffeeChatData.isParticipant
         }
-        isShowLink={isShowLink}
         isParticipant={isParticipant}
       />
 
@@ -75,7 +73,6 @@ function CoffeeDetail() {
         isParticipant={isParticipant}
         setIsParticipant={setIsParticipant}
         coffeeChatData={coffeeChatData}
-        setIsShowLink={setIsShowLink}
       />
     </Container>
   );

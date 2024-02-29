@@ -14,15 +14,10 @@ import { URLInput } from "../PageStyles";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 import { useRef, useState } from "react";
 
-function CoffeeChatInfo({
-  coffeeChatData,
-  canView,
-  isShowLink,
-  isParticipant,
-}) {
+function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
   const [isCopied, setIsCopied] = useState(false);
   const inputRef = useRef(null);
-  const hasAuthenticate = canView || isShowLink || isParticipant;
+  const hasAuthenticate = canView || isParticipant;
 
   const dateTime = coffeeChatData.meetDate;
 
