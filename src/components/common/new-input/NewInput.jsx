@@ -1,10 +1,7 @@
-import { InputAdornment, TextField } from "@mui/material";
-import {
-  duplicateCheckButtonStyle,
-  nicknameTextField,
-} from "../../../pages/info/InfoStyles";
-import { theme } from "../../../styles/themeMuiStyle";
-import TotalInputForm from "../total-input-form/TotalInputForm";
+import { InputAdornment, TextField } from '@mui/material';
+import { duplicateCheckButtonStyle, nicknameTextField } from '../../../pages/info/InfoStyles';
+import { theme } from '../../../styles/themeMuiStyle';
+import TotalInputForm from '../total-input-form/TotalInputForm';
 
 function NewInput({
   label,
@@ -19,20 +16,16 @@ function NewInput({
   isMultiline,
   style,
   min,
+  btnState,
 }) {
   const buttonStyle = {
     ...duplicateCheckButtonStyle,
-    background: "white",
+    background: 'white',
     color: theme.palette.primary.main,
   };
 
   return (
-    <TotalInputForm
-      value={value}
-      label={label}
-      valid={valid}
-      helperText={helperText}
-    >
+    <TotalInputForm value={value} label={label} valid={valid} helperText={helperText}>
       <TextField
         required
         multiline={isMultiline}
@@ -53,24 +46,21 @@ function NewInput({
           duplicate
             ? {
                 endAdornment: (
-                  <InputAdornment
-                    position="end"
-                    sx={{ background: "transparent" }}
-                  >
-                    <button type="button" style={buttonStyle} onClick={onClick}>
+                  <InputAdornment position="end" sx={{ background: 'transparent' }}>
+                    <button type="button" style={buttonStyle} onClick={onClick} disabled={btnState}>
                       {valid ? (
                         <div
                           style={{
-                            width: "18px",
-                            height: "18px",
-                            border: valid ? "1px solid" : "",
-                            borderRadius: "999px",
+                            width: '18px',
+                            height: '18px',
+                            border: valid ? '1px solid' : '',
+                            borderRadius: '999px',
                           }}
                         >
                           v
                         </div>
                       ) : (
-                        " 중복 확인"
+                        ' 중복 확인'
                       )}
                     </button>
                   </InputAdornment>
