@@ -39,7 +39,7 @@ export function CategoryTab() {
       const res = await getJdDetail(id);
       setJdData(res);
     })();
-  }, [id, jdData.reviewCount]);
+  }, [id]);
 
   return (
     <Box>
