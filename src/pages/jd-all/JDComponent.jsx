@@ -81,7 +81,7 @@ function JDComponent() {
       </Box>
 
       {/* 페이지네이션 컴포넌트 */}
-      <Stack justifyContent="center" alignItems="center" sx={{ mb: 12 }}>
+      <Stack justifyContent="center" alignItems="center" sx={{ mb: 3 }}>
         <PaginationComponent
           pageCount={jobData?.pageInfo.totalPages}
           currentPage={currentPage}

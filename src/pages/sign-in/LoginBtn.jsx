@@ -1,4 +1,4 @@
-import { BtnStyle } from "../PageStyles";
+import { BtnStyle } from '../PageStyles';
 
 export function LoginBtn({ social, color, title, logo }) {
   const handleLogin = () => {
@@ -10,11 +10,11 @@ export function LoginBtn({ social, color, title, logo }) {
       <div
         style={{
           color: color,
-          fontSize: "14px",
-          fontWeight: "600",
-          display: "flex",
-          alignItems: "center",
-          gap: "20px",
+          fontSize: '14px',
+          fontWeight: '600',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
         }}
       >
         <img src={logo} alt="kakao" />

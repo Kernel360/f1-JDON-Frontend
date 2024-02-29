@@ -29,7 +29,7 @@ export default function BottomNav() {
         setValue(3);
         break;
       case location.pathname.startsWith('/mypage'):
-        setValue(4);
+        setValue(3);
         break;
       default:
         break;
@@ -65,7 +65,7 @@ export default function BottomNav() {
         sx={{
           height: 80,
           display: 'flex',
-          gap: '8%',
+          gap: { xs: 'inherit', sm: '8%' },
           borderTop: '1px solid light-gray',
         }}
       >

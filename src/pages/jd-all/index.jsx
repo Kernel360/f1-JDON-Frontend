@@ -3,12 +3,13 @@ import { Container } from '@mui/material';
 import BottomNav from '../../components/common/BottomNav';
 import JDSearchBar from './JDSearchBar';
 import JDComponent from './JDComponent';
-import CommonHeader from '../../components/common/Header';
+// import CommonHeader from '../../components/common/Header';
+import JdBanner from './JDBanner';
 function JdAll() {
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ pt: 3, pb: 10 }}>
       {/* 헤더 (뒤로가기) */}
-      <CommonHeader title={'메인 페이지'} />
+      <JdBanner />
       {/* 상단 검색바 */}
       <JDSearchBar />
       {/* 공고 내역 컴포넌트 & 페이지네이션 */}

@@ -1,14 +1,14 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import CompanyCard from "../../components/common/card/CompanyCard";
-import { MainStyles } from "../PageStyles";
-import { useNavigate } from "react-router-dom";
+import { Box, Grid, Typography } from '@mui/material';
+import CompanyCard from '../../components/common/card/CompanyCard';
+import { MainStyles } from '../PageStyles';
+import { useNavigate } from 'react-router-dom';
 
 function CompanySection({ selectedChip, data }) {
   const navigate = useNavigate();
 
   const pageHandler = () => {
-    navigate("/jd")
-  }
+    navigate('/jd');
+  };
   return (
     <Box sx={{ mt: 8 }}>
       <Typography sx={MainStyles.JDTypoGraphy}>
@@ -16,19 +16,31 @@ function CompanySection({ selectedChip, data }) {
         <p>
           <span
             style={{
-              color: "black",
+              color: 'black',
               fontWeight: 700,
               marginRight: 7,
-              fontSize: "18px",
+              fontSize: '18px',
             }}
           >
             {selectedChip.keyword}
           </span>
           에 관심있는 회사에요!
         </p>
-        <Button variant="outlined" onClick={pageHandler} sx={{ px:1, py:0.5 }}>더 보기</Button>
+        <button
+          onClick={pageHandler}
+          style={{
+            padding: ' 7px 15px 7px 15px',
+            borderRadius: '5px',
+            border: 'none',
+
+            background: '#f4f4f4',
+            cursor: 'pointer',
+          }}
+        >
+          더 보기
+        </button>
       </Typography>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: '100%' }}>
         {data.length > 0 ? (
           <Grid container spacing={{ xs: 1, sm: 2, md: 2 }} sx={{ py: 1 }}>
             {data.map((item, index) => (
@@ -40,19 +52,19 @@ function CompanySection({ selectedChip, data }) {
         ) : (
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-              padding: "100px 0",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
+              padding: '100px 0',
             }}
           >
             <div
               style={{
-                fontSize: "16px",
-                color: "#B9B9B9",
+                fontSize: '16px',
+                color: '#B9B9B9',
                 fontWeight: 600,
-                textAlign: "center",
+                textAlign: 'center',
               }}
             >
               회사 데이터가 존재하지 않습니다
