@@ -17,13 +17,13 @@ export default function SignIn() {
           <TitleLogo />
           <Box sx={SignInStyle.BtnContainer}>
             <LoginBtn
-              title="카카오톡 로그인"
+              title="카카오톡으로 시작하기 "
               color="#191919"
               social="kakao"
               logo={kakao}
             />
             <LoginBtn
-              title="깃허브 로그인"
+              title="깃허브로 시작하기"
               color="white"
               social="github"
               logo={git}

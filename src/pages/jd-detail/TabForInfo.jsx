@@ -7,8 +7,13 @@ function JdInfoForm({ title, mockData }) {
       <Typography color="#545459" fontSize="14px" fontWeight="700">
         {title}
       </Typography>
-      <Typography variant="body3" component="p" color="#9A9AA1" fontSize={14}>
-        {mockData}
+      <Typography variant="body3" component="div" color="#9A9AA1" fontSize={14}>
+        {mockData?.split("\n").map((line, index) => (
+          <p key={index}>
+            {line}
+            <br />
+          </p>
+        ))}
       </Typography>
     </Box>
   );
