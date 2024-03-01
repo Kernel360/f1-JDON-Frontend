@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { Grid, TextField } from "@mui/material";
 import {
   DatePicker,
@@ -19,7 +19,15 @@ const isDateString = (value) => {
   return regex.test(value);
 };
 
-function InputComponent({ value, onChange, children, disablePast, maxDate }) {
+function InputComponent({
+  value,
+  onChange,
+  children,
+  disablePast,
+  maxDate,
+  setError,
+  errorMessage,
+}) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={format}>
       {React.cloneElement(children, {
@@ -33,6 +41,21 @@ function InputComponent({ value, onChange, children, disablePast, maxDate }) {
 }
 
 function NewDayPicker({ label, value, onChange, valid, helperText, daytime }) {
+  //const [error, setError] = useState(null);
+
+  // const errorMessage = useMemo(() => {
+  //   switch (error) {
+  //     case "disablePast":
+  //       return "! 커피챗 날짜는 오늘부터만 가능합니다.";
+  //     case "maxDate":
+  //       return "! 유효하지 않는 생일입니다. 다시 입력해주세요.";
+  //     case "invalidDate":
+  //       return "유효하지 않는 값입니다. 입력해주세요.";
+  //     default:
+  //       return "";
+  //   }
+  // }, [error]);
+
   const now = new Date();
   const handleDateChange = (newDate) => {
     if (typeof newDate === "string") {
@@ -57,13 +80,10 @@ function NewDayPicker({ label, value, onChange, valid, helperText, daytime }) {
             onChange={handleDateChange}
             children={
               <DateTimePicker
-                slotProps={{
-                  textField: {
-                    readOnly: true,
-                  },
-                }}
                 sx={datePicker(value)}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => (
+                  <TextField InputProps={{ readOnly: true }} />
+                )}
               />
             }
             disablePast
@@ -74,13 +94,11 @@ function NewDayPicker({ label, value, onChange, valid, helperText, daytime }) {
             onChange={onChange}
             children={
               <DatePicker
-                slotProps={{
-                  textField: {
-                    readOnly: true,
-                  },
-                }}
+                inputFormat="yyyy-MM-dd"
                 sx={datePicker(value)}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => (
+                  <TextField InputProps={{ readOnly: true }} />
+                )}
               />
             }
             maxDate={new Date()}
