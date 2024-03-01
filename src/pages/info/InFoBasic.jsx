@@ -106,18 +106,18 @@ function InFoBasic({ agree, setAgree }) {
         <NewDayPicker
           label="생일"
           value={value.birth}
-          // valid={validtion}
+          valid={validtion}
           isMeetDay={false}
-          // helperText={dateHelperText}
+          helperText={dateHelperText}
           onChange={(newDate) => {
             handleBithdayChange(newDate);
-            // const now = new Date();
-            // if (newDate <= now) {
-            //   handleInputChange("birth", newDate);
-            // } else {
-            //   setValidation(false);
-            //   setDateHelperText("현재시간보다 이후입니다");
-            // }
+            const now = new Date();
+            if (newDate <= now) {
+              handleInputChange("birth", newDate);
+            } else {
+              setValidation(false);
+              setDateHelperText("현재시간보다 이후입니다");
+            }
           }}
         />
         <TotalInputForm label="성별" value={value.gender} valid={validtion}>
