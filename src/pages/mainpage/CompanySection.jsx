@@ -1,14 +1,8 @@
 import { Box, Grid, Typography } from '@mui/material';
 import CompanyCard from '../../components/common/card/CompanyCard';
 import { MainStyles } from '../PageStyles';
-import { useNavigate } from 'react-router-dom';
 
 function CompanySection({ selectedChip, data }) {
-  const navigate = useNavigate();
-
-  const pageHandler = () => {
-    navigate('/jd');
-  };
   return (
     <Box sx={{ mt: 8 }}>
       <Typography sx={MainStyles.JDTypoGraphy}>
@@ -26,19 +20,6 @@ function CompanySection({ selectedChip, data }) {
           </span>
           에 관심있는 회사에요!
         </p>
-        <button
-          onClick={pageHandler}
-          style={{
-            padding: ' 7px 15px 7px 15px',
-            borderRadius: '5px',
-            border: 'none',
-
-            background: '#f4f4f4',
-            cursor: 'pointer',
-          }}
-        >
-          더 보기
-        </button>
       </Typography>
       <Box sx={{ width: '100%' }}>
         {data.length > 0 ? (
