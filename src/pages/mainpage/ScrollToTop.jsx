@@ -14,7 +14,7 @@ function ScrollToTop({ topRef }) {
     }, 300);
   };
   const toggleVisibility = () => {
-    const shouldBeVisible = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1000;
+    const shouldBeVisible = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 500;
     setIsSlideUp(shouldBeVisible);
     if (shouldBeVisible) {
       setShowButton(true);
