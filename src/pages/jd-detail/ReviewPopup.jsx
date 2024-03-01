@@ -36,6 +36,7 @@ export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
           />
           <NewBtn
             title="등록하기"
+            disable={!reviewInput}
             onClick={handleAddReview}
             isActive={reviewInput}
           />
