@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import NewBtn from "../../components/common/new-btn/NewBtn";
 import { PopupFrame } from "../../components/common/PopupFrame";
 
-export function ReviewPopup({ id, isOpen, closePopup, addReviewAndUpdate }) {
+export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
   const [reviewInput, setReviewInput] = useState();
 
   const handleClose = (e) => {
