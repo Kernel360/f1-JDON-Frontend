@@ -124,12 +124,12 @@ function CoffeeDetailButtons({
           ) : (
             <NewBtn
               title={isParticipant ? "신청완료" : applyButtonText()}
-              // styles={{
-              //   background: isButtonDisables
-              //     ? "#EBEBEB"
-              //     : theme.palette.primary.main,
-              //   color: "white",
-              // }}
+              styles={{
+                background: isButtonDisables
+                  ? "#EBEBEB"
+                  : theme.palette.primary.main,
+                color: "white",
+              }}
               onClick={applyForCoffeeChat}
               disable={isButtonDisables}
             />
