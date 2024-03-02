@@ -23,7 +23,7 @@ import { useRecoilState } from 'recoil';
 import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
 import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
 import { AGREE_DATA } from './agreeData';
-import { NoLessTwo, NoSCAndAdmin, NoSpaceBar } from 'constants/nickname';
+import { NoSCAndAdmin, NoSpaceBar } from 'constants/nickname';
 
 function InFoBasic({ agree, setAgree }) {
   const [helperText, setHelperText] = useState('');
