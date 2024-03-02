@@ -23,6 +23,7 @@ import { JdDetail } from './pages/jd-detail/JdDetail';
 import { FailPage } from './pages/sign-in/FailPage';
 import JdAll from './pages/jd-all';
 import { useAuth } from './pages/mainpage/useAuth';
+import NotFound from 'pages/404';
 
 function App() {
   const { loginUser } = useAuth();
@@ -52,6 +53,7 @@ function App() {
     { path: '/jd', element: <JdAll /> },
     { path: '/jds/:id', element: <JdDetail /> },
     { path: '/fail', element: <SignupFail /> },
+    { path: '/*', element: <NotFound /> },
   ];
 
   const PrivateRoute = ({ authenticated, children }) => {
