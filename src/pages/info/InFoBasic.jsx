@@ -45,16 +45,17 @@ function InFoBasic({ agree, setAgree }) {
   };
 
   const checkNickname = async () => {
-    if (nick === ('관리자' | '어드민' | 'admin' | 'administer')) {
-      setValidation(false);
-      setHelperText('사용할 수 없는 닉네임입니다');
-      return;
-    }
     if (nick) {
       try {
         const res = await checkNicknameDuplicate({
           nickname: nick, //중간밸류 중복확인
         });
+
+        if (['어드민', 'admin', 'administer'].includes(nick)) {
+          setValidation(false);
+          setHelperText('사용할 수 없는 닉네임입니다');
+          return;
+        }
         if (res === 204) {
           //만약 사용가능하다면
           setValidation(true); // 유효성 o
@@ -63,6 +64,11 @@ function InFoBasic({ agree, setAgree }) {
         }
       } catch (error) {
         //그렇지 않다면
+        if (nick === '관리자') {
+          setValidation(false);
+          setHelperText('사용할 수 없는 닉네임입니다');
+          return;
+        }
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
           setHelperText('이미 존재하는 닉네임입니다');
