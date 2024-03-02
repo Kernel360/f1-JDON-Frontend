@@ -14,7 +14,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { OptionButton, infoBasicStyles } from "./InfoStyles";
 import NewInput from "../../components/common/new-input/NewInput";
 import { checkNicknameDuplicate } from "../../api/api";
@@ -71,10 +71,8 @@ function InFoBasic({ agree, setAgree }) {
   };
 
   const handleBithdayChange = (newDate) => {
-    console.log("birth 넘어온 날것", newDate);
     const formattedDate =
       newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
-    console.log("birth 가공한 데이트", formattedDate);
 
     handleInputChange("birth", formattedDate);
   };
@@ -104,21 +102,22 @@ function InFoBasic({ agree, setAgree }) {
           }}
           onClick={checkNickname}
         />
+
         <NewDayPicker
           label="생일"
           value={value.birth}
-          // valid={validtion}
+          valid={validtion}
           isMeetDay={false}
-          // helperText={dateHelperText}
+          helperText={dateHelperText}
           onChange={(newDate) => {
             handleBithdayChange(newDate);
-            // const now = new Date();
-            // if (newDate <= now) {
-            //   handleInputChange("birth", newDate);
-            // } else {
-            //   setValidation(false);
-            //   setDateHelperText("현재시간보다 이후입니다");
-            // }
+            const now = new Date();
+            if (newDate <= now) {
+              handleInputChange("birth", newDate);
+            } else {
+              setValidation(false);
+              setDateHelperText("현재시간보다 이후입니다");
+            }
           }}
         />
         <TotalInputForm label="성별" value={value.gender} valid={validtion}>

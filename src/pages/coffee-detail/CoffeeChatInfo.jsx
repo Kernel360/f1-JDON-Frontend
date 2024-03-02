@@ -108,7 +108,15 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
         </Box>
       </Box>
       <Divider />
-      <Typography sx={{ color: "#545459", py: 3, minHeight: "180px" }}>
+      <Typography
+        sx={{
+          color: "#545459",
+          py: 3,
+          minHeight: "180px",
+          wordWrap: "break-word",
+          whiteSpace: "normal",
+        }}
+      >
         {coffeeChatData.content}
       </Typography>
       <TotalInputForm value={false} label="오픈채팅 링크">
