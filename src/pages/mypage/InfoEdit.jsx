@@ -11,6 +11,7 @@ import { checkNicknameDuplicate, getJobCategory, getMemberInfo, updateMemberInfo
 import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
 import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
 import { OptionButton, infoBasicStyles } from '../info/InfoStyles';
+import { NoSCAndAdmin, NoSpaceBar } from 'constants/nickname';
 
 const GENDERS = ['남성', '여성'];
 
@@ -91,7 +92,18 @@ export default function InfoEdit() {
         const res = await checkNicknameDuplicate({
           nickname: nickname, //중간밸류 중복확인
         });
-        if (res === 204) {
+
+        if (NoSCAndAdmin.test(nickname)) {
+          setValidation(false);
+          setHelperText('사용할 수 없는 단어 또는 기호가 포함되어 있습니다.');
+          return;
+        }
+        if (NoSpaceBar.test(nickname)) {
+          setValidation(false);
+          setHelperText('띄어쓰기가 포함되어 있습니다.');
+          return;
+        }
+        if (res === 204 && !NoSCAndAdmin.test(nickname) && !NoSpaceBar.test(nickname)) {
           //만약 사용가능하다면
           setValidation(true); // 유효성 o
           setHelperText('사용 가능한 닉네임입니다!');
@@ -99,6 +111,11 @@ export default function InfoEdit() {
       } catch (error) {
         //그렇지 않다면
 
+        if (nickname === '관리자') {
+          setValidation(false);
+          setHelperText('사용할 수 없는 단어 또는 기호가 포함되어 있습니다.');
+          return;
+        }
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
           setHelperText('이미 존재하는 닉네임입니다');

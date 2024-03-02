@@ -23,6 +23,7 @@ import { useRecoilState } from 'recoil';
 import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
 import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
 import { AGREE_DATA } from './agreeData';
+import { NoLessTwo, NoSCAndAdmin, NoSpaceBar } from 'constants/nickname';
 
 function InFoBasic({ agree, setAgree }) {
   const [helperText, setHelperText] = useState('');
@@ -47,16 +48,21 @@ function InFoBasic({ agree, setAgree }) {
   const checkNickname = async () => {
     if (nick) {
       try {
+        if (NoSCAndAdmin.test(nick)) {
+          setValidation(false);
+          setHelperText('사용할 수 없는 단어 또는 기호가 포함되어 있습니다.');
+          return;
+        }
+        if (NoSpaceBar.test(nick)) {
+          setValidation(false);
+          setHelperText('띄어쓰기가 포함되어 있습니다.');
+          return;
+        }
         const res = await checkNicknameDuplicate({
           nickname: nick, //중간밸류 중복확인
         });
 
-        if (['어드민', 'admin', 'administer'].includes(nick)) {
-          setValidation(false);
-          setHelperText('사용할 수 없는 닉네임입니다');
-          return;
-        }
-        if (res === 204) {
+        if (res === 204 && !NoSCAndAdmin.test(nick) && !NoSpaceBar.test(nick)) {
           //만약 사용가능하다면
           setValidation(true); // 유효성 o
           setHelperText('사용 가능한 닉네임입니다!');
@@ -66,15 +72,15 @@ function InFoBasic({ agree, setAgree }) {
         //그렇지 않다면
         if (nick === '관리자') {
           setValidation(false);
-          setHelperText('사용할 수 없는 닉네임입니다');
+          setHelperText('사용할 수 없는 단어 또는 기호가 포함되어 있습니다.');
           return;
         }
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
-          setHelperText('이미 존재하는 닉네임입니다');
+          setHelperText('이미 존재하는 닉네임입니다.');
         } else {
           setValidation(false);
-          setHelperText('오류가 발생했습니다');
+          setHelperText('오류가 발생했습니다.');
           setNick('');
         }
       }
@@ -99,7 +105,7 @@ function InFoBasic({ agree, setAgree }) {
       </Typography>
       <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <NewInput
-          placeholder="사용하실 닉네임을 입력해주세요"
+          placeholder="사용하실 닉네임을 입력해주세요."
           label="닉네임"
           value={nick}
           valid={validtion}
@@ -109,7 +115,7 @@ function InFoBasic({ agree, setAgree }) {
             setNick(e.target.value);
             if (nick) {
               setValidation(false);
-              setHelperText('닉네임을 중복확인을 해주세요');
+              setHelperText('닉네임을 중복확인을 해주세요.');
             }
           }}
           onClick={checkNickname}
@@ -152,7 +158,7 @@ function InFoBasic({ agree, setAgree }) {
           <Box>
             <FormLabel component="legend">
               <Typography fontSize="0.875rem" paddingY={2}>
-                * 서비스 가입을 위한 이용약관에 동의해주세요
+                * 서비스 가입을 위한 이용약관에 동의해주세요.
               </Typography>
             </FormLabel>
             <FormGroup>
