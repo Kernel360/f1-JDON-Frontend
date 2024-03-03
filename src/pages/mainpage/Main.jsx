@@ -1,14 +1,14 @@
-import { Container } from "@mui/material";
-import { useRef } from "react";
-import BottomNav from "../../components/common/BottomNav";
-import CompanySection from "./CompanySection";
-import VideoSection from "./VideoSection";
-import HeaderWithSearchBar from "./HeaderWithSearchBar";
-import SubmitBug from "./SubmitBug";
-import StickyTabSection from "./StickyTabSection";
-import SrcollToTop from "./ScrollToTop";
-import { useAuth } from "./useAuth";
-import { useLoadData } from "./useLoadData";
+import { Container } from '@mui/material';
+import { useRef } from 'react';
+import BottomNav from 'components/common/BottomNav';
+import CompanySection from './CompanySection';
+import VideoSection from './VideoSection';
+import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
+import SubmitBug from './SubmitBug';
+import StickyTabSection from './StickyTabSection';
+import ScrollToTop from './ScrollToTop';
+import { useAuth } from './useAuth';
+import { useLoadData } from './useLoadData';
 
 export function Main() {
   const { loginUser } = useAuth();
@@ -17,14 +17,10 @@ export function Main() {
 
   return (
     <div ref={topRef}>
-      <Container maxWidth="md" sx={{ pb: 10, position: "relative" }}>
+      <Container maxWidth="md" sx={{ pb: 10, position: 'relative' }}>
         <HeaderWithSearchBar setSelectedChip={setSelectedChip} />
-        <SrcollToTop topRef={topRef} />
-        <StickyTabSection
-          isLogin={loginUser}
-          selectedChip={selectedChip}
-          setSelectedChip={setSelectedChip}
-        />
+        <ScrollToTop topRef={topRef} />
+        <StickyTabSection isLogin={loginUser} selectedChip={selectedChip} setSelectedChip={setSelectedChip} />
         <VideoSection selectedChip={selectedChip} data={lectureList} />
         <CompanySection selectedChip={selectedChip} data={jdList} />
         <SubmitBug />
