@@ -12,27 +12,37 @@ function CoffeeDetailButtons({
   host,
   coffeeChatData,
   isParticipant,
-  setIsShowLink,
+  setIsParticipant,
 }) {
   const navigate = useNavigate();
   const [applyCoffee, setApplyCoffee] = useState({});
+  const isButtonDisables = coffeeChatData.status !== "모집중" || isParticipant;
+
+  const applyButtonText = () => {
+    switch (coffeeChatData.status) {
+      case "모집중":
+        return "신청하기";
+      case "모집종료":
+        return "모집 마감";
+      case "모집완료":
+        return "커피챗 종료";
+      default:
+        return "상태 확인 중";
+    }
+  };
 
   const applyForCoffeeChat = async () => {
     try {
       await applyCoffeechat(id, applyCoffee);
-      setIsShowLink(true);
-      const userConfirmed = window.confirm(
-        "신청이 완료되었습니다. 내 커피챗을 확인하시겠습니까?"
-      );
-      if (userConfirmed) {
-        navigate("/mypage");
-      }
+      alert("신청이 완료되었습니다.");
+      setIsParticipant(true);
     } catch (error) {
-      const { status, message } = error.response.data;
-      if (status === 400 || status === 409) {
-        alert(message);
+      if (error.response?.status !== 409) {
+        console.log("신청 중 에러가 발생했습니다.");
         return;
       }
+      alert("이미 신청된 커피챗입니다.");
+      return;
     }
   };
 
@@ -101,7 +111,7 @@ function CoffeeDetailButtons({
                   color: "white",
                 }}
                 onClick={editCoffeeChat}
-              ></NewBtn>
+              />
               <NewBtn
                 title="삭제하기"
                 styles={{
@@ -109,16 +119,19 @@ function CoffeeDetailButtons({
                   color: "white",
                 }}
                 onClick={removeCoffeeChat}
-              ></NewBtn>
+              />
             </>
           ) : (
             <NewBtn
-              title="신청하기"
-              onClick={applyForCoffeeChat}
+              title={isParticipant ? "신청완료" : applyButtonText()}
               styles={{
-                background: isParticipant ? "gray" : theme.palette.primary.main,
+                background: isButtonDisables
+                  ? "#EBEBEB"
+                  : theme.palette.primary.main,
                 color: "white",
               }}
+              onClick={applyForCoffeeChat}
+              disable={isButtonDisables}
             />
           )}
         </Grid>

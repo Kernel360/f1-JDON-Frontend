@@ -69,7 +69,7 @@ export const datePickerContainer = (birthday) => ({
   border: '1px solid',
   display: 'flex',
   justifyContent: 'space-between',
-  borderColor: birthday ? '#6482FF' : theme.palette.primary.gray500, // 조건에 따른 색상 변경
+  borderColor: birthday ? '#6482FF' : theme.palette.primary.gray500,
   borderRadius: '10px',
 });
 export const datePicker = (birthday) => ({

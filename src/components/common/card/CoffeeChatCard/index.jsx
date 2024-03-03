@@ -11,8 +11,8 @@ function CoffeeChatCard({ data, kindOfJd }) {
   const navigate = useNavigate();
 
   const jobNum = useMemo(
-    () => kindOfJd?.find((jd) => jd.name === data.job)?.id,
-    [kindOfJd, data.job]
+    () => kindOfJd?.find((jd) => jd.name === data.hostJobCategoryName)?.id,
+    [kindOfJd, data.hostJobCategoryName]
   );
 
   const handleClick = () => {

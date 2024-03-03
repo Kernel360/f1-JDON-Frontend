@@ -20,7 +20,9 @@ function HostInfoWithViewcount({ coffeeChatData }) {
         >
           {coffeeChatData.nickname}
         </Typography>
-        {coffeeChatData.job && <JobBadge job={coffeeChatData.job} />}
+        {coffeeChatData.hostJobCategoryName && (
+          <JobBadge job={coffeeChatData.hostJobCategoryName} />
+        )}
       </Box>
       <Typography
         sx={{

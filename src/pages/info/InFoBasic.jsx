@@ -27,7 +27,7 @@ import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from 'constants/nickname';
 
 function InFoBasic({ agree, setAgree }) {
   const [helperText, setHelperText] = useState('');
-  // const [dateHelperText, setDateHelperText] = useState('');
+  const [dateHelperText, setDateHelperText] = useState('');
   const [value, setValue] = useRecoilState(userInfo);
   const [currentDialog, setCurrentDialog] = useState(null);
 
@@ -99,9 +99,7 @@ function InFoBasic({ agree, setAgree }) {
   };
 
   const handleBirthdayChange = (newDate) => {
-    console.log('birth 넘어온 날것', newDate);
     const formattedDate = newDate instanceof Date ? newDate.toISOString().split('T')[0] : newDate;
-    console.log('birth 가공한 데이트', formattedDate);
 
     handleInputChange('birth', formattedDate);
   };
@@ -129,12 +127,22 @@ function InFoBasic({ agree, setAgree }) {
           }}
           onClick={checkNickname}
         />
+
         <NewDayPicker
           label="생일"
           value={value.birth}
+          valid={validation}
           isMeetDay={false}
+          helperText={dateHelperText}
           onChange={(newDate) => {
             handleBirthdayChange(newDate);
+            const now = new Date();
+            if (newDate <= now) {
+              handleInputChange('birth', newDate);
+            } else {
+              setValidation(false);
+              setDateHelperText('현재시간보다 이후입니다');
+            }
           }}
         />
         <TotalInputForm label="성별" value={value.gender} valid={validation}>

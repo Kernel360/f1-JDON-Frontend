@@ -14,14 +14,10 @@ import { URLInput } from "../PageStyles";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
 import { useRef, useState } from "react";
 
-function CoffeeChatInfo({
-  coffeeChatData,
-  canView,
-  isShowLink,
-  LikedCoffeeChat,
-}) {
+function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
   const [isCopied, setIsCopied] = useState(false);
   const inputRef = useRef(null);
+  const hasAuthenticate = canView || isParticipant;
 
   const dateTime = coffeeChatData.meetDate;
 
@@ -112,7 +108,15 @@ function CoffeeChatInfo({
         </Box>
       </Box>
       <Divider />
-      <Typography sx={{ color: "#545459", py: 3, minHeight: "180px" }}>
+      <Typography
+        sx={{
+          color: "#545459",
+          py: 3,
+          minHeight: "180px",
+          wordWrap: "break-word",
+          whiteSpace: "normal",
+        }}
+      >
         {coffeeChatData.content}
       </Typography>
       <TotalInputForm value={false} label="오픈채팅 링크">
@@ -122,25 +126,22 @@ function CoffeeChatInfo({
           sx={URLInput}
           ref={inputRef}
           value={
-            canView || isShowLink
+            hasAuthenticate
               ? coffeeChatData.openChatUrl
               : "신청 후 확인 가능합니다"
           }
           InputProps={{
             readOnly: true,
             disabled: true,
-            endAdornment: (
+            endAdornment: hasAuthenticate && (
               <InputAdornment position="end" sx={{ background: "transparent" }}>
-                {canView ||
-                  (LikedCoffeeChat && (
-                    <Button onClick={handleCopyClick}>
-                      {isCopied ? (
-                        <p style={{ fontSize: "12px" }}>Copied!</p>
-                      ) : (
-                        <FileCopyIcon sx={{ fontSize: 20, color: "#BCBCC4" }} />
-                      )}
-                    </Button>
-                  ))}
+                <Button onClick={handleCopyClick}>
+                  {isCopied ? (
+                    <p style={{ fontSize: "12px" }}>Copied!</p>
+                  ) : (
+                    <FileCopyIcon sx={{ fontSize: 20, color: "#BCBCC4" }} />
+                  )}
+                </Button>
               </InputAdornment>
             ),
           }}

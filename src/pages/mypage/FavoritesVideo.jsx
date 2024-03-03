@@ -10,6 +10,7 @@ export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
+  const [isFavoriteChanged, setIsFavoriteChanged] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +25,7 @@ export default function FavoritesVideo() {
       }
     };
     // 최초 렌더링 시에만 fetchData 호출
-    if (!datas) {
+    if (!datas || isFavoriteChanged) {
       fetchData();
     }
     // fetchData();

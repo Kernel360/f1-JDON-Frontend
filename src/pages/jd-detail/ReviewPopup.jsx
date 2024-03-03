@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import NewBtn from "../../components/common/new-btn/NewBtn";
 import { PopupFrame } from "../../components/common/PopupFrame";
 
-export function ReviewPopup({ id, isOpen, closePopup, addReviewAndUpdate }) {
+export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
   const [reviewInput, setReviewInput] = useState();
 
   const handleClose = (e) => {
@@ -19,6 +19,7 @@ export function ReviewPopup({ id, isOpen, closePopup, addReviewAndUpdate }) {
       content: reviewInput,
     };
     await addReviewAndUpdate(newReview);
+    setReviewInput("");
   };
 
   return (
@@ -33,7 +34,12 @@ export function ReviewPopup({ id, isOpen, closePopup, addReviewAndUpdate }) {
             label="리뷰를 남겨주세요!"
             onChange={(e) => setReviewInput(e.target.value)}
           />
-          <NewBtn title="등록하기" onClick={handleAddReview} />
+          <NewBtn
+            title="등록하기"
+            disable={!reviewInput}
+            onClick={handleAddReview}
+            isActive={reviewInput}
+          />
         </Box>
       </PopupFrame>
     </BackDrop>
