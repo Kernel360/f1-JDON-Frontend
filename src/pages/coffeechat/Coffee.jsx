@@ -28,6 +28,19 @@ export function Coffee() {
   const [currentPage, setCurrentPage] = useState(1);
   const [kindOfJd, setKindOfJd] = useRecoilState(kindOfJdState);
 
+  // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
+  const [foundTxt, setFoundTxt] = useState('커피챗 정보 불러오는 중..');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFoundTxt('커피챗 정보가 없습니다.');
+    }, 1500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  // --------------------------------
+
   const handlePageChange = (_, newPage) => {
     setCurrentPage(newPage);
   };
@@ -83,7 +96,7 @@ export function Coffee() {
               fontWeight: 600,
             }}
           >
-            커피챗 정보가 없습니다.
+            {foundTxt}
           </Typography>
         )}
       </Grid>

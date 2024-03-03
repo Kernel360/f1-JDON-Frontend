@@ -1,8 +1,21 @@
 import { Box, Grid, Typography } from '@mui/material';
 import CompanyCard from '../../components/common/card/CompanyCard';
 import { MainStyles } from '../PageStyles';
+import { useEffect, useState } from 'react';
 
 function CompanySection({ selectedChip, data }) {
+  // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
+  const [foundTxt, setFoundTxt] = useState('회사 정보 불러오는 중..');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFoundTxt('관련된 회사 정보가 존재하지 않습니다.');
+    }, 1500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  // --------------------------------
   return (
     <Box sx={{ mt: 8 }}>
       <Typography sx={MainStyles.JDTypoGraphy}>
@@ -48,7 +61,7 @@ function CompanySection({ selectedChip, data }) {
                 textAlign: 'center',
               }}
             >
-              회사 데이터가 존재하지 않습니다
+              {foundTxt}
             </div>
           </Box>
         )}
