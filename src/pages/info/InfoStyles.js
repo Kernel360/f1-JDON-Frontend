@@ -19,7 +19,7 @@ export const infoBasicStyles = {
   },
   typographySubtitle: {
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: 'left',
     break: 'break-all',
     color: theme.palette.primary.gray500,
   },
