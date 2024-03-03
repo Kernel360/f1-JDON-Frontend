@@ -11,7 +11,7 @@ import { checkNicknameDuplicate, getJobCategory, getMemberInfo, updateMemberInfo
 import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
 import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
 import { OptionButton, infoBasicStyles } from '../info/InfoStyles';
-import { NoSCAndAdmin, NoSpaceBar } from 'constants/nickname';
+import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from 'constants/nickname';
 
 const GENDERS = ['남성', '여성'];
 
@@ -69,6 +69,24 @@ export default function InfoEdit() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (NO_ADMIN.test(nickname)) {
+      setHelperText('관리자를 닉네임으로 사용할 수 없습니다.');
+      setValidation(false);
+      return;
+    }
+    if (NO_SC.test(nickname)) {
+      setHelperText('특수기호가 포함되어 있습니다.');
+      setValidation(false);
+      return;
+    }
+    if (NO_SPACE_BAR.test(nickname)) {
+      setHelperText('띄어쓰기가 포함되어 있습니다.');
+      setValidation(false);
+      return;
+    }
+  }, [nickname]);
+
   // selectedJobSkill이 변경될 때마다 로컬 스토리지에 저장
   useEffect(() => {
     localStorage.setItem('selectedJobSkill', JSON.stringify(selectedJobSkill));
@@ -93,17 +111,10 @@ export default function InfoEdit() {
           nickname: nickname, //중간밸류 중복확인
         });
 
-        if (NoSCAndAdmin.test(nickname)) {
-          setValidation(false);
-          setHelperText('사용할 수 없는 단어 또는 기호가 포함되어 있습니다.');
+        if (NO_ADMIN.test(nickname) || NO_SC.test(nickname) || NO_SPACE_BAR.test(nickname)) {
           return;
         }
-        if (NoSpaceBar.test(nickname)) {
-          setValidation(false);
-          setHelperText('띄어쓰기가 포함되어 있습니다.');
-          return;
-        }
-        if (res === 204 && !NoSCAndAdmin.test(nickname) && !NoSpaceBar.test(nickname)) {
+        if (res === 204 && !NO_ADMIN.test(nickname) && !NO_SC.test(nickname) && !NO_SPACE_BAR.test(nickname)) {
           //만약 사용가능하다면
           setValidation(true); // 유효성 o
           setHelperText('사용 가능한 닉네임입니다!');
