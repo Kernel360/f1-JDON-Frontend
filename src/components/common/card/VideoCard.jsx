@@ -11,11 +11,12 @@ import "./../../../styles/animations.scss";
 import { postFavoritVideo } from "../../../api/api";
 import { useNavigate } from "react-router-dom";
 
-function VideoCard({ data, myFavorite, onError }) {
+function VideoCard({ data, onSuccess, myFavorite, onError }) {
+  // console.log("ㅇㅇㅇ", data);
   const [isFavorite, setIsFavorite] = useState(
     myFavorite ? true : data.isFavorite
   );
-
+  // 로그인 상태 확인
   const isLogin = localStorage.getItem("isLoggedInState") === "true";
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ function VideoCard({ data, myFavorite, onError }) {
       return;
     }
     try {
-      await postFavoritVideo({
+      const res = await postFavoritVideo({
         lectureId: data.lectureId,
         isFavorite: !isFavorite,
       });
@@ -35,13 +36,14 @@ function VideoCard({ data, myFavorite, onError }) {
       if (!myFavorite) {
         setIsFavorite(!isFavorite);
       }
+      if (onSuccess) onSuccess(isFavorite);
     } catch (error) {
       if (onError) onError(error);
     }
   };
   const promptLogin = () => {
     const confirmResult = window.confirm(
-      "찜하기는 로그인 후 이용할 수 있습니다. 로그인 하시겠습니까?"
+      "[찜]은 로그인 후 이용할 수 있습니다. 로그인 페이지로 이동하시겠습니까?"
     );
     if (confirmResult) {
       navigate("/signin");

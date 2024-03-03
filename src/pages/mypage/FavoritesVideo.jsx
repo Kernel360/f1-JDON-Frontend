@@ -9,6 +9,8 @@ import Pagenation from "../../components/common/Pagenation";
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isFavoriteChanged, setIsFavoriteChanged] = useState(true);
+
   const [page, setPage] = useState({});
 
   useEffect(() => {
@@ -24,15 +26,21 @@ export default function FavoritesVideo() {
       }
     };
     // 최초 렌더링 시에만 fetchData 호출
-    if (!datas) {
+    if (!datas || isFavoriteChanged) {
       fetchData();
+      setIsFavoriteChanged(false); // isFavoriteChanged 상태 초기화
     }
     // fetchData();
-  }, [currentPage, datas]);
+  }, [currentPage, datas, isFavoriteChanged]);
 
   const handlePageChange = (event, value) => {
-    console.log(`현재 페이지: ${value}`);
+    // console.log(`현재 페이지: ${value}`);
     setCurrentPage(value);
+  };
+
+  const handleFavoriteChange = () => {
+    // 추가: isFavorite 상태가 변경될 때 호출되는 함수
+    setIsFavoriteChanged(true);
   };
 
   return (
@@ -51,7 +59,11 @@ export default function FavoritesVideo() {
         {datas && datas.length > 0 ? (
           datas.map((item, index) => (
             <Grid item xs={12} sm={4} md={4} key={index}>
-              <VideoCard data={item} />
+              <VideoCard
+                data={item}
+                myFavorite={true}
+                onSuccess={handleFavoriteChange}
+              />
             </Grid>
           ))
         ) : (
@@ -79,7 +91,7 @@ export default function FavoritesVideo() {
           />
         </Box>
       )}
-      <BottomNav></BottomNav>
+      <BottomNav />
     </Container>
   );
 }
