@@ -1,26 +1,30 @@
-import * as React from 'react';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
-import heart from 'assets/icons/heart.svg';
-import heartFilled from 'assets/icons/heart_filled.svg';
-import person from 'assets/icons/person.svg';
-import { useState } from 'react';
-import { VideoCardStyle } from './CardStyle';
-import 'styles/animations.scss';
-import { postFavoritVideo } from 'api/api';
-import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
+import heart from "assets/icons/heart.svg";
+import heartFilled from "assets/icons/heart_filled.svg";
+import person from "assets/icons/person.svg";
+import { useState } from "react";
+import { VideoCardStyle } from "./CardStyle";
+import "styles/animations.scss";
+import { postFavoritVideo } from "api/api";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "recoil/atoms";
 
 function VideoCard({ data, myFavorite, onError }) {
-  const [isFavorite, setIsFavorite] = useState(myFavorite ? true : data.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(
+    myFavorite ? true : data.isFavorite
+  );
 
-  const isLogin = localStorage.getItem('isLoggedInState');
+  const isLogin = useRecoilValue(isLoggedInState).isLoginUser;
   const navigate = useNavigate();
 
   const toggleFavoriteStatus = async (e) => {
     e.stopPropagation();
 
-    if (isLogin === 'false') {
+    if (!isLogin) {
       promptLogin();
       return;
     }
@@ -38,24 +42,29 @@ function VideoCard({ data, myFavorite, onError }) {
     }
   };
   const promptLogin = () => {
-    const confirmResult = window.confirm('찜하기는 로그인 후 이용할 수 있습니다. 로그인 하시겠습니까?');
+    const confirmResult = window.confirm(
+      "찜하기는 로그인 후 이용할 수 있습니다. 로그인 하시겠습니까?"
+    );
     if (confirmResult) {
-      navigate('/signin');
+      navigate("/signin");
     }
   };
 
   const goToLecture = () => {
-    window.open(data.lectureUrl, '_blank');
+    window.open(data.lectureUrl, "_blank");
   };
 
   return (
-    <Box sx={{ my: 1, pointer: 'cursor', position: 'relative' }} onClick={goToLecture}>
+    <Box
+      sx={{ my: 1, pointer: "cursor", position: "relative" }}
+      onClick={goToLecture}
+    >
       <CardMedia
         component="img"
         image={data.imageUrl}
         sx={{
-          borderRadius: '8px',
-          maxHeight: '230px',
+          borderRadius: "8px",
+          maxHeight: "230px",
         }}
       />
       <img
@@ -63,18 +72,21 @@ function VideoCard({ data, myFavorite, onError }) {
         alt="heart"
         onClick={toggleFavoriteStatus}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 6,
           right: 6,
-          animation: data.isFavorite ? 'pop 0.3s ease' : 'none',
+          animation: data.isFavorite ? "pop 0.3s ease" : "none",
         }}
       />
       <Box sx={{ mt: 1 }}>
-        <Typography sx={VideoCardStyle.Instructor}>{data.instructor}</Typography>
+        <Typography sx={VideoCardStyle.Instructor}>
+          {data.instructor}
+        </Typography>
         <Typography sx={VideoCardStyle.Title}>{data.title}</Typography>
         <Box>
           <Typography fontWeight="600" color="#545459">
-            {data.price.toLocaleString()} <span style={{ fontSize: '14px' }}>원</span>
+            {data.price.toLocaleString()}{" "}
+            <span style={{ fontSize: "14px" }}>원</span>
           </Typography>
         </Box>
         <Typography sx={VideoCardStyle.StudentCount}>
