@@ -2,22 +2,24 @@ import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import heart from "../../../assets/icons/heart.svg";
-import heartFilled from "../../../assets/icons/heart_filled.svg";
-import person from "../../../assets/icons/person.svg";
+import heart from "assets/icons/heart.svg";
+import heartFilled from "assets/icons/heart_filled.svg";
+import person from "assets/icons/person.svg";
 import { useState } from "react";
 import { VideoCardStyle } from "./CardStyle";
-import "./../../../styles/animations.scss";
-import { postFavoritVideo } from "../../../api/api";
+import "styles/animations.scss";
+import { postFavoritVideo } from "api/api";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "recoil/atoms";
 
 function VideoCard({ data, onSuccess, myFavorite, onError }) {
   // console.log("ㅇㅇㅇ", data);
   const [isFavorite, setIsFavorite] = useState(
     myFavorite ? true : data.isFavorite
   );
-  // 로그인 상태 확인
-  const isLogin = localStorage.getItem("isLoggedInState") === "true";
+  const isLogin = useRecoilValue(isLoggedInState).isLoginUser;
+
   const navigate = useNavigate();
 
   const toggleFavoriteStatus = async (e) => {

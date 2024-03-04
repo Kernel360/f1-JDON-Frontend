@@ -1,14 +1,21 @@
 import { Box, Grid, Typography } from '@mui/material';
 import CompanyCard from '../../components/common/card/CompanyCard';
 import { MainStyles } from '../PageStyles';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function CompanySection({ selectedChip, data }) {
-  const navigate = useNavigate();
+  // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
+  const [foundTxt, setFoundTxt] = useState('회사 정보 불러오는 중..');
 
-  const pageHandler = () => {
-    navigate('/jd');
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFoundTxt('관련된 회사 정보가 존재하지 않습니다.');
+    }, 1500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  // --------------------------------
   return (
     <Box sx={{ mt: 8 }}>
       <Typography sx={MainStyles.JDTypoGraphy}>
@@ -26,19 +33,6 @@ function CompanySection({ selectedChip, data }) {
           </span>
           에 관심있는 회사에요!
         </p>
-        <button
-          onClick={pageHandler}
-          style={{
-            padding: ' 7px 15px 7px 15px',
-            borderRadius: '5px',
-            border: 'none',
-
-            background: '#f4f4f4',
-            cursor: 'pointer',
-          }}
-        >
-          더 보기
-        </button>
       </Typography>
       <Box sx={{ width: '100%' }}>
         {data.length > 0 ? (
@@ -67,7 +61,7 @@ function CompanySection({ selectedChip, data }) {
                 textAlign: 'center',
               }}
             >
-              회사 데이터가 존재하지 않습니다
+              {foundTxt}
             </div>
           </Box>
         )}

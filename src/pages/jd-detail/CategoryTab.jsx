@@ -38,11 +38,11 @@ export function CategoryTab() {
 
   useEffect(() => {
     (async () => {
-      setIsLoading(true); // 데이터 로딩 시작
+      setIsLoading(true);
       const res = await getJdDetail(id);
       setJdData(res);
       setReviewNum(res.reviewCount);
-      setIsLoading(false); // 데이터 로딩 완료
+      setIsLoading(false);
     })();
   }, [id]);
 

@@ -21,6 +21,19 @@ function JDComponent() {
     },
   });
 
+  // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
+  const [foundTxt, setFoundTxt] = useState('회사 정보 불러오는 중..');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFoundTxt('관련된 회사 정보가 존재하지 않습니다.');
+    }, 1500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  // --------------------------------
+
   useEffect(() => {
     resetSearchValue(); // 페이지 진입시 검색 값 초기화
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +87,7 @@ function JDComponent() {
                 textAlign: 'center',
               }}
             >
-              회사 데이터가 존재하지 않습니다
+              {foundTxt}
             </div>
           </Box>
         )}

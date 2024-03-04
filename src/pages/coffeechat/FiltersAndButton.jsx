@@ -1,12 +1,12 @@
 import { Box, Button } from "@mui/material";
-import { Filters } from "../../components/common/filters/Filters";
+import { Filters } from "components/common/filters/Filters";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../../recoil/atoms";
+import { isLoggedInState } from "recoil/atoms";
 
 function FiltersAndButton({ sortData, kindOfJd, onChange }) {
   const navigate = useNavigate();
-  const isLogin = useRecoilValue(isLoggedInState);
+  const isLogin = useRecoilValue(isLoggedInState).isLoginUser;
 
   const handleConfirm = () => {
     window.confirm(

@@ -16,13 +16,14 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { OptionButton, infoBasicStyles } from "./InfoStyles";
-import NewInput from "../../components/common/new-input/NewInput";
-import { checkNicknameDuplicate } from "../../api/api";
-import { userInfo } from "../../recoil/atoms";
+import NewInput from "components/common/new-input/NewInput";
+import { checkNicknameDuplicate } from "api/api";
+import { userInfo } from "recoil/atoms";
 import { useRecoilState } from "recoil";
-import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
-import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
+import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
+import TotalInputForm from "components/common/total-input-form/TotalInputForm";
 import { AGREE_DATA } from "./agreeData";
+import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from "constants/nickname";
 
 function InFoBasic({ agree, setAgree }) {
   const [helperText, setHelperText] = useState("");
@@ -31,7 +32,7 @@ function InFoBasic({ agree, setAgree }) {
   const [currentDialog, setCurrentDialog] = useState(null);
 
   const [nick, setNick] = useState(""); //중간 밸류를 생성
-  const [validtion, setValidation] = useState(false); // 이건 중간밸류 확인
+  const [validation, setValidation] = useState(false); // 이건 중간밸류 확인
 
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
@@ -44,38 +45,72 @@ function InFoBasic({ agree, setAgree }) {
     });
   };
 
+  useEffect(() => {
+    if (NO_ADMIN.test(nick)) {
+      setHelperText("관리자를 닉네임으로 사용할 수 없습니다.");
+      setValidation(false);
+      return;
+    }
+    if (NO_SC.test(nick)) {
+      setHelperText("특수기호가 포함되어 있습니다.");
+      setValidation(false);
+      return;
+    }
+    if (NO_SPACE_BAR.test(nick)) {
+      setHelperText("띄어쓰기가 포함되어 있습니다.");
+      setValidation(false);
+      return;
+    }
+  }, [nick]);
+
   const checkNickname = async () => {
     if (nick) {
       try {
         const res = await checkNicknameDuplicate({
-          nickname: nick, //중간밸류 중복확인
+          nickname: nick,
         });
-        if (res === 204) {
+        if (
+          NO_ADMIN.test(nick) ||
+          NO_SC.test(nick) ||
+          NO_SPACE_BAR.test(nick)
+        ) {
+          return;
+        }
+
+        if (
+          res === 204 &&
+          !NO_ADMIN.test(nick) &&
+          !NO_SC.test(nick) &&
+          !NO_SPACE_BAR.test(nick)
+        ) {
           //만약 사용가능하다면
-          setValidation(true); // 유효성 o
           setHelperText("사용 가능한 닉네임입니다!");
+          setValidation(true); // 유효성 o
           handleInputChange("nickname", nick); // 진짜 밸류를 입력
         }
       } catch (error) {
         //그렇지 않다면
+        if (nick === "관리자") {
+          setValidation(false);
+          setHelperText("사용할 수 없는 단어 또는 기호가 포함되어 있습니다.");
+          return;
+        }
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
-          setHelperText("이미 존재하는 닉네임입니다");
+          setHelperText("이미 존재하는 닉네임입니다.");
         } else {
           setValidation(false);
-          setHelperText("오류가 발생했습니다");
+          setHelperText("오류가 발생했습니다.");
           setNick("");
         }
       }
     }
   };
 
-  const handleBithdayChange = (newDate) => {
-    console.log("birth 넘어온 날것", newDate);
+  const handleBirthdayChange = (newDate) => {
     const formattedDate =
       newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
-    console.log("birth 가공한 데이트", formattedDate);
-
+    //console.log(formattedDate);
     handleInputChange("birth", formattedDate);
   };
 
@@ -89,39 +124,37 @@ function InFoBasic({ agree, setAgree }) {
       </Typography>
       <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <NewInput
-          placeholder="사용하실 닉네임을 입력해주세요"
+          placeholder="사용하실 닉네임을 입력해주세요."
           label="닉네임"
           value={nick}
-          valid={validtion}
+          valid={validation}
           helperText={helperText}
           duplicate
           onChange={(e) => {
             setNick(e.target.value);
-            if (nick) {
-              setValidation(false);
-              setHelperText("닉네임을 중복확인을 해주세요");
-            }
+            setValidation(false);
+            setHelperText("닉네임 중복확인을 해주세요.");
           }}
           onClick={checkNickname}
         />
+
         <NewDayPicker
           label="생일"
           value={value.birth}
-          // valid={validtion}
+          valid={validation}
           isMeetDay={false}
-          // helperText={dateHelperText}
+          helperText={dateHelperText}
           onChange={(newDate) => {
-            handleBithdayChange(newDate);
-            // const now = new Date();
-            // if (newDate <= now) {
-            //   handleInputChange("birth", newDate);
-            // } else {
-            //   setValidation(false);
-            //   setDateHelperText("현재시간보다 이후입니다");
-            // }
+            const now = new Date();
+            if (newDate <= now) {
+              handleBirthdayChange(newDate);
+            } else {
+              setValidation(false);
+              setDateHelperText("현재시간보다 이후입니다");
+            }
           }}
         />
-        <TotalInputForm label="성별" value={value.gender} valid={validtion}>
+        <TotalInputForm label="성별" value={value.gender} valid={validation}>
           <Grid container sx={infoBasicStyles.genderBtnContainer}>
             {["남성", "여성"].map((item) => (
               <Grid item xs={5.5} key={item}>
@@ -142,7 +175,7 @@ function InFoBasic({ agree, setAgree }) {
           <Box>
             <FormLabel component="legend">
               <Typography fontSize="0.875rem" paddingY={2}>
-                * 서비스 가입을 위한 이용약관에 동의해주세요
+                * 서비스 가입을 위한 이용약관에 동의해주세요.
               </Typography>
             </FormLabel>
             <FormGroup>

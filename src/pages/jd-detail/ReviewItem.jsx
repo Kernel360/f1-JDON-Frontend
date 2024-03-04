@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
   const deleteReivew = async () => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
     try {
       await deleteReviewAndUpdate(review.id);
     } catch (error) {
