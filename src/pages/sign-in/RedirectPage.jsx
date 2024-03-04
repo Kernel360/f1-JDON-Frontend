@@ -9,7 +9,7 @@ const RedirectPage = () => {
   const [, setData] = useRecoilState(userInfo);
 
   useEffect(() => {
-    localStorage.setItem('isLoggedInState', false);
+    localStorage.setItem('isLoggedInState', 'false');
     const searchParams = new URLSearchParams(location.search);
 
     const value = searchParams.get('value');
