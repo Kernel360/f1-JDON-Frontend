@@ -6,6 +6,8 @@ import { TabForReview } from "./TabForReview";
 import { MainStyles } from "../PageStyles";
 import { getJdDetail } from "../../api/api";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "recoil/atoms";
 
 function TabPanelItem({ children, value }) {
   return (
@@ -38,11 +40,11 @@ export function CategoryTab() {
 
   useEffect(() => {
     (async () => {
-      setIsLoading(true); // 데이터 로딩 시작
+      setIsLoading(true);
       const res = await getJdDetail(id);
       setJdData(res);
       setReviewNum(res.reviewCount);
-      setIsLoading(false); // 데이터 로딩 완료
+      setIsLoading(false);
     })();
   }, [id]);
 
