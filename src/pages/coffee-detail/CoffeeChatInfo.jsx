@@ -111,13 +111,17 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
       <Typography
         sx={{
           color: "#545459",
-          py: 3,
           minHeight: "180px",
           wordWrap: "break-word",
           whiteSpace: "normal",
         }}
       >
-        {coffeeChatData.content}
+        {coffeeChatData.content?.split("\n").map((line, index) => (
+          <p key={index}>
+            {line}
+            <br />
+          </p>
+        ))}
       </Typography>
       <TotalInputForm value={false} label="오픈채팅 링크">
         <TextField

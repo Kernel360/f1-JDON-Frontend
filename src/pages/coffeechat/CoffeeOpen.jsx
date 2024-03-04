@@ -44,7 +44,7 @@ function Coffeeopen() {
         break;
       case "totalRecruitCount":
         helperText =
-          !isNaN(value) && value > 100
+          (!isNaN(value) && value > 100) || value <= 1
             ? "모집인원은 1명 이상 100명 이하로 설정해주세요"
             : "";
         break;

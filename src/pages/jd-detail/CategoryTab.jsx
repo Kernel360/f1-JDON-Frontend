@@ -6,8 +6,6 @@ import { TabForReview } from "./TabForReview";
 import { MainStyles } from "../PageStyles";
 import { getJdDetail } from "../../api/api";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "recoil/atoms";
 
 function TabPanelItem({ children, value }) {
   return (
