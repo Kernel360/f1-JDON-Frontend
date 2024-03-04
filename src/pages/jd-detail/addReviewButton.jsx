@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
-import { theme } from "../../styles/themeMuiStyle";
-import add from "../../assets/icons/review_add.svg";
+import { theme } from "styles/themeMuiStyle";
+import add from "assets/icons/review_add.svg";
 import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../../recoil/atoms";
+import { isLoggedInState } from "recoil/atoms";
 
 export const AddReviewButton = ({ openPopup }) => {
   const loginState = useRecoilValue(isLoggedInState);

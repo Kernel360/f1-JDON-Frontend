@@ -33,7 +33,6 @@ function InputComponent({ value, onChange, children, disablePast, maxDate }) {
 }
 
 function NewDayPicker({ label, value, onChange, valid, helperText, daytime }) {
-  console.log(value);
   const now = new Date();
   const handleDateChange = (newDate) => {
     if (typeof newDate === "string") {
