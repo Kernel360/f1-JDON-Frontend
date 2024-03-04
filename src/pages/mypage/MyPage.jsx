@@ -198,7 +198,7 @@ export default function MyPage() {
       console.log(res);
 
       // if (res === 302) {
-      localStorage.setItem('isLoggedInState', 'false');
+      localStorage.setItem('isLoggedInState', false);
       navigate('/');
       // }
     } catch (error) {

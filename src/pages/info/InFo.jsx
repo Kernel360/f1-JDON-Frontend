@@ -20,6 +20,7 @@ export default function Info() {
   const [data, setData] = useRecoilState(userInfo);
   const [jobCategory, setJobCategory] = useState();
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useRecoilState(isLoggedInState);
 
   const handleChange = (value) => {
     setData((prev) => ({ ...prev, ...value }));
@@ -60,7 +61,7 @@ export default function Info() {
       };
       registerData();
     }
-  }, [step, data, navigate]);
+  }, [step, data, navigate, setIsLogin]);
 
   useEffect(() => {
     // if (!data.encrypted) {
