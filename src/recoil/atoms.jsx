@@ -4,7 +4,7 @@ export const isLoggedInState = atom({
   key: "isLoggedInState",
   default: {
     memberId: null,
-    loginUser: false,
+    isLoginUser: false,
   },
 });
 
