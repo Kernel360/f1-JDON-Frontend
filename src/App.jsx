@@ -62,7 +62,11 @@ function App() {
   ];
 
   const PrivateRoute = ({ localAuth, apiAuth, children }) => {
-    return localAuth || apiAuth ? children : <Navigate to="/signin" {...alert('로그인이 필요한 페이지입니다.')} />;
+    return !(localAuth === 'false' || apiAuth) ? (
+      children
+    ) : (
+      <Navigate to="/signin" {...alert('로그인이 필요한 페이지입니다.')} />
+    );
   };
 
   return (
