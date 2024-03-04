@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { getReivew } from "../../api/api";
-import { useInView } from "react-intersection-observer";
-import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "recoil/atoms";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { getReivew } from '../../api/api';
+import { useInView } from 'react-intersection-observer';
+import { useRecoilValue } from 'recoil';
+import { isLoggedInState } from 'recoil/atoms';
+import { useNavigate } from 'react-router-dom';
 
 export const useReviewPagination = (id) => {
   const navigate = useNavigate();
@@ -41,11 +41,9 @@ export const useReviewPagination = (id) => {
   };
 
   const promptLogin = () => {
-    const confirmResult = window.confirm(
-      "리뷰 작성은 로그인 후 이용할 수 있습니다. 로그인 하시겠습니까?"
-    );
+    const confirmResult = window.confirm('리뷰는 로그인 후 조회할 수 있습니다. 로그인 하시겠습니까?');
     if (confirmResult) {
-      navigate("/signin");
+      navigate('/signin');
     }
   };
 
