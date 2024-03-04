@@ -92,7 +92,7 @@ function Coffeeopen() {
       }
       setIsRegistered(true);
       alert("등록이 완료되었습니다");
-      navigate(`/coffee/${Number(res.data)}`);
+      navigate(`/coffee/${res.data.coffeeChatId}`);
     } catch (error) {
       console.error("Error registering coffee chat:", error);
     }
