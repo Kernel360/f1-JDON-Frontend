@@ -7,15 +7,18 @@ export const instance = axios.create({
     "Content-Type": "application/json",
   },
 });
+let isAlertShown = false;
 
 instance.interceptors.response.use(
   (response) => {
+    isAlertShown = false;
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
+    if (error.response.status === 401 && !isAlertShown) {
       alert("로그인이 필요한 서비스입니다");
       window.location.href = "/signin";
+      isAlertShown = true;
     }
     return Promise.reject(error);
   }
