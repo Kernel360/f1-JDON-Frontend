@@ -43,8 +43,8 @@ function Coffeeopen() {
             : "";
         break;
       case "totalRecruitCount":
-        helperText = value > 500 ? "500명 이하로 입력해주세요" : "";
-
+        helperText =
+          !isNaN(value) && value > 500 ? "500명 이하로 입력해주세요" : "";
         break;
       case "openChatUrl":
         helperText =
@@ -89,9 +89,8 @@ function Coffeeopen() {
         return;
       }
       setIsRegistered(true);
-      window.confirm(
-        "신청이 완료되었습니다. 커피챗 신청 내역을 확인하시겠습니까?"
-      ) && navigate(`/coffee/${res.data}`);
+      alert("신청이 완료되었습니다");
+      navigate(`/coffee/${res.data}`);
     } catch (error) {
       console.error("Error registering coffee chat:", error);
     }
