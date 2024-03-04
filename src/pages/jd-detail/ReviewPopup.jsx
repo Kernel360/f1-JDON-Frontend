@@ -27,7 +27,7 @@ export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
 
   const checkValidation = (value) => {
     if (value.length < 10 || value.length > 500) {
-      setHelperText("10자 이상 500자 이하로 입력해주세요");
+      setHelperText("내용은 10자 이상 500자 이하로 작성해주세요");
       setIsValid(false);
     } else {
       setHelperText("");

@@ -33,22 +33,24 @@ function Coffeeopen() {
       case "title":
         helperText =
           value.length < 10 || value.length > 50
-            ? "10자 이상 50자 이하로 입력해주세요"
+            ? "제목은 10자 이상 50자 이하로 작성해주세요"
             : "";
         break;
       case "content":
         helperText =
           value.length < 50 || value.length > 500
-            ? "50자 이상 500자 이하로 입력해주세요"
+            ? "내용은 50자 이상 500자 이하로 작성해주세요"
             : "";
         break;
       case "totalRecruitCount":
         helperText =
-          !isNaN(value) && value > 500 ? "500명 이하로 입력해주세요" : "";
+          !isNaN(value) && value > 100
+            ? "모집인원은 1명 이상 100명 이하로 설정해주세요"
+            : "";
         break;
       case "openChatUrl":
         helperText =
-          value && !isValidUrl(value) ? "올바른 URL 형식을 입력해주세요" : "";
+          value && !isValidUrl(value) ? "URL형식이 올바르지 않습니다" : "";
         break;
       default:
         return;
