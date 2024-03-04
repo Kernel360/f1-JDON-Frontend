@@ -6,8 +6,10 @@ import { ChipStyle, MainStyles } from '../PageStyles';
 // import arrowRight from 'assets/icons/arrow-right.svg';
 import { useNavigate } from 'react-router-dom';
 import { getHotSkills, getMemberSkills } from 'api/api';
+import { useAuth } from './useAuth';
 
-function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
+function StickyTabSection({ selectedChip, setSelectedChip }) {
+  const { loginUser } = useAuth();
   const scrollRef = useRef({ current: 'div.MuiStack-root.css-rpc19u-MuiStack-root' });
   const navigate = useNavigate();
   const [value, setValue] = useState('1');
@@ -27,7 +29,7 @@ function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
   }, []);
 
   const GetMemberSkillData = async () => {
-    if (isLogin) {
+    if (loginUser) {
       try {
         const memData = await getMemberSkills();
         const memSkillsData = memData.data.skillList || { skillList: [] };
@@ -46,7 +48,7 @@ function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
 
   const handleTabChange = (e, newValue) => {
     if (newValue === '2') {
-      if (isLogin === 'false') {
+      if (loginUser === false) {
         handleConfirm();
         return;
       } else {
@@ -101,7 +103,7 @@ function StickyTabSection({ selectedChip, setSelectedChip, isLogin }) {
         <TabContext value={value}>
           <TabList onChange={handleTabChange} sx={{ pt: 2 }} TabIndicatorProps={{ style: MainStyles.TabIndicator }}>
             <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
-            {isLogin ? <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} /> : ''}
+            {loginUser ? <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} /> : ''}
           </TabList>
 
           <TabPanel value="1" sx={MainStyles.TabPanel}>

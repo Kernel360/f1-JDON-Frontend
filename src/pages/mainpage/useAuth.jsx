@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { isLoggedInState } from "../../recoil/atoms";
-import { Authentication } from "../../api/api";
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { isLoggedInState } from 'recoil/atoms';
+import { Authentication } from 'api/api';
 
 export function useAuth() {
   const [loginState, setLoginState] = useRecoilState(isLoggedInState);
@@ -13,6 +13,7 @@ export function useAuth() {
         loginUser: state.loginUser,
       });
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { memberId, loginUser } = loginState;

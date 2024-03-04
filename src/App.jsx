@@ -24,9 +24,14 @@ import { FailPage } from './pages/sign-in/FailPage';
 import JdAll from './pages/jd-all';
 import { useAuth } from './pages/mainpage/useAuth';
 import NotFound from 'pages/404';
+import { useRecoilValue } from 'recoil';
+import { isLoggedInState } from 'recoil/atoms';
 
 function App() {
-  const { loginUser } = useAuth();
+  useAuth();
+
+  const localLoginState = localStorage.getItem('isLoggedInState');
+  const loginState = useRecoilValue(isLoggedInState);
 
   const privateRoutes = [
     { path: '/mypage', element: <MyPage /> },
@@ -56,8 +61,12 @@ function App() {
     { path: '/*', element: <NotFound /> },
   ];
 
-  const PrivateRoute = ({ authenticated, children }) => {
-    return authenticated ? children : <Navigate to="/signin" {...alert('로그인이 필요한 페이지입니다.')} />;
+  const PrivateRoute = ({ localAuth, apiAuth, children }) => {
+    return localAuth === 'true' || apiAuth ? (
+      children
+    ) : (
+      <Navigate to="/signin" {...alert('로그인이 필요한 페이지입니다.')} />
+    );
   };
 
   return (
@@ -70,7 +79,11 @@ function App() {
                 <Route
                   key={index}
                   path={route.path}
-                  element={<PrivateRoute authenticated={loginUser}>{route.element}</PrivateRoute>}
+                  element={
+                    <PrivateRoute localAuth={localLoginState} apiAuth={loginState.loginUser}>
+                      {route.element}
+                    </PrivateRoute>
+                  }
                 />
               ))}
               {publicRoutes.map((route, index) => (
