@@ -1,12 +1,12 @@
 import { Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
-import Header from "../../components/common/Header";
-import NewInput from "../../components/common/new-input/NewInput";
-import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
+import Header from "components/common/Header";
+import NewInput from "components/common/new-input/NewInput";
+import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
 import { useEffect, useState } from "react";
-import { registerCoffeeChat } from "../../api/api";
+import { registerCoffeeChat } from "api/api";
 import { useNavigate } from "react-router-dom";
-import { theme } from "../../styles/themeMuiStyle";
-import NewBtn from "../../components/common/new-btn/NewBtn";
+import { theme } from "styles/themeMuiStyle";
+import NewBtn from "components/common/new-btn/NewBtn";
 
 function Coffeeopen() {
   const navigate = useNavigate();
