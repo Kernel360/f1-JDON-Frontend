@@ -36,7 +36,6 @@ function InFoBasic({ agree, setAgree }) {
 
   const handleInputChange = async (field, newValue) => {
     setValue((prev) => ({ ...prev, [field]: newValue }));
-    console.log(value);
   };
 
   const handleAgreeChange = (event) => {
