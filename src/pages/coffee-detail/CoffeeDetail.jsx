@@ -49,9 +49,9 @@ function CoffeeDetail() {
     );
   }
 
-  if (!coffeeChatData) {
-    return <div>존재하지 않는 커피챗입니다</div>;
-  }
+  // if (!coffeeChatData) {
+  //   return <div>존재하지 않는 커피챗입니다</div>;
+  // }
 
   return (
     <Container maxWidth="md">
