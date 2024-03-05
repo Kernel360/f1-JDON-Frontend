@@ -81,7 +81,7 @@ export async function getMemberInfo() {
 //회원정보 수정하기
 export async function updateMemberInfo(data) {
   try {
-    const res = await instance.put("/api/v1/member");
+    const res = await instance.put("/api/v1/member", data);
     return res.data;
   } catch (error) {
     console.log("getMemberInfo API error", error);
@@ -240,7 +240,6 @@ export const getMyCoffeeChat = async (page) => {
 
 //내가 신청한 커피챗 목록 조회
 export const getSignCoffeeChat = async (page) => {
-  console.log("!!!page", page);
   try {
     const res = await instance.get(
       `/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate`

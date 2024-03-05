@@ -43,10 +43,14 @@ function Coffeeopen() {
             : "";
         break;
       case "totalRecruitCount":
+        if (value === 0) {
+          console.log(111);
+        }
         helperText =
-          (!isNaN(value) && value > 100) || value <= 1
+          value > 100 || value <= 1
             ? "모집인원은 1명 이상 100명 이하로 설정해주세요"
             : "";
+
         break;
       case "openChatUrl":
         helperText =
@@ -164,19 +168,17 @@ function Coffeeopen() {
                   helperText={helperTexts.totalRecruitCount}
                   type="number"
                   min={0}
-                  value={formValue.totalRecruitCount}
+                  value={
+                    isNaN(formValue.totalRecruitCount) ||
+                    formValue.totalRecruitCount === 0
+                      ? null
+                      : formValue.totalRecruitCount
+                  }
                   onChange={(e) => {
                     updateFormValue(
                       "totalRecruitCount",
                       parseInt(e.target.value, 10)
                     );
-                    // const newValue = e.target.value;
-                    // if (!isNaN(newValue) && parseInt(newValue, 10) >= 0) {
-                    //   updateFormValue(
-                    //     "totalRecruitCount",
-                    //     parseInt(newValue, 10)
-                    //   );
-                    // }
                   }}
                 />
               </Grid>

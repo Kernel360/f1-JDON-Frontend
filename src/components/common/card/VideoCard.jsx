@@ -14,7 +14,6 @@ import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "recoil/atoms";
 
 function VideoCard({ data, onSuccess, myFavorite, onError }) {
-  // console.log("ㅇㅇㅇ", data);
   const [isFavorite, setIsFavorite] = useState(
     myFavorite ? true : data.isFavorite
   );
@@ -23,27 +22,42 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
 
   const navigate = useNavigate();
 
-  const toggleFavoriteStatus = async (e) => {
+  const toggleFavorite = async (e) => {
     e.stopPropagation();
 
     if (!isLogin) {
       promptLogin();
       return;
     }
-    try {
-      const res = await postFavoritVideo({
-        lectureId: data.lectureId,
-        isFavorite: !isFavorite,
-      });
-      //마이페이지 찜화면에서는 좋아요표시를 안바꿔도되서 조건을 넣음
-      if (!myFavorite) {
-        setIsFavorite(!isFavorite);
+
+    const changeFavoriteStatus = async () => {
+      const confirmation =
+        !isFavorite || window.confirm("찜을 취소하시겠습니까?");
+      if (confirmation) {
+        try {
+          await postFavoritVideo({
+            lectureId: data.lectureId,
+            isFavorite: !isFavorite,
+          });
+
+          if (!myFavorite) {
+            setIsFavorite((prev) => !prev);
+          }
+
+          if (onSuccess) {
+            onSuccess(!isFavorite);
+          }
+        } catch (error) {
+          if (onError) {
+            onError(error);
+          }
+        }
       }
-      if (onSuccess) onSuccess(isFavorite);
-    } catch (error) {
-      if (onError) onError(error);
-    }
+    };
+
+    changeFavoriteStatus();
   };
+
   const promptLogin = () => {
     const confirmResult = window.confirm(
       "[찜]은 로그인 후 이용할 수 있습니다. 로그인 페이지로 이동하시겠습니까?"
@@ -73,7 +87,7 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
       <img
         src={isFavorite ? heartFilled : heart}
         alt="heart"
-        onClick={toggleFavoriteStatus}
+        onClick={toggleFavorite}
         style={{
           position: "absolute",
           top: 6,
