@@ -240,7 +240,6 @@ export const getMyCoffeeChat = async (page) => {
 
 //내가 신청한 커피챗 목록 조회
 export const getSignCoffeeChat = async (page) => {
-  console.log("!!!page", page);
   try {
     const res = await instance.get(
       `/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate`

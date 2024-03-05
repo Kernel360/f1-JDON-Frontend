@@ -6,12 +6,15 @@ import CoffeeChatCard from "../../components/common/card/CoffeeChatCard";
 import { getMyCoffeeChat, getSignCoffeeChat } from "../../api/api";
 import Pagenation from "../../components/common/Pagenation";
 import { MainStyles } from "../PageStyles";
+import { useRecoilValue } from "recoil";
+import { kindOfJdState } from "recoil/atoms";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");
   const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
   const [coffeeDatas, setCoffeeDatas] = useState([]);
+  const kindOfJd = useRecoilValue(kindOfJdState);
 
   const handleChange = (event, value) => {
     setValue(value);
@@ -30,10 +33,8 @@ export default function MyCoffeeChat() {
         if (value === "1") {
           res = await getMyCoffeeChat(currentPage - 1);
           setCoffeeDatas(res.content || []);
-          console.log(`${value} 내가 오픈한커피내용`, res);
         } else if (value === "2") {
           res = await getSignCoffeeChat(currentPage - 1);
-          console.log(`${value} 내가 신청한커피내용`, res);
           setCoffeeDatas(res.content || []);
         }
 
@@ -44,8 +45,6 @@ export default function MyCoffeeChat() {
     };
     fetchData();
   }, [value, currentPage]);
-
-  console.log(`${value}coffeeData page!!`, page.totalPages);
 
   return (
     // <Container maxWidth="md" paddingX={"16px"} sx={{ width: "100%" }}>
@@ -104,7 +103,7 @@ export default function MyCoffeeChat() {
               <Grid Grid container spacing={{ xs: 2, md: 2 }}>
                 {coffeeDatas.map((data, index) => (
                   <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} />
+                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} />
                   </Grid>
                 ))}
               </Grid>
