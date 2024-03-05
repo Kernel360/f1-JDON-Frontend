@@ -40,7 +40,7 @@ function NewInput({
         fullWidth
         value={value}
         minRows={3}
-        min={min}
+        minLength={min}
         InputLabelProps={{ shrink: true }}
         placeholder={placeholder}
         onChange={onChange}
