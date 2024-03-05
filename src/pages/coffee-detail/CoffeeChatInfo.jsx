@@ -12,7 +12,27 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { URLInput } from "../PageStyles";
 import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+
+function InfoItem({ icon, text, iconColor }) {
+  return (
+    <Box
+      sx={{
+        pb: "5px",
+        color: "#696969",
+        fontSize: "13px",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+      }}
+    >
+      {React.cloneElement(icon, {
+        sx: { fontSize: "small", color: iconColor },
+      })}
+      {text}
+    </Box>
+  );
+}
 
 function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -66,46 +86,23 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
         >
           [ 모집 정보 ]
         </Box>
-        <Box
-          sx={{
-            pb: "5px",
-            color: "#9A9AA1",
-            fontSize: "12px",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <CalendarMonthIcon sx={{ fontSize: "small", color: "#FF6565" }} />{" "}
-          {formattedDate}
-        </Box>
-        <Box
-          sx={{
-            pb: "5px",
-            color: "#9A9AA1",
-            fontSize: "12px",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <AccessTimeFilledIcon sx={{ fontSize: "small", color: "#52BF91" }} />
-          {formattedTime}
-        </Box>
-        <Box
-          sx={{
-            pb: "5px",
-            color: "#9A9AA1",
-            fontSize: "12px",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <PeopleAltIcon sx={{ fontSize: "small", color: "#575757" }} />
-          {coffeeChatData.currentRecruitCount}/
-          {coffeeChatData.totalRecruitCount}
-        </Box>
+        <InfoItem
+          icon={<CalendarMonthIcon />}
+          text={formattedDate}
+          iconColor="#FF6565"
+        />
+
+        <InfoItem
+          icon={<AccessTimeFilledIcon />}
+          text={formattedTime}
+          iconColor="#52BF91"
+        />
+
+        <InfoItem
+          icon={<PeopleAltIcon />}
+          text={`${coffeeChatData.currentRecruitCount} / ${coffeeChatData.totalRecruitCount}`}
+          iconColor="#575757"
+        />
       </Box>
       <Divider />
       <Typography

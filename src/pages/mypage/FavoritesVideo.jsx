@@ -51,7 +51,6 @@ export default function FavoritesVideo() {
 
   const handleFavoriteChange = () => {
     // 추가: isFavorite 상태가 변경될 때 호출되는 함수
-
     setIsFavoriteChanged(true);
   };
 
