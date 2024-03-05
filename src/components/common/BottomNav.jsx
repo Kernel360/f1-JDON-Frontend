@@ -15,7 +15,6 @@ export default function BottomNav() {
   const location = useLocation();
   const [value, setValue] = useState(0);
   const userLogin = useRecoilValue(isLoggedInState).isLoginUser;
-  console.log(userLogin);
 
   useEffect(() => {
     switch (true) {

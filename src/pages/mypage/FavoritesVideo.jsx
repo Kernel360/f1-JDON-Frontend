@@ -12,7 +12,6 @@ export default function FavoritesVideo() {
   const [isFavoriteChanged, setIsFavoriteChanged] = useState(true);
 
   const [page, setPage] = useState({});
-  // const [isFavoriteChanged, setIsFavoriteChanged] = useState(false);
 
   // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
   const [foundTxt, setFoundTxt] = useState("찜한 영상 불러오는 중..");
