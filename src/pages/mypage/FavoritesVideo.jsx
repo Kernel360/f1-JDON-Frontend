@@ -33,8 +33,6 @@ export default function FavoritesVideo() {
         const res = await getFavoritVideo();
         setDatas(res.data.content);
         setPage(res.data.pageInfo);
-        // console.log("찜 확인11", res);
-        // console.log("datas", datas);
       } catch (error) {
         console.error("getFavoritVideo API 에러", error);
       }
@@ -48,12 +46,12 @@ export default function FavoritesVideo() {
   }, [currentPage, datas, isFavoriteChanged]);
 
   const handlePageChange = (event, value) => {
-    // console.log(`현재 페이지: ${value}`);
     setCurrentPage(value);
   };
 
   const handleFavoriteChange = () => {
     // 추가: isFavorite 상태가 변경될 때 호출되는 함수
+    alert("찜을 취소하겠습니까?");
     setIsFavoriteChanged(true);
   };
 

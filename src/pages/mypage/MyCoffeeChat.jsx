@@ -38,7 +38,6 @@ export default function MyCoffeeChat() {
         }
 
         setPage(res.pageInfo || {});
-        // console.log("coffeeData ch!!", res.content);
       } catch (error) {
         console.error("MyCoffeeChat 통신에러", error);
       }
