@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   SwipeableDrawer,
@@ -11,45 +11,68 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  Typography,
 } from "@mui/material";
 import { ChipStyle, MainStyles } from "../../../pages/PageStyles";
 import TabPanel from "./TabPanel";
 import { buttonStyle } from "../navigation-btn/NavigationBtnStyles";
 import { skillsButton } from "../../../pages/info/InfoStyles.js";
 import { getSkillsOnJD } from "../../../api/api";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  jobIdState,
-  kindOfJdState,
-  selectedJobSkillState,
-} from "../../../recoil/atoms";
+import { useRecoilState } from "recoil";
+import { jobIdState, selectedJobSkillState } from "../../../recoil/atoms";
 
-export default function SwipJobSkill() {
-  const jobCategories = useRecoilValue(kindOfJdState);
+export default function SwipJobSkill({ jobCategories }) {
   const [jobId, setJobId] = useRecoilState(jobIdState);
   const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
     selectedJobSkillState
   );
-  const [jobSkills, setJobSkills] = useState([]);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [tabValue, setTabValue] = useRecoilState(jobIdState);
 
-  //직무에 맞는 기술스택 세팅
+  const initialJobId = useRef(jobId);
+  const initialSelectedJobSkill = useRef(selectedJobSkill);
+  const [jobSkills, setJobSkills] = useState([]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
+  };
+
   useEffect(() => {
-    (async () => {
+    const fetchSkills = async () => {
       try {
-        const res = await getSkillsOnJD(jobId);
-        setJobSkills(res.skillList);
+        if (jobId) {
+          const skillsData = await getSkillsOnJD(jobId);
+          setJobSkills(skillsData.skillList);
+        }
       } catch (error) {
         console.error("getSkillsOnJD 오류", error);
+      } finally {
+        setLoading(false);
       }
-    })();
+    };
+
+    // 데이터 로드가 완료되면 로컬 스토리지에 저장
+    localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
+    localStorage.setItem("tabValue", JSON.stringify(tabValue));
+
+    if (jobId !== initialJobId.current) {
+      setSelectedJobSkill([]);
+    } else {
+      setSelectedJobSkill(initialSelectedJobSkill.current);
+    }
+    fetchSkills();
   }, [jobId]);
 
-  const toggleDrawer = (open) => () => setIsDrawerOpen(open);
+  useEffect(() => {
+    // 데이터 로드가 완료되면 로컬 스토리지에 저장
+    localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
+    localStorage.setItem("tabValue", JSON.stringify(tabValue));
+
+    console.log("selectedJobSkill", selectedJobSkill);
+  }, [loading]);
 
   const handleChangeTab = (_, newValue) => {
-    setSelectedJobSkill([]);
+    setTabValue(newValue);
     setJobId(newValue);
   };
 
@@ -63,7 +86,6 @@ export default function SwipJobSkill() {
         if (checkedCount < 3) {
           return [...prevCheckedItems, skillId];
         } else {
-          alert("3개의 기술스택을 선택해주세요");
           return prevCheckedItems;
         }
       } else {
@@ -73,12 +95,14 @@ export default function SwipJobSkill() {
   };
 
   const handleSave = () => {
-    if (selectedJobSkill.length !== 3) {
-      alert("스킬 3개를 선택 해주세요.");
-    } else {
+    if (selectedJobSkill.length === 3) {
+      setSelectedJobSkill(selectedJobSkill);
       toggleDrawer(false)();
+    } else {
+      alert("스킬 3개를 선택 해주세요.");
     }
   };
+
   const renderCheckboxes = () => {
     return (
       <FormControl component="fieldset">
@@ -94,11 +118,7 @@ export default function SwipJobSkill() {
                   }
                 />
               }
-              label={
-                <Typography fontSize="0.875rem" color="#383838">
-                  {item.keyword}
-                </Typography>
-              }
+              label={item.keyword}
             />
           ))}
         </FormGroup>
@@ -108,26 +128,35 @@ export default function SwipJobSkill() {
 
   const renderChips = () => {
     return (
-      <Stack direction="row" spacing={0.8} sx={{ ...MainStyles.ChipContainer }}>
-        {selectedJobSkill.map((skillId) => {
-          const foundSkill = jobSkills.find(
-            (skill) => skill.skillId === skillId
-          );
-          const label = foundSkill ? foundSkill.keyword : "";
-          return (
-            label !== "" && (
-              <Chip
-                key={skillId}
-                label={label}
-                variant="outlined"
-                sx={ChipStyle(true)}
-              />
-            )
-          );
-        })}
+      <Stack
+        direction="row"
+        spacing={0.8}
+        sx={{ ...MainStyles.ChipContainer, padding: "10px 16px" }}
+      >
+        {Array.isArray(selectedJobSkill) &&
+          selectedJobSkill.map((skillId) => {
+            const foundSkill = jobSkills.find(
+              (skill) => skill.skillId === skillId
+            );
+            const label = foundSkill ? foundSkill.keyword : "";
+            return (
+              label !== "" && (
+                <Chip
+                  key={skillId}
+                  label={label}
+                  variant={"filled"}
+                  sx={ChipStyle(true)}
+                />
+              )
+            );
+          })}
       </Stack>
     );
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -140,7 +169,7 @@ export default function SwipJobSkill() {
       </Button>
       <SwipeableDrawer
         anchor="bottom"
-        open={isDrawerOpen}
+        open={drawerOpen}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
         sx={{
@@ -170,7 +199,7 @@ export default function SwipJobSkill() {
             <Tabs
               orientation="vertical"
               variant="scrollable"
-              value={jobId}
+              value={tabValue}
               onChange={handleChangeTab}
               aria-label="Vertical tabs example"
               sx={{
@@ -189,7 +218,7 @@ export default function SwipJobSkill() {
               ))}
             </Tabs>
             {jobCategories.map((category) => (
-              <TabPanel key={category.id} value={jobId} index={category.id}>
+              <TabPanel key={category.id} value={tabValue} index={category.id}>
                 {renderCheckboxes()}
               </TabPanel>
             ))}

@@ -81,7 +81,7 @@ export async function getMemberInfo() {
 //회원정보 수정하기
 export async function updateMemberInfo(data) {
   try {
-    const res = await instance.put("/api/v1/member");
+    const res = await instance.put("/api/v1/member", data);
     return res.data;
   } catch (error) {
     console.log("getMemberInfo API error", error);
