@@ -151,7 +151,7 @@ export async function getLectureByKeyword(keyword) {
 //직무 별 기술스택 조회하기
 export async function getSkillsOnJD(jobCategoryId) {
   try {
-    const res = await instance.get(`/api/v1/job-category/${jobCategoryId}`);
+    const res = await instance.get(`/api/v1/skills/job-category/${jobCategoryId}`);
 
     return res.data.data;
   } catch (error) {
