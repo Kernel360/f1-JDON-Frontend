@@ -57,7 +57,7 @@ function CoffeeDetailButtons({
     // 현재 모집 인원이 1명 이상인 경우에만 확인 창을 표시
     if (coffeeChatData.currentRecruitCount > 0) {
       confirmation = window.confirm(
-        "삭제하려는 커피챗에 참여 신청한 회원이 존재합니다. 정말 삭제하시겠습니까?"
+        `삭제하려는 커피챗에 참여 신청한 회원이 존재합니다. \n 정말 삭제하시겠습니까?`
       );
     }
 
@@ -67,7 +67,7 @@ function CoffeeDetailButtons({
         alert("삭제가 완료되었습니다.");
         navigate("/coffee");
       } catch (error) {
-        console.error("삭제 중 오류가 발생했습니다: ", error);
+        console.error("삭제 중 오류가 발생했습니다. : ", error);
       }
     }
   };

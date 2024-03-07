@@ -52,7 +52,7 @@ function VideoSection({ selectedChip, data }) {
                   padding: "100px 0",
                 }}
               >
-                영상 데이터가 존재하지 않습니다
+                영상 데이터가 존재하지 않습니다.
               </div>
             </Box>
           )}
