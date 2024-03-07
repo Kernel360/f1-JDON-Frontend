@@ -6,17 +6,17 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import Header from "../../components/common/Header";
-import NewInput from "../../components/common/new-input/NewInput";
-import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
+import Header from "components/common/Header";
+import NewInput from "components/common/new-input/NewInput";
+import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
 import { useEffect, useState } from "react";
 import {
   getCoffeeChatDetail,
   registerCoffeeChat,
   updateCoffeechat,
-} from "../../api/api";
+} from "api/api";
 import { useNavigate, useParams } from "react-router-dom";
-import { theme } from "../../styles/themeMuiStyle";
+import { theme } from "styles/themeMuiStyle";
 
 function UpdateCoffeeForm() {
   const { id } = useParams();

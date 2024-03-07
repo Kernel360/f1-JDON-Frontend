@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { OptionButton, infoBasicStyles } from "./InfoStyles";
-import { userInfo } from "../../recoil/atoms";
+import { userInfo } from "recoil/atoms";
 import { useRecoilState } from "recoil";
 
 function InFoJD({ onChange, jobCategory }) {

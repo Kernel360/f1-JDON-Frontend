@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
 
 import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../../recoil/atoms";
+import { isLoggedInState } from "recoil/atoms";
 import { ReviewPopup } from "./ReviewPopup";
-import { usePopup } from "../../components/common/usePopup";
+import { usePopup } from "components/common/usePopup";
 import { useReviewPagination } from "./useReviewPagination";
 import { useAddReview } from "./useAddReview";
 import { useDeleteReview } from "./useDeleteReview";

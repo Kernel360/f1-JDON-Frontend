@@ -1,4 +1,4 @@
-import { theme } from "../../styles/themeMuiStyle";
+import { theme } from "styles/themeMuiStyle";
 
 function SubmitBug() {
   return (

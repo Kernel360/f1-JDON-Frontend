@@ -4,8 +4,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { SignInStyle } from "../PageStyles";
 import TitleLogo from "./TitleLogo";
-import kakao from "../../assets/images/kakao.svg";
-import git from "../../assets/images/github.svg";
+import kakao from "assets/images/kakao.svg";
+import git from "assets/images/github.svg";
 import { LoginBtn } from "./LoginBtn";
 
 export default function SignIn() {

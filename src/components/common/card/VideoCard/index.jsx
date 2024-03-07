@@ -6,12 +6,12 @@ import heart from "assets/icons/heart.svg";
 import heartFilled from "assets/icons/heart_filled.svg";
 import person from "assets/icons/person.svg";
 import { useState } from "react";
-import { VideoCardStyle } from "./CardStyle";
 import "styles/animations.scss";
 import { postFavoritVideo } from "api/api";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "recoil/atoms";
+import { VideoCardStyle } from "../CardStyle";
 
 function VideoCard({ data, onSuccess, myFavorite, onError }) {
   const [isFavorite, setIsFavorite] = useState(

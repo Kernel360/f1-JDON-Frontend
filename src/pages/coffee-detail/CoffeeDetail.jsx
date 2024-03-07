@@ -1,14 +1,14 @@
 import { Container, CssBaseline } from "@mui/material";
-import Header from "../../components/common/Header";
+import Header from "components/common/Header";
 import CoffeeChatInfo from "./CoffeeChatInfo";
 import { useEffect, useState } from "react";
-import { getCoffeeChatDetail } from "../../api/api";
+import { getCoffeeChatDetail } from "api/api";
 import { useParams } from "react-router-dom";
 import HostInfoWithViewcount from "./HostInfoWithViewcount";
 import CoffeeDetailButtons from "./CoffeeDetailButtons";
 import { BeatLoader } from "react-spinners";
 import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../../recoil/atoms";
+import { isLoggedInState } from "recoil/atoms";
 
 function CoffeeDetail() {
   const { id } = useParams();
