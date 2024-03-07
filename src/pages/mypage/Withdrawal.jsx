@@ -5,6 +5,7 @@ import { Button, Container } from "@mui/material";
 import { buttonStyle } from "components/common/navigation-btn/NavigationBtnStyles";
 import { useNavigate } from "react-router-dom";
 import { deleteMember } from "api/api";
+import { USER_QUIT } from "constants/headerProps";
 
 const isValidEmail = (email) => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -28,12 +29,15 @@ export default function Withdrawal() {
 
   const handleSaveChanges = async () => {
     try {
-      console.log("최종Email", email);
-      const res = await deleteMember();
-      if (res) {
+      const lastChance = window.confirm(
+        `회원탈퇴 후 같은 소셜 계정으로 재 가입이 불가능합니다. \n 그래도 탈퇴하시겠습니까?`
+      );
+      if (lastChance) {
+        const res = await deleteMember();
         console.log(`${res || null}회원탈퇴합니다`);
 
         localStorage.setItem("isLoggedInState", false);
+        alert('회원탈퇴가 정상적으로 진행되었습니다.')
         navigate("/");
       }
     } catch (error) {
@@ -51,13 +55,13 @@ export default function Withdrawal() {
         paddingX: "29px",
       }}
     >
-      <Header title={"회원 탈퇴"} />
+      <Header title={USER_QUIT.title} url={USER_QUIT.url} />
 
       <InputField
         label={"이메일"}
         name={"email"}
         type={"email"}
-        placeholder={"이메일을 입력해주세요"}
+        placeholder={"가입한 소셜 계정의 이메일을 입력해주세요"}
         value={email}
         onChange={(name, value) => handleEmailChange(value)}
         error={emailError !== ""}
@@ -72,7 +76,7 @@ export default function Withdrawal() {
         mb={1}
         sx={{
           ...buttonStyle.Button,
-          ...(emailError !== "" || email == "" ? {} : buttonStyle.ActiveButton),
+          ...(emailError !== "" || email === "" ? {} : buttonStyle.ActiveButton),
         }}
       >
         탈퇴

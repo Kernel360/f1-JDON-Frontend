@@ -9,6 +9,7 @@ import { theme } from "styles/themeMuiStyle";
 import NewBtn from "components/common/new-btn/NewBtn";
 import { formatDateTime } from "../dateUtils";
 import { useForm } from "../hooks/useForm";
+import { COFFEE_CHILD } from "constants/headerProps";
 
 function Coffeeopen() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ function Coffeeopen() {
   return (
     <Container maxWidth="sm" display="flex" flexDirection="column">
       <CssBaseline />
-      <Header title="커피챗 오픈" />
+      <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url} />
       <Box
         flexGrow={1}
         display="flex"

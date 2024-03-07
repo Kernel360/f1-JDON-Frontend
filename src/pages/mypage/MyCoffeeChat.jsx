@@ -8,6 +8,7 @@ import Pagenation from "components/common/Pagenation";
 import { MainStyles } from "../PageStyles";
 import { useRecoilValue } from "recoil";
 import { kindOfJdState } from "recoil/atoms";
+import { MYPAGE_CHILD } from "constants/headerProps";
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState("1");
@@ -58,7 +59,7 @@ export default function MyCoffeeChat() {
         minHeight: "100vh",
       }}
     >
-      <Header title={"커피챗"} />
+      <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url}/>
       <Box mt={2}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
