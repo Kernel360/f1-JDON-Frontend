@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
-import { getReivew } from '../../api/api';
-import { useInView } from 'react-intersection-observer';
-// import { useRecoilValue } from 'recoil';
-// import { isLoggedInState } from 'recoil/atoms';
-// import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { getReivew } from "api/api";
+import { useInView } from "react-intersection-observer";
 
 export const useReviewPagination = (id) => {
   // const navigate = useNavigate();

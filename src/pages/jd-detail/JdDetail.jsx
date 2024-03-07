@@ -1,5 +1,5 @@
 import { Container, CssBaseline } from "@mui/material";
-import Header from "../../components/common/Header";
+import Header from "components/common/Header";
 import { CategoryTab } from "./CategoryTab";
 
 export function JdDetail() {

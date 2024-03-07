@@ -1,4 +1,4 @@
-import { delReivew } from "../../api/api";
+import { delReivew } from "api/api";
 
 export function useDeleteReview(setReviewNum, fetchReviewData) {
   const deleteReviewAndUpdate = async (reviewId) => {

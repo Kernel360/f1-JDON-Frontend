@@ -11,7 +11,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { URLInput } from "../PageStyles";
-import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
+import TotalInputForm from "components/common/total-input-form/TotalInputForm";
 import React, { useRef, useState } from "react";
 
 function InfoItem({ icon, text, iconColor }) {

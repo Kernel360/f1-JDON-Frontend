@@ -6,7 +6,6 @@ const GenderBtn = ({ initialGender, handleSexChange }) => {
   const [selectedGender, setSelectedGender] = useState("");
 
   useEffect(() => {
-    // 부모 컴포넌트에서 전달된 초기 성별 값이 변경되면 업데이트
     if (initialGender === "남성") {
       setSelectedGender("남");
       handleSexChange("남");

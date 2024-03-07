@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, Box, Typography, Grid } from "@mui/material";
-import BottomNav from "../../components/common/BottomNav";
-import VideoCard from "../../components/common/card/VideoCard";
-import { getFavoritVideo } from "../../api/api";
-import Header from "../../components/common/Header";
-import Pagenation from "../../components/common/Pagenation";
+import BottomNav from "components/common/BottomNav";
+import VideoCard from "components/common/card/VideoCard";
+import { getFavoritVideo } from "api/api";
+import Header from "components/common/Header";
+import Pagenation from "components/common/Pagenation";
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);

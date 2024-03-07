@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { MainStyles } from "../PageStyles";
-import VideoCard from "../../components/common/card/VideoCard";
-import hot from "../../../src/assets/images/hot.svg";
+import VideoCard from "components/common/card/VideoCard";
+import hot from "assets/images/hot.svg";
 
 function VideoSection({ selectedChip, data }) {
   const handleError = (error) => {

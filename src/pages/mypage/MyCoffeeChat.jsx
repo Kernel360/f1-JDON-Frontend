@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Grid, Tab, Container } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import Header from "../../components/common/Header";
-import CoffeeChatCard from "../../components/common/card/CoffeeChatCard";
-import { getMyCoffeeChat, getSignCoffeeChat } from "../../api/api";
-import Pagenation from "../../components/common/Pagenation";
+import Header from "components/common/Header";
+import CoffeeChatCard from "components/common/card/CoffeeChatCard";
+import { getMyCoffeeChat, getSignCoffeeChat } from "api/api";
+import Pagenation from "components/common/Pagenation";
 import { MainStyles } from "../PageStyles";
 import { useRecoilValue } from "recoil";
 import { kindOfJdState } from "recoil/atoms";

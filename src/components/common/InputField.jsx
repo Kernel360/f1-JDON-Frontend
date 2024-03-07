@@ -1,6 +1,6 @@
 // InputField.js
 import React from "react";
-import { Box, FormLabel, TextField, InputAdornment } from "@mui/material";
+import { Box, FormLabel, TextField } from "@mui/material";
 import { nicknameTextField } from "../../pages/info/InfoStyles";
 
 const InputField = ({

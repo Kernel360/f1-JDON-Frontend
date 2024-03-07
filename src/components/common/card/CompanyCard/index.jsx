@@ -2,9 +2,8 @@ import * as React from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Paper } from "@mui/material";
-
-import { CompanyCardStyle } from "./CardStyle";
 import { useNavigate } from "react-router-dom";
+import { CompanyCardStyle } from "../CardStyle";
 
 export default function CompanyCard({ data }) {
   const navigate = useNavigate();

@@ -1,9 +1,9 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import { ChipStyle, InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
 import { useEffect, useState } from "react";
-import { getSkillsOnJD } from "../../api/api";
+import { getSkillsOnJD } from "api/api";
 
-import { userInfo } from "../../recoil/atoms";
+import { userInfo } from "recoil/atoms";
 import { useRecoilState } from "recoil";
 
 function InfoSkill({ onChange }) {

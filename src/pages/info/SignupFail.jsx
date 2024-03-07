@@ -1,6 +1,6 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { buttonStyle } from "../../components/common/navigation-btn/NavigationBtnStyles";
+import { buttonStyle } from "components/common/navigation-btn/NavigationBtnStyles";
 import Close from "@mui/icons-material/Close";
 import { infoBasicStyles } from "./InfoStyles";
 

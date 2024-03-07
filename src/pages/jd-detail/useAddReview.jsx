@@ -1,4 +1,4 @@
-import { addReivew } from "../../api/api";
+import { addReivew } from "api/api";
 
 export function useAddReview(id, setReviewNum, fetchReviewData, closePopup) {
   const addReviewAndUpdate = async (newReview) => {
