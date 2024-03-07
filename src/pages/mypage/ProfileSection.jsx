@@ -1,4 +1,4 @@
-import profile from "assets/profile.svg";
+import profile from "assets/images/profile.svg";
 import edit from "assets/images/icn_edit.svg";
 const { Grid, Avatar, Typography, IconButton } = require("@mui/material");
 const { Link } = require("react-router-dom");
