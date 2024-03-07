@@ -17,6 +17,7 @@ import {
 } from "api/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { theme } from "styles/themeMuiStyle";
+import { COFFEE_CHILD_ID } from "constants/headerProps";
 
 function UpdateCoffeeForm() {
   const { id } = useParams();
@@ -28,13 +29,11 @@ function UpdateCoffeeForm() {
     openChatUrl: "",
   });
   const navigate = useNavigate();
-  console.log(id);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await getCoffeeChatDetail(id);
-        console.log(res);
         setCoffeeChatData(res);
       } catch (error) {
         console.error("Error fetching coffee chat detail:", error);
@@ -98,7 +97,8 @@ function UpdateCoffeeForm() {
         sx={{ display: "flex", flexDirection: "column" }}
       >
         <CssBaseline />
-        <Header title="커피챗 오픈" />
+        <Header title={COFFEE_CHILD_ID.title}  url={COFFEE_CHILD_ID.url+id}/>
+
         <Box
           flexGrow={1}
           display="flex"

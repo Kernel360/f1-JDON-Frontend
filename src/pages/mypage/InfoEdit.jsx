@@ -16,6 +16,7 @@ import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
 import TotalInputForm from "components/common/total-input-form/TotalInputForm";
 import { OptionButton, infoBasicStyles } from "../info/InfoStyles";
 import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from "constants/nickname";
+import { MYPAGE_CHILD } from "constants/headerProps";
 
 const GENDERS = ["남성", "여성"];
 
@@ -181,7 +182,7 @@ export default function InfoEdit() {
       }}
     >
       <CssBaseline />
-      <Header title="정보수정" />
+      <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url} />
       <Box
         sx={{
           flexGrow: 1,

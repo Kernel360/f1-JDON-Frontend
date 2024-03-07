@@ -5,6 +5,7 @@ import VideoCard from "components/common/card/VideoCard";
 import { getFavoritVideo } from "api/api";
 import Header from "components/common/Header";
 import Pagenation from "components/common/Pagenation";
+import { MYPAGE_CHILD } from "constants/headerProps";
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
@@ -64,7 +65,7 @@ export default function FavoritesVideo() {
         pb: 10,
       }}
     >
-      <Header title={"찜"} />
+      <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url} />
       <Grid container spacing={{ xs: 2, md: 2 }} sx={{ px: 2, py: 1 }}>
         {datas && datas.length > 0 ? (
           datas.map((item, index) => (
