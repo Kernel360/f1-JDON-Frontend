@@ -56,7 +56,23 @@ export function TabForInfo({ jdData }) {
         <JdInfoForm title="혜택 및 복지" mockData={jdData.benefits} />
         <JdInfoForm title="우대사항" mockData={jdData.preferredPoints} />
       </Box>
-      <NewBtn title="사이트로 이동하기" onClick={handleClick} isActive={true} />
+      <Box
+        sx={{
+          position: "fixed",
+          left: 0,
+          bottom: 0,
+          right: 0,
+          bgcolor: "white",
+          px: "16px",
+          pb: "16px",
+        }}
+      >
+        <NewBtn
+          title="사이트로 이동하기"
+          onClick={handleClick}
+          isActive={true}
+        />
+      </Box>
     </Box>
   );
 }
