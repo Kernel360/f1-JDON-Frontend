@@ -10,9 +10,10 @@ import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import { URLInput } from "../PageStyles";
+
 import TotalInputForm from "components/common/total-input-form/TotalInputForm";
 import React, { useRef, useState } from "react";
+import { URLInput } from "pages/PageStyles";
 
 function InfoItem({ icon, text, iconColor }) {
   return (

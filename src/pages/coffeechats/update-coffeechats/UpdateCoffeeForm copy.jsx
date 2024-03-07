@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
 import Header from "components/common/Header";
 import NewInput from "components/common/new-input/NewInput";
 import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
@@ -17,6 +10,7 @@ import {
 } from "api/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { theme } from "styles/themeMuiStyle";
+import NewBtn from "components/common/new-btn/NewBtn";
 
 function UpdateCoffeeForm() {
   const { id } = useParams();
@@ -28,7 +22,6 @@ function UpdateCoffeeForm() {
     openChatUrl: "",
   });
   const navigate = useNavigate();
-  console.log(id);
 
   useEffect(() => {
     (async () => {
@@ -46,7 +39,8 @@ function UpdateCoffeeForm() {
     setCoffeeChatData((prev) => ({ ...prev, [field]: newValue }));
   };
 
-  const hanldeRegister = async () => {
+  const hanldeRegister = async (e) => {
+    e.preventDefault();
     try {
       if (id) {
         await updateCoffeechat(id, coffeeChatData);
@@ -63,7 +57,6 @@ function UpdateCoffeeForm() {
 
   //시간 데이터 가공
   const formatDateTime = (date) => {
-    console.log("@@날것확인", date);
     const dateString = date.toString(); // date 객체를 문자열로 변환
 
     const formattedDate = new Date(dateString).toLocaleString("ko-KR", {
@@ -75,9 +68,6 @@ function UpdateCoffeeForm() {
       hour12: false, // 24시간 형식으로 표시
     });
 
-    console.log("@@dateString 확인", dateString);
-    console.log("@@포맷확인", formattedDate);
-
     const year = String(new Date(dateString).getFullYear());
     const month = String(new Date(dateString).getMonth() + 1).padStart(2, "0");
     const day = String(new Date(dateString).getDate()).padStart(2, "0");
@@ -85,8 +75,6 @@ function UpdateCoffeeForm() {
     const minutes = String(new Date(dateString).getMinutes()).padStart(2, "0");
 
     const customFormattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-
-    console.log("@@customFormattedDate 확인", customFormattedDate);
 
     handleInputChange("meetDate", customFormattedDate);
   };
@@ -188,9 +176,10 @@ function UpdateCoffeeForm() {
                 handleInputChange("openChatUrl", e.target.value);
               }}
             />
-            <Button
+            <NewBtn
+              title="수정완료"
               onClick={hanldeRegister}
-              sx={{
+              styles={{
                 mt: 3,
                 mb: 3,
                 width: "100%",
@@ -214,9 +203,7 @@ function UpdateCoffeeForm() {
                     : "#BCBCC4",
                 fontSize: "16px",
               }}
-            >
-              수정하기
-            </Button>
+            ></NewBtn>
           </Box>
         </Box>
       </Container>

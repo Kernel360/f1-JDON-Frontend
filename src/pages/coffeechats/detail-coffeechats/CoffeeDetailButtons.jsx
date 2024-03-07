@@ -1,11 +1,12 @@
 import { Box, Button, Grid } from "@mui/material";
-import { buttonStyles } from "./ButtonStyle";
+
 import ShareIcon from "@mui/icons-material/Share";
 import NewBtn from "components/common/new-btn/NewBtn";
 import { theme } from "styles/themeMuiStyle";
 import { useNavigate } from "react-router-dom";
 import { applyCoffeechat, deleteCoffeechat } from "api/api";
 import { useEffect, useState } from "react";
+import { buttonStyles } from "../ButtonStyle";
 
 function CoffeeDetailButtons({
   id,

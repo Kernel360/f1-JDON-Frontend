@@ -48,7 +48,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
             fontWeight: sortData.sorting !== "createdDate" && 700,
           }}
           deleteIcon={<img src={Arrow} alt="드롭다운" />}
-        ></Chip>
+        />
 
         <Chip
           label={sortData.jobCategory ? radioValue : "전체 직무"}

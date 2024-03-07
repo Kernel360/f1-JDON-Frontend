@@ -5,10 +5,9 @@ import SignIn from "pages/sign-in/SignIn";
 import Info from "pages/info/InFo";
 import { Layout } from "components/layout/Layout";
 import { ThemeProvider } from "@mui/material/styles";
-import { Coffee } from "pages/coffeechat/Coffee";
+
 import { theme } from "styles/themeMuiStyle";
-import CoffeeDetail from "pages/coffee-detail/CoffeeDetail";
-import Coffeeopen from "pages/coffeechat/CoffeeOpen";
+
 import SignupFail from "pages/info/SignupFail";
 import MyCoffeeChat from "pages/mypage/MyCoffeeChat";
 import FavoritesVideo from "pages/mypage/FavoritesVideo";
@@ -18,7 +17,7 @@ import { Main } from "pages/mainpage/Main";
 import Withdrawal from "pages/mypage/Withdrawal";
 import React from "react";
 import RedirectPage from "pages/sign-in/RedirectPage";
-import UpdateCoffeeForm from "pages/coffee-detail/UpdateCoffeeForm";
+
 import { JdDetail } from "pages/jd-detail/JdDetail";
 import { FailPage } from "pages/sign-in/FailPage";
 import JdAll from "pages/jd-all";
@@ -26,6 +25,10 @@ import { useAuth } from "pages/mainpage/useAuth";
 import NotFound from "pages/404";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "recoil/atoms";
+import Coffeeopen from "pages/coffeechats/create-coffeechats";
+import { Coffee } from "pages/coffeechats";
+import CoffeeDetail from "pages/coffeechats/detail-coffeechats";
+import UpdateCoffeeForm from "pages/coffeechats/update-coffeechats";
 
 function App() {
   useAuth();
