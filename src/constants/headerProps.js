@@ -5,7 +5,7 @@
 
 // 커피챗 상세페이지 및 커피챗 생성 페이지
 export const COFFEE_CHILD = {
-    title: '커피챗 목록',
+    title: '이전으로',
     url: '/coffee',
 }
 // 커피챗 - 수정화면에서 상세페이지로 이동하도록.
@@ -20,7 +20,7 @@ export const COFFEE_MYPAGE_CHILD = {
 }
 // JD 상세 페이지
 export const JD_CHILD= {
-    title: 'JD-ON 목록',
+    title: '이전으로',
     url: '/jd',
 }
 

@@ -17,7 +17,7 @@ function CoffeeChatCard({ data, kindOfJd }) {
 
   const handleClick = () => {
     if (data.activeStatus === "모집종료") {
-      alert("종료된 커피챗입니다");
+      alert("종료된 커피챗입니다.");
       return;
     }
     navigate(`/coffee/${data.coffeeChatId}`);

@@ -12,7 +12,7 @@ import { InfoStyle } from './InfoStyles';
 import Done from './Done';
 import { getJobCategory, registerUserInfo } from 'api/api';
 import { isLoggedInState, userInfo } from 'recoil/atoms';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 export default function Info() {
   const [step, setStep] = useState(1);
@@ -20,7 +20,8 @@ export default function Info() {
   const [data, setData] = useRecoilState(userInfo);
   const [jobCategory, setJobCategory] = useState();
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useRecoilState(isLoggedInState);
+  const  setIsLogin = useSetRecoilState(isLoggedInState);
+  
 
   const handleChange = (value) => {
     setData((prev) => ({ ...prev, ...value }));
@@ -28,15 +29,15 @@ export default function Info() {
 
   const handleNextBtn = () => {
     if (step === 1 && !(data.nickname && data.birth && data.gender)) {
-      alert('값을 다 입력하세요');
+      alert('입력되지 않은 값이 있습니다.');
       return false;
     }
     if (step === 2 && !data.jobCategoryId) {
-      alert('직무를 선택해주세요');
+      alert('직무를 선택해주세요.');
       return false;
     }
     if (step === 3 && data.skillList.length !== 3) {
-      alert('최소 3개 이상의 기술을 선택하세요');
+      alert('최소 3가지의 관심 기술을 선택해야 합니다.');
       return false;
     }
     setStep(step + 1);

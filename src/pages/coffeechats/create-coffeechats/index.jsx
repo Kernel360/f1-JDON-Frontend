@@ -26,7 +26,7 @@ function Coffeeopen() {
   const submitCoffeeChat = async (e) => {
     e.preventDefault();
     if (isRegistered) {
-      alert("이미 등록된 커피챗입니다");
+      alert("이미 등록된 커피챗입니다.");
       return;
     }
     try {
@@ -36,7 +36,7 @@ function Coffeeopen() {
         return;
       }
       setIsRegistered(true);
-      alert("등록이 완료되었습니다");
+      alert("등록이 완료되었습니다.");
       navigate(`/coffee/${res.data.coffeeChatId}`);
     } catch (error) {
       console.error("Error registering coffee chat:", error);
@@ -59,7 +59,7 @@ function Coffeeopen() {
           paddingTop={1}
           textAlign="left"
         >
-          커피챗 정보를 입력해주세요 ☕️
+          커피챗 정보를 입력해주세요. ☕️
         </Typography>
         <Box
           component="form"
@@ -71,14 +71,14 @@ function Coffeeopen() {
           width="100%"
         >
           <NewInput
-            placeholder="커피챗 제목을 입력해주세요"
+            placeholder="커피챗 제목을 입력해주세요."
             label="제목"
             helperText={helperTexts.title}
             value={formValue.title}
             onChange={(e) => updateFormValue("title", e.target.value)}
           />
           <NewInput
-            placeholder="커피챗 내용을 입력해주세요"
+            placeholder="커피챗 내용을 입력해주세요."
             label="상세 내용"
             helperText={helperTexts.content}
             value={formValue.content}
@@ -94,7 +94,7 @@ function Coffeeopen() {
             >
               <Grid item xs={5.6}>
                 <NewInput
-                  placeholder="숫자만 입력해주세요"
+                  placeholder="숫자만 입력해주세요."
                   label="총 모집 인원"
                   helperText={helperTexts.totalRecruitCount}
                   type="number"
@@ -127,14 +127,14 @@ function Coffeeopen() {
             </Grid>
           </Box>
           <NewInput
-            placeholder="오픈채팅방 링크를 입력해주세요"
+            placeholder="오픈채팅방 링크를 입력해주세요."
             label="오픈채팅방 링크"
             helperText={helperTexts.openChatUrl}
             value={formValue.openChatUrl}
             onChange={(e) => updateFormValue("openChatUrl", e.target.value)}
           />
           <NewBtn
-            title={isRegistered ? "이미 등록된 커피챗입니다" : "등록하기"}
+            title={isRegistered ? "이미 등록된 커피챗입니다." : "등록하기"}
             onClick={submitCoffeeChat}
             disable={!isFormValid || isRegistered}
             isActive={!isFormValid || isRegistered}

@@ -57,7 +57,7 @@ export default function SwipJobSkill() {
         if (checkedCount < 3) {
           return [...prevCheckedItems, skillId];
         } else {
-          alert('3개의 기술스택을 선택해주세요');
+          alert('3가지의 관심 기술을 선택해야 합니다.');
           return prevCheckedItems;
         }
       } else {
@@ -68,7 +68,7 @@ export default function SwipJobSkill() {
 
   const handleSave = () => {
     if (selectedJobSkill.length !== 3) {
-      alert('스킬 3개를 선택 해주세요.');
+      alert('3가지의 관심 기술을  선택해야 합니다.');
     } else {
       toggleDrawer(false)();
     }

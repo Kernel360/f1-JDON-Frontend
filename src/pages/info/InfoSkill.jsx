@@ -19,7 +19,7 @@ function InfoSkill({ onChange }) {
         return updatedSelected;
       } else {
         if (prev.length === 3) {
-          alert("3개만 선택할 수 있습니다");
+          alert("최대 3개까지 선택할 수 있습니다.");
           return prev;
         } else {
           handleInputChange("skillList", [...prev, newChip]);

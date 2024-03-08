@@ -129,10 +129,10 @@ export default function InfoEdit() {
         }
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
-          setHelperText("이미 존재하는 닉네임입니다");
+          setHelperText("이미 존재하는 닉네임입니다.");
         } else {
           setValidation(false);
-          setHelperText("오류가 발생했습니다");
+          setHelperText("오류가 발생했습니다.");
         }
       }
     }
@@ -166,7 +166,7 @@ export default function InfoEdit() {
 
     try {
       await updateMemberInfo(data);
-      alert("정보 수정을 성공하였습니다");
+      alert("정보 수정을 성공하였습니다.");
       navigate("/mypage");
     } catch (error) {
       console.error("회원 정보 업데이트 에러", error);
@@ -194,7 +194,7 @@ export default function InfoEdit() {
       >
         <form onSubmit={handleSaveChanges}>
           <NewInput
-            placeholder="사용하실 닉네임을 입력해주세요"
+            placeholder="사용하실 닉네임을 입력해주세요."
             label="닉네임"
             value={nickname}
             valid={validation}
@@ -204,7 +204,7 @@ export default function InfoEdit() {
               setNickname(e.target.value);
               if (nickname) {
                 setValidation(false);
-                setHelperText("닉네임을 중복확인을 해주세요");
+                setHelperText("닉네임을 중복확인을 해주세요.");
               }
             }}
             onClick={checkNickname}
