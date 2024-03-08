@@ -183,11 +183,7 @@ export const postFavoriteVideo = async (data) => {
     const res = await instance.post(`/api/v1/favorites`, data);
     return res.data;
   } catch (error) {
-<<<<<<< HEAD
     console.error('getFavoriteVideo API', error);
-=======
-    console.error("getFavoritVideo API", error);
->>>>>>> 7c0d0fe3ba8bd1e968b8c26dafff1211f51f6fb2
     throw error;
   }
 };
@@ -198,11 +194,7 @@ export const getFavoriteVideo = async () => {
     const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
     return res.data;
   } catch (error) {
-<<<<<<< HEAD
     console.error('getFavoriteVideo API', error);
-=======
-    console.error("getFavoritVideo API", error);
->>>>>>> 7c0d0fe3ba8bd1e968b8c26dafff1211f51f6fb2
     throw error;
   }
 };
