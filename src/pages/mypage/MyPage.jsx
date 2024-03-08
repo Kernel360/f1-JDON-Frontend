@@ -22,19 +22,16 @@ export default function MyPage() {
       try {
         const memberData = await getMemberInfo();
         const faqData = await getFAQ();
-        setMemberInfo(memberData.data);
-        setFAQ(faqData.faqList || []);
         const { jobGroupList } = await getJobCategory();
+        setFAQ(faqData.faqList || []);
+        setMemberInfo(memberData.data);
         setJobCategories(jobGroupList[0].jobCategoryList);
       } catch (error) {
-        if (error.response && error.response.status === 401) {
-          // alert("접근할 수 없는 페이지 입니다.");
-          // navigate("/signin");
-        }
-        console.error("faq 에러", error);
+        console.error(error)
       }
     };
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

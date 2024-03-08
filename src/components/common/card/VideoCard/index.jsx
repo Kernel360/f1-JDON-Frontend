@@ -7,7 +7,7 @@ import heartFilled from "assets/icons/heart_filled.svg";
 import person from "assets/icons/person.svg";
 import { useState } from "react";
 import "styles/animations.scss";
-import { postFavoritVideo } from "api/api";
+import { postFavoriteVideo } from "api/api";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "recoil/atoms";
@@ -35,7 +35,7 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
         !isFavorite || window.confirm("찜을 취소하시겠습니까?");
       if (confirmation) {
         try {
-          await postFavoritVideo({
+          await postFavoriteVideo({
             lectureId: data.lectureId,
             isFavorite: !isFavorite,
           });
