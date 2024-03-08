@@ -160,7 +160,6 @@ export async function getSkillsOnJD(jobCategoryId) {
   }
 }
 
-// // 기술스택 기반 원디트JD 목록 전체 조회하기 (수요일 이후 연결 예정)
 export async function getAllJDByKeyword(page, size, keyword) {
   try {
     const res = await instance.get(`/api/v1/jds?page=${page}&size=${size}&keyword=${keyword}`);
@@ -173,23 +172,23 @@ export async function getAllJDByKeyword(page, size, keyword) {
 
 // -------------------------------------------- favorite
 // 영상 찜하기 등록
-export const postFavoritVideo = async (data) => {
+export const postFavoriteVideo = async (data) => {
   try {
     const res = await instance.post(`/api/v1/favorites`, data);
     return res.data;
   } catch (error) {
-    console.error('getFavoritVideo API', error);
+    console.error('getFavoriteVideo API', error);
     throw error;
   }
 };
 
 // 내가 찜한 영상 목록 조회
-export const getFavoritVideo = async () => {
+export const getFavoriteVideo = async () => {
   try {
     const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
     return res.data;
   } catch (error) {
-    console.error('getFavoritVideo API', error);
+    console.error('getFavoriteVideo API', error);
     throw error;
   }
 };
