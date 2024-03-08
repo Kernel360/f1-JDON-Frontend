@@ -57,6 +57,7 @@ export function TabForInfo({ jdData }) {
         <JdInfoForm title="우대사항" mockData={jdData.preferredPoints} />
       </Box>
       <Box
+        maxWidth="md"
         sx={{
           position: "fixed",
           left: 0,
@@ -65,6 +66,7 @@ export function TabForInfo({ jdData }) {
           bgcolor: "white",
           px: "16px",
           pb: "16px",
+          margin: "0 auto",
         }}
       >
         <NewBtn

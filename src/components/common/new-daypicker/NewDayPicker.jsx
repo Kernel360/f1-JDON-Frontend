@@ -38,9 +38,11 @@ function NewDayPicker({ label, value, onChange, valid, helperText, daytime }) {
     if (typeof newDate === "string") {
       newDate = parseISO(newDate);
     }
-    if (newDate > now) {
-      onChange(newDate);
+    if (!newDate || isNaN(newDate.getDate())) {
+      alert("날짜를 선택해주세요.");
+      return;
     }
+    onChange(newDate);
   };
 
   return (

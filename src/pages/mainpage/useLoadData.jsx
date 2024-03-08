@@ -11,7 +11,7 @@ export function useLoadData() {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const loadData = async (keyword, userSelected) => {
-    const res = await fetchLectureData(keyword);
+    const res = await fetchLectureData(encodeURIComponent(keyword));
     setLectureList(res.lectureList);
     setJdList(res.jdList);
 

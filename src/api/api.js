@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
 export const instance = axios.create({
   withCredentials: true,
   baseURL: apiUrl,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -25,10 +25,10 @@ instance.interceptors.response.use(
 // 회원 로그인 상태 판별
 export async function Authentication() {
   try {
-    const res = await instance.get('/api/v1/authenticate');
+    const res = await instance.get("/api/v1/authenticate");
     return res.data.data;
   } catch (error) {
-    console.error('user login state', error);
+    console.error("user login state", error);
     throw error;
   }
 }
@@ -36,22 +36,22 @@ export async function Authentication() {
 //최종 회원 정보 등록
 export async function Outh() {
   try {
-    const res = await instance.get('/oauth2/authorization/kakao', {
+    const res = await instance.get("/oauth2/authorization/kakao", {
       withCredentials: true,
     });
     return res.data;
   } catch (error) {
-    console.error('Outh API error', error);
+    console.error("Outh API error", error);
     throw error;
   }
 }
 //최종 회원 정보 등록
 export async function registerUserInfo(userInfo) {
   try {
-    const res = await instance.post('/api/v1/register', userInfo);
+    const res = await instance.post("/api/v1/register", userInfo);
     return res.data;
   } catch (error) {
-    console.error('registerUserInfo API error', error);
+    console.error("registerUserInfo API error", error);
     throw error;
   }
 }
@@ -59,10 +59,10 @@ export async function registerUserInfo(userInfo) {
 //닉네임 중복 확인
 export async function checkNicknameDuplicate(nickName) {
   try {
-    const res = await instance.post('/api/v1/nickname/duplicate', nickName);
+    const res = await instance.post("/api/v1/nickname/duplicate", nickName);
     return res.status;
   } catch (error) {
-    console.log('checkNicknameDuplicate API error', error);
+    console.log("checkNicknameDuplicate API error", error);
     throw error;
   }
 }
@@ -70,10 +70,10 @@ export async function checkNicknameDuplicate(nickName) {
 //회원정보 불러오기
 export async function getMemberInfo() {
   try {
-    const res = await instance.get('/api/v1/member');
+    const res = await instance.get("/api/v1/member");
     return res.data;
   } catch (error) {
-    console.log('getMemberInfo API error', error);
+    console.log("getMemberInfo API error", error);
     throw error;
   }
 }
@@ -81,10 +81,10 @@ export async function getMemberInfo() {
 //회원정보 수정하기
 export async function updateMemberInfo(data) {
   try {
-    const res = await instance.put('/api/v1/member', data);
+    const res = await instance.put("/api/v1/member", data);
     return res.data;
   } catch (error) {
-    console.log('getMemberInfo API error', error);
+    console.log("getMemberInfo API error", error);
     throw error;
   }
 }
@@ -92,10 +92,10 @@ export async function updateMemberInfo(data) {
 //회원 로그아웃
 export async function logoutMember() {
   try {
-    const res = await instance.post('/api/v1/logout');
+    const res = await instance.post("/api/v1/logout");
     return res;
   } catch (error) {
-    console.log('logoutMember API error', error);
+    console.log("logoutMember API error", error);
     // throw error;
   }
 }
@@ -104,11 +104,11 @@ export async function logoutMember() {
 export async function deleteMember() {
   try {
     // console.log(nickName);
-    const res = await instance.delete('/api/v1/withdraw');
-    console.log('deleteMember API', res);
+    const res = await instance.delete("/api/v1/withdraw");
+    console.log("deleteMember API", res);
     return res.data;
   } catch (error) {
-    console.log('deleteMember API error', error);
+    console.log("deleteMember API error", error);
     throw error;
   }
 }
@@ -118,10 +118,10 @@ export async function deleteMember() {
 //요즘 뜨는 기술스택 조회
 export async function getHotSkills() {
   try {
-    const res = await instance.get('/api/v1/skills/hot');
+    const res = await instance.get("/api/v1/skills/hot");
     return res.data;
   } catch (error) {
-    console.error('getHotSkills API error', error);
+    console.error("getHotSkills API error", error);
     throw error;
   }
 }
@@ -129,10 +129,10 @@ export async function getHotSkills() {
 //회원 맞춤 기술스택 조회
 export async function getMemberSkills() {
   try {
-    const res = await instance.get('/api/v1/skills/member');
+    const res = await instance.get("/api/v1/skills/member");
     return res.data;
   } catch (error) {
-    console.error('getMemberSkills API error', error);
+    console.error("getMemberSkills API error", error);
     throw error;
   }
 }
@@ -143,7 +143,7 @@ export async function getLectureByKeyword(keyword) {
     const res = await instance.get(`/api/v1/skills/search?keyword=${keyword}`);
     return res.data.data;
   } catch (error) {
-    console.error('getLectureByKeyword API error', error);
+    console.error("getLectureByKeyword API error", error);
     throw error;
   }
 }
@@ -151,21 +151,27 @@ export async function getLectureByKeyword(keyword) {
 //직무 별 기술스택 조회하기
 export async function getSkillsOnJD(jobCategoryId) {
   try {
-    const res = await instance.get(`/api/v1/skills/job-category/${jobCategoryId}`);
+    const res = await instance.get(
+      `/api/v1/skills/job-category/${jobCategoryId}`
+    );
 
     return res.data.data;
   } catch (error) {
-    console.error('getSkillsOnJD API error', error);
+    console.error("getSkillsOnJD API error", error);
     throw error;
   }
 }
 
 export async function getAllJDByKeyword(page, size, keyword) {
   try {
-    const res = await instance.get(`/api/v1/jds?page=${page}&size=${size}&keyword=${keyword}`);
+    const res = await instance.get(
+      `/api/v1/jds?page=${page}&size=${size}&keyword=${encodeURIComponent(
+        keyword
+      )}`
+    );
     return res.data.data;
   } catch (error) {
-    console.error('getAllJDByKeyword API error', error);
+    console.error("getAllJDByKeyword API error", error);
     throw error;
   }
 }
@@ -177,7 +183,11 @@ export const postFavoriteVideo = async (data) => {
     const res = await instance.post(`/api/v1/favorites`, data);
     return res.data;
   } catch (error) {
+<<<<<<< HEAD
     console.error('getFavoriteVideo API', error);
+=======
+    console.error("getFavoritVideo API", error);
+>>>>>>> 7c0d0fe3ba8bd1e968b8c26dafff1211f51f6fb2
     throw error;
   }
 };
@@ -188,7 +198,11 @@ export const getFavoriteVideo = async () => {
     const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
     return res.data;
   } catch (error) {
+<<<<<<< HEAD
     console.error('getFavoriteVideo API', error);
+=======
+    console.error("getFavoritVideo API", error);
+>>>>>>> 7c0d0fe3ba8bd1e968b8c26dafff1211f51f6fb2
     throw error;
   }
 };
@@ -202,7 +216,7 @@ export const getFAQ = async () => {
     const res = await instance.get(`/api/v1/faqs`);
     return res.data.data;
   } catch (error) {
-    console.error('getFAQ API 통신에러', error);
+    console.error("getFAQ API 통신에러", error);
     throw error;
   }
 };
@@ -210,10 +224,10 @@ export const getFAQ = async () => {
 //직군 별 직무 조회
 export const getJobCategory = async () => {
   try {
-    const res = await instance.get('/api/v1/job-categories');
+    const res = await instance.get("/api/v1/job-categories");
     return res.data.data;
   } catch (error) {
-    console.error('getJobCategory API', error);
+    console.error("getJobCategory API", error);
     throw error;
   }
 };
@@ -223,10 +237,12 @@ export const getJobCategory = async () => {
 
 export const getMyCoffeeChat = async (page) => {
   try {
-    const res = await instance.get(`/api/v1/coffeechats/host?page=${page}&size=12`);
+    const res = await instance.get(
+      `/api/v1/coffeechats/host?page=${page}&size=12`
+    );
     return res.data.data;
   } catch (error) {
-    console.error('getMyCoffeeChat API', error);
+    console.error("getMyCoffeeChat API", error);
     throw error;
   }
 };
@@ -234,10 +250,12 @@ export const getMyCoffeeChat = async (page) => {
 //내가 신청한 커피챗 목록 조회
 export const getSignCoffeeChat = async (page) => {
   try {
-    const res = await instance.get(`/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate`);
+    const res = await instance.get(
+      `/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate`
+    );
     return res.data.data;
   } catch (error) {
-    console.error('getMyCoffeeChat API', error);
+    console.error("getMyCoffeeChat API", error);
     throw error;
   }
 };
@@ -250,7 +268,7 @@ export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
     );
     return res;
   } catch (error) {
-    console.error('getCoffeeChat API', error);
+    console.error("getCoffeeChat API", error);
     throw error;
   }
 };
@@ -261,7 +279,7 @@ export const getCoffeeChatDetail = async (id) => {
     const res = await instance.get(`api/v1/coffeechats/${id}`);
     return res.data.data;
   } catch (error) {
-    console.error('getCoffeeChatDetail API', error);
+    console.error("getCoffeeChatDetail API", error);
     throw error;
   }
 };
@@ -269,10 +287,10 @@ export const getCoffeeChatDetail = async (id) => {
 //커피챗 등록
 export async function registerCoffeeChat(coffeeChat) {
   try {
-    const res = await instance.post('/api/v1/coffeechats', coffeeChat);
+    const res = await instance.post("/api/v1/coffeechats", coffeeChat);
     return res.data;
   } catch (error) {
-    console.error('registerCoffeeChat API error', error);
+    console.error("registerCoffeeChat API error", error);
     throw error;
   }
 }
@@ -283,7 +301,7 @@ export async function updateCoffeechat(id, data) {
     const res = await instance.put(`/api/v1/coffeechats/${id}`, data);
     return res.data;
   } catch (error) {
-    console.log('getMemberInfo API error', error);
+    console.log("getMemberInfo API error", error);
     throw error;
   }
 }
@@ -292,10 +310,10 @@ export async function updateCoffeechat(id, data) {
 export async function deleteCoffeechat(id, data) {
   try {
     const res = await instance.delete(`/api/v1/coffeechats/${id}`, data);
-    console.log('deleteCoffeechat API', res);
+    console.log("deleteCoffeechat API", res);
     return res.data;
   } catch (error) {
-    console.log('deleteCoffeechat API error', error);
+    console.log("deleteCoffeechat API error", error);
     throw error;
   }
 }
@@ -303,11 +321,14 @@ export async function deleteCoffeechat(id, data) {
 //커피챗 신청
 export async function applyCoffeechat(id, coffeeChatData) {
   try {
-    const res = await instance.post(`/api/v1/coffeechats/${id}`, coffeeChatData);
-    console.log('applyCoffeechat API', res);
+    const res = await instance.post(
+      `/api/v1/coffeechats/${id}`,
+      coffeeChatData
+    );
+    console.log("applyCoffeechat API", res);
     return res.data;
   } catch (error) {
-    console.log('applyCoffeechat API error', error);
+    console.log("applyCoffeechat API error", error);
     throw error;
   }
 }
@@ -322,7 +343,7 @@ export const getJdDetail = async (id) => {
 
     return res.data.data;
   } catch (error) {
-    console.error('getJdDetail API', error);
+    console.error("getJdDetail API", error);
     throw error;
   }
 };
@@ -334,7 +355,7 @@ export const getReivew = async (id, page) => {
     const res = await instance.get(`api/v1/reviews/${id}?page=${page}&size=5`);
     return res.data.data;
   } catch (error) {
-    console.error('getReivew API', error);
+    console.error("getReivew API", error);
     throw error;
   }
 };
@@ -342,10 +363,10 @@ export const getReivew = async (id, page) => {
 //리뷰 수정
 export const addReivew = async (reviewData) => {
   try {
-    const res = await instance.post('api/v1/reviews', reviewData);
+    const res = await instance.post("api/v1/reviews", reviewData);
     return res.data.data;
   } catch (error) {
-    console.error('addReivew API', error);
+    console.error("addReivew API", error);
     throw error;
   }
 };
@@ -356,7 +377,7 @@ export const delReivew = async (id) => {
     const res = await instance.delete(`api/v1/reviews/${id}`);
     return res.data.data;
   } catch (error) {
-    console.error('delReivew API', error);
+    console.error("delReivew API", error);
     throw error;
   }
 };

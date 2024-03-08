@@ -1,9 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { jobStyle } from "components/common/card/CardStyle";
-import { buttonStyles } from "./ButtonStyle";
+
 import eyeIcon from "assets/icons/eye.svg";
 import { useRecoilValue } from "recoil";
 import { kindOfJdState } from "recoil/atoms";
+import { buttonStyles } from "../ButtonStyle";
 
 const JobBadge = ({ job }) => {
   const kindOfJd = useRecoilValue(kindOfJdState);
