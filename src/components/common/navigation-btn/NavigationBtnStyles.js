@@ -24,6 +24,14 @@ export const buttonStyle = {
     color: '#ffffff',
     backgroundColor: '#6482FF',
   },
+  DeleteButton: {
+    color: '#ffffff',
+    backgroundColor: '#f33',
+    '&:hover': {
+      color: '#ffffff',
+      backgroundColor: '#f33', // 클릭(마우스 오버) 시 배경색 변경
+    },
+  },
   EndButton: {
     mt: 7,
     mb: 2,
