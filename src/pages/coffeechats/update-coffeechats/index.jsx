@@ -38,6 +38,10 @@ function UpdateCoffeeForm() {
           openChatUrl: res.openChatUrl || "",
         });
       } catch (error) {
+        if (error.response.status) {
+          navigate("/404");
+        }
+
         console.error("Error fetching coffee chat detail:", error);
       }
     })();
