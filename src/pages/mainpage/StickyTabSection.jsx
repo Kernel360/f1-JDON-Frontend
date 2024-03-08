@@ -45,7 +45,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
 
   const handleConfirm = () => {
     window.confirm(
-      "내 맞춤 키워드는 로그인 후에 확인 하실 수 있습니다. 로그인페이지로 이동하시겠습니까?"
+      `내 맞춤 키워드는 로그인 후에 확인 하실 수 있습니다. \n 로그인페이지로 이동하시겠습니까?`
     ) && navigate("/signin");
   };
 

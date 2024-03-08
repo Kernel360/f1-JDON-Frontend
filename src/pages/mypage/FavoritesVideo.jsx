@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Box, Typography, Grid } from "@mui/material";
 import BottomNav from "components/common/BottomNav";
 import VideoCard from "components/common/card/VideoCard";
-import { getFavoritVideo } from "api/api";
+import { getFavoriteVideo } from "api/api";
 import Header from "components/common/Header";
 import Pagenation from "components/common/Pagenation";
 import { MYPAGE_CHILD } from "constants/headerProps";
@@ -10,7 +10,7 @@ import { MYPAGE_CHILD } from "constants/headerProps";
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isFavoriteChanged, setIsFavoriteChanged] = useState(true);
+  const [isFavoriteChanged, setIsFavoriteChanged] = useState(false);
 
   const [page, setPage] = useState({});
 
@@ -18,6 +18,16 @@ export default function FavoritesVideo() {
   const [foundTxt, setFoundTxt] = useState("찜한 영상 불러오는 중..");
 
   useEffect(() => {
+   (async () => {
+      try {
+        const res = await getFavoriteVideo();
+        setDatas(res.data.content);
+        setPage(res.data.pageInfo);
+      } catch (error) {
+        console.error("getFavoriteVideo API 에러", error);
+      }
+    })();
+
     const timer = setTimeout(() => {
       setFoundTxt("찜한 영상이 없습니다.");
     }, 1500);
@@ -25,24 +35,20 @@ export default function FavoritesVideo() {
       clearTimeout(timer);
     };
   }, []);
-  // --------------------------------
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getFavoritVideo();
-        setDatas(res.data.content);
-        setPage(res.data.pageInfo);
-      } catch (error) {
-        console.error("getFavoritVideo API 에러", error);
-      }
-    };
-    // 최초 렌더링 시에만 fetchData 호출
-    if (!datas || isFavoriteChanged) {
-      fetchData();
+    if (isFavoriteChanged) {
+      (async () => {
+        try {
+          const res = await getFavoriteVideo();
+          setDatas(res.data.content);
+          setPage(res.data.pageInfo);
+        } catch (error) {
+          console.error("getFavoriteVideo API 에러", error);
+        }
+      })();
       setIsFavoriteChanged(false); // isFavoriteChanged 상태 초기화
     }
-    // fetchData();
   }, [currentPage, datas, isFavoriteChanged]);
 
   const handlePageChange = (event, value) => {
