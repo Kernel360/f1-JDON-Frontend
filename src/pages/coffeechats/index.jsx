@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { getCoffeeChat, getJobCategory } from "api/api";
 import PaginationComponent from "components/common/Pagenation";
 // import CoffeeBanner from './CoffeeBanner';
-import FiltersAndButton from "./FiltersAndButton";
+
 import { useRecoilState } from "recoil";
 import { kindOfJdState } from "recoil/atoms";
 import HeaderWithSearchBar from "components/common/search-bar/HeaderWithSearchBar";
+import FiltersAndButton from "./FiltersAndButton";
 
 export function Coffee() {
   const [coffeeData, setCoffeeData] = useState({
