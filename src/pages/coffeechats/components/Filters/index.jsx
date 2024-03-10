@@ -65,7 +65,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
                   control={<Radio />}
                   label={item.koValue}
                   onClick={() => {
-                    onChange((prev) => ({ ...prev, sorting: item.value }));
+                    onChange("sorting", item.value);
                     handleClose();
                   }}
                 />
@@ -85,7 +85,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
                 control={<Radio />}
                 label="전체"
                 onClick={() => {
-                  onChange((prev) => ({ ...prev, jobCategory: "" }));
+                  onChange("jobCategory", "");
                   handleClose();
                 }}
               />
@@ -96,7 +96,7 @@ export function Filters({ sortData, onChange, kindOfJd }) {
                   control={<Radio />}
                   label={item.name}
                   onClick={() => {
-                    onChange((prev) => ({ ...prev, jobCategory: item.id }));
+                    onChange("jobCategory", item.id);
                     handleClose();
                   }}
                 />
