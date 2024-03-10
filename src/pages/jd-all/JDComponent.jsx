@@ -1,10 +1,10 @@
 import { Box, Grid, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import CompanyCard from '../../components/common/card/CompanyCard';
-import { getAllJDByKeyword } from '../../api/api';
-import PaginationComponent from '../../components/common/Pagenation';
+import CompanyCard from 'components/common/card/CompanyCard';
+import { getAllJDByKeyword } from 'api/api';
+import PaginationComponent from 'components/common/Pagenation';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { jdSearchValue } from '../../recoil/atoms';
+import { jdSearchValue } from 'recoil/atoms';
 
 function JDComponent() {
   const searchValue = useRecoilValue(jdSearchValue);
