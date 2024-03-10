@@ -10,7 +10,7 @@ import { BeatLoader } from "react-spinners";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "recoil/atoms";
 import { COFFEE_CHILD } from "constants/headerProps";
-import useFilterPersistence from "../useFilterPersistence";
+//import useFilterPersistence from "../useFilterPersistence";
 
 function CoffeeDetail() {
   const { id } = useParams();
@@ -18,8 +18,6 @@ function CoffeeDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const loginState = useRecoilValue(isLoggedInState);
   const [isParticipant, setIsParticipant] = useState(false);
-  const shouldPersist = useFilterPersistence();
-  console.log(shouldPersist);
 
   useEffect(() => {
     (async () => {

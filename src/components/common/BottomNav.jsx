@@ -40,6 +40,8 @@ export default function BottomNav() {
 
   const handleNavigationChange = (_, newValue) => {
     setValue(newValue);
+    localStorage.removeItem("filters");
+    localStorage.removeItem("page");
     switch (newValue) {
       case 0:
         navigate("/");

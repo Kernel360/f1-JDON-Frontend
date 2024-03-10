@@ -21,9 +21,9 @@ export function Filters({ sortData, onChange, kindOfJd }) {
   const getValueForRadioGroup = (jobCategory) => {
     switch (jobCategory) {
       case 2:
-        return kindOfJd[0].name;
+        return kindOfJd[0].name || undefined;
       case 3:
-        return kindOfJd[1].name;
+        return kindOfJd[1].name || undefined;
       default:
         return "";
     }

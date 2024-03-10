@@ -9,11 +9,8 @@ import { useRecoilState } from "recoil";
 import { kindOfJdState } from "recoil/atoms";
 import HeaderWithSearchBar from "components/common/search-bar/HeaderWithSearchBar";
 import FiltersAndButton from "./FiltersAndButton";
-import { useLocation } from "react-router-dom";
 
 export function Coffee() {
-  const { pathname } = useLocation();
-
   const [coffeeData, setCoffeeData] = useState({
     content: [],
     pageInfo: {
@@ -24,12 +21,14 @@ export function Coffee() {
       empty: true,
     },
   });
-  const hasFilterValue = JSON.parse(localStorage.getItem("filters"));
+  // const hasFilterValue = JSON.parse(localStorage.getItem("filters"));
   const defaultSortData = {
     sorting: "createdDate",
     jobCategory: "",
   };
-  const [sortData, setSortData] = useState(hasFilterValue || defaultSortData);
+  const filterValues = JSON.parse(localStorage.getItem("filters"));
+
+  const [sortData, setSortData] = useState(defaultSortData);
   const [currentPage, setCurrentPage] = useState(1);
   const [kindOfJd, setKindOfJd] = useRecoilState(kindOfJdState);
 
@@ -43,20 +42,11 @@ export function Coffee() {
       return updatedSortData;
     });
   };
-  useEffect(() => {
-    console.log(pathname);
-    if (pathname === "/coffee") {
-      const hasFilterValue = JSON.parse(localStorage.getItem("filters"));
-      if (hasFilterValue) {
-        setSortData(hasFilterValue);
-      }
-    } else {
-      localStorage.removeItem("filters");
-      setSortData(defaultSortData);
-    }
-  }, []);
 
   useEffect(() => {
+    if (filterValues) {
+      setSortData((prev) => ({ ...prev, ...filterValues }));
+    }
     const timer = setTimeout(() => {
       setFoundTxt("커피챗 정보가 없습니다.");
     }, 1500);
