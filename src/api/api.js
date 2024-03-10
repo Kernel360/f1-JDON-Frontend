@@ -14,8 +14,8 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      alert('로그인이 필요한 서비스입니다.');
-      window.location.href = '/signin';
+      alert("로그인이 필요한 서비스입니다.");
+      window.location.href = "/signin";
     }
     return Promise.reject(error);
   }
@@ -183,7 +183,7 @@ export const postFavoriteVideo = async (data) => {
     const res = await instance.post(`/api/v1/favorites`, data);
     return res.data;
   } catch (error) {
-    console.error('getFavoriteVideo API', error);
+    console.error("getFavoriteVideo API", error);
     throw error;
   }
 };
@@ -194,7 +194,7 @@ export const getFavoriteVideo = async () => {
     const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
     return res.data;
   } catch (error) {
-    console.error('getFavoriteVideo API', error);
+    console.error("getFavoriteVideo API", error);
     throw error;
   }
 };
@@ -342,9 +342,12 @@ export const getJdDetail = async (id) => {
 // -------------------------------------------- review
 
 //리뷰 조회
-export const getReivew = async (id, page) => {
+export const getReivew = async (id, lastReviewId) => {
   try {
-    const res = await instance.get(`api/v1/reviews/${id}?page=${page}&size=5`);
+    const res = await instance.get(
+      `api/v1/reviews/${id}?&size=5&reviewId=${lastReviewId}`
+    );
+
     return res.data.data;
   } catch (error) {
     console.error("getReivew API", error);

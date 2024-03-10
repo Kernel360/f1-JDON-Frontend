@@ -120,7 +120,8 @@ function Coffeeopen() {
                   daytime={true}
                   value={formValue.meetDate}
                   onChange={(newValue) => {
-                    updateFormValue("meetDate", formatDateTime(newValue));
+                    const newTime = formatDateTime(newValue);
+                    updateFormValue("meetDate", newTime);
                   }}
                 />
               </Grid>

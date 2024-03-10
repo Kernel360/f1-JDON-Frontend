@@ -22,8 +22,10 @@ import { userInfo } from "recoil/atoms";
 import { useRecoilState } from "recoil";
 import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
 import TotalInputForm from "components/common/total-input-form/TotalInputForm";
-import { AGREE_DATA } from "./agreeData";
+
 import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from "constants/nickname";
+import TermsAndConditions from "./TermsAndConditions";
+import DetailDialog from "./DetailDialog";
 
 function InFoBasic({ agree, setAgree }) {
   const [helperText, setHelperText] = useState("");
@@ -246,33 +248,6 @@ function InFoBasic({ agree, setAgree }) {
         </Box>
       </Box>
     </>
-  );
-}
-
-function DetailDialog({ open, handleClose, title, content }) {
-  return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>{content}</DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>닫기</Button>
-      </DialogActions>
-    </Dialog>
-  );
-}
-
-function TermsAndConditions(i) {
-  return (
-    <div>
-      {AGREE_DATA[i].children.map((item, index) => (
-        <div key={index}>
-          <h4 style={{ fontSize: 16 }}>{item.title}</h4>
-          <p style={{ fontSize: 12 }}>{item.content}</p>
-        </div>
-      ))}
-    </div>
   );
 }
 

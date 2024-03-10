@@ -3,21 +3,15 @@ import { getReivew } from "api/api";
 import { useInView } from "react-intersection-observer";
 
 export const useReviewPagination = (id) => {
-  // const navigate = useNavigate();
-  const [page, setPage] = useState(0);
+  const [reviewId, setReviewId] = useState("");
   const [lastPage, setLastPage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [reviewData, setReviewData] = useState([]);
   const [ref, inView] = useInView();
-  // const isLogin = useRecoilValue(isLoggedInState).isLoginUser;
 
   const fetchReviewData = async (reset = false) => {
-    // if (!isLogin) {
-    //   promptLogin();
-    //   return;
-    // }
     if (reset) {
-      setPage(0);
+      setReviewId("");
       setReviewData([]);
       setLastPage(false);
     }
@@ -25,10 +19,15 @@ export const useReviewPagination = (id) => {
     setIsLoading(true);
 
     try {
-      const res = await getReivew(id, page);
+      const res = await getReivew(id, reviewId);
+      console.log(res);
       setReviewData((prev) => [...prev, ...res.content]);
-      setPage((prev) => prev + 1);
-      if (res.content.length === 0 || res.pageInfo.last) {
+      if (res.content.length > 0) {
+        const newReviewId = res.content[res.content.length - 1].id;
+        console.log(newReviewId);
+        setReviewId(newReviewId);
+      }
+      if (res.pageInfo.last) {
         setLastPage(true);
       }
     } catch (e) {
@@ -37,18 +36,11 @@ export const useReviewPagination = (id) => {
     setIsLoading(false);
   };
 
-  const promptLogin = () => {
-    // const confirmResult = window.confirm('리뷰는 로그인 후 조회할 수 있습니다. 로그인 하시겠습니까?');
-    // if (confirmResult) {
-    //   navigate('/signin');
-    // }
-  };
-
   useEffect(() => {
-    if (inView && !isLoading) {
+    if ((inView && !isLoading) || reviewId) {
       fetchReviewData();
     }
-  }, [inView, page, isLoading]);
+  }, [inView, reviewId, isLoading]);
 
   return {
     isLoading,

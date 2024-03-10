@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import { getCoffeeChat, getJobCategory } from "api/api";
 import PaginationComponent from "components/common/Pagenation";
 // import CoffeeBanner from './CoffeeBanner';
-import FiltersAndButton from "./FiltersAndButton";
 import { useRecoilState } from "recoil";
 import { kindOfJdState } from "recoil/atoms";
 import HeaderWithSearchBar from "components/common/search-bar/HeaderWithSearchBar";
+import FiltersAndButton from "./FiltersAndButton";
 
 export function Coffee() {
   const [coffeeData, setCoffeeData] = useState({
@@ -21,17 +21,32 @@ export function Coffee() {
       empty: true,
     },
   });
-  const [sortData, setSortData] = useState({
+  // const hasFilterValue = JSON.parse(localStorage.getItem("filters"));
+  const defaultSortData = {
     sorting: "createdDate",
     jobCategory: "",
-  });
+  };
+  const filterValues = JSON.parse(localStorage.getItem("filters"));
+
+  const [sortData, setSortData] = useState(defaultSortData);
   const [currentPage, setCurrentPage] = useState(1);
   const [kindOfJd, setKindOfJd] = useRecoilState(kindOfJdState);
 
   // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
   const [foundTxt, setFoundTxt] = useState("커피챗 정보 불러오는 중..");
 
+  const handleChange = (title, newSortData) => {
+    setSortData((prev) => {
+      const updatedSortData = { ...prev, [title]: newSortData };
+      localStorage.setItem("filters", JSON.stringify(updatedSortData));
+      return updatedSortData;
+    });
+  };
+
   useEffect(() => {
+    if (filterValues) {
+      setSortData((prev) => ({ ...prev, ...filterValues }));
+    }
     const timer = setTimeout(() => {
       setFoundTxt("커피챗 정보가 없습니다.");
     }, 1500);
@@ -43,6 +58,7 @@ export function Coffee() {
 
   const handlePageChange = (_, newPage) => {
     setCurrentPage(newPage);
+    localStorage.setItem("pageNum", JSON.stringify(newPage));
   };
 
   useEffect(() => {
@@ -83,7 +99,7 @@ export function Coffee() {
       <HeaderWithSearchBar isSearchBarTrue={false} />
       <FiltersAndButton
         sortData={sortData}
-        onChange={setSortData}
+        onChange={handleChange}
         kindOfJd={kindOfJd}
       />
       <Grid container spacing={{ xs: 2, md: 2 }}>
