@@ -21,7 +21,7 @@ function InfoItem({ icon, text, iconColor }) {
       sx={{
         pb: "5px",
         color: "#696969",
-        fontSize: "13px",
+        fontSize: "15px",
         display: "flex",
         alignItems: "center",
         gap: "8px",
@@ -82,7 +82,7 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
             pb: "10px",
             color: "#373737",
             fontWeight: "600",
-            fontSize: "12px",
+            fontSize: "15px",
           }}
         >
           [ 모집 정보 ]

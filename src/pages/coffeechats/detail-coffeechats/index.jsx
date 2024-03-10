@@ -10,6 +10,7 @@ import { BeatLoader } from "react-spinners";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "recoil/atoms";
 import { COFFEE_CHILD } from "constants/headerProps";
+//import useFilterPersistence from "../useFilterPersistence";
 
 function CoffeeDetail() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function CoffeeDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const loginState = useRecoilValue(isLoggedInState);
   const [isParticipant, setIsParticipant] = useState(false);
-  
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -58,7 +59,7 @@ function CoffeeDetail() {
   return (
     <Container maxWidth="md">
       <CssBaseline />
-      <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url}/>
+      <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url} />
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
       <CoffeeChatInfo
         coffeeChatData={coffeeChatData}

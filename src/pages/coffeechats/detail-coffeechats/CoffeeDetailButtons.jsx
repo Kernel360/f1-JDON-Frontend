@@ -15,7 +15,6 @@ function CoffeeDetailButtons({
   isParticipant,
   setIsParticipant,
 }) {
-  console.log(coffeeChatData);
   const navigate = useNavigate();
   const [applyCoffee, setApplyCoffee] = useState({});
   const isButtonDisables = coffeeChatData.status !== "모집중" || isParticipant;
