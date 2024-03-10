@@ -24,7 +24,7 @@ function Withdrawal() {
         console.log(`${res || null}회원탈퇴합니다`);
 
         localStorage.setItem('isLoggedInState', false);
-        alert(`회원탈퇴가 성공적으로 진행되었습니다. \n 지금까지 JDON을 이용해주셔서 감사합니다.`);
+        alert(`회원탈퇴가 성공적으로 진행되었습니다. \n지금까지 JDON을 이용해주셔서 감사합니다.`);
         navigate('/');
       }
     } catch (error) {
