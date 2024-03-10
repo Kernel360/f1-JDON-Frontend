@@ -1,48 +1,44 @@
-import { Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
-import Header from "components/common/Header";
-import NewInput from "components/common/new-input/NewInput";
-import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
-import { useEffect } from "react";
-import {
-  getCoffeeChatDetail,
-  registerCoffeeChat,
-  updateCoffeechat,
-} from "api/api";
-import { useNavigate, useParams } from "react-router-dom";
-import { theme } from "styles/themeMuiStyle";
-import NewBtn from "components/common/new-btn/NewBtn";
-import { useForm } from "../hooks/useForm";
-import { formatDateTime } from "../dateUtils";
+import { Box, Container, CssBaseline, Grid, Typography } from '@mui/material';
+import Header from 'components/common/Header';
+import NewInput from 'components/common/new-input/NewInput';
+import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
+import { useEffect } from 'react';
+import { getCoffeeChatDetail, registerCoffeeChat, updateCoffeechat } from 'api/api';
+import { useNavigate, useParams } from 'react-router-dom';
+import { theme } from 'styles/themeMuiStyle';
+import NewBtn from 'components/common/new-btn/NewBtn';
+import { useForm } from '../hooks/useForm';
+import { formatDateTime } from '../dateUtils';
+import { COFFEE_CHILD_ID } from 'constants/headerProps';
 
 function UpdateCoffeeForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { formValue, setFormValue, helperTexts, isFormValid, updateFormValue } =
-    useForm({
-      title: "",
-      content: "",
-      totalRecruitCount: "",
-      meetDate: "",
-      openChatUrl: "",
-    });
+  const { formValue, setFormValue, helperTexts, isFormValid, updateFormValue } = useForm({
+    title: '',
+    content: '',
+    totalRecruitCount: '',
+    meetDate: '',
+    openChatUrl: '',
+  });
 
   useEffect(() => {
     (async () => {
       try {
         const res = await getCoffeeChatDetail(id);
         setFormValue({
-          title: res.title || "",
-          content: res.content || "",
-          totalRecruitCount: res.totalRecruitCount || "",
-          meetDate: res.meetDate || "",
-          openChatUrl: res.openChatUrl || "",
+          title: res.title || '',
+          content: res.content || '',
+          totalRecruitCount: res.totalRecruitCount || '',
+          meetDate: res.meetDate || '',
+          openChatUrl: res.openChatUrl || '',
         });
       } catch (error) {
         if (error.response.status) {
-          navigate("/404");
+          navigate('/404');
         }
 
-        console.error("Error fetching coffee chat detail:", error);
+        console.error('Error fetching coffee chat detail:', error);
       }
     })();
   }, [id]);
@@ -52,42 +48,34 @@ function UpdateCoffeeForm() {
     try {
       if (id) {
         await updateCoffeechat(id, formValue);
-        alert("커피챗이 수정되었습니다.");
+        alert('커피챗이 수정되었습니다.');
       } else {
         await registerCoffeeChat(formValue);
-        alert("커피챗이 생성되었습니다.");
+        alert('커피챗이 생성되었습니다.');
       }
       navigate(`/coffee/${id}`);
     } catch (error) {
-      console.error("Error fetching hot skills:", error);
+      console.error('Error fetching hot skills:', error);
     }
   };
 
   return (
     <>
-      <Container
-        maxWidth="sm"
-        sx={{ display: "flex", flexDirection: "column" }}
-      >
+      <Container maxWidth="sm" sx={{ display: 'flex', flexDirection: 'column' }}>
         <CssBaseline />
-        <Header title="커피챗 수정" />
-        <Box
-          flexGrow={1}
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-        >
+        <Header title={COFFEE_CHILD_ID.title} url={COFFEE_CHILD_ID.url + id} />
+        <Box flexGrow={1} display="flex" flexDirection="column" justifyContent="center">
           <Typography fontSize={18} fontWeight={600} paddingTop={1}>
             수정하실 커피챗 정보를 입력해주세요 ☕️
           </Typography>
           <Box
             component="form"
             sx={{
-              mt: "30px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "13px",
-              width: "100%",
+              mt: '30px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '13px',
+              width: '100%',
             }}
           >
             <NewInput
@@ -95,7 +83,7 @@ function UpdateCoffeeForm() {
               label="제목"
               helperText={helperTexts.title}
               value={formValue.title}
-              onChange={(e) => updateFormValue("title", e.target.value)}
+              onChange={(e) => updateFormValue('title', e.target.value)}
             />
             <NewInput
               placeholder="커피챗 내용을 입력해주세요"
@@ -103,15 +91,10 @@ function UpdateCoffeeForm() {
               helperText={helperTexts.content}
               value={formValue.content}
               isMultiline={true}
-              onChange={(e) => updateFormValue("content", e.target.value)}
+              onChange={(e) => updateFormValue('content', e.target.value)}
             />
             <Box>
-              <Grid
-                container
-                width="100%"
-                display="flex"
-                justifyContent="space-between"
-              >
+              <Grid container width="100%" display="flex" justifyContent="space-between">
                 <Grid item xs={5.6}>
                   <NewInput
                     placeholder="숫자만 입력해주세요"
@@ -120,16 +103,12 @@ function UpdateCoffeeForm() {
                     type="number"
                     min={0}
                     value={
-                      isNaN(formValue.totalRecruitCount) ||
-                      formValue.totalRecruitCount === 0
+                      isNaN(formValue.totalRecruitCount) || formValue.totalRecruitCount === 0
                         ? null
                         : formValue.totalRecruitCount
                     }
                     onChange={(e) => {
-                      updateFormValue(
-                        "totalRecruitCount",
-                        parseInt(e.target.value, 10)
-                      );
+                      updateFormValue('totalRecruitCount', parseInt(e.target.value, 10));
                     }}
                   />
                 </Grid>
@@ -140,7 +119,7 @@ function UpdateCoffeeForm() {
                     daytime={true}
                     value={formValue.meetDate}
                     onChange={(newValue) => {
-                      updateFormValue("meetDate", formatDateTime(newValue));
+                      updateFormValue('meetDate', formatDateTime(newValue));
                     }}
                   />
                 </Grid>
@@ -151,7 +130,7 @@ function UpdateCoffeeForm() {
               label="오픈채팅방 링크"
               helperText={helperTexts.openChatUrl}
               value={formValue.openChatUrl}
-              onChange={(e) => updateFormValue("openChatUrl", e.target.value)}
+              onChange={(e) => updateFormValue('openChatUrl', e.target.value)}
             />
             <NewBtn
               title="수정완료"
@@ -161,14 +140,12 @@ function UpdateCoffeeForm() {
               styles={{
                 mt: 3,
                 mb: 3,
-                width: "100%",
-                p: "13px",
-                borderRadius: "999px",
-                background: isFormValid
-                  ? theme.palette.primary.main
-                  : "#EBEBEB",
-                color: isFormValid ? "white" : "#BCBCC4",
-                fontSize: "16px",
+                width: '100%',
+                p: '13px',
+                borderRadius: '999px',
+                background: isFormValid ? theme.palette.primary.main : '#EBEBEB',
+                color: isFormValid ? 'white' : '#BCBCC4',
+                fontSize: '16px',
               }}
             />
           </Box>

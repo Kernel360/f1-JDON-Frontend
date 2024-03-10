@@ -3,7 +3,7 @@ import Header from 'components/common/Header';
 import { Box, Button, Checkbox, Container, FormControlLabel } from '@mui/material';
 import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
 import { useNavigate } from 'react-router-dom';
-import { deleteMember } from 'api/api';
+import { deleteMember, logoutMember } from 'api/api';
 import { USER_QUIT } from 'constants/headerProps';
 
 function Withdrawal() {
@@ -20,8 +20,11 @@ function Withdrawal() {
         alert('체크박스를 선택해야 진행할 수 있습니다.');
         return;
       } else {
-        const res = await deleteMember();
-        console.log(`${res || null}회원탈퇴합니다`);
+        const logoutPromise = logoutMember();
+        const deletePromise = deleteMember();
+        await Promise.all([logoutPromise, deletePromise]);
+
+        // console.log(`${res || null}회원탈퇴합니다`);
 
         localStorage.setItem('isLoggedInState', false);
         alert(`회원탈퇴가 성공적으로 진행되었습니다. \n지금까지 JDON을 이용해주셔서 감사합니다.`);

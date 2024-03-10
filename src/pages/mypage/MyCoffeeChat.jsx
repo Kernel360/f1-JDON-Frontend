@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Box, Typography, Grid, Tab, Container } from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import Header from "components/common/Header";
-import CoffeeChatCard from "components/common/card/CoffeeChatCard";
-import { getMyCoffeeChat, getSignCoffeeChat } from "api/api";
-import Pagenation from "components/common/Pagenation";
-import { MainStyles } from "../PageStyles";
-import { useRecoilValue } from "recoil";
-import { kindOfJdState } from "recoil/atoms";
-import { MYPAGE_CHILD } from "constants/headerProps";
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Grid, Tab, Container } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import Header from 'components/common/Header';
+import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
+import { getMyCoffeeChat, getSignCoffeeChat } from 'api/api';
+import Pagenation from 'components/common/Pagenation';
+import { MainStyles } from '../PageStyles';
+import { useRecoilValue } from 'recoil';
+import { kindOfJdState } from 'recoil/atoms';
+import { MYPAGE_CHILD } from 'constants/headerProps';
 
 export default function MyCoffeeChat() {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState('1');
   const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
   const [coffeeDatas, setCoffeeDatas] = useState([]);
@@ -24,24 +24,23 @@ export default function MyCoffeeChat() {
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
-    console.log("dddd", currentPage);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let res;
-        if (value === "1") {
+        if (value === '1') {
           res = await getMyCoffeeChat(currentPage - 1);
           setCoffeeDatas(res.content || []);
-        } else if (value === "2") {
+        } else if (value === '2') {
           res = await getSignCoffeeChat(currentPage - 1);
           setCoffeeDatas(res.content || []);
         }
 
         setPage(res.pageInfo || {});
       } catch (error) {
-        console.error("MyCoffeeChat 통신에러", error);
+        console.error('MyCoffeeChat 통신에러', error);
       }
     };
     fetchData();
@@ -51,39 +50,28 @@ export default function MyCoffeeChat() {
     // <Container maxWidth="md" paddingX={"16px"} sx={{ width: "100%" }}>
     <Container
       maxWidth="md"
-      paddingX={"16px"}
+      paddingX={'16px'}
       sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
       }}
     >
-      <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url}/>
+      <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url} />
       <Box mt={2}>
         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList
-              onChange={handleChange}
-              aria-label="내가 오픈한 커피챗 및 내가 신청한 커피챗 선택 탭"
-            >
-              <Tab
-                label="내가 오픈한 커피챗"
-                value="1"
-                sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: "none" }}
-              />
-              <Tab
-                label="내가 신청한 커피챗"
-                value="2"
-                sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: "none" }}
-              />
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleChange} aria-label="내가 오픈한 커피챗 및 내가 신청한 커피챗 선택 탭">
+              <Tab label="내가 오픈한 커피챗" value="1" sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }} />
+              <Tab label="내가 신청한 커피챗" value="2" sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }} />
             </TabList>
           </Box>
           <TabPanel
             value="1"
             sx={{
               flexGrow: 1,
-              "&.MuiTabPanel-root": {
+              '&.MuiTabPanel-root': {
                 paddingX: 0,
               },
             }}
@@ -93,7 +81,7 @@ export default function MyCoffeeChat() {
                 variant="h6"
                 color="textSecondary"
                 sx={{
-                  textAlign: "center",
+                  textAlign: 'center',
                   fontSize: 16,
                   mt: 3,
                 }}
@@ -111,11 +99,7 @@ export default function MyCoffeeChat() {
             )}
             {coffeeDatas.length > 0 && (
               <Box mt={0}>
-                <Pagenation
-                  pageCount={page?.totalPages}
-                  currentPage={currentPage}
-                  onChange={handlePageChange}
-                />
+                <Pagenation pageCount={page?.totalPages} currentPage={currentPage} onChange={handlePageChange} />
               </Box>
             )}
           </TabPanel>
@@ -123,7 +107,7 @@ export default function MyCoffeeChat() {
             value="2"
             sx={{
               flexGrow: 1,
-              "&.MuiTabPanel-root": {
+              '&.MuiTabPanel-root': {
                 paddingX: 0,
               },
             }}
@@ -133,7 +117,7 @@ export default function MyCoffeeChat() {
                 variant="h6"
                 color="textSecondary"
                 sx={{
-                  textAlign: "center",
+                  textAlign: 'center',
                   fontSize: 16,
                   mt: 3,
                 }}
@@ -152,11 +136,7 @@ export default function MyCoffeeChat() {
             <Box sx={{ flexGrow: 1 }} />
 
             {coffeeDatas.length > 0 && (
-              <Pagenation
-                pageCount={page?.totalPages}
-                currentPage={currentPage}
-                onChange={handlePageChange}
-              />
+              <Pagenation pageCount={page?.totalPages} currentPage={currentPage} onChange={handlePageChange} />
             )}
           </TabPanel>
         </TabContext>
