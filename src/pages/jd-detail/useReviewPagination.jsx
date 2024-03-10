@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { getReivew } from "api/api";
-import { useInView } from "react-intersection-observer";
+import { useState, useEffect } from 'react';
+import { getReivew } from 'api/api';
+import { useInView } from 'react-intersection-observer';
 
 export const useReviewPagination = (id) => {
-  const [reviewId, setReviewId] = useState("");
+  const [reviewId, setReviewId] = useState('');
   const [lastPage, setLastPage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [reviewData, setReviewData] = useState([]);
@@ -11,7 +11,7 @@ export const useReviewPagination = (id) => {
 
   const fetchReviewData = async (reset = false) => {
     if (reset) {
-      setReviewId("");
+      setReviewId('');
       setReviewData([]);
       setLastPage(false);
     }
@@ -20,18 +20,16 @@ export const useReviewPagination = (id) => {
 
     try {
       const res = await getReivew(id, reviewId);
-      console.log(res);
       setReviewData((prev) => [...prev, ...res.content]);
       if (res.content.length > 0) {
         const newReviewId = res.content[res.content.length - 1].id;
-        console.log(newReviewId);
         setReviewId(newReviewId);
       }
       if (res.pageInfo.last) {
         setLastPage(true);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
     setIsLoading(false);
   };

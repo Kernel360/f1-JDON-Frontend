@@ -1,20 +1,20 @@
-import { Box, Chip, Stack, Tab } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { ChipStyle, MainStyles } from "../PageStyles";
+import { Box, Chip, Stack, Tab } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { ChipStyle, MainStyles } from '../PageStyles';
 // import arrowLeft from 'assets/icons/arrow-left.svg';
 // import arrowRight from 'assets/icons/arrow-right.svg';
-import { useNavigate } from "react-router-dom";
-import { getHotSkills, getMemberSkills } from "api/api";
-import { useAuth } from "./useAuth";
+import { useNavigate } from 'react-router-dom';
+import { getHotSkills, getMemberSkills } from 'api/api';
+import { useAuth } from './useAuth';
 
 function StickyTabSection({ selectedChip, setSelectedChip }) {
   const { isLoginUser } = useAuth();
   const scrollRef = useRef({
-    current: "div.MuiStack-root.css-rpc19u-MuiStack-root",
+    current: 'div.MuiStack-root.css-rpc19u-MuiStack-root',
   });
   const navigate = useNavigate();
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState('1');
   const [hotSkills, setHotSkills] = useState([]);
   const [memberSkills, setMemberSkills] = useState([]);
 
@@ -24,7 +24,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
         const data = await getHotSkills();
         setHotSkills(data.data.skillList);
       } catch (error) {
-        console.error("Error fetching hot skills:", error);
+        console.error('Error fetching hot skills:', error);
       }
     };
     fetchHotSkills();
@@ -35,22 +35,20 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
       try {
         const memData = await getMemberSkills();
         const memSkillsData = memData.data.skillList || { skillList: [] };
-        console.log("memSkillsData 확인중", memSkillsData);
         setMemberSkills(memSkillsData);
       } catch (error) {
-        console.error("Error fetching member skills:", error);
+        console.error('Error fetching member skills:', error);
       }
     }
   };
 
   const handleConfirm = () => {
-    window.confirm(
-      `내 맞춤 키워드는 로그인 후에 확인 하실 수 있습니다. \n 로그인페이지로 이동하시겠습니까?`
-    ) && navigate("/signin");
+    window.confirm(`내 맞춤 키워드는 로그인 후에 확인 하실 수 있습니다. \n 로그인페이지로 이동하시겠습니까?`) &&
+      navigate('/signin');
   };
 
   const handleTabChange = (e, newValue) => {
-    if (newValue === "2") {
+    if (newValue === '2') {
       if (isLoginUser === false) {
         handleConfirm();
         return;
@@ -62,7 +60,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
   };
 
   const handleSelectedChip = (keyword) => {
-    if (keyword === "") {
+    if (keyword === '') {
       setSelectedChip({
         keyword: keyword,
         userSelected: false,
@@ -96,25 +94,17 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
     <>
       <Box
         sx={{
-          position: "sticky",
+          position: 'sticky',
           top: 0,
           left: 0,
           zIndex: 10,
-          bgcolor: "white",
+          bgcolor: 'white',
         }}
       >
         <TabContext value={value}>
-          <TabList
-            onChange={handleTabChange}
-            sx={{ pt: 2 }}
-            TabIndicatorProps={{ style: MainStyles.TabIndicator }}
-          >
+          <TabList onChange={handleTabChange} sx={{ pt: 2 }} TabIndicatorProps={{ style: MainStyles.TabIndicator }}>
             <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
-            {isLoginUser ? (
-              <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} />
-            ) : (
-              ""
-            )}
+            {isLoginUser ? <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} /> : ''}
           </TabList>
 
           <TabPanel value="1" sx={MainStyles.TabPanel}>
@@ -122,12 +112,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
               {scrollLeft === 0 ? '' : <img src={arrowLeft} alt="arrow" />}
             </IconButton> */}
 
-            <Stack
-              direction="row"
-              spacing={0.8}
-              ref={scrollRef}
-              sx={MainStyles.ChipContainer}
-            >
+            <Stack direction="row" spacing={0.8} ref={scrollRef} sx={MainStyles.ChipContainer}>
               {hotSkills.map((skill) => (
                 <Chip
                   key={skill.id}
@@ -135,11 +120,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
                   label={skill.keyword}
                   clickable="true"
                   variant="outlined"
-                  sx={
-                    selectedChip.keyword === skill.keyword
-                      ? ChipStyle(selectedChip)
-                      : ChipStyle(undefined)
-                  }
+                  sx={selectedChip.keyword === skill.keyword ? ChipStyle(selectedChip) : ChipStyle(undefined)}
                 />
               ))}
             </Stack>
@@ -157,7 +138,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
               direction="row"
               spacing={1}
               ref={scrollRef}
-              sx={{ ...MainStyles.ChipContainer, scrollBehavior: "smooth" }}
+              sx={{ ...MainStyles.ChipContainer, scrollBehavior: 'smooth' }}
             >
               {memberSkills.map((skill, index) => (
                 <Chip
@@ -166,11 +147,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
                   onClick={() => handleSelectedChip(skill.keyword)}
                   clickable="true"
                   variant="outlined"
-                  sx={
-                    selectedChip.keyword === skill.keyword
-                      ? ChipStyle(selectedChip)
-                      : ChipStyle(undefined)
-                  }
+                  sx={selectedChip.keyword === skill.keyword ? ChipStyle(selectedChip) : ChipStyle(undefined)}
                 />
               ))}
             </Stack>

@@ -1,15 +1,8 @@
-import React, { useState } from "react";
-import {
-  Container,
-  Collapse,
-  Typography,
-  Box,
-  IconButton,
-} from "@mui/material";
-import vector from "../../assets/images/vector.svg";
+import React, { useState } from 'react';
+import { Container, Collapse, Typography, Box, IconButton } from '@mui/material';
+import vector from '../../assets/images/vector.svg';
 
 const ToggleList = ({ datas }) => {
-  console.log("data", datas);
   return (
     <div style={{ marginTop: 42 }}>
       {datas.map((data) => (
@@ -30,7 +23,7 @@ const TitleItem = ({ title, content, children }) => {
       maxWidth="md"
       sx={{
         marginBottom: 3,
-        width: "100%",
+        width: '100%',
         padding: {
           xs: 0, // 모바일 크기일 때
           md: 0, // 태블릿 이상의 크기일 때
@@ -43,7 +36,7 @@ const TitleItem = ({ title, content, children }) => {
         gap={3}
         onClick={toggleItem}
         style={{
-          cursor: "pointer",
+          cursor: 'pointer',
           paddingBottom: 11,
         }}
       >
@@ -53,7 +46,7 @@ const TitleItem = ({ title, content, children }) => {
         <Typography
           component="h2"
           sx={{
-            fontSize: "16px",
+            fontSize: '16px',
           }}
         >
           {title}
@@ -62,12 +55,12 @@ const TitleItem = ({ title, content, children }) => {
       <Collapse in={showItem}>
         <Box
           sx={{
-            marginLeft: "50px",
-            border: "1.5px solid #E2E7FF",
-            borderRadius: "5px",
-            overflowY: "auto",
-            overflowX: "hidden",
-            maxHeight: "200px",
+            marginLeft: '50px',
+            border: '1.5px solid #E2E7FF',
+            borderRadius: '5px',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            maxHeight: '200px',
           }}
         >
           <Typography marginLeft={7} marginBottom={2}>
@@ -91,15 +84,15 @@ const TextItem = ({ title, content }) => {
       display="flex"
       flexDirection="column"
       sx={{
-        padding: "0px 15px 15px 35px",
+        padding: '0px 15px 15px 35px',
       }}
     >
       <Typography
         component="h6"
         sx={{
-          fontSize: "14px",
-          fontWeight: "bold",
-          marginBottom: "4px",
+          fontSize: '14px',
+          fontWeight: 'bold',
+          marginBottom: '4px',
         }}
       >
         {title}
@@ -108,11 +101,11 @@ const TextItem = ({ title, content }) => {
         // key={index}
         component="p"
         sx={{
-          fontSize: "14px",
+          fontSize: '14px',
 
-          lineHeight: "1.6",
-          color: "#333",
-          whiteSpace: "pre-line",
+          lineHeight: '1.6',
+          color: '#333',
+          whiteSpace: 'pre-line',
         }}
       >
         {content}

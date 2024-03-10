@@ -22,9 +22,9 @@ function Withdrawal() {
       } else {
         const logoutPromise = logoutMember();
         const deletePromise = deleteMember();
-        const res = await Promise.all([logoutPromise, deletePromise]);
+        await Promise.all([logoutPromise, deletePromise]);
 
-        console.log(`${res || null}회원탈퇴합니다`);
+        // console.log(`${res || null}회원탈퇴합니다`);
 
         localStorage.setItem('isLoggedInState', false);
         alert(`회원탈퇴가 성공적으로 진행되었습니다. \n지금까지 JDON을 이용해주셔서 감사합니다.`);
