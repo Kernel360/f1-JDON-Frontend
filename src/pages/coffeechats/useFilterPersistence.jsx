@@ -7,7 +7,7 @@ function useFilterPersistence() {
 
   useEffect(() => {
     console.log(pathname);
-    if (pathname === "/coffee") {
+    if (pathname !== "/coffee") {
       const hasFilterValue = JSON.parse(localStorage.getItem("filters"));
       if (hasFilterValue) {
         // setSortData(hasFilterValue); // 필요에 따라 여기서 상태 업데이트
