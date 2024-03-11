@@ -41,7 +41,7 @@ function UpdateCoffeeForm() {
         console.error('Error fetching coffee chat detail:', error);
       }
     })();
-  }, [id]);
+  }, [id, navigate, setFormValue]);
 
   const hanldeRegister = async (e) => {
     e.preventDefault();
