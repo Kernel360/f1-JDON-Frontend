@@ -57,7 +57,7 @@ export default function SwipJobSkill() {
         if (checkedCount < 3) {
           return [...prevCheckedItems, skillId];
         } else {
-          alert('3가지의 관심 기술을 선택해야 합니다.');
+          alert('관심 기술은 최대 3개까지만 선택 가능합니다.');
           return prevCheckedItems;
         }
       } else {
@@ -68,7 +68,7 @@ export default function SwipJobSkill() {
 
   const handleSave = () => {
     if (selectedJobSkill.length !== 3) {
-      alert('3가지의 관심 기술을  선택해야 합니다.');
+      alert('관심 기술은 3가지를 선택해야 합니다.');
     } else {
       toggleDrawer(false)();
     }
