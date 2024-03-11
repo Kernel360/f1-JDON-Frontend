@@ -97,7 +97,7 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
         </Box>
         <Typography sx={VideoCardStyle.StudentCount}>
           <img src={person} alt="person" />
-          {data.studentCount}
+          {data.studentCount.toLocaleString('ko-KR')}
         </Typography>
       </Box>
     </Box>

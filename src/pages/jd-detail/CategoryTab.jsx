@@ -39,8 +39,7 @@ export function CategoryTab() {
 
   const handleTabChange = (e, newValue) => {
     if (isLogin === false && newValue === '2') {
-      alert(`리뷰는 로그인 후 조회할 수 있습니다. \n 로그인 하시겠습니까?`);
-      navigate('/signin');
+      window.confirm(`리뷰는 로그인 후 조회할 수 있습니다. \n로그인 하시겠습니까?`) && navigate('/signin');
     } else {
       setValue(newValue);
     }
