@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_ENDPOINT;
 
+
 export const instance = axios.create({
   withCredentials: true,
   baseURL: apiUrl,
