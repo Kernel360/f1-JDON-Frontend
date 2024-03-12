@@ -122,6 +122,7 @@ export const URLInput = () => ({
 });
 
 export const BtnStyle = (value) => ({
+  cursor: 'pointer',
   width: '100%',
   height: '55px',
   background: value === 'github' ? 'black' : '#FFD600',
