@@ -16,11 +16,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: access to secrets
-        run: |
-          echo "REACT_APP_API_ENDPOINT=$REACT_APP_API_ENDPOINT" >> .env
-        env:
-          REACT_APP_API_ENDPOINT: ${{secrets.REACT_APP_API_ENDPOINT}}
       - name: .env setting
         run: |
           touch .env
