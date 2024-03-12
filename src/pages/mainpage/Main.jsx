@@ -12,7 +12,7 @@ import { useLoadData } from './useLoadData';
 export function Main() {
   const { selectedChip, setSelectedChip, lectureList, jdList } = useLoadData(); // 데이터 로딩 및 상태 관리
   const topRef = useRef(null);
-
+  console.log('S3되게 해주세요...ㅠㅠ');
   return (
     <div ref={topRef}>
       <Container maxWidth="md" sx={{ pb: 10, position: 'relative' }}>
