@@ -19,8 +19,9 @@ jobs:
       - name: .env setting
         run: |
           touch .env
-          echo "REACT_APP_API_ENDPOINT=${{ secrets.REACT_APP_API_ENDPOINT }}" >> .env
+          echo "REACT_APP_API_ENDPOINT=${{ secrets.REACT_APP_API_ENDPOINT }}" > .env
           cat .env
+        shell: bash
       - name: Npm Install
         run: |
           npm install
