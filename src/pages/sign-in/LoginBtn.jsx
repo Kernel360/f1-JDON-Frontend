@@ -17,7 +17,7 @@ export function LoginBtn({ social, color, title, logo }) {
           gap: '5px',
         }}
       >
-        <img src={logo} alt="kakao" />
+        <img src={logo} alt="kakao, github아이콘" />
         <span>{title}</span>
       </div>
     </div>
