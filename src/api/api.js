@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const apiUrl = process.env.REACT_APP_API_BASE_URL;
-const apiUrl = 'https://api.jdon.kr';
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 
 export const instance = axios.create({
   withCredentials: true,
