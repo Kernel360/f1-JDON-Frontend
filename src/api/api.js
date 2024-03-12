@@ -1,5 +1,9 @@
 import axios from 'axios';
-const apiUrl = process.env.REACT_APP_API_BASE_URL;
+import dotenv from 'dotenv';
+dotenv.config();
+
+const apiUrl = process.env.REACT_APP_API_BASE_URL || dotenv.get('REACT_APP_API_BASE_URL');
+
 export const instance = axios.create({
   withCredentials: true,
   baseURL: apiUrl,
