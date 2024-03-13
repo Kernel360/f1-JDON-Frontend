@@ -1,13 +1,13 @@
-import { Box } from "@mui/material";
-import topIcon from "./../../assets/icons/aroww-top.svg";
-import { useEffect, useState } from "react";
+import { Box } from '@mui/material';
+import topIcon from 'assets/icons/aroww-top.svg';
+import { useEffect, useState } from 'react';
 
-function SrcollToTop({ topRef }) {
+function ScrollToTop({ topRef }) {
   const [isSlideUp, setIsSlideUp] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
   const scrollToTop = () => {
-    topRef.current.scrollIntoView({ behavior: "smooth" });
+    topRef.current.scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
       setShowButton(false);
       setIsSlideUp(false);
@@ -15,8 +15,7 @@ function SrcollToTop({ topRef }) {
   };
   const toggleVisibility = () => {
     const shouldBeVisible =
-      window.scrollY + window.innerHeight >=
-      document.documentElement.scrollHeight;
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 500;
     setIsSlideUp(shouldBeVisible);
     if (shouldBeVisible) {
       setShowButton(true);
@@ -24,9 +23,9 @@ function SrcollToTop({ topRef }) {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility);
     return () => {
-      window.removeEventListener("scroll", toggleVisibility);
+      window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
 
@@ -34,28 +33,24 @@ function SrcollToTop({ topRef }) {
     showButton && (
       <Box
         sx={{
-          position: "fixed",
+          position: 'fixed',
           right: 16,
           bottom: 100,
           zIndex: 1000,
-        }}
-      >
+        }}>
         <button
           onClick={scrollToTop}
           style={{
             padding: 8,
-            border: "none",
-            borderRadius: "999px",
+            border: 'none',
+            borderRadius: '999px',
             width: 48,
             height: 48,
-            cursor: "pointer",
-            background: "white",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            animation: `${
-              isSlideUp ? "slideUp" : "slideDown"
-            } 0.3s ease-out forwards`,
-          }}
-        >
+            cursor: 'pointer',
+            background: 'white',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+            animation: `${isSlideUp ? 'slideUp' : 'slideDown'} 0.3s ease-out forwards`,
+          }}>
           <img src={topIcon} alt="위로가기" />
         </button>
       </Box>
@@ -63,4 +58,4 @@ function SrcollToTop({ topRef }) {
   );
 }
 
-export default SrcollToTop;
+export default ScrollToTop;

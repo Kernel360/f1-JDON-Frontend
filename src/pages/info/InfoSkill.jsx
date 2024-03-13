@@ -1,10 +1,10 @@
-import { Box, Chip, Stack, Typography } from "@mui/material";
-import { ChipStyle, InfoSkillStyles, infoBasicStyles } from "./InfoStyles";
-import { useEffect, useState } from "react";
-import { getSkillsOnJD } from "../../api/api";
+import { Box, Chip, Stack, Typography } from '@mui/material';
+import { ChipStyle, InfoSkillStyles, infoBasicStyles } from './InfoStyles';
+import { useEffect, useState } from 'react';
+import { getSkillsOnJD } from 'api/api';
 
-import { userInfo } from "../../recoil/atoms";
-import { useRecoilState } from "recoil";
+import { userInfo } from 'recoil/atoms';
+import { useRecoilState } from 'recoil';
 
 function InfoSkill({ onChange }) {
   const [value, setValue] = useRecoilState(userInfo);
@@ -15,19 +15,18 @@ function InfoSkill({ onChange }) {
     setSelected((prev) => {
       if (prev.includes(newChip)) {
         const updatedSelected = prev.filter((chip) => chip !== newChip);
-        handleInputChange("skillList", updatedSelected);
+        handleInputChange('skillList', updatedSelected);
         return updatedSelected;
       } else {
         if (prev.length === 3) {
-          alert("3개만 선택할 수 있습니다");
+          alert('최대 3개까지 선택할 수 있습니다.');
           return prev;
         } else {
-          handleInputChange("skillList", [...prev, newChip]);
+          handleInputChange('skillList', [...prev, newChip]);
           return [...prev, newChip];
         }
       }
     });
-    console.log(selected);
   };
 
   const handleInputChange = async (field, newValue) => {
@@ -41,7 +40,7 @@ function InfoSkill({ onChange }) {
         const res = await getSkillsOnJD(Number(value.jobCategoryId));
         setSkillsOnJd(res.skillList);
       } catch (error) {
-        console.error("Error fetchSkill:", error);
+        console.error('Error fetchSkill:', error);
       }
     };
     fetchSkill();
@@ -57,13 +56,7 @@ function InfoSkill({ onChange }) {
       </Typography>
       <Box component="form" noValidate sx={infoBasicStyles.formContainer}>
         <Box>
-          <Stack
-            direction="row"
-            spacing={1}
-            useFlexGap
-            flexWrap="wrap"
-            sx={InfoSkillStyles}
-          >
+          <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={InfoSkillStyles}>
             {skillsOnJd.map((chip, i) => (
               <Chip
                 key={i}

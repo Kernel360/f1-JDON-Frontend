@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import "./Layout.scss";
+import { useEffect } from 'react';
+import './Layout.scss';
 
 export function Layout({ children }) {
   function setScreenSize() {
     let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
   useEffect(() => {
     setScreenSize();

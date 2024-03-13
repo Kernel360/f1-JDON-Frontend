@@ -1,7 +1,6 @@
 // InputField.js
-import React from "react";
-import { Box, FormLabel, TextField, InputAdornment } from "@mui/material";
-import { nicknameTextField } from "../../pages/info/InfoStyles";
+import { Box, FormLabel, TextField } from '@mui/material';
+import { nicknameTextField } from 'pages/info/InfoStyles';
 
 const InputField = ({
   label,
@@ -31,7 +30,7 @@ const InputField = ({
         value={value}
         onChange={(e) => onChange(name, e.target.value)}
         error={error}
-        helperText={error ? helperText : ""}
+        helperText={error ? helperText : ''}
         InputProps={{
           endAdornment: inputProps?.endAdornment,
         }}

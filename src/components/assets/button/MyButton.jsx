@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "@mui/material";
+import React from 'react';
+import { Button } from '@mui/material';
 
 export default function MyButton({ text, size, color, onClick }) {
   return (
@@ -8,8 +8,7 @@ export default function MyButton({ text, size, color, onClick }) {
       size={size}
       color={color}
       onClick={onClick}
-      sx={{ width: "100%" }}
-    >
+      sx={{ width: '100%' }}>
       {text}
     </Button>
   );

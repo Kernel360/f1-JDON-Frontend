@@ -1,128 +1,139 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
-import Header from "../../components/common/Header";
-import { Box, Button, Container, Grid, Link, CssBaseline } from "@mui/material";
-import SwipJobSkill from "../../components/common/swipe/SwipJobSkill";
-import { buttonStyle } from "../../components/common/navigation-btn/NavigationBtnStyles";
-import NewInput from "../../components/common/new-input/NewInput";
-import { useRecoilState } from "recoil";
-import {
-  userInfo,
-  jobIdState,
-  selectedJobSkillState,
-} from "../../recoil/atoms";
-import {
-  checkNicknameDuplicate,
-  getJobCategory,
-  getMemberInfo,
-  updateMemberInfo,
-} from "../../api/api";
-import NewDayPicker from "../../components/common/new-daypicker/NewDayPicker";
-import TotalInputForm from "../../components/common/total-input-form/TotalInputForm";
-import { OptionButton, infoBasicStyles } from "../info/InfoStyles";
-// import {
-//   checkNicknameDuplicate,
-//   getJobCategory,
-//   getMemberInfo,
-//   updateMemberInfo,
-// } from "../api/api";
-// import NewDayPicker from "../components/common/new-daypicker/NewDayPicker";
-// import { OptionButton, infoBasicStyles } from "./info/InfoStyles";
-// import TotalInputForm from "../components/common/total-input-form/TotalInputForm";
+import { useState, useEffect } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import Header from 'components/common/Header';
+import { Box, Button, Container, Grid, Link, CssBaseline } from '@mui/material';
+import SwipJobSkill from 'components/common/swipe/SwipJobSkill';
+import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
+import NewInput from 'components/common/new-input/NewInput';
+import { useRecoilState } from 'recoil';
+import { jobIdState, selectedJobSkillState } from 'recoil/atoms';
+import { checkNicknameDuplicate, getMemberInfo, updateMemberInfo } from 'api/api';
+import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
+import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
+import { OptionButton, infoBasicStyles } from '../info/InfoStyles';
+import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from 'constants/nickname';
+import { MYPAGE_CHILD } from 'constants/headerProps';
 
-const GENDERS = ["남성", "여성"];
+const GENDERS = ['남성', '여성'];
 
 export default function InfoEdit() {
-  const navigate = useNavigate();
   const [jobId, setJobId] = useRecoilState(jobIdState);
-  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
-    selectedJobSkillState
-  );
-  const [helperText, setHelperText] = useState("");
+  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(selectedJobSkillState);
+  const [helperText, setHelperText] = useState('');
   const [validation, setValidation] = useState(true);
 
-  const [memberInfo, setMemberInfo] = useState({});
-  const [nickname, setNickname] = useState("");
+  const [oldNickname, setOldNickname] = useState(''); // 받아온 원래 이름
+  const [nickname, setNickname] = useState('');
+  const [btnState, setBtnState] = useState(Boolean);
   const [birthday, setBirthday] = useState(null);
-  const [gender, setGender] = useState("");
-  const [jobCategories, setJobCategories] = useState([]);
+  const [gender, setGender] = useState('');
+
+  const navigate = useNavigate();
+
+  const setMemberInfo = (memberData) => {
+    setNickname(memberData.nickname || '');
+    setOldNickname(memberData.nickname || '');
+    setBirthday(memberData.birth ?? null);
+    setGender(memberData.gender ?? '');
+    setJobId(memberData.jobCategoryId ?? '');
+    setSelectedJobSkill(memberData.skillList ?? []);
+  };
 
   useEffect(() => {
-    // 페이지가 로드될 때 회원 정보를 받아오는 통신 로직
-    const fetchMemberInfo = async () => {
+    if (oldNickname === nickname) {
+      setBtnState(true);
+      setValidation(true);
+      setHelperText('현재 설정되어 있는 닉네임입니다.');
+    } else {
+      setBtnState(false);
+    }
+  }, [oldNickname, nickname]);
+
+  //회원 정보 가져오기
+  useEffect(() => {
+    (async () => {
       try {
         const memberData = await getMemberInfo();
-        console.log("men", memberData.data);
         setMemberInfo(memberData.data);
-        setNickname(memberData.data.nickname || "닉네임 설정이 필요합니다.");
-        setBirthday(memberData.data.birth || null);
-        setGender(memberData.data.gender || "");
-        setJobId(memberData.data.jobCategoryId || "");
-        setSelectedJobSkill(memberData.data.skillList || "");
-
-        const categoryData = await getJobCategory();
-        setJobCategories(categoryData.jobGroupList[0].jobCategoryList);
       } catch (error) {
-        console.error("회원 정보 가져오기 에러", error);
+        console.error('회원 정보 가져오기 에러', error);
       }
-    };
-
-    fetchMemberInfo();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (NO_ADMIN.test(nickname)) {
+      setHelperText('관리자를 닉네임으로 사용할 수 없습니다.');
+      setValidation(false);
+      return;
+    }
+    if (NO_SC.test(nickname)) {
+      setHelperText('특수기호가 포함되어 있습니다.');
+      setValidation(false);
+      return;
+    }
+    if (NO_SPACE_BAR.test(nickname)) {
+      setHelperText('띄어쓰기가 포함되어 있습니다.');
+      setValidation(false);
+      return;
+    }
+  }, [nickname]);
 
   const handleGenderChange = (newValue) => {
     setGender(newValue);
-    // console.log("gender", newValue);
   };
 
   const handleBithdayChange = (newDate) => {
-    // console.log("birth 넘어온 날것", newDate);
-    const formattedDate =
-      newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
-    // console.log("birth 가공한 데이트", formattedDate);
+    const formattedDate = newDate instanceof Date ? newDate.toISOString().split('T')[0] : newDate;
 
     setBirthday(formattedDate);
   };
 
   const checkNickname = async () => {
-    // console.log("checkNickname", nickname);
     if (nickname) {
       try {
         const res = await checkNicknameDuplicate({
           nickname: nickname, //중간밸류 중복확인
         });
-        if (res === 204) {
+
+        if (NO_ADMIN.test(nickname) || NO_SC.test(nickname) || NO_SPACE_BAR.test(nickname)) {
+          return;
+        }
+        if (
+          res === 204 &&
+          !NO_ADMIN.test(nickname) &&
+          !NO_SC.test(nickname) &&
+          !NO_SPACE_BAR.test(nickname)
+        ) {
           //만약 사용가능하다면
           setValidation(true); // 유효성 o
-          setHelperText("사용 가능한 닉네임입니다!");
-          // handleInputChange("nickname", nickname); // 진짜 밸류를 입력
-          // setNickname(nickname);
+          setHelperText('사용 가능한 닉네임입니다!');
         }
       } catch (error) {
-        //그렇지 않다면
+        if (nickname === '관리자') {
+          setValidation(false);
+          setHelperText('사용할 수 없는 단어 또는 기호가 포함되어 있습니다.');
+          return;
+        }
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
-          setHelperText("이미 존재하는 닉네임입니다");
-          // setNickname("");
+          setHelperText('이미 존재하는 닉네임입니다.');
         } else {
           setValidation(false);
-          setHelperText("오류가 발생했습니다");
-          // setNickname("");
+          setHelperText('오류가 발생했습니다.');
         }
       }
     }
   };
 
   const isSaveButtonDisabled = () => {
-    // 모든 필드에 대한 유효성 검사를 추가합니다.
     const isNicknameValid = validation === true;
     const isBirthdayValid = birthday !== null;
-    const isGenderValid = gender !== "";
-    const isJobIdValid = jobId !== "";
+    const isGenderValid = gender !== '';
+    const isJobIdValid = jobId !== '';
     const isSelectedJobSkillValid = selectedJobSkill.length === 3;
 
-    // 모든 필드가 유효한 경우에만 버튼을 활성화합니다.
     return !(
       isNicknameValid &&
       isBirthdayValid &&
@@ -132,7 +143,8 @@ export default function InfoEdit() {
     );
   };
 
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (e) => {
+    e.preventDefault();
     let data = {
       nickname,
       birth: birthday,
@@ -142,42 +154,34 @@ export default function InfoEdit() {
     };
 
     try {
-      const res = await updateMemberInfo(data);
-      if (res) {
-        console.log("정보수정 성공! 수정 데이터: ", res);
-      }
-
-      // 저장이 완료되면 프로필 페이지로 이동
-      // navigate("/mypage");
+      await updateMemberInfo(data);
+      alert('정보 수정을 성공하였습니다.');
+      navigate('/mypage');
     } catch (error) {
-      console.error("회원 정보 업데이트 에러", error);
+      console.error('회원 정보 업데이트 에러', error);
     }
   };
 
-  console.log("c총데이타", nickname, birthday, gender, jobId, selectedJobSkill);
-
   return (
     <Container
-      maxWidth="sm"
+      maxWidth="md"
       sx={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
       <CssBaseline />
-      <Header title="정보수정" />
+      <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url} />
       <Box
         sx={{
           flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          mt: "22px",
-        }}
-      >
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          mt: '22px',
+        }}>
         <form onSubmit={handleSaveChanges}>
           <NewInput
-            placeholder="사용하실 닉네임을 입력해주세요"
+            placeholder="사용하실 닉네임을 입력해주세요."
             label="닉네임"
             value={nickname}
             valid={validation}
@@ -187,10 +191,11 @@ export default function InfoEdit() {
               setNickname(e.target.value);
               if (nickname) {
                 setValidation(false);
-                setHelperText("닉네임을 중복확인을 해주세요");
+                setHelperText('닉네임을 중복확인을 해주세요.');
               }
             }}
             onClick={checkNickname}
+            btnState={btnState}
           />
           <NewDayPicker
             label="생일"
@@ -206,8 +211,7 @@ export default function InfoEdit() {
                     variant="outlined"
                     fullWidth
                     onClick={() => handleGenderChange(item)}
-                    sx={OptionButton(gender === item)}
-                  >
+                    sx={OptionButton(gender === item)}>
                     {item}
                   </Button>
                 </Grid>
@@ -215,7 +219,7 @@ export default function InfoEdit() {
             </Grid>
           </TotalInputForm>
           <TotalInputForm label="직무 및 기술스택" valid={validation}>
-            <SwipJobSkill jobCategories={jobCategories} />
+            <SwipJobSkill />
           </TotalInputForm>
           <Button
             type="submit"
@@ -226,25 +230,23 @@ export default function InfoEdit() {
               ...buttonStyle.Button,
               ...(isSaveButtonDisabled() ? {} : buttonStyle.ActiveButton),
             }}
-            disabled={isSaveButtonDisabled()}
-          >
+            disabled={isSaveButtonDisabled()}>
             수정
           </Button>
         </form>
-        <Box sx={{ textAlign: "right" }}>
+        <Box sx={{ textAlign: 'right' }}>
           <Link
             component={RouterLink}
             to="/mypage/withdrawal"
             variant="subtitle1"
             sx={{
-              color: "#B5B5B5",
-              fontWeight: "500",
-              marginRight: "13px",
-              marginBottom: "10px",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
+              color: '#B5B5B5',
+              fontWeight: '500',
+              marginRight: '13px',
+              marginBottom: '10px',
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}>
             회원탈퇴
           </Link>
         </Box>

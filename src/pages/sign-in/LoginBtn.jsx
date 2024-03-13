@@ -1,8 +1,8 @@
-import { BtnStyle } from "../PageStyles";
+import { BtnStyle } from '../PageStyles';
 
 export function LoginBtn({ social, color, title, logo }) {
   const handleLogin = () => {
-    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/oauth2/authorization/${social}`;
+    window.location.href = `${process.env.REACT_APP_API_ENDPOINT}/oauth2/authorization/${social}`;
   };
 
   return (
@@ -10,14 +10,13 @@ export function LoginBtn({ social, color, title, logo }) {
       <div
         style={{
           color: color,
-          fontSize: "14px",
-          fontWeight: "600",
-          display: "flex",
-          alignItems: "center",
-          gap: "20px",
-        }}
-      >
-        <img src={logo} alt="kakao" />
+          fontSize: '14px',
+          fontWeight: '600',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+        }}>
+        <img src={logo} alt="kakao, github아이콘" />
         <span>{title}</span>
       </div>
     </div>

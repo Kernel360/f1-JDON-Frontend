@@ -1,30 +1,18 @@
-import React, { useState, useMemo } from "react";
-import { Grid, TextField } from "@mui/material";
-import {
-  DatePicker,
-  DateTimePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { parseISO } from "date-fns";
-import format from "date-fns/locale/ko";
-import TotalInputForm from "../total-input-form/TotalInputForm";
+import React from 'react';
+import { Grid, TextField } from '@mui/material';
+import { DatePicker, DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { parseISO } from 'date-fns';
+import format from 'date-fns/locale/ko';
+import TotalInputForm from '../total-input-form/TotalInputForm';
+import { datePicker, datePickerContainer } from '../../../pages/info/InfoStyles';
 
 const isDateString = (value) => {
   const regex = /^\d{4}-\d{2}-\d{2}$/;
   return regex.test(value);
 };
 
-function InputComponent({
-  value,
-  onChange,
-  children,
-  disablePast,
-  maxDate,
-  setError,
-  errorMessage,
-}) {
-  console.log("dddd", children);
+function InputComponent({ value, onChange, children, disablePast, maxDate }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={format}>
       {React.cloneElement(children, {
@@ -32,75 +20,57 @@ function InputComponent({
         onChange: onChange,
         maxDate: maxDate,
         disablePast: disablePast,
-        onError: (newError) => setError(newError),
-        slotProps: {
-          textField: {
-            helperText: errorMessage,
-          },
-        },
       })}
     </LocalizationProvider>
   );
 }
 
-function NewDayPicker({ label, value, onChange, daytime }) {
-  const [error, setError] = useState(null);
-
-  const errorMessage = useMemo(() => {
-    switch (error) {
-      case "disablePast":
-        return "! 커피챗 날짜는 오늘부터만 가능합니다.";
-      case "maxDate":
-        return "! 유효하지 않는 생일입니다. 다시 입력해주세요.";
-      case "invalidDate":
-        return "유효하지 않는 값입니다. 입력해주세요.";
-      default:
-        return "";
-    }
-  }, [error]);
-
+function NewDayPicker({ label, value, onChange, valid, helperText, daytime }) {
   const now = new Date();
   const handleDateChange = (newDate) => {
-    console.log("handleDateChange called with newDate:", newDate);
-    console.log("handleDateChange called with now:", now);
-    if (newDate > now) {
-      console.log("통과");
-      onChange(newDate);
+    if (typeof newDate === 'string') {
+      newDate = parseISO(newDate);
     }
+    if (!newDate || isNaN(newDate.getDate())) {
+      alert('날짜를 선택해주세요.');
+      return;
+    }
+    onChange(newDate);
   };
 
   return (
-    <TotalInputForm value={value} label={label}>
-      <Grid container>
+    <TotalInputForm value={value} label={label} valid={valid} helperText={helperText}>
+      <Grid container sx={datePickerContainer(value)}>
         {daytime ? (
           <InputComponent
-            value={value}
-            // onChange={handleDateChange}
-            children={
-              <DateTimePicker
-                sx={{ width: "100%" }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            }
-            disablePast
-            setError={setError}
-            errorMessage={errorMessage}
-          />
+            value={value ? parseISO(value) : now}
+            onChange={handleDateChange}
+            disablePast>
+            <DateTimePicker
+              slotProps={{
+                textField: {
+                  readOnly: true,
+                },
+              }}
+              sx={datePicker(value)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </InputComponent>
         ) : (
           <InputComponent
             value={isDateString(value) ? new Date(value) : value}
-            onChange={handleDateChange}
-            children={
-              <DatePicker
-                inputFormat="yyyy-MM-dd"
-                sx={{ width: "100%" }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            }
-            maxDate={new Date()}
-            setError={setError}
-            errorMessage={errorMessage}
-          />
+            onChange={onChange}
+            maxDate={new Date()}>
+            <DatePicker
+              slotProps={{
+                textField: {
+                  readOnly: true,
+                },
+              }}
+              sx={datePicker(value)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </InputComponent>
         )}
       </Grid>
     </TotalInputForm>

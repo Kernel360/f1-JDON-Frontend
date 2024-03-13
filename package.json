@@ -19,14 +19,17 @@
     "axios": "^1.6.5",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-cookie": "^7.0.2",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-https-redirect": "^1.1.0",
+    "react-intersection-observer": "^9.8.1",
     "react-oauth-google": "^0.9.0",
     "react-router-dom": "^6.21.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "recoil": "^0.7.7",
     "sass": "^1.69.5",
     "styled-components": "^6.1.1",
@@ -36,7 +39,8 @@
     "start": "cross-env HTTPS=true SSL_CRT_FILE=./cert.pem SSL_KEY_FILE=./key.pem react-scripts start",
     "start:mac": "cross-env HTTPS=true SSL_CRT_FILE=./cert.pem SSL_KEY_FILE=./key.pem react-scripts start",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -57,6 +61,12 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.34.0"
   }
 }
