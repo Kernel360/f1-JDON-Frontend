@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_ENDPOINT;
 
-
 export const instance = axios.create({
   withCredentials: true,
   baseURL: apiUrl,
@@ -21,7 +20,7 @@ instance.interceptors.response.use(
       window.location.href = '/signin';
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 // -------------------------------------------- member
@@ -62,7 +61,10 @@ export async function registerUserInfo(userInfo) {
 //닉네임 중복 확인
 export async function checkNicknameDuplicate(nickName) {
   try {
-    const res = await instance.post('/api/v1/nickname/duplicate', nickName);
+    const res = await instance.post(
+      '/api/v1/nickname/duplicate',
+      nickName,
+    );
     return res.status;
   } catch (error) {
     console.error('checkNicknameDuplicate API error', error);
@@ -142,7 +144,9 @@ export async function getMemberSkills() {
 // 기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
 export async function getLectureByKeyword(keyword) {
   try {
-    const res = await instance.get(`/api/v1/skills/search?keyword=${keyword}`);
+    const res = await instance.get(
+      `/api/v1/skills/search?keyword=${keyword}`,
+    );
     return res.data.data;
   } catch (error) {
     console.error('getLectureByKeyword API error', error);
@@ -153,7 +157,9 @@ export async function getLectureByKeyword(keyword) {
 //직무 별 기술스택 조회하기
 export async function getSkillsOnJD(jobCategoryId) {
   try {
-    const res = await instance.get(`/api/v1/skills/job-category/${jobCategoryId}`);
+    const res = await instance.get(
+      `/api/v1/skills/job-category/${jobCategoryId}`,
+    );
 
     return res.data.data;
   } catch (error) {
@@ -164,7 +170,9 @@ export async function getSkillsOnJD(jobCategoryId) {
 
 export async function getAllJDByKeyword(page, size, keyword) {
   try {
-    const res = await instance.get(`/api/v1/jds?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword)}`);
+    const res = await instance.get(
+      `/api/v1/jds?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword)}`,
+    );
     return res.data.data;
   } catch (error) {
     console.error('getAllJDByKeyword API error', error);
@@ -176,7 +184,7 @@ export async function getAllJDByKeyword(page, size, keyword) {
 // 영상 찜하기 등록
 export const postFavoriteVideo = async (data) => {
   try {
-    const res = await instance.post(`/api/v1/favorites`, data);
+    const res = await instance.post('/api/v1/favorites', data);
     return res.data;
   } catch (error) {
     console.error('getFavoriteVideo API', error);
@@ -187,7 +195,7 @@ export const postFavoriteVideo = async (data) => {
 // 내가 찜한 영상 목록 조회
 export const getFavoriteVideo = async () => {
   try {
-    const res = await instance.get(`/api/v1/favorites?page=0&size=12`);
+    const res = await instance.get('/api/v1/favorites?page=0&size=12');
     return res.data;
   } catch (error) {
     console.error('getFavoriteVideo API', error);
@@ -201,7 +209,7 @@ export const getFavoriteVideo = async () => {
 
 export const getFAQ = async () => {
   try {
-    const res = await instance.get(`/api/v1/faqs`);
+    const res = await instance.get('/api/v1/faqs');
     return res.data.data;
   } catch (error) {
     console.error('getFAQ API 통신에러', error);
@@ -225,7 +233,9 @@ export const getJobCategory = async () => {
 
 export const getMyCoffeeChat = async (page) => {
   try {
-    const res = await instance.get(`/api/v1/coffeechats/host?page=${page}&size=12`);
+    const res = await instance.get(
+      `/api/v1/coffeechats/host?page=${page}&size=12`,
+    );
     return res.data.data;
   } catch (error) {
     console.error('getMyCoffeeChat API', error);
@@ -236,7 +246,9 @@ export const getMyCoffeeChat = async (page) => {
 //내가 신청한 커피챗 목록 조회
 export const getSignCoffeeChat = async (page) => {
   try {
-    const res = await instance.get(`/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate`);
+    const res = await instance.get(
+      `/api/v1/coffeechats/guest?page=${page}&size=12&sort=createdDate`,
+    );
     return res.data.data;
   } catch (error) {
     console.error('getMyCoffeeChat API', error);
@@ -245,10 +257,15 @@ export const getSignCoffeeChat = async (page) => {
 };
 
 //커피챗 목록 조회
-export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
+export const getCoffeeChat = async (
+  page,
+  size,
+  sorting,
+  jobCategory,
+) => {
   try {
     const res = await instance.get(
-      `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`
+      `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`,
     );
     return res;
   } catch (error) {
@@ -304,7 +321,10 @@ export async function deleteCoffeechat(id, data) {
 //커피챗 신청
 export async function applyCoffeechat(id, coffeeChatData) {
   try {
-    const res = await instance.post(`/api/v1/coffeechats/${id}`, coffeeChatData);
+    const res = await instance.post(
+      `/api/v1/coffeechats/${id}`,
+      coffeeChatData,
+    );
     return res.data;
   } catch (error) {
     console.log('applyCoffeechat API error', error);
@@ -331,7 +351,9 @@ export const getJdDetail = async (id) => {
 //리뷰 조회
 export const getReivew = async (id, lastReviewId) => {
   try {
-    const res = await instance.get(`api/v1/reviews/${id}?&size=5&reviewId=${lastReviewId}`);
+    const res = await instance.get(
+      `api/v1/reviews/${id}?&size=5&reviewId=${lastReviewId}`,
+    );
 
     return res.data.data;
   } catch (error) {

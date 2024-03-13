@@ -1,6 +1,6 @@
-import { Container, Grid } from "@mui/material";
-import { buttonStyle } from "./NavigationBtnStyles";
-import NewBtn from "../new-btn/NewBtn";
+import { Container, Grid } from '@mui/material';
+import { buttonStyle } from './NavigationBtnStyles';
+import NewBtn from '../new-btn/NewBtn';
 
 function NavigationButtons({ onNext, onBefore, disable, isActive }) {
   return (
@@ -10,12 +10,7 @@ function NavigationButtons({ onNext, onBefore, disable, isActive }) {
           <NewBtn title="이전" onClick={onBefore} />
         </Grid>
         <Grid item xs={6}>
-          <NewBtn
-            title="다음"
-            onClick={onNext}
-            isActive={isActive}
-            disable={disable}
-          />
+          <NewBtn title="다음" onClick={onNext} isActive={isActive} disable={disable} />
         </Grid>
       </Grid>
     </Container>

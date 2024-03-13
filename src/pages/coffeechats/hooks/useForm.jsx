@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export const useForm = (initialValues) => {
   const [formValue, setFormValue] = useState(initialValues);
@@ -11,30 +11,25 @@ export const useForm = (initialValues) => {
   };
 
   const validateField = (field, value) => {
-    let helperText = "";
+    let helperText = '';
     switch (field) {
-      case "title":
+      case 'title':
         helperText =
-          value.length < 10 || value.length > 50
-            ? "제목은 10자 이상 50자 이하로 작성해주세요"
-            : "";
+          value.length < 10 || value.length > 50 ? '제목은 10자 이상 50자 이하로 작성해주세요' : '';
         break;
-      case "content":
+      case 'content':
         helperText =
           value.length < 50 || value.length > 500
-            ? "내용은 50자 이상 500자 이하로 작성해주세요"
-            : "";
+            ? '내용은 50자 이상 500자 이하로 작성해주세요'
+            : '';
         break;
-      case "totalRecruitCount":
+      case 'totalRecruitCount':
         helperText =
-          value > 100 || value < 1
-            ? "모집인원은 1명 이상 100명 이하로 설정해주세요"
-            : "";
+          value > 100 || value < 1 ? '모집인원은 1명 이상 100명 이하로 설정해주세요' : '';
 
         break;
-      case "openChatUrl":
-        helperText =
-          value && !isValidUrl(value) ? "URL형식이 올바르지 않습니다" : "";
+      case 'openChatUrl':
+        helperText = value && !isValidUrl(value) ? 'URL형식이 올바르지 않습니다' : '';
         break;
       default:
         return;
@@ -44,20 +39,20 @@ export const useForm = (initialValues) => {
 
   const isValidUrl = (url) => {
     const pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
+      '^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i',
     );
     return pattern.test(url);
   };
 
   useEffect(() => {
     const isValid =
-      Object.values(helperTexts).every((text) => text === "") &&
+      Object.values(helperTexts).every((text) => text === '') &&
       Object.values(formValue).every((value) => value);
     setIsFormValid(isValid);
   }, [formValue, helperTexts]);

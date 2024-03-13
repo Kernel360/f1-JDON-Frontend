@@ -50,7 +50,9 @@ function CoffeeDetailButtons({ id, host, coffeeChatData, isParticipant, setIsPar
 
     // 현재 모집 인원이 1명 이상인 경우에만 확인 창을 표시
     if (coffeeChatData.currentRecruitCount > 0) {
-      confirmation = window.confirm(`삭제하려는 커피챗에 참여 신청한 회원이 존재합니다. \n 정말 삭제하시겠습니까?`);
+      confirmation = window.confirm(
+        '삭제하려는 커피챗에 참여 신청한 회원이 존재합니다. \n 정말 삭제하시겠습니까?',
+      );
     }
 
     if (confirmation) {
@@ -97,8 +99,7 @@ function CoffeeDetailButtons({ id, host, coffeeChatData, isParticipant, setIsPar
           display: 'flex',
           justifyContent: 'space-between',
           gap: '20px',
-        }}
-      >
+        }}>
         <Grid item xs={8} sm={8} fullwidth sx={{ display: 'flex', gap: '12px', flexGrow: 1 }}>
           {host ? (
             <>

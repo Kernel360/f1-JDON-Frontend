@@ -1,8 +1,8 @@
-import { Box, Typography } from "@mui/material";
-import BadgeForStatus from "./BadgeForStatus";
-import BadgeForJob from "./BadgeForJob";
-import eyeIcon from "../../../../assets/icons/eye.svg";
-import { headerStyles } from "./CoffeeChatCardStyle";
+import { Box, Typography } from '@mui/material';
+import BadgeForStatus from './BadgeForStatus';
+import BadgeForJob from './BadgeForJob';
+import eyeIcon from '../../../../assets/icons/eye.svg';
+import { headerStyles } from './CoffeeChatCardStyle';
 
 function CardHeader({ data, jobNum }) {
   return (

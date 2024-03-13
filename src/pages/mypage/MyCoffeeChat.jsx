@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Tab, Container } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import Header from 'components/common/Header';
@@ -56,15 +56,24 @@ export default function MyCoffeeChat() {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
-      }}
-    >
+      }}>
       <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url} />
       <Box mt={2}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList onChange={handleChange} aria-label="내가 오픈한 커피챗 및 내가 신청한 커피챗 선택 탭">
-              <Tab label="내가 오픈한 커피챗" value="1" sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }} />
-              <Tab label="내가 신청한 커피챗" value="2" sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }} />
+            <TabList
+              onChange={handleChange}
+              aria-label="내가 오픈한 커피챗 및 내가 신청한 커피챗 선택 탭">
+              <Tab
+                label="내가 오픈한 커피챗"
+                value="1"
+                sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }}
+              />
+              <Tab
+                label="내가 신청한 커피챗"
+                value="2"
+                sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }}
+              />
             </TabList>
           </Box>
           <TabPanel
@@ -74,8 +83,7 @@ export default function MyCoffeeChat() {
               '&.MuiTabPanel-root': {
                 paddingX: 0,
               },
-            }}
-          >
+            }}>
             {coffeeDatas.length === 0 ? (
               <Typography
                 variant="h6"
@@ -84,8 +92,7 @@ export default function MyCoffeeChat() {
                   textAlign: 'center',
                   fontSize: 16,
                   mt: 3,
-                }}
-              >
+                }}>
                 오픈한 커피챗이 없습니다!
               </Typography>
             ) : (
@@ -99,7 +106,11 @@ export default function MyCoffeeChat() {
             )}
             {coffeeDatas.length > 0 && (
               <Box mt={0}>
-                <Pagenation pageCount={page?.totalPages} currentPage={currentPage} onChange={handlePageChange} />
+                <Pagenation
+                  pageCount={page?.totalPages}
+                  currentPage={currentPage}
+                  onChange={handlePageChange}
+                />
               </Box>
             )}
           </TabPanel>
@@ -110,8 +121,7 @@ export default function MyCoffeeChat() {
               '&.MuiTabPanel-root': {
                 paddingX: 0,
               },
-            }}
-          >
+            }}>
             {!coffeeDatas.length > 0 ? (
               <Typography
                 variant="h6"
@@ -120,8 +130,7 @@ export default function MyCoffeeChat() {
                   textAlign: 'center',
                   fontSize: 16,
                   mt: 3,
-                }}
-              >
+                }}>
                 신청한 커피챗이 없습니다!
               </Typography>
             ) : (
@@ -136,7 +145,11 @@ export default function MyCoffeeChat() {
             <Box sx={{ flexGrow: 1 }} />
 
             {coffeeDatas.length > 0 && (
-              <Pagenation pageCount={page?.totalPages} currentPage={currentPage} onChange={handlePageChange} />
+              <Pagenation
+                pageCount={page?.totalPages}
+                currentPage={currentPage}
+                onChange={handlePageChange}
+              />
             )}
           </TabPanel>
         </TabContext>

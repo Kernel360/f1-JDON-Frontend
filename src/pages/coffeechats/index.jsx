@@ -68,7 +68,7 @@ export function Coffee() {
           currentPage - 1,
           coffeeData.pageInfo.pageSize || 12,
           sortData.sorting,
-          sortData.jobCategory
+          sortData.jobCategory,
         );
         setCoffeeData(data.data.data);
       } catch (error) {
@@ -110,14 +110,17 @@ export function Coffee() {
               fontSize: '16px',
               color: '#B9B9B9',
               fontWeight: 600,
-            }}
-          >
+            }}>
             {foundTxt}
           </Typography>
         )}
       </Grid>
       {coffeeData?.content?.length > 0 && (
-        <BasicPagination coffeeData={coffeeData} currentPage={currentPage} handlePageChange={handlePageChange} />
+        <BasicPagination
+          coffeeData={coffeeData}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+        />
       )}
       <BottomNav />
     </Container>
@@ -130,8 +133,7 @@ function BasicPagination({ coffeeData, currentPage, handlePageChange }) {
       sx={{
         width: '100%',
         py: 3,
-      }}
-    >
+      }}>
       <Stack justifyContent="center" alignItems="center">
         <PaginationComponent
           pageCount={coffeeData?.pageInfo.totalPages}

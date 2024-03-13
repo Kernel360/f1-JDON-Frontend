@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Collapse, Typography, Box, IconButton } from '@mui/material';
-import vector from '../../assets/images/vector.svg';
+import vector from 'assets/images/vector.svg';
 
 const ToggleList = ({ datas }) => {
   return (
@@ -28,8 +28,7 @@ const TitleItem = ({ title, content, children }) => {
           xs: 0, // 모바일 크기일 때
           md: 0, // 태블릿 이상의 크기일 때
         },
-      }}
-    >
+      }}>
       <Box
         display="flex"
         alignItems="center"
@@ -38,8 +37,7 @@ const TitleItem = ({ title, content, children }) => {
         style={{
           cursor: 'pointer',
           paddingBottom: 11,
-        }}
-      >
+        }}>
         <IconButton size="small">
           <img src={vector} alt="vector" />
         </IconButton>
@@ -47,8 +45,7 @@ const TitleItem = ({ title, content, children }) => {
           component="h2"
           sx={{
             fontSize: '16px',
-          }}
-        >
+          }}>
           {title}
         </Typography>
       </Box>
@@ -61,8 +58,7 @@ const TitleItem = ({ title, content, children }) => {
             overflowY: 'auto',
             overflowX: 'hidden',
             maxHeight: '200px',
-          }}
-        >
+          }}>
           <Typography marginLeft={7} marginBottom={2}>
             {content}
           </Typography>
@@ -85,16 +81,14 @@ const TextItem = ({ title, content }) => {
       flexDirection="column"
       sx={{
         padding: '0px 15px 15px 35px',
-      }}
-    >
+      }}>
       <Typography
         component="h6"
         sx={{
           fontSize: '14px',
           fontWeight: 'bold',
           marginBottom: '4px',
-        }}
-      >
+        }}>
         {title}
       </Typography>
       <Typography
@@ -106,8 +100,7 @@ const TextItem = ({ title, content }) => {
           lineHeight: '1.6',
           color: '#333',
           whiteSpace: 'pre-line',
-        }}
-      >
+        }}>
         {content}
       </Typography>
     </Box>

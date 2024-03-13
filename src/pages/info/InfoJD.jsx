@@ -1,7 +1,7 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { OptionButton, infoBasicStyles } from "./InfoStyles";
-import { userInfo } from "recoil/atoms";
-import { useRecoilState } from "recoil";
+import { Box, Button, Grid, Typography } from '@mui/material';
+import { OptionButton, infoBasicStyles } from './InfoStyles';
+import { userInfo } from 'recoil/atoms';
+import { useRecoilState } from 'recoil';
 
 function InFoJD({ onChange, jobCategory }) {
   const [value, setValue] = useRecoilState(userInfo);
@@ -26,9 +26,8 @@ function InFoJD({ onChange, jobCategory }) {
                 <Button
                   variant="outlined"
                   fullWidth
-                  onClick={() => handleInputChange("jobCategoryId", item.id)}
-                  sx={OptionButton(value.jobCategoryId === item.id)}
-                >
+                  onClick={() => handleInputChange('jobCategoryId', item.id)}
+                  sx={OptionButton(value.jobCategoryId === item.id)}>
                   {item.name}
                 </Button>
               </Grid>

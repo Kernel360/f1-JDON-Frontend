@@ -1,8 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
 
 export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
   const deleteReivew = async () => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+    if (!window.confirm('정말 삭제하시겠습니까?')) return;
     try {
       await deleteReviewAndUpdate(review.id);
     } catch (error) {
@@ -13,7 +13,7 @@ export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
   };
 
   return (
-    <Box sx={{ borderBottom: "1px solid #EBEBEB", py: 2 }}>
+    <Box sx={{ borderBottom: '1px solid #EBEBEB', py: 2 }}>
       <Box display="flex" justifyContent="space-between">
         <Typography
           variant="body3"
@@ -21,17 +21,10 @@ export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
           color="#9A9AA1"
           fontSize={12}
           fontWeight={600}
-          mb={1}
-        >
+          mb={1}>
           {review.nickname}
         </Typography>
-        <Typography
-          variant="body3"
-          component="p"
-          color="#9A9AA1"
-          fontSize={12}
-          mb={2}
-        >
+        <Typography variant="body3" component="p" color="#9A9AA1" fontSize={12} mb={2}>
           {review.createdDate}
         </Typography>
       </Box>
@@ -41,12 +34,11 @@ export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
       {isWritter && (
         <Box
           sx={{
-            display: "flex",
+            display: 'flex',
             pt: 2,
-            width: "100%",
-            justifyContent: "right",
-          }}
-        >
+            width: '100%',
+            justifyContent: 'right',
+          }}>
           <CommonButton title="삭제" onClick={deleteReivew} />
         </Box>
       )}
@@ -60,15 +52,14 @@ function CommonButton({ title, onClick, styles }) {
       onClick={onClick}
       style={{
         ...styles,
-        border: "none",
-        borderRadius: "999px",
-        fontSize: "12px",
-        padding: "4px 10px",
-        background: "black",
-        color: "white",
+        border: 'none',
+        borderRadius: '999px',
+        fontSize: '12px',
+        padding: '4px 10px',
+        background: 'black',
+        color: 'white',
         fontWeight: 600,
-      }}
-    >
+      }}>
       {title}
     </button>
   );

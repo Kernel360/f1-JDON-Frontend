@@ -153,8 +153,7 @@ function InFoBasic({ agree, setAgree }) {
                   variant="outlined"
                   fullWidth
                   onClick={() => handleInputChange('gender', item)}
-                  sx={OptionButton(value.gender === item)}
-                >
+                  sx={OptionButton(value.gender === item)}>
                   {item}
                 </Button>
               </Grid>
