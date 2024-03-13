@@ -294,7 +294,7 @@ export async function updateCoffeechat(id, data) {
 }
 
 //커피챗 삭제
-export async function deleteCoffeechat(id, data) {
+export async function deleteCoffeechat(id) {
   try {
     const res = await instance.delete(`/api/v1/coffeechats/${id}`);
     return res.data;
