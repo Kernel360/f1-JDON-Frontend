@@ -19,6 +19,7 @@
     "axios": "^1.6.5",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-cookie": "^7.0.2",
     "react-dom": "^18.2.0",
@@ -35,8 +36,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "HTTPS=true SSL_CRT_FILE=./cert.pem SSL_KEY_FILE=./key.pem react-scripts start",
-    "start:mac": "HTTPS=true SSL_CRT_FILE=./cert.pem SSL_KEY_FILE=./key.pem react-scripts start",
+    "start": "cross-env HTTPS=true SSL_CRT_FILE=./cert.pem SSL_KEY_FILE=./key.pem react-scripts start",
+    "start:mac": "cross-env HTTPS=true SSL_CRT_FILE=./cert.pem SSL_KEY_FILE=./key.pem react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build": "react-scripts build"
