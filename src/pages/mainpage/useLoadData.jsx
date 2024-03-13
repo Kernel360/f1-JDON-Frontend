@@ -9,7 +9,6 @@ export function useLoadData() {
   const [lectureList, setLectureList] = useState([]);
   const [jdList, setJdList] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [isAPiError, setApiError] = useState(false);
 
   const loadData = useCallback(
     async (keyword, userSelected) => {
@@ -22,11 +21,9 @@ export function useLoadData() {
           setSelectedChip({ keyword: res.keyword, userSelected });
           setIsInitialLoad(false);
         }
-        setApiError(false);
       } catch (error) {
         console.error('Error while fetching data:', error);
         setIsInitialLoad(true);
-        setApiError(true);
       }
     },
     [isInitialLoad],
@@ -34,12 +31,12 @@ export function useLoadData() {
 
   useEffect(() => {
     if (isInitialLoad) loadData('', false);
-    else return;
-
-    if (selectedChip.userSelected && selectedChip.keyword) {
-      loadData(selectedChip.keyword, true);
+    else {
+      if (selectedChip.userSelected && selectedChip.keyword) {
+        loadData(selectedChip.keyword, true);
+      }
     }
-  }, [isInitialLoad, selectedChip, loadData, isAPiError]);
+  }, [isInitialLoad, selectedChip, loadData]);
 
   return { selectedChip, setSelectedChip, lectureList, jdList };
 }
