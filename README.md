@@ -1,5 +1,5 @@
 # JDON💡
-### "Job Description을 기반으로 직무 분석과 해당 직무 학습에 도움을 주는 서비스입니다"
+### 개발자 직군별로 최근 채용공고에 많이 언급된 채용 공고와 강의 영상을 추천해주는 플랫폼입니다.
 </br>
 
 <img width="647" alt="image" src="https://github.com/Kernel360/f1-JDON-Frontend/assets/103630185/ad371135-d8e5-4493-98f8-588be36fdde1">
