@@ -14,8 +14,7 @@ export function FailPage() {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
-      }}
-    >
+      }}>
       <Typography sx={{ fontSize: '25px', fontWeight: 500, p: 4 }}>로그인 실패</Typography>
       <Typography sx={infoBasicStyles.typographySubtitle}>
         해당 소셜 서비스에 이메일을 등록해야
@@ -28,8 +27,7 @@ export function FailPage() {
         sx={buttonStyle.EndButton}
         onClick={() => {
           navigate('/signin');
-        }}
-      >
+        }}>
         로그인 재시도
       </Button>
     </Container>

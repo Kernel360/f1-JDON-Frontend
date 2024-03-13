@@ -1,6 +1,6 @@
-import { Box, Typography } from "@mui/material";
-import back from "assets/icons/btn_back.svg";
-import { useNavigate } from "react-router-dom";
+import { Box, Typography } from '@mui/material';
+import back from 'assets/icons/btn_back.svg';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * @function Header - 각 하위 페이지별 상단에 존재하는 공통 레이아웃 컴포넌트입니다.
@@ -9,17 +9,14 @@ import { useNavigate } from "react-router-dom";
  * @param url - 버튼을 눌렀을 때 이동할 라우터의 주소입니다.
  */
 function Header({ title, url }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const goBackHandler = () => {
     navigate(url);
   };
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <Box
-          onClick={goBackHandler}
-          sx={{ py: 3, display: "flex", gap: 2, cursor: "pointer" }}
-        >
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <Box onClick={goBackHandler} sx={{ py: 3, display: 'flex', gap: 2, cursor: 'pointer' }}>
           <img src={back} alt="뒤로가기 아이콘" />
           <Typography fontSize="1rem" fontWeight={400}>
             {title}

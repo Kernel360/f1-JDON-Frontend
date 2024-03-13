@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Container, Box } from "@mui/material";
-import ToggleList from "components/common/ToggleList";
-import BottomNav from "components/common/BottomNav";
-import { getFAQ, getJobCategory, getMemberInfo } from "api/api";
-import { kindOfJdState } from "recoil/atoms";
-import { useRecoilState } from "recoil";
-import { getNoticeList } from "./notice";
-import ProfileSection from "./ProfileSection";
-import NavButtons from "./NavButtons";
-import LogoutButton from "./LogoutButton";
+import { useEffect, useState } from 'react';
+import { Container, Box } from '@mui/material';
+import ToggleList from 'components/common/ToggleList';
+import BottomNav from 'components/common/BottomNav';
+import { getFAQ, getJobCategory, getMemberInfo } from 'api/api';
+import { kindOfJdState } from 'recoil/atoms';
+import { useRecoilState } from 'recoil';
+import { getNoticeList } from './notice';
+import ProfileSection from './ProfileSection';
+import NavButtons from './NavButtons';
+import LogoutButton from './LogoutButton';
 
 export default function MyPage() {
   const [memberInfo, setMemberInfo] = useState({});
@@ -27,24 +27,23 @@ export default function MyPage() {
         setMemberInfo(memberData.data);
         setJobCategories(jobGroupList[0].jobCategoryList);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container
       maxWidth="md"
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "95vh",
-        minwidth: "100vw",
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '95vh',
+        minwidth: '100vw',
         py: 10,
-      }}
-    >
+      }}>
       <ProfileSection data={memberInfo} />
       <NavButtons />
       <ToggleList datas={noticeLists} />

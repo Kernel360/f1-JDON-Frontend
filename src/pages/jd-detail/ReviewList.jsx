@@ -1,10 +1,6 @@
-import { ReviewItem } from "./ReviewItem";
+import { ReviewItem } from './ReviewItem';
 
-export const ReviewList = ({
-  reviewData,
-  deleteReviewAndUpdate,
-  loginState,
-}) => {
+export const ReviewList = ({ reviewData, deleteReviewAndUpdate, loginState }) => {
   return (
     <>
       {reviewData.map((item) => (

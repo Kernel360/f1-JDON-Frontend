@@ -76,8 +76,7 @@ function UpdateCoffeeForm() {
               flexDirection: 'column',
               gap: '13px',
               width: '100%',
-            }}
-          >
+            }}>
             <NewInput
               placeholder="커피챗 제목을 입력해주세요"
               label="제목"

@@ -1,4 +1,4 @@
-import "./Progressbar.scss";
+import './Progressbar.scss';
 
 function ProgressBar({ step }) {
   return (

@@ -1,21 +1,21 @@
-const { useState } = require("react");
+const { useState } = require('react');
 
 function RoundButton({ title, onClick }) {
   const [isHovered, setIsHovered] = useState(false);
   const defaultStyle = {
-    border: "none",
-    cursor: "pointer",
-    borderRadius: "999px",
-    fontSize: "12px",
-    padding: "4px 10px",
-    background: "black",
-    color: "white",
+    border: 'none',
+    cursor: 'pointer',
+    borderRadius: '999px',
+    fontSize: '12px',
+    padding: '4px 10px',
+    background: 'black',
+    color: 'white',
     fontWeight: 600,
   };
 
   const hoverStyle = {
     ...defaultStyle,
-    background: "grey",
+    background: 'grey',
   };
 
   const handleClick = (e) => {
@@ -29,8 +29,7 @@ function RoundButton({ title, onClick }) {
       onClick={handleClick}
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={isHovered ? hoverStyle : defaultStyle}
-    >
+      style={isHovered ? hoverStyle : defaultStyle}>
       {title}
     </button>
   );

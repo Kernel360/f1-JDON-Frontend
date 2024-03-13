@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -33,7 +33,12 @@ export default function Info() {
   const handleNextBtn = () => {
     if (
       step === 1 &&
-      !(data.nickname && data.birth && data.gender && Object.values(agree).every((value) => value === true))
+      !(
+        data.nickname &&
+        data.birth &&
+        data.gender &&
+        Object.values(agree).every((value) => value === true)
+      )
     ) {
       alert('입력되지 않은 값이 있습니다.');
       return false;
@@ -93,7 +98,10 @@ export default function Info() {
             <NavigationButtons
               step={step}
               isActive={
-                data.nickname && data.birth && data.gender && Object.values(agree).every((value) => value === true)
+                data.nickname &&
+                data.birth &&
+                data.gender &&
+                Object.values(agree).every((value) => value === true)
               }
               onBefore={() => setStep(step - 1)}
               onNext={handleNextBtn}
@@ -103,7 +111,11 @@ export default function Info() {
       case 2:
         return (
           <>
-            <InFoJD jobCategoryId={data.jobCategoryId} jobCategory={jobCategory} onChange={handleChange} />
+            <InFoJD
+              jobCategoryId={data.jobCategoryId}
+              jobCategory={jobCategory}
+              onChange={handleChange}
+            />
             <NavigationButtons
               step={step}
               isActive={data.jobCategoryId}

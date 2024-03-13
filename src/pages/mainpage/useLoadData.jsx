@@ -21,7 +21,7 @@ export function useLoadData() {
         setIsInitialLoad(false);
       }
     },
-    [isInitialLoad]
+    [isInitialLoad],
   );
 
   useEffect(() => {

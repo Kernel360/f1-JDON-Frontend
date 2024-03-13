@@ -33,8 +33,7 @@ function LogoutButton() {
         p: '13px',
         borderRadius: 10,
         color: 'gray',
-      }}
-    >
+      }}>
       로그아웃
     </Button>
   );

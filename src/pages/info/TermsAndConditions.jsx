@@ -1,4 +1,4 @@
-import { AGREE_DATA } from "./agreeData";
+import { AGREE_DATA } from './agreeData';
 
 function TermsAndConditions(i) {
   return (

@@ -1,47 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import Header from "components/common/Header";
-import { Box, Button, Container, Grid, Link, CssBaseline } from "@mui/material";
-import SwipJobSkill from "components/common/swipe/SwipJobSkill";
-import { buttonStyle } from "components/common/navigation-btn/NavigationBtnStyles";
-import NewInput from "components/common/new-input/NewInput";
-import { useRecoilState } from "recoil";
-import { jobIdState, selectedJobSkillState } from "recoil/atoms";
-import {
-  checkNicknameDuplicate,
-  getMemberInfo,
-  updateMemberInfo,
-} from "api/api";
-import NewDayPicker from "components/common/new-daypicker/NewDayPicker";
-import TotalInputForm from "components/common/total-input-form/TotalInputForm";
-import { OptionButton, infoBasicStyles } from "../info/InfoStyles";
-import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from "constants/nickname";
-import { MYPAGE_CHILD } from "constants/headerProps";
+import { useState, useEffect } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import Header from 'components/common/Header';
+import { Box, Button, Container, Grid, Link, CssBaseline } from '@mui/material';
+import SwipJobSkill from 'components/common/swipe/SwipJobSkill';
+import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
+import NewInput from 'components/common/new-input/NewInput';
+import { useRecoilState } from 'recoil';
+import { jobIdState, selectedJobSkillState } from 'recoil/atoms';
+import { checkNicknameDuplicate, getMemberInfo, updateMemberInfo } from 'api/api';
+import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
+import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
+import { OptionButton, infoBasicStyles } from '../info/InfoStyles';
+import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from 'constants/nickname';
+import { MYPAGE_CHILD } from 'constants/headerProps';
 
-const GENDERS = ["남성", "여성"];
+const GENDERS = ['남성', '여성'];
 
 export default function InfoEdit() {
   const [jobId, setJobId] = useRecoilState(jobIdState);
-  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
-    selectedJobSkillState
-  );
-  const [helperText, setHelperText] = useState("");
+  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(selectedJobSkillState);
+  const [helperText, setHelperText] = useState('');
   const [validation, setValidation] = useState(true);
 
-  const [oldNickname, setOldNickname] = useState(""); // 받아온 원래 이름
-  const [nickname, setNickname] = useState("");
+  const [oldNickname, setOldNickname] = useState(''); // 받아온 원래 이름
+  const [nickname, setNickname] = useState('');
   const [btnState, setBtnState] = useState(Boolean);
   const [birthday, setBirthday] = useState(null);
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState('');
 
   const navigate = useNavigate();
 
   const setMemberInfo = (memberData) => {
-    setNickname(memberData.nickname || "");
-    setOldNickname(memberData.nickname || "");
+    setNickname(memberData.nickname || '');
+    setOldNickname(memberData.nickname || '');
     setBirthday(memberData.birth ?? null);
-    setGender(memberData.gender ?? "");
-    setJobId(memberData.jobCategoryId ?? "");
+    setGender(memberData.gender ?? '');
+    setJobId(memberData.jobCategoryId ?? '');
     setSelectedJobSkill(memberData.skillList ?? []);
   };
 
@@ -49,7 +43,7 @@ export default function InfoEdit() {
     if (oldNickname === nickname) {
       setBtnState(true);
       setValidation(true);
-      setHelperText("현재 설정되어 있는 닉네임입니다.");
+      setHelperText('현재 설정되어 있는 닉네임입니다.');
     } else {
       setBtnState(false);
     }
@@ -62,7 +56,7 @@ export default function InfoEdit() {
         const memberData = await getMemberInfo();
         setMemberInfo(memberData.data);
       } catch (error) {
-        console.error("회원 정보 가져오기 에러", error);
+        console.error('회원 정보 가져오기 에러', error);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,17 +64,17 @@ export default function InfoEdit() {
 
   useEffect(() => {
     if (NO_ADMIN.test(nickname)) {
-      setHelperText("관리자를 닉네임으로 사용할 수 없습니다.");
+      setHelperText('관리자를 닉네임으로 사용할 수 없습니다.');
       setValidation(false);
       return;
     }
     if (NO_SC.test(nickname)) {
-      setHelperText("특수기호가 포함되어 있습니다.");
+      setHelperText('특수기호가 포함되어 있습니다.');
       setValidation(false);
       return;
     }
     if (NO_SPACE_BAR.test(nickname)) {
-      setHelperText("띄어쓰기가 포함되어 있습니다.");
+      setHelperText('띄어쓰기가 포함되어 있습니다.');
       setValidation(false);
       return;
     }
@@ -91,8 +85,7 @@ export default function InfoEdit() {
   };
 
   const handleBithdayChange = (newDate) => {
-    const formattedDate =
-      newDate instanceof Date ? newDate.toISOString().split("T")[0] : newDate;
+    const formattedDate = newDate instanceof Date ? newDate.toISOString().split('T')[0] : newDate;
 
     setBirthday(formattedDate);
   };
@@ -104,11 +97,7 @@ export default function InfoEdit() {
           nickname: nickname, //중간밸류 중복확인
         });
 
-        if (
-          NO_ADMIN.test(nickname) ||
-          NO_SC.test(nickname) ||
-          NO_SPACE_BAR.test(nickname)
-        ) {
+        if (NO_ADMIN.test(nickname) || NO_SC.test(nickname) || NO_SPACE_BAR.test(nickname)) {
           return;
         }
         if (
@@ -119,20 +108,20 @@ export default function InfoEdit() {
         ) {
           //만약 사용가능하다면
           setValidation(true); // 유효성 o
-          setHelperText("사용 가능한 닉네임입니다!");
+          setHelperText('사용 가능한 닉네임입니다!');
         }
       } catch (error) {
-        if (nickname === "관리자") {
+        if (nickname === '관리자') {
           setValidation(false);
-          setHelperText("사용할 수 없는 단어 또는 기호가 포함되어 있습니다.");
+          setHelperText('사용할 수 없는 단어 또는 기호가 포함되어 있습니다.');
           return;
         }
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
-          setHelperText("이미 존재하는 닉네임입니다.");
+          setHelperText('이미 존재하는 닉네임입니다.');
         } else {
           setValidation(false);
-          setHelperText("오류가 발생했습니다.");
+          setHelperText('오류가 발생했습니다.');
         }
       }
     }
@@ -141,8 +130,8 @@ export default function InfoEdit() {
   const isSaveButtonDisabled = () => {
     const isNicknameValid = validation === true;
     const isBirthdayValid = birthday !== null;
-    const isGenderValid = gender !== "";
-    const isJobIdValid = jobId !== "";
+    const isGenderValid = gender !== '';
+    const isJobIdValid = jobId !== '';
     const isSelectedJobSkillValid = selectedJobSkill.length === 3;
 
     return !(
@@ -166,10 +155,10 @@ export default function InfoEdit() {
 
     try {
       await updateMemberInfo(data);
-      alert("정보 수정을 성공하였습니다.");
-      navigate("/mypage");
+      alert('정보 수정을 성공하였습니다.');
+      navigate('/mypage');
     } catch (error) {
-      console.error("회원 정보 업데이트 에러", error);
+      console.error('회원 정보 업데이트 에러', error);
     }
   };
 
@@ -177,21 +166,19 @@ export default function InfoEdit() {
     <Container
       maxWidth="md"
       sx={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
       <CssBaseline />
       <Header title={MYPAGE_CHILD.title} url={MYPAGE_CHILD.url} />
       <Box
         sx={{
           flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          mt: "22px",
-        }}
-      >
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          mt: '22px',
+        }}>
         <form onSubmit={handleSaveChanges}>
           <NewInput
             placeholder="사용하실 닉네임을 입력해주세요."
@@ -204,7 +191,7 @@ export default function InfoEdit() {
               setNickname(e.target.value);
               if (nickname) {
                 setValidation(false);
-                setHelperText("닉네임을 중복확인을 해주세요.");
+                setHelperText('닉네임을 중복확인을 해주세요.');
               }
             }}
             onClick={checkNickname}
@@ -224,8 +211,7 @@ export default function InfoEdit() {
                     variant="outlined"
                     fullWidth
                     onClick={() => handleGenderChange(item)}
-                    sx={OptionButton(gender === item)}
-                  >
+                    sx={OptionButton(gender === item)}>
                     {item}
                   </Button>
                 </Grid>
@@ -244,25 +230,23 @@ export default function InfoEdit() {
               ...buttonStyle.Button,
               ...(isSaveButtonDisabled() ? {} : buttonStyle.ActiveButton),
             }}
-            disabled={isSaveButtonDisabled()}
-          >
+            disabled={isSaveButtonDisabled()}>
             수정
           </Button>
         </form>
-        <Box sx={{ textAlign: "right" }}>
+        <Box sx={{ textAlign: 'right' }}>
           <Link
             component={RouterLink}
             to="/mypage/withdrawal"
             variant="subtitle1"
             sx={{
-              color: "#B5B5B5",
-              fontWeight: "500",
-              marginRight: "13px",
-              marginBottom: "10px",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
+              color: '#B5B5B5',
+              fontWeight: '500',
+              marginRight: '13px',
+              marginBottom: '10px',
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}>
             회원탈퇴
           </Link>
         </Box>
