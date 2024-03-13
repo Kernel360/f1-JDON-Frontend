@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
@@ -19,8 +18,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: .env setting
         run: |
-
-
           if [ "${{ github.ref }}" = "refs/heads/develop" ]; then
             touch .env
             echo "REACT_APP_API_ENDPOINT=${{ secrets.REACT_APP_API_DEV_ENDPOINT }}" > .env
