@@ -22,10 +22,12 @@ jobs:
             touch .env
             echo "REACT_APP_API_DEV_ENDPOINT=${{ secrets.REACT_APP_API_DEV_ENDPOINT }}" > .env
             cat .env
+            export AWS_S3_BUCKET=${{ secrets.AWS_STAGING_BUCKET_NAME_DEV }}
           elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
             touch .env
             echo "REACT_APP_API_ENDPOINT=${{ secrets.REACT_APP_API_ENDPOINT }}" > .env
             cat .env
+            export AWS_S3_BUCKET=${{ secrets.AWS_STAGING_BUCKET_NAME }}
           fi
         shell: bash
       - name: Npm Install
