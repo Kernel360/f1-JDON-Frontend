@@ -27,7 +27,7 @@ export const useForm = (initialValues) => {
         break;
       case "totalRecruitCount":
         helperText =
-          value > 100 || value <= 1
+          value > 100 || value < 1
             ? "모집인원은 1명 이상 100명 이하로 설정해주세요"
             : "";
 
