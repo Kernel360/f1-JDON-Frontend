@@ -28,7 +28,7 @@ export function ReviewItem({ review, isWritter, deleteReviewAndUpdate }) {
           {review.createdDate}
         </Typography>
       </Box>
-      <Typography variant="body3" component="p" color="#545459" fontSize={14}>
+      <Typography variant="body3" component="p" color="#545459" fontSize={14} fontWeight={500}>
         {review.content}
       </Typography>
       {isWritter && (

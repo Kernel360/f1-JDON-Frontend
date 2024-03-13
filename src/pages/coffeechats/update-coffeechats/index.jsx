@@ -3,7 +3,7 @@ import Header from 'components/common/Header';
 import NewInput from 'components/common/new-input/NewInput';
 import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
 import { useEffect } from 'react';
-import { getCoffeeChatDetail, registerCoffeeChat, updateCoffeechat } from 'api/api';
+import { getCoffeeChatDetail, updateCoffeechat } from 'api/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { theme } from 'styles/themeMuiStyle';
 import NewBtn from 'components/common/new-btn/NewBtn';
@@ -37,7 +37,6 @@ function UpdateCoffeeForm() {
         if (error.response.status) {
           navigate('/404');
         }
-
         console.error('Error fetching coffee chat detail:', error);
       }
     })();
@@ -46,15 +45,12 @@ function UpdateCoffeeForm() {
   const hanldeRegister = async (e) => {
     e.preventDefault();
     try {
-      if (id) {
-        await updateCoffeechat(id, formValue);
-        alert('커피챗이 수정되었습니다.');
-      } else {
-        await registerCoffeeChat(formValue);
-        alert('커피챗이 생성되었습니다.');
-      }
+      await updateCoffeechat(id, formValue);
+      alert('커피챗이 수정되었습니다.')
       navigate(`/coffee/${id}`);
     } catch (error) {
+      const { message } = error.response.data;
+      alert(message);
       console.error('Error fetching hot skills:', error);
     }
   };
