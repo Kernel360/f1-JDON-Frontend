@@ -50,7 +50,6 @@ function Coffeeopen() {
   useEffect(() => {
     const memData = async () => {
       const res = await getMemberInfo();
-      console.log(res);
       setNickName(res.data.nickname);
       setJobId(res.data.jobCategoryId);
     };

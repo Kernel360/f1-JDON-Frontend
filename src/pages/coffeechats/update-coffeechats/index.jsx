@@ -37,7 +37,6 @@ function UpdateCoffeeForm() {
         if (error.response.status) {
           navigate('/404');
         }
-
         console.error('Error fetching coffee chat detail:', error);
       }
     })();
@@ -49,12 +48,15 @@ function UpdateCoffeeForm() {
       if (id) {
         await updateCoffeechat(id, formValue);
         alert('커피챗이 수정되었습니다.');
+
       } else {
         await registerCoffeeChat(formValue);
         alert('커피챗이 생성되었습니다.');
       }
       navigate(`/coffee/${id}`);
     } catch (error) {
+      const { message } = error.response.data;
+      alert(message);
       console.error('Error fetching hot skills:', error);
     }
   };
