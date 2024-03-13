@@ -22,5 +22,6 @@ export const noticeMsg = {
   p: 0,
   fontSize: '12px',
   alignItems: 'center',
-  color: '#69696E',
+	color: '#69696E',
+  fontWeight:400
 };

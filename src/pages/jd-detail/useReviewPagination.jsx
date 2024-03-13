@@ -4,49 +4,43 @@ import { useInView } from 'react-intersection-observer';
 
 export const useReviewPagination = (id) => {
   const [reviewId, setReviewId] = useState('');
-  const [lastPage, setLastPage] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [reviewData, setReviewData] = useState([]);
+  const [isLastPage,setIsLastPage]=useState(false)
   const [ref, inView] = useInView();
 
   const fetchReviewData = useCallback(
-    async (reset = false) => {
+     async (reset = false) => {
       if (reset) {
         setReviewId('');
         setReviewData([]);
-        setLastPage(false);
+        setIsLastPage(false);
       }
-      if (isLoading || lastPage) return;
-      setIsLoading(true);
-
+      if(isLastPage)return
       try {
         const res = await getReivew(id, reviewId);
-        setReviewData((prev) => [...prev, ...res.content]);
-        if (res.content.length > 0) {
+        setReviewData((prev) => [...prev, ...res.content]||[]);
+        if (!res.pageInfo.empty) {
           const newReviewId = res.content[res.content.length - 1].id;
           setReviewId(newReviewId);
         }
         if (res.pageInfo.last) {
-          setLastPage(true);
-        }
+        setIsLastPage(true)
+      }
       } catch (e) {
         console.error(e);
       }
-      setIsLoading(false);
-    },
-    [id, reviewId, isLoading, lastPage],
-  );
+    }, [id,reviewId,isLastPage]
+  )
 
   useEffect(() => {
-    if ((inView && !isLoading) || reviewId) {
+    if (inView) {
       fetchReviewData();
     }
-  }, [inView, reviewId, isLoading, fetchReviewData]);
+  }, [inView, reviewId, fetchReviewData]);
 
   return {
-    isLoading,
     reviewData,
     ref,
-    fetchReviewData,
+    fetchReviewData
   };
 };
