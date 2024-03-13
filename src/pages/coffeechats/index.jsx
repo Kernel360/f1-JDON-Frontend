@@ -96,7 +96,7 @@ export function Coffee() {
 
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
-      <HeaderWithSearchBar isSearchBarTrue={true} />
+      <HeaderWithSearchBar isSearchBarTrue={false} />
       <FiltersAndButton
         sortData={sortData}
         onChange={handleChange}
