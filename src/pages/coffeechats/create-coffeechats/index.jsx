@@ -128,8 +128,8 @@ function Coffeeopen() {
             </Grid>
           </Box>
           <NewInput
-            placeholder="오픈채팅방 링크를 입력해주세요."
-            label="오픈채팅방 링크"
+            placeholder="카카오톡 오픈채팅방 링크만 입력 가능합니다. ex)https://open.kakao.com/o/"
+            label="카카오톡 오픈채팅방 링크"
             helperText={helperTexts.openChatUrl}
             value={formValue.openChatUrl}
             onChange={(e) => updateFormValue("openChatUrl", e.target.value)}
