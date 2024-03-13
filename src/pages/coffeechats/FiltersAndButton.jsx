@@ -11,7 +11,7 @@ function FiltersAndButton({ sortData, kindOfJd, onChange }) {
 
   const handleConfirm = () => {
     window.confirm(
-      '커피챗 생성은 로그인 후 사용하실 수 있습니다. \n 로그인페이지로 이동하시겠습니까??',
+      '커피챗 생성은 로그인 후 사용하실 수 있습니다. \n로그인 페이지로 이동하시겠습니까??',
     ) && navigate('/signin');
   };
 
