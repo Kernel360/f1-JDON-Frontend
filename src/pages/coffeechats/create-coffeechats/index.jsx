@@ -1,3 +1,4 @@
+
 import { Box, Container, CssBaseline, Grid, Typography } from '@mui/material';
 import Header from 'components/common/Header';
 import NewInput from 'components/common/new-input/NewInput';
@@ -10,13 +11,14 @@ import NewBtn from 'components/common/new-btn/NewBtn';
 import { formatDateTime } from '../dateUtils';
 import { useForm } from '../hooks/useForm';
 import { COFFEE_CHILD } from 'constants/headerProps';
-import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
+import { jobStyle } from 'components/common/card/CardStyle';
+import { infoBoxContainer, infoTitle, noticeMsg } from './styles';
 
 function Coffeeopen() {
   const navigate = useNavigate();
   const [isRegistered, setIsRegistered] = useState(false);
   const [nickname, setNickName] = useState('');
-  const [job, setJob] = useState();
+  const [jobId, setJobId] = useState(0);
   const { formValue, helperTexts, isFormValid, updateFormValue } = useForm({
     title: '',
     content: '',
@@ -49,8 +51,8 @@ function Coffeeopen() {
     const memData = async () => {
       const res = await getMemberInfo();
       console.log(res);
-      setNickName(res.nickname);
-      setJob(res.getJobCategory);
+      setNickName(res.data.nickname);
+      setJobId(res.data.jobCategoryId);
     };
     memData();
   }, []);
@@ -66,37 +68,37 @@ function Coffeeopen() {
         <Box
           component="form"
           noValidate
-          mt="30px"
+          mt="10px"
           display="flex"
           flexDirection="column"
           gap="13px"
-          width="100%">
-          <TotalInputForm label="작성자 정보">
-            <Box
-              sx={{
-                borderRadius: '10px',
-                width: '100%',
-                heigth: '64px',
-                background: '#F3F5FF',
-                py: '16px',
-                mt: '10px',
-                px: '16px',
-              }}>
-              <Box
-                sx={{
-                  pb: '5px',
-                  color: '#696969',
-                  fontSize: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}>
-                {nickname}
-                {job}
+          width="100%"
+        >
+          <Box
+            sx={{
+              color: '#373737',
+              fontWeight: 600,
+              fontSize: '13px',
+            }}
+          >
+            <Box sx={infoBoxContainer}>
+              [ 작성자 정보 ]
+              <Box display="flex" alignItems="center" gap={1}>
+                <div style={infoTitle}>닉네임</div>
+                <div style={{ ...infoTitle, fontWeight: 400 }}>{nickname}</div>
               </Box>
-              <Typography>* 작성자 정보는 마이페이지 회원정보에서 수정 가능합니다</Typography>
+              <Box display="flex" alignItems="center" gap={2}>
+                <div style={infoTitle}>직군</div>
+                <div color="#FF814D" style={jobStyle(jobId)}>
+                  {jobId === 2 ? '서버개발자' : '프론트엔드 개발자'}
+                </div>
+              </Box>
+              <div style={noticeMsg}>
+                * 작성자 정보는 마이페이지 회원정보에서 수정 가능합니다
+              </div>
+
             </Box>
-          </TotalInputForm>
+          </Box>
           <NewInput
             placeholder="커피챗 제목을 입력해주세요."
             label="제목"
