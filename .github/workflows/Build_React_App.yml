@@ -18,9 +18,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: .env setting
         run: |
-          touch .env
-          echo "REACT_APP_API_ENDPOINT=${{ secrets.REACT_APP_API_ENDPOINT }}" > .env
-          cat .env
+          if [ "${{ github.ref }}" = "refs/heads/develop" ]; then
+            touch .env
+            echo "REACT_APP_API_DEV_ENDPOINT=${{ secrets.REACT_APP_API_DEV_ENDPOINT }}" > .env
+            cat .env
+          elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            touch .env
+            echo "REACT_APP_API_ENDPOINT=${{ secrets.REACT_APP_API_ENDPOINT }}" > .env
+            cat .env
+          fi
         shell: bash
       - name: Npm Install
         run: |
