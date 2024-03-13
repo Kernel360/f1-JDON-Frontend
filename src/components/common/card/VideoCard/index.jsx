@@ -56,7 +56,7 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
 
   const promptLogin = () => {
     const confirmResult = window.confirm(
-      '찜은 로그인 후 이용할 수 있습니다. \n 로그인 페이지로 이동하시겠습니까?',
+      '찜은 로그인 후 이용할 수 있습니다. \n로그인 페이지로 이동하시겠습니까?',
     );
     if (confirmResult) {
       navigate('/signin');
