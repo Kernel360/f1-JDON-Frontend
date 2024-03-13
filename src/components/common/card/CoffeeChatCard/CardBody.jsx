@@ -5,9 +5,9 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { formattedDate, formattedTime } from "../../../../utils/formatDate";
 import { cardBodyStyle } from "./CoffeeChatCardStyle";
-import { useState } from "react";
+import RoundButton from "components/common/new-btn/RoundButton";
 
-function CardBody({ data }) {
+function CardBody({ data, isMyCoffeeChat, hanldeDeleteCoffeeChat }) {
   const InfoValue = [
     {
       icon: CalendarMonthIcon,
@@ -25,6 +25,7 @@ function CardBody({ data }) {
       color: "#575757",
     },
   ];
+
   return (
     <Box sx={cardBodyStyle.container}>
       <Typography variant="body2" color="#9A9AA1" sx={{ display: "flex" }}>
@@ -44,44 +45,13 @@ function CardBody({ data }) {
             />
           ))}
         </Box>
-        <Box marginTop={10}>
-          <CommonButton
-            title="삭제"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          />
-        </Box>
+        {isMyCoffeeChat && (
+          <Box marginTop={10}>
+            <RoundButton title="삭제" onClick={hanldeDeleteCoffeeChat} />
+          </Box>
+        )}
       </Box>
     </Box>
-  );
-}
-function CommonButton({ title, onClick }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const defaultStyle = {
-    border: "none",
-    cursor: "pointer",
-    borderRadius: "999px",
-    fontSize: "12px",
-    padding: "4px 10px",
-    background: "black",
-    color: "white",
-    fontWeight: 600,
-  };
-
-  const hoverStyle = {
-    ...defaultStyle,
-    background: "grey",
-  };
-  return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={isHovered ? hoverStyle : defaultStyle}
-    >
-      {title}
-    </button>
   );
 }
 

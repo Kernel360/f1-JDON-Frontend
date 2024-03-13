@@ -6,8 +6,9 @@ import { useMemo } from "react";
 import { cardStyles } from "./CoffeeChatCardStyle";
 import CardBody from "./CardBody";
 import CardHeader from "./CardHeader";
+import { deleteCoffeechat } from "api/api";
 
-function CoffeeChatCard({ data, kindOfJd }) {
+function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData }) {
   const navigate = useNavigate();
 
   const jobNum = useMemo(
@@ -23,10 +24,26 @@ function CoffeeChatCard({ data, kindOfJd }) {
     navigate(`/coffee/${data.coffeeChatId}`);
   };
 
+  const hanldeDeleteCoffeeChat = async () => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+    try {
+      await deleteCoffeechat(data.coffeeChatId);
+      refetchData();
+    } catch (error) {
+      const { message } = error.response.data;
+      alert(message);
+      return;
+    }
+  };
+
   return (
     <Paper onClick={handleClick} elevation={0} sx={cardStyles(data)}>
       <CardHeader jobNum={jobNum} data={data} />
-      <CardBody data={data} />
+      <CardBody
+        data={data}
+        isMyCoffeeChat={isMyCoffeeChat}
+        hanldeDeleteCoffeeChat={hanldeDeleteCoffeeChat}
+      />
     </Paper>
   );
 }
