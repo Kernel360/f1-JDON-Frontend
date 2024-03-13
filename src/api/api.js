@@ -61,10 +61,7 @@ export async function registerUserInfo(userInfo) {
 //닉네임 중복 확인
 export async function checkNicknameDuplicate(nickName) {
   try {
-    const res = await instance.post(
-      '/api/v1/nickname/duplicate',
-      nickName,
-    );
+    const res = await instance.post('/api/v1/nickname/duplicate', nickName);
     return res.status;
   } catch (error) {
     console.error('checkNicknameDuplicate API error', error);
@@ -144,9 +141,7 @@ export async function getMemberSkills() {
 // 기술 스택 기반 원티드JD, 인프런 강의 데이터 조회하기
 export async function getLectureByKeyword(keyword) {
   try {
-    const res = await instance.get(
-      `/api/v1/skills/search?keyword=${keyword}`,
-    );
+    const res = await instance.get(`/api/v1/skills/search?keyword=${keyword}`);
     return res.data.data;
   } catch (error) {
     console.error('getLectureByKeyword API error', error);
@@ -157,9 +152,7 @@ export async function getLectureByKeyword(keyword) {
 //직무 별 기술스택 조회하기
 export async function getSkillsOnJD(jobCategoryId) {
   try {
-    const res = await instance.get(
-      `/api/v1/skills/job-category/${jobCategoryId}`,
-    );
+    const res = await instance.get(`/api/v1/skills/job-category/${jobCategoryId}`);
 
     return res.data.data;
   } catch (error) {
@@ -233,9 +226,7 @@ export const getJobCategory = async () => {
 
 export const getMyCoffeeChat = async (page) => {
   try {
-    const res = await instance.get(
-      `/api/v1/coffeechats/host?page=${page}&size=12`,
-    );
+    const res = await instance.get(`/api/v1/coffeechats/host?page=${page}&size=12`);
     return res.data.data;
   } catch (error) {
     console.error('getMyCoffeeChat API', error);
@@ -257,12 +248,7 @@ export const getSignCoffeeChat = async (page) => {
 };
 
 //커피챗 목록 조회
-export const getCoffeeChat = async (
-  page,
-  size,
-  sorting,
-  jobCategory,
-) => {
+export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
   try {
     const res = await instance.get(
       `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`,
@@ -310,7 +296,7 @@ export async function updateCoffeechat(id, data) {
 //커피챗 삭제
 export async function deleteCoffeechat(id, data) {
   try {
-    const res = await instance.delete(`/api/v1/coffeechats/${id}`, data);
+    const res = await instance.delete(`/api/v1/coffeechats/${id}`);
     return res.data;
   } catch (error) {
     console.error('deleteCoffeechat API error', error);
@@ -321,10 +307,7 @@ export async function deleteCoffeechat(id, data) {
 //커피챗 신청
 export async function applyCoffeechat(id, coffeeChatData) {
   try {
-    const res = await instance.post(
-      `/api/v1/coffeechats/${id}`,
-      coffeeChatData,
-    );
+    const res = await instance.post(`/api/v1/coffeechats/${id}`, coffeeChatData);
     return res.data;
   } catch (error) {
     console.log('applyCoffeechat API error', error);
@@ -351,9 +334,7 @@ export const getJdDetail = async (id) => {
 //리뷰 조회
 export const getReivew = async (id, lastReviewId) => {
   try {
-    const res = await instance.get(
-      `api/v1/reviews/${id}?&size=5&reviewId=${lastReviewId}`,
-    );
+    const res = await instance.get(`api/v1/reviews/${id}?&size=5&reviewId=${lastReviewId}`);
 
     return res.data.data;
   } catch (error) {

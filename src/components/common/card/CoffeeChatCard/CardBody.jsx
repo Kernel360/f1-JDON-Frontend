@@ -3,10 +3,11 @@ import CoffeeInfoItem from './CoffeeInfoItem';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import { formattedDate, formattedTime } from '../../../../utils/formatDate';
+import { formattedDate, formattedTime } from 'utils/formatDate';
 import { cardBodyStyle } from './CoffeeChatCardStyle';
+import RoundButton from 'components/common/new-btn/RoundButton';
 
-function CardBody({ data }) {
+function CardBody({ data, isMyCoffeeChat, hanldeDeleteCoffeeChat }) {
   const InfoValue = [
     {
       icon: CalendarMonthIcon,
@@ -24,6 +25,7 @@ function CardBody({ data }) {
       color: '#575757',
     },
   ];
+
   return (
     <Box sx={cardBodyStyle.container}>
       <Typography variant="body2" color="#9A9AA1" sx={{ display: 'flex' }}>
@@ -32,15 +34,17 @@ function CardBody({ data }) {
       <Typography color="#545459" fontWeight="600" sx={cardBodyStyle.title}>
         {data.title}
       </Typography>
-      <Box sx={cardBodyStyle.infoBox}>
-        {InfoValue.map((item, index) => (
-          <CoffeeInfoItem
-            key={index}
-            Icon={item.icon}
-            text={item.text}
-            color={item.color}
-          />
-        ))}
+      <Box display="flex">
+        <Box sx={cardBodyStyle.infoBox}>
+          {InfoValue.map((item, index) => (
+            <CoffeeInfoItem key={index} Icon={item.icon} text={item.text} color={item.color} />
+          ))}
+        </Box>
+        {isMyCoffeeChat && (
+          <Box marginTop={10}>
+            <RoundButton title="삭제" onClick={hanldeDeleteCoffeeChat} />
+          </Box>
+        )}
       </Box>
     </Box>
   );

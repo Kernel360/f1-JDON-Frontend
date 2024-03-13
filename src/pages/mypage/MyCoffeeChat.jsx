@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Box, Typography, Grid, Tab, Container } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import Header from 'components/common/Header';
 import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
-import { getMyCoffeeChat, getSignCoffeeChat } from 'api/api';
+import { getJobCategory, getMyCoffeeChat, getSignCoffeeChat } from 'api/api';
 import Pagenation from 'components/common/Pagenation';
 import { MainStyles } from '../PageStyles';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { kindOfJdState } from 'recoil/atoms';
 import { MYPAGE_CHILD } from 'constants/headerProps';
 
@@ -15,39 +15,58 @@ export default function MyCoffeeChat() {
   const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState({});
   const [coffeeDatas, setCoffeeDatas] = useState([]);
-  const kindOfJd = useRecoilValue(kindOfJdState);
+  const [kindOfJd, setKindOfJd] = useRecoilState(kindOfJdState);
 
-  const handleChange = (event, value) => {
+  const handleTabChange = (_, value) => {
     setValue(value);
     setCurrentPage(1);
   };
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (_, value) => {
     setCurrentPage(value);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let res;
-        if (value === '1') {
-          res = await getMyCoffeeChat(currentPage - 1);
-          setCoffeeDatas(res.content || []);
-        } else if (value === '2') {
-          res = await getSignCoffeeChat(currentPage - 1);
-          setCoffeeDatas(res.content || []);
-        }
-
-        setPage(res.pageInfo || {});
-      } catch (error) {
-        console.error('MyCoffeeChat 통신에러', error);
+  const renderNoDataMessage = (kind) => (
+    <Typography
+      variant="h6"
+      color="textSecondary"
+      sx={{ textAlign: 'center', fontSize: 15, mt: 3 }}>
+      {kind}한 커피챗이 없습니다!
+    </Typography>
+  );
+  const refetchData = useCallback(async () => {
+    try {
+      let res;
+      if (value === '1') {
+        res = await getMyCoffeeChat(currentPage - 1);
+      } else if (value === '2') {
+        res = await getSignCoffeeChat(currentPage - 1);
       }
-    };
-    fetchData();
+      if (res) {
+        setCoffeeDatas(res.content || []);
+        setPage(res.pageInfo || {});
+      }
+    } catch (error) {
+      console.error('MyCoffeeChat 데이터 갱신 중 오류 발생', error);
+    }
   }, [value, currentPage]);
 
+  useEffect(() => {
+    refetchData();
+  }, [refetchData]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { jobGroupList } = await getJobCategory();
+        setKindOfJd(jobGroupList[0].jobCategoryList);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    // <Container maxWidth="md" paddingX={"16px"} sx={{ width: "100%" }}>
     <Container
       maxWidth="md"
       paddingX={'16px'}
@@ -62,18 +81,10 @@ export default function MyCoffeeChat() {
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList
-              onChange={handleChange}
+              onChange={handleTabChange}
               aria-label="내가 오픈한 커피챗 및 내가 신청한 커피챗 선택 탭">
-              <Tab
-                label="내가 오픈한 커피챗"
-                value="1"
-                sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }}
-              />
-              <Tab
-                label="내가 신청한 커피챗"
-                value="2"
-                sx={{ ...MainStyles.TabPanel, flex: 1, maxWidth: 'none' }}
-              />
+              <Tab label="오픈한 커피챗" value="1" sx={MainStyles.TabPanel} />
+              <Tab label="신청한 커피챗" value="2" sx={MainStyles.TabPanel} />
             </TabList>
           </Box>
           <TabPanel
@@ -85,21 +96,17 @@ export default function MyCoffeeChat() {
               },
             }}>
             {coffeeDatas.length === 0 ? (
-              <Typography
-                variant="h6"
-                color="textSecondary"
-                sx={{
-                  textAlign: 'center',
-                  fontSize: 16,
-                  mt: 3,
-                }}>
-                오픈한 커피챗이 없습니다!
-              </Typography>
+              renderNoDataMessage('오픈')
             ) : (
               <Grid Grid container spacing={{ xs: 2, md: 2 }}>
                 {coffeeDatas.map((data, index) => (
                   <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} />
+                    <CoffeeChatCard
+                      data={data}
+                      kindOfJd={kindOfJd}
+                      isMyCoffeeChat={true}
+                      refetchData={refetchData}
+                    />
                   </Grid>
                 ))}
               </Grid>
@@ -123,21 +130,12 @@ export default function MyCoffeeChat() {
               },
             }}>
             {!coffeeDatas.length > 0 ? (
-              <Typography
-                variant="h6"
-                color="textSecondary"
-                sx={{
-                  textAlign: 'center',
-                  fontSize: 16,
-                  mt: 3,
-                }}>
-                신청한 커피챗이 없습니다!
-              </Typography>
+              renderNoDataMessage('신청')
             ) : (
               <Grid container spacing={{ xs: 2, md: 2 }}>
                 {coffeeDatas.map((data, index) => (
                   <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} />
+                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} isMyCoffeeChat={false} />
                   </Grid>
                 ))}
               </Grid>
