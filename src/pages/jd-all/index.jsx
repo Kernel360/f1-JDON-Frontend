@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container } from '@mui/material';
 import BottomNav from '../../components/common/BottomNav';
 // import JDSearchBar from './JDSearchBar';

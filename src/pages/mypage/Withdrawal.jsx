@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from 'components/common/Header';
 import { Box, Button, Checkbox, Container, FormControlLabel } from '@mui/material';
 import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
@@ -27,7 +27,7 @@ function Withdrawal() {
         // console.log(`${res || null}회원탈퇴합니다`);
 
         localStorage.setItem('isLoggedInState', false);
-        alert(`회원탈퇴가 성공적으로 진행되었습니다. \n지금까지 JDON을 이용해주셔서 감사합니다.`);
+        alert('회원탈퇴가 성공적으로 진행되었습니다. \n지금까지 JDON을 이용해주셔서 감사합니다.');
         navigate('/');
       }
     } catch (error) {
@@ -43,8 +43,7 @@ function Withdrawal() {
         minHeight: '85vh',
         justifyContent: 'space-between',
         paddingX: '29px',
-      }}
-    >
+      }}>
       <Header title={USER_QUIT.title} url={USER_QUIT.url} />
 
       <Box sx={{ whiteSpace: 'pre-line', wordBreak: 'break-all' }}>
@@ -72,8 +71,7 @@ function Withdrawal() {
         sx={{
           ...buttonStyle.Button,
           ...(checkState === true ? buttonStyle.DeleteButton : ''),
-        }}
-      >
+        }}>
         회원탈퇴
       </Button>
     </Container>

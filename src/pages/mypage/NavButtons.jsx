@@ -1,16 +1,15 @@
-import { Button, Grid } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Button, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function NavItem({ link, text }) {
   return (
     <Link to={link}>
       <Button
-        sx={{ fontSize: "17px", paddingY: "12px", borderRadius: "8px" }}
+        sx={{ fontSize: '17px', paddingY: '12px', borderRadius: '8px' }}
         variant="contained"
         color="primary"
         fullWidth
-        disableElevation
-      >
+        disableElevation>
         {text}
       </Button>
     </Link>

@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { BackDrop } from "components/common/BackDrop";
-import NewInput from "components/common/new-input/NewInput";
-import { Box } from "@mui/material";
-import NewBtn from "components/common/new-btn/NewBtn";
-import { PopupFrame } from "components/common/PopupFrame";
+import { useState } from 'react';
+import { BackDrop } from 'components/common/BackDrop';
+import NewInput from 'components/common/new-input/NewInput';
+import { Box } from '@mui/material';
+import NewBtn from 'components/common/new-btn/NewBtn';
+import { PopupFrame } from 'components/common/PopupFrame';
 
 export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
   const [reviewInput, setReviewInput] = useState();
-  const [helperText, setHelperText] = useState("");
+  const [helperText, setHelperText] = useState('');
   const [isValid, setIsValid] = useState(false);
 
   const handleClose = (e) => {
@@ -22,15 +22,15 @@ export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
       content: reviewInput,
     };
     await addReviewAndUpdate(newReview);
-    setReviewInput("");
+    setReviewInput('');
   };
 
   const checkValidation = (value) => {
     if (value.length < 10 || value.length > 500) {
-      setHelperText("내용은 10자 이상 500자 이하로 작성해주세요");
+      setHelperText('내용은 10자 이상 500자 이하로 작성해주세요');
       setIsValid(false);
     } else {
-      setHelperText("");
+      setHelperText('');
       setIsValid(true);
     }
     setReviewInput(value);
@@ -39,7 +39,7 @@ export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
   return (
     <BackDrop onClick={handleClose} isVisible={isOpen}>
       <PopupFrame>
-        <Box sx={{ width: "90%", margin: "0 auto", py: 5 }}>
+        <Box sx={{ width: '90%', margin: '0 auto', py: 5 }}>
           <NewInput
             type="text"
             helperText={helperText}

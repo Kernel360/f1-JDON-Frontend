@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   SwipeableDrawer,
@@ -104,7 +104,11 @@ export default function SwipJobSkill() {
         {selectedJobSkill.map((skillId) => {
           const foundSkill = jobSkills.find((skill) => skill.skillId === skillId);
           const label = foundSkill ? foundSkill.keyword : '';
-          return label !== '' && <Chip key={skillId} label={label} variant="outlined" sx={ChipStyle(true)} />;
+          return (
+            label !== '' && (
+              <Chip key={skillId} label={label} variant="outlined" sx={ChipStyle(true)} />
+            )
+          );
         })}
       </Stack>
     );
@@ -112,7 +116,10 @@ export default function SwipJobSkill() {
 
   return (
     <div>
-      <Button onClick={toggleDrawer(true)} fullWidth sx={skillsButton(selectedJobSkill.length === 3)}>
+      <Button
+        onClick={toggleDrawer(true)}
+        fullWidth
+        sx={skillsButton(selectedJobSkill.length === 3)}>
         클릭하여 선택하기
       </Button>
       <SwipeableDrawer
@@ -124,8 +131,7 @@ export default function SwipJobSkill() {
           '& .MuiDrawer-paper': {
             borderRadius: '16px 16px 0 0',
           },
-        }}
-      >
+        }}>
         <Box sx={{ width: '100%', padding: 3 }}>
           <Box sx={{ padding: '15px', borderBottom: '1px solid #F5F5F7' }}>{renderChips()}</Box>
 
@@ -140,8 +146,7 @@ export default function SwipJobSkill() {
               '@media (min-width: 960px)': {
                 height: '500px',
               },
-            }}
-          >
+            }}>
             <Tabs
               orientation="vertical"
               variant="scrollable"
@@ -153,8 +158,7 @@ export default function SwipJobSkill() {
                 borderColor: 'divider',
                 minWidth: '120px',
                 flex: '0 0 auto',
-              }}
-            >
+              }}>
               {jobCategories.map((category) => (
                 <Tab key={category.id} label={category.name} value={category.id} />
               ))}
@@ -176,8 +180,7 @@ export default function SwipJobSkill() {
               ...(selectedJobSkill.length === 3 && buttonStyle.ActiveButton),
             }}
             onClick={handleSave}
-            disabled={selectedJobSkill.length !== 3}
-          >
+            disabled={selectedJobSkill.length !== 3}>
             완료
           </Button>
         </Box>

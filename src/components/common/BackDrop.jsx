@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box } from '@mui/material';
 
 export function BackDrop({ isVisible, onClick, children }) {
   const fadeInKeyframes = {
@@ -8,22 +8,21 @@ export function BackDrop({ isVisible, onClick, children }) {
   return (
     <Box
       sx={{
-        display: isVisible ? "flex" : "none",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "fixed",
+        display: isVisible ? 'flex' : 'none',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'fixed',
         top: 0,
-        left: "50%",
+        left: '50%',
         zIndex: 5000,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        transform: "translateX(-50%)", // X축으로 -50% 이동
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        transform: 'translateX(-50%)', // X축으로 -50% 이동
         ...fadeInKeyframes.to,
-        animation: `fadeIn 0.5s ease-out forwards`,
+        animation: 'fadeIn 0.5s ease-out forwards',
       }}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {children}
     </Box>
   );

@@ -1,4 +1,4 @@
-import { jobStyle } from "../CardStyle";
+import { jobStyle } from '../CardStyle';
 
 function BadgeForJob({ jobNum, data }) {
   return (

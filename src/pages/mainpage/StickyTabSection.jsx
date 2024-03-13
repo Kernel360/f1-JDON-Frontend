@@ -43,8 +43,9 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
   };
 
   const handleConfirm = () => {
-    window.confirm(`내 맞춤 키워드는 로그인 후에 확인 하실 수 있습니다. \n 로그인페이지로 이동하시겠습니까?`) &&
-      navigate('/signin');
+    window.confirm(
+      '내 맞춤 키워드는 로그인 후에 확인 하실 수 있습니다. \n 로그인페이지로 이동하시겠습니까?',
+    ) && navigate('/signin');
   };
 
   const handleTabChange = (e, newValue) => {
@@ -99,10 +100,12 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
           left: 0,
           zIndex: 10,
           bgcolor: 'white',
-        }}
-      >
+        }}>
         <TabContext value={value}>
-          <TabList onChange={handleTabChange} sx={{ pt: 2 }} TabIndicatorProps={{ style: MainStyles.TabIndicator }}>
+          <TabList
+            onChange={handleTabChange}
+            sx={{ pt: 2 }}
+            TabIndicatorProps={{ style: MainStyles.TabIndicator }}>
             <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
             {isLoginUser ? <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} /> : ''}
           </TabList>
@@ -120,7 +123,11 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
                   label={skill.keyword}
                   clickable="true"
                   variant="outlined"
-                  sx={selectedChip.keyword === skill.keyword ? ChipStyle(selectedChip) : ChipStyle(undefined)}
+                  sx={
+                    selectedChip.keyword === skill.keyword
+                      ? ChipStyle(selectedChip)
+                      : ChipStyle(undefined)
+                  }
                 />
               ))}
             </Stack>
@@ -138,16 +145,19 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
               direction="row"
               spacing={1}
               ref={scrollRef}
-              sx={{ ...MainStyles.ChipContainer, scrollBehavior: 'smooth' }}
-            >
-              {memberSkills.map((skill, index) => (
+              sx={{ ...MainStyles.ChipContainer, scrollBehavior: 'smooth' }}>
+              {memberSkills.map((skill) => (
                 <Chip
                   key={skill.id}
                   label={skill.keyword}
                   onClick={() => handleSelectedChip(skill.keyword)}
                   clickable="true"
                   variant="outlined"
-                  sx={selectedChip.keyword === skill.keyword ? ChipStyle(selectedChip) : ChipStyle(undefined)}
+                  sx={
+                    selectedChip.keyword === skill.keyword
+                      ? ChipStyle(selectedChip)
+                      : ChipStyle(undefined)
+                  }
                 />
               ))}
             </Stack>

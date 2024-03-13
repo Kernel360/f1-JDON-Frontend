@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SearchBar from '../../components/common/search-bar/SearchBar';
 import { useSetRecoilState } from 'recoil';
 import { jdSearchValue } from '../../recoil/atoms';

@@ -34,7 +34,7 @@ export const useReviewPagination = (id) => {
       }
       setIsLoading(false);
     },
-    [id, reviewId, isLoading, lastPage]
+    [id, reviewId, isLoading, lastPage],
   );
 
   useEffect(() => {
