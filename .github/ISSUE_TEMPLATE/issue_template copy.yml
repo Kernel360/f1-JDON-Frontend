@@ -31,9 +31,7 @@ body:
       description: 상세한 작업 내용을 적어주세요
       value: '- [ ] :
 
-        - [ ] :
-
-        - [ ] : '
+        - [ ] :'
     validations:
       required: true
 
