@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 import { cardStyles } from './CoffeeChatCardStyle';
 import CardBody from './CardBody';
 import CardHeader from './CardHeader';
-import { deleteCoffeechat } from 'api/api';
+import { cancelCoffeechat } from 'api/api';
 
-function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData }) {
+function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat,refetchData }) {
   const navigate = useNavigate();
 
   const jobNum = useMemo(
@@ -22,17 +22,20 @@ function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData }) {
     navigate(`/coffee/${data.coffeeChatId}`);
   };
 
-  const hanldeDeleteCoffeeChat = async () => {
-    if (!window.confirm('정말 삭제하시겠습니까?')) return;
-    try {
-      await deleteCoffeechat(data.coffeeChatId);
-      refetchData();
-    } catch (error) {
-      const { message } = error.response.data;
-      alert(message);
-      return;
-    }
-  };
+const hanldeCancelCoffeeChat = async () => {
+  const isConfirmed = window.confirm('정말 취소하시겠습니까?');
+  if (!isConfirmed) return;
+
+  try {
+    const res = await cancelCoffeechat(data.coffeeChatId);
+    if (res) refetchData();
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || '취소 처리 중 오류가 발생했습니다.';
+    alert(errorMessage);
+  }
+};
+
+
 
   return (
     <Paper onClick={handleClick} elevation={0} sx={cardStyles(data)}>
@@ -40,7 +43,7 @@ function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData }) {
       <CardBody
         data={data}
         isMyCoffeeChat={isMyCoffeeChat}
-        hanldeDeleteCoffeeChat={hanldeDeleteCoffeeChat}
+        hanldeCancelCoffeeChat={hanldeCancelCoffeeChat}
       />
     </Paper>
   );
