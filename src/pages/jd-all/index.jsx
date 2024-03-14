@@ -1,8 +1,6 @@
 import { Container } from '@mui/material';
-import BottomNav from '../../components/common/BottomNav';
-// import JDSearchBar from './JDSearchBar';
+import BottomNav from 'components/common/BottomNav';
 import JDComponent from './JDComponent';
-// import CommonHeader from '../../components/common/Header';
 import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
 function JdAll() {
   return (
