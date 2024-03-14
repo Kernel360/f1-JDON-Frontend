@@ -101,11 +101,7 @@ export default function MyCoffeeChat() {
               <Grid Grid container spacing={{ xs: 2, md: 2 }}>
                 {coffeeDatas.map((data, index) => (
                   <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard
-                      data={data}
-                      kindOfJd={kindOfJd}
-                      isMyCoffeeChat={false}
-                    />
+                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} isMyCoffeeChat={false} />
                   </Grid>
                 ))}
               </Grid>
@@ -134,7 +130,12 @@ export default function MyCoffeeChat() {
               <Grid container spacing={{ xs: 2, md: 2 }}>
                 {coffeeDatas.map((data, index) => (
                   <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} isMyCoffeeChat={true} refetchData={refetchData}/>
+                    <CoffeeChatCard
+                      data={data}
+                      kindOfJd={kindOfJd}
+                      isMyCoffeeChat={true}
+                      refetchData={refetchData}
+                    />
                   </Grid>
                 ))}
               </Grid>

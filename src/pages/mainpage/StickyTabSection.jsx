@@ -11,7 +11,7 @@ import { useAuth } from './hooks/useAuth';
 function StickyTabSection({ selectedChip, setSelectedChip }) {
   const { isLoginUser } = useAuth();
   const scrollRef = useRef({
-    current: 'div.MuiStack-root.css-rpc19u-MuiStack-root',
+     current: 'div.MuiStack-root.css-rpc19u-MuiStack-root',
   });
   const navigate = useNavigate();
   const [value, setValue] = useState('1');

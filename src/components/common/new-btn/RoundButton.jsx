@@ -22,7 +22,7 @@ function RoundButton({ title, onClick }) {
     e.preventDefault();
     e.stopPropagation();
     onClick();
-  setIsHovered(false)
+    setIsHovered(false);
   };
   return (
     <button

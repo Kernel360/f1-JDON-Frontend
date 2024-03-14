@@ -17,7 +17,9 @@ function SignupFail() {
           height: '100vh',
         }}>
         <Typography sx={{ fontSize: '25px', fontWeight: 500, p: 4 }}>회원가입 실패</Typography>
-        <Typography sx={infoBasicStyles.typographySubtitle}>알 수 없는 오류가 발생했습니다. 처음부터 다시 시도해주세요.</Typography>
+        <Typography sx={infoBasicStyles.typographySubtitle}>
+          알 수 없는 오류가 발생했습니다. 처음부터 다시 시도해주세요.
+        </Typography>
         <Box sx={{ padding: 4 }}>
           <Close sx={{ fontSize: '40px' }} />
         </Box>

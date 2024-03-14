@@ -7,7 +7,7 @@ import { useSetErrorMsg } from './hooks/useSetErrorMsg';
 
 export function FailPage() {
   const navigate = useNavigate();
-  const { pageText } = useSetErrorMsg()
+  const { pageText } = useSetErrorMsg();
 
   return (
     <Container

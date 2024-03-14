@@ -25,10 +25,10 @@ export function Coffee() {
     sort: 'createdDate',
     jobCategory: '',
   };
-   const filterValues = JSON.parse(localStorage.getItem('filters') || '{}');
-
+  const pageNum = JSON.parse(localStorage.getItem('page'));
+  const filterValues = JSON.parse(localStorage.getItem('filters') || '{}');
   const [sortData, setSortData] = useState({ ...defaultSortData, ...filterValues });
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(pageNum || 1);
   const [kindOfJd, setKindOfJd] = useRecoilState(kindOfJdState);
 
   // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
@@ -51,7 +51,7 @@ export function Coffee() {
 
   const handlePageChange = (_, newPage) => {
     setCurrentPage(newPage);
-    localStorage.setItem('pageNum', JSON.stringify(newPage));
+    // console.log(JSON.parse(pageNum));
   };
 
   useEffect(() => {
@@ -109,31 +109,21 @@ export function Coffee() {
         )}
       </Grid>
       {coffeeData?.content?.length > 0 && (
-        <BasicPagination
-          coffeeData={coffeeData}
-          currentPage={currentPage}
-          handlePageChange={handlePageChange}
-        />
+        <Box
+          sx={{
+            width: '100%',
+            py: 3,
+          }}>
+          <Stack justifyContent="center" alignItems="center">
+            <PaginationComponent
+              pageCount={coffeeData?.pageInfo.totalPages}
+              currentPage={currentPage}
+              onChange={handlePageChange}
+            />
+          </Stack>
+        </Box>
       )}
       <BottomNav />
     </Container>
-  );
-}
-
-function BasicPagination({ coffeeData, currentPage, handlePageChange }) {
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        py: 3,
-      }}>
-      <Stack justifyContent="center" alignItems="center">
-        <PaginationComponent
-          pageCount={coffeeData?.pageInfo.totalPages}
-          currentPage={currentPage}
-          onChange={handlePageChange}
-        />
-      </Stack>
-    </Box>
   );
 }
