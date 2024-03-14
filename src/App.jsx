@@ -20,7 +20,7 @@ import RedirectPage from 'pages/sign-in/RedirectPage';
 import { JdDetail } from 'pages/jd-detail/JdDetail';
 import { FailPage } from 'pages/sign-in/FailPage';
 import JdAll from 'pages/jd-all';
-import { useAuth } from 'pages/mainpage/useAuth';
+import { useAuth } from 'pages/mainpage/hooks/useAuth';
 import NotFound from 'pages/404';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
