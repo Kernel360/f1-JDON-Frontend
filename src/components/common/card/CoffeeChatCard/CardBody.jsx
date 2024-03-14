@@ -7,7 +7,7 @@ import { formattedDate, formattedTime } from 'utils/formatDate';
 import { cardBodyStyle } from './CoffeeChatCardStyle';
 import RoundButton from 'components/common/new-btn/RoundButton';
 
-function CardBody({ data, isMyCoffeeChat, hanldeDeleteCoffeeChat }) {
+function CardBody({ data, isMyCoffeeChat, hanldeCancelCoffeeChat }) {
   const InfoValue = [
     {
       icon: CalendarMonthIcon,
@@ -42,7 +42,7 @@ function CardBody({ data, isMyCoffeeChat, hanldeDeleteCoffeeChat }) {
         </Box>
         {isMyCoffeeChat && (
           <Box marginTop={10}>
-            <RoundButton title="삭제" onClick={hanldeDeleteCoffeeChat} />
+            <RoundButton title="신청 취소" onClick={hanldeCancelCoffeeChat} />
           </Box>
         )}
       </Box>

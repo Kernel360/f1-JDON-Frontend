@@ -303,6 +303,16 @@ export async function deleteCoffeechat(id) {
     throw error;
   }
 }
+//커피챗 취소
+export async function cancelCoffeechat(id) {
+  try {
+    const res = await instance.post(`/api/v1/coffeechats/${id}/cancel`);
+    return res.data;
+  } catch (error) {
+    console.error('cancelCoffeechat API error', error);
+    throw error;
+  }
+}
 
 //커피챗 신청
 export async function applyCoffeechat(id, coffeeChatData) {
