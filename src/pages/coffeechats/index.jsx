@@ -116,7 +116,6 @@ export function Coffee() {
           }}>
           <Stack justifyContent="center" alignItems="center">
             <PaginationComponent
-              pageName="coffee"
               pageCount={coffeeData?.pageInfo.totalPages}
               currentPage={currentPage}
               onChange={handlePageChange}

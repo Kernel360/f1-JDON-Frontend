@@ -2,10 +2,10 @@ import { Container } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useEffect } from 'react';
 
-export default function PaginationComponent({ pageCount, pageName, currentPage, onChange }) {
+export default function PaginationComponent({ pageCount, currentPage, onChange }) {
   useEffect(() => {
     localStorage.setItem('page', JSON.stringify(currentPage));
-  }, [currentPage, pageName]);
+  }, [currentPage]);
 
   return (
     <Container
