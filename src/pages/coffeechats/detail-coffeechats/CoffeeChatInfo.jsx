@@ -57,7 +57,7 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
   return (
     <>
       <Typography sx={{ px: '6px', fontSize: '20px', mt: '22px', wordWrap: 'break-word',
-          whiteSpace: 'normal', }}>
+          whiteSpace: 'normal' }}>
         {coffeeChatData.title}
       </Typography>
       <Box
