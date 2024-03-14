@@ -1,10 +1,10 @@
 import { Box, Grid, Stack } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import CompanyCard from '../../components/common/card/CompanyCard';
-import { getAllJDByKeyword } from '../../api/api';
-import PaginationComponent from '../../components/common/Pagenation';
+import { useEffect, useState } from 'react';
+import CompanyCard from 'components/common/card/CompanyCard';
+import { getAllJDByKeyword } from 'api/api';
+import PaginationComponent from 'components/common/Pagenation';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { jdSearchValue } from '../../recoil/atoms';
+import { jdSearchValue } from 'recoil/atoms';
 
 function JDComponent() {
   const searchValue = useRecoilValue(jdSearchValue);
@@ -46,7 +46,11 @@ function JDComponent() {
   useEffect(() => {
     (async (currentPage) => {
       try {
-        const data = await getAllJDByKeyword(currentPage - 1, jobData.pageInfo.pageSize || 12, searchValue);
+        const data = await getAllJDByKeyword(
+          currentPage - 1,
+          jobData.pageInfo.pageSize || 12,
+          searchValue,
+        );
         setJobData(data);
       } catch (error) {
         console.error('Error fetching getJDAll:', error);
@@ -77,16 +81,14 @@ function JDComponent() {
               alignItems: 'center',
               height: '100%',
               padding: '100px 0',
-            }}
-          >
+            }}>
             <div
               style={{
                 fontSize: '16px',
                 color: '#B9B9B9',
                 fontWeight: 600,
                 textAlign: 'center',
-              }}
-            >
+              }}>
               {foundTxt}
             </div>
           </Box>

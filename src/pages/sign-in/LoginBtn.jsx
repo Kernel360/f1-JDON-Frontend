@@ -2,7 +2,7 @@ import { BtnStyle } from '../PageStyles';
 
 export function LoginBtn({ social, color, title, logo }) {
   const handleLogin = () => {
-    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/oauth2/authorization/${social}`;
+    window.location.href = `${process.env.REACT_APP_API_ENDPOINT}/oauth2/authorization/${social}`;
   };
 
   return (
@@ -15,9 +15,8 @@ export function LoginBtn({ social, color, title, logo }) {
           display: 'flex',
           alignItems: 'center',
           gap: '5px',
-        }}
-      >
-        <img src={logo} alt="kakao" />
+        }}>
+        <img src={logo} alt="kakao, github아이콘" />
         <span>{title}</span>
       </div>
     </div>

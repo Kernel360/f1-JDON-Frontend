@@ -1,59 +1,46 @@
-import { useState, useEffect } from "react";
-import { getReivew } from "api/api";
-import { useInView } from "react-intersection-observer";
+import { useState, useEffect, useCallback } from 'react';
+import { getReivew } from 'api/api';
+import { useInView } from 'react-intersection-observer';
 
 export const useReviewPagination = (id) => {
-  // const navigate = useNavigate();
-  const [page, setPage] = useState(0);
-  const [lastPage, setLastPage] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [reviewId, setReviewId] = useState('');
   const [reviewData, setReviewData] = useState([]);
+  const [isLastPage,setIsLastPage]=useState(false)
   const [ref, inView] = useInView();
-  // const isLogin = useRecoilValue(isLoggedInState).isLoginUser;
 
-  const fetchReviewData = async (reset = false) => {
-    // if (!isLogin) {
-    //   promptLogin();
-    //   return;
-    // }
-    if (reset) {
-      setPage(0);
-      setReviewData([]);
-      setLastPage(false);
-    }
-    if (isLoading || lastPage) return;
-    setIsLoading(true);
-
-    try {
-      const res = await getReivew(id, page);
-      setReviewData((prev) => [...prev, ...res.content]);
-      setPage((prev) => prev + 1);
-      if (res.content.length === 0 || res.pageInfo.last) {
-        setLastPage(true);
+  const fetchReviewData = useCallback(
+     async (reset = false) => {
+      if (reset) {
+        setReviewId('');
+        setReviewData([]);
+        setIsLastPage(false);
       }
-    } catch (e) {
-      console.log(e);
-    }
-    setIsLoading(false);
-  };
-
-  const promptLogin = () => {
-    // const confirmResult = window.confirm('리뷰는 로그인 후 조회할 수 있습니다. 로그인 하시겠습니까?');
-    // if (confirmResult) {
-    //   navigate('/signin');
-    // }
-  };
+      if(isLastPage)return
+      try {
+        const res = await getReivew(id, reviewId);
+        setReviewData((prev) => [...prev, ...res.content]||[]);
+        if (!res.pageInfo.empty) {
+          const newReviewId = res.content[res.content.length - 1].id;
+          setReviewId(newReviewId);
+        }
+        if (res.pageInfo.last) {
+        setIsLastPage(true)
+      }
+      } catch (e) {
+        console.error(e);
+      }
+    }, [id,reviewId,isLastPage]
+  )
 
   useEffect(() => {
-    if (inView && !isLoading) {
+    if (inView) {
       fetchReviewData();
     }
-  }, [inView, page, isLoading]);
+  }, [inView, reviewId, fetchReviewData]);
 
   return {
-    isLoading,
     reviewData,
     ref,
-    fetchReviewData,
+    fetchReviewData
   };
 };

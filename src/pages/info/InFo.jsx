@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -20,15 +20,26 @@ export default function Info() {
   const [data, setData] = useRecoilState(userInfo);
   const [jobCategory, setJobCategory] = useState();
   const navigate = useNavigate();
-  const  setIsLogin = useSetRecoilState(isLoggedInState);
-  
+  const setIsLogin = useSetRecoilState(isLoggedInState);
+
+  // useEffect(() => {
+  //   console.log(agree);
+  // }, [agree]);
 
   const handleChange = (value) => {
     setData((prev) => ({ ...prev, ...value }));
   };
 
   const handleNextBtn = () => {
-    if (step === 1 && !(data.nickname && data.birth && data.gender)) {
+    if (
+      step === 1 &&
+      !(
+        data.nickname &&
+        data.birth &&
+        data.gender &&
+        Object.values(agree).every((value) => value === true)
+      )
+    ) {
       alert('입력되지 않은 값이 있습니다.');
       return false;
     }
@@ -51,8 +62,7 @@ export default function Info() {
     if (step === 4) {
       const registerData = async () => {
         try {
-          const response = await registerUserInfo(data);
-          console.log('회원 정보 등록 성공:', response);
+          await registerUserInfo(data);
           // localStorage.setItem('isLoggedInState', true);
           // navigate('/');
         } catch (error) {
@@ -87,7 +97,12 @@ export default function Info() {
             <InFoBasic step={step} onChange={handleChange} agree={agree} setAgree={setAgree} />
             <NavigationButtons
               step={step}
-              isActive={data.nickname && data.birth && data.gender && agree[1] && agree[2]}
+              isActive={
+                data.nickname &&
+                data.birth &&
+                data.gender &&
+                Object.values(agree).every((value) => value === true)
+              }
               onBefore={() => setStep(step - 1)}
               onNext={handleNextBtn}
             />
@@ -96,7 +111,11 @@ export default function Info() {
       case 2:
         return (
           <>
-            <InFoJD jobCategoryId={data.jobCategoryId} jobCategory={jobCategory} onChange={handleChange} />
+            <InFoJD
+              jobCategoryId={data.jobCategoryId}
+              jobCategory={jobCategory}
+              onChange={handleChange}
+            />
             <NavigationButtons
               step={step}
               isActive={data.jobCategoryId}

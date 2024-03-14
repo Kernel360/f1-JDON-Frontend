@@ -55,6 +55,9 @@ export const MainStyles = {
     alignItems: 'center',
     padding: '20px 8px 20px 8px',
     position: 'relative',
+    flex: 1,
+    fontSize: '15px',
+    maxWidth: 'none',
   },
   IconButtonLeft: {
     opacity: 0.3,
@@ -122,6 +125,7 @@ export const URLInput = () => ({
 });
 
 export const BtnStyle = (value) => ({
+  cursor: 'pointer',
   width: '100%',
   height: '55px',
   background: value === 'github' ? 'black' : '#FFD600',

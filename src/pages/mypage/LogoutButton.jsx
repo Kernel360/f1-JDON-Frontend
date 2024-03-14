@@ -1,21 +1,21 @@
-import { logoutMember } from "api/api";
-import { useNavigate } from "react-router-dom";
+import { logoutMember } from 'api/api';
+import { useNavigate } from 'react-router-dom';
 
-const { Button } = require("@mui/material");
+const { Button } = require('@mui/material');
 
 function LogoutButton() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      const res = await logoutMember();
-      console.log(res);
+      await logoutMember();
+      // console.log(res);
 
       // if (res === 302) {
-      localStorage.setItem("isLoggedInState", false);
-      navigate("/");
+      localStorage.setItem('isLoggedInState', false);
+      navigate('/');
       // }
     } catch (error) {
-      console.error("로그아웃 에러", error);
+      console.error('로그아웃 에러', error);
     }
   };
 
@@ -27,14 +27,13 @@ function LogoutButton() {
       size="large"
       onClick={handleLogout}
       sx={{
-        width: "100%",
-        backgroundColor: "#EBEBEB",
-        fontSize: "1.05rem",
-        p: "13px",
+        width: '100%',
+        backgroundColor: '#EBEBEB',
+        fontSize: '1.05rem',
+        p: '13px',
         borderRadius: 10,
-        color: "gray",
-      }}
-    >
+        color: 'gray',
+      }}>
       로그아웃
     </Button>
   );

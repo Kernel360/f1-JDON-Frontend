@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 import {
   Box,
   SwipeableDrawer,
@@ -11,20 +11,18 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-} from "@mui/material";
-import { ChipStyle, MainStyles } from "../../../pages/PageStyles";
-import TabPanel from "./TabPanel";
-import { buttonStyle } from "../navigation-btn/NavigationBtnStyles";
-import { skillsButton } from "../../../pages/info/InfoStyles.js";
-import { getSkillsOnJD } from "../../../api/api";
-import { useRecoilState } from "recoil";
-import { jobIdState, selectedJobSkillState } from "../../../recoil/atoms";
+} from '@mui/material';
+import { ChipStyle, MainStyles } from '../../../pages/PageStyles';
+import TabPanel from './TabPanel';
+import { buttonStyle } from '../navigation-btn/NavigationBtnStyles';
+import { skillsButton } from '../../../pages/info/InfoStyles.js';
+import { getSkillsOnJD } from '../../../api/api';
+import { useRecoilState } from 'recoil';
+import { jobIdState, selectedJobSkillState } from '../../../recoil/atoms';
 
 export default function SwipJobSkill({ jobCategories }) {
   const [jobId, setJobId] = useRecoilState(jobIdState);
-  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(
-    selectedJobSkillState
-  );
+  const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(selectedJobSkillState);
   const [tabValue, setTabValue] = useRecoilState(jobIdState);
 
   const initialJobId = useRef(jobId);
@@ -45,15 +43,15 @@ export default function SwipJobSkill({ jobCategories }) {
           setJobSkills(skillsData.skillList);
         }
       } catch (error) {
-        console.error("getSkillsOnJD 오류", error);
+        console.error('getSkillsOnJD 오류', error);
       } finally {
         setLoading(false);
       }
     };
 
     // 데이터 로드가 완료되면 로컬 스토리지에 저장
-    localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
-    localStorage.setItem("tabValue", JSON.stringify(tabValue));
+    localStorage.setItem('selectedJobSkill', JSON.stringify(selectedJobSkill));
+    localStorage.setItem('tabValue', JSON.stringify(tabValue));
 
     if (jobId !== initialJobId.current) {
       setSelectedJobSkill([]);
@@ -61,15 +59,13 @@ export default function SwipJobSkill({ jobCategories }) {
       setSelectedJobSkill(initialSelectedJobSkill.current);
     }
     fetchSkills();
-  }, [jobId]);
+  }, [jobId, selectedJobSkill, setSelectedJobSkill, tabValue]);
 
   useEffect(() => {
     // 데이터 로드가 완료되면 로컬 스토리지에 저장
-    localStorage.setItem("selectedJobSkill", JSON.stringify(selectedJobSkill));
-    localStorage.setItem("tabValue", JSON.stringify(tabValue));
-
-    console.log("selectedJobSkill", selectedJobSkill);
-  }, [loading]);
+    localStorage.setItem('selectedJobSkill', JSON.stringify(selectedJobSkill));
+    localStorage.setItem('tabValue', JSON.stringify(tabValue));
+  }, [loading, selectedJobSkill, tabValue]);
 
   const handleChangeTab = (_, newValue) => {
     setTabValue(newValue);
@@ -99,7 +95,7 @@ export default function SwipJobSkill({ jobCategories }) {
       setSelectedJobSkill(selectedJobSkill);
       toggleDrawer(false)();
     } else {
-      alert("스킬 3개를 선택 해주세요.");
+      alert('스킬 3개를 선택 해주세요.');
     }
   };
 
@@ -113,9 +109,7 @@ export default function SwipJobSkill({ jobCategories }) {
               control={
                 <Checkbox
                   checked={selectedJobSkill.includes(item.skillId)}
-                  onChange={(event) =>
-                    handleCheckboxChange(item.skillId, event)
-                  }
+                  onChange={(event) => handleCheckboxChange(item.skillId, event)}
                 />
               }
               label={item.keyword}
@@ -131,22 +125,14 @@ export default function SwipJobSkill({ jobCategories }) {
       <Stack
         direction="row"
         spacing={0.8}
-        sx={{ ...MainStyles.ChipContainer, padding: "10px 16px" }}
-      >
+        sx={{ ...MainStyles.ChipContainer, padding: '10px 16px' }}>
         {Array.isArray(selectedJobSkill) &&
           selectedJobSkill.map((skillId) => {
-            const foundSkill = jobSkills.find(
-              (skill) => skill.skillId === skillId
-            );
-            const label = foundSkill ? foundSkill.keyword : "";
+            const foundSkill = jobSkills.find((skill) => skill.skillId === skillId);
+            const label = foundSkill ? foundSkill.keyword : '';
             return (
-              label !== "" && (
-                <Chip
-                  key={skillId}
-                  label={label}
-                  variant={"filled"}
-                  sx={ChipStyle(true)}
-                />
+              label !== '' && (
+                <Chip key={skillId} label={label} variant={'filled'} sx={ChipStyle(true)} />
               )
             );
           })}
@@ -163,8 +149,7 @@ export default function SwipJobSkill({ jobCategories }) {
       <Button
         onClick={toggleDrawer(true)}
         fullWidth
-        sx={skillsButton(selectedJobSkill.length === 3)}
-      >
+        sx={skillsButton(selectedJobSkill.length === 3)}>
         클릭하여 선택하기
       </Button>
       <SwipeableDrawer
@@ -173,29 +158,25 @@ export default function SwipJobSkill({ jobCategories }) {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
         sx={{
-          "& .MuiDrawer-paper": {
-            borderRadius: "16px 16px 0 0",
+          '& .MuiDrawer-paper': {
+            borderRadius: '16px 16px 0 0',
           },
-        }}
-      >
-        <Box sx={{ width: "100%", padding: 3 }}>
-          <Box sx={{ padding: "15px", borderBottom: "1px solid #F5F5F7" }}>
-            {renderChips()}
-          </Box>
+        }}>
+        <Box sx={{ width: '100%', padding: 3 }}>
+          <Box sx={{ padding: '15px', borderBottom: '1px solid #F5F5F7' }}>{renderChips()}</Box>
 
           <Box
             sx={{
               flexGrow: 1,
-              bgcolor: "background.paper",
-              display: "flex",
-              "@media (min-width: 300px)": {
-                height: "450px",
+              bgcolor: 'background.paper',
+              display: 'flex',
+              '@media (min-width: 300px)': {
+                height: '450px',
               },
-              "@media (min-width: 960px)": {
-                height: "500px",
+              '@media (min-width: 960px)': {
+                height: '500px',
               },
-            }}
-          >
+            }}>
             <Tabs
               orientation="vertical"
               variant="scrollable"
@@ -204,17 +185,12 @@ export default function SwipJobSkill({ jobCategories }) {
               aria-label="Vertical tabs example"
               sx={{
                 borderRight: 1,
-                borderColor: "divider",
-                minWidth: "120px",
-                flex: "0 0 auto",
-              }}
-            >
+                borderColor: 'divider',
+                minWidth: '120px',
+                flex: '0 0 auto',
+              }}>
               {jobCategories.map((category) => (
-                <Tab
-                  key={category.id}
-                  label={category.name}
-                  value={category.id}
-                />
+                <Tab key={category.id} label={category.name} value={category.id} />
               ))}
             </Tabs>
             {jobCategories.map((category) => (
@@ -225,7 +201,7 @@ export default function SwipJobSkill({ jobCategories }) {
           </Box>
         </Box>
 
-        <Box sx={{ padding: "20px" }}>
+        <Box sx={{ padding: '20px' }}>
           <Button
             fullWidth
             mt={1}
@@ -234,8 +210,7 @@ export default function SwipJobSkill({ jobCategories }) {
               ...(selectedJobSkill.length === 3 && buttonStyle.ActiveButton),
             }}
             onClick={handleSave}
-            disabled={selectedJobSkill.length !== 3}
-          >
+            disabled={selectedJobSkill.length !== 3}>
             완료
           </Button>
         </Box>

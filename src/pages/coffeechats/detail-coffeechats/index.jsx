@@ -1,15 +1,16 @@
-import { Container, CssBaseline } from "@mui/material";
-import Header from "components/common/Header";
-import CoffeeChatInfo from "./CoffeeChatInfo";
-import { useEffect, useState } from "react";
-import { getCoffeeChatDetail } from "api/api";
-import { useParams } from "react-router-dom";
-import HostInfoWithViewcount from "./HostInfoWithViewcount";
-import CoffeeDetailButtons from "./CoffeeDetailButtons";
-import { BeatLoader } from "react-spinners";
-import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "recoil/atoms";
-import { COFFEE_CHILD } from "constants/headerProps";
+import { Container, CssBaseline } from '@mui/material';
+import Header from 'components/common/Header';
+import CoffeeChatInfo from './CoffeeChatInfo';
+import { useEffect, useState } from 'react';
+import { getCoffeeChatDetail } from 'api/api';
+import { useParams } from 'react-router-dom';
+import HostInfoWithViewcount from './HostInfoWithViewcount';
+import CoffeeDetailButtons from './CoffeeDetailButtons';
+import { BeatLoader } from 'react-spinners';
+import { useRecoilValue } from 'recoil';
+import { isLoggedInState } from 'recoil/atoms';
+import { COFFEE_CHILD } from 'constants/headerProps';
+//import useFilterPersistence from "../useFilterPersistence";
 
 function CoffeeDetail() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function CoffeeDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const loginState = useRecoilValue(isLoggedInState);
   const [isParticipant, setIsParticipant] = useState(false);
-  
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -26,7 +27,7 @@ function CoffeeDetail() {
         setCoffeeChatData(res);
         setIsParticipant(res.isParticipant);
       } catch (error) {
-        console.error("Error fetching getCoffeeChatDetail:", error);
+        console.error('Error fetching getCoffeeChatDetail:', error);
       } finally {
         setIsLoading(false);
       }
@@ -37,14 +38,13 @@ function CoffeeDetail() {
     return (
       <div
         style={{
-          position: "fixed",
+          position: 'fixed',
           inset: 0,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          background: "rgba(255, 255, 255, 0.6)",
-        }}
-      >
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          background: 'rgba(255, 255, 255, 0.6)',
+        }}>
         <BeatLoader />
       </div>
     );
@@ -58,14 +58,11 @@ function CoffeeDetail() {
   return (
     <Container maxWidth="md">
       <CssBaseline />
-      <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url}/>
+      <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url} />
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
       <CoffeeChatInfo
         coffeeChatData={coffeeChatData}
-        canView={
-          coffeeChatData.hostId === loginState.memberId ||
-          coffeeChatData.isParticipant
-        }
+        canView={coffeeChatData.hostId === loginState.memberId || coffeeChatData.isParticipant}
         isParticipant={isParticipant}
       />
 

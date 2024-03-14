@@ -1,19 +1,17 @@
-import React from "react";
-import { Container, TextField, InputAdornment } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { SearchTextFiled } from "./SearchBarStyles";
+import { Container, TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { SearchTextFiled } from './SearchBarStyles';
 
 function SearchBar({ keyword, onChange, onKeyDown }) {
   return (
     <Container
       maxWidth="md"
       sx={{
-        padding: "0 !important",
-        "& .MuiInputBase-input": {
-          padding: "12px",
+        padding: '0 !important',
+        '& .MuiInputBase-input': {
+          padding: '12px',
         },
-      }}
-    >
+      }}>
       <TextField
         fullWidth
         value={keyword}
@@ -21,7 +19,7 @@ function SearchBar({ keyword, onChange, onKeyDown }) {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon sx={{ color: "#BCBCC4" }} />
+              <SearchIcon sx={{ color: '#BCBCC4' }} />
             </InputAdornment>
           ),
         }}

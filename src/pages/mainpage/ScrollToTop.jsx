@@ -14,7 +14,8 @@ function ScrollToTop({ topRef }) {
     }, 300);
   };
   const toggleVisibility = () => {
-    const shouldBeVisible = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 500;
+    const shouldBeVisible =
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 500;
     setIsSlideUp(shouldBeVisible);
     if (shouldBeVisible) {
       setShowButton(true);
@@ -36,8 +37,7 @@ function ScrollToTop({ topRef }) {
           right: 16,
           bottom: 100,
           zIndex: 1000,
-        }}
-      >
+        }}>
         <button
           onClick={scrollToTop}
           style={{
@@ -50,8 +50,7 @@ function ScrollToTop({ topRef }) {
             background: 'white',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
             animation: `${isSlideUp ? 'slideUp' : 'slideDown'} 0.3s ease-out forwards`,
-          }}
-        >
+          }}>
           <img src={topIcon} alt="위로가기" />
         </button>
       </Box>
