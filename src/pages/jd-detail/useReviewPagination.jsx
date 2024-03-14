@@ -5,32 +5,33 @@ import { useInView } from 'react-intersection-observer';
 export const useReviewPagination = (id) => {
   const [reviewId, setReviewId] = useState('');
   const [reviewData, setReviewData] = useState([]);
-  const [isLastPage,setIsLastPage]=useState(false)
+  const [isLastPage, setIsLastPage] = useState(false);
   const [ref, inView] = useInView();
 
   const fetchReviewData = useCallback(
-     async (reset = false) => {
+    async (reset = false) => {
       if (reset) {
         setReviewId('');
         setReviewData([]);
         setIsLastPage(false);
       }
-      if(isLastPage)return
+      if (isLastPage) return;
       try {
         const res = await getReivew(id, reviewId);
-        setReviewData((prev) => [...prev, ...res.content]||[]);
+        setReviewData((prev) => [...prev, ...res.content] || []);
         if (!res.pageInfo.empty) {
           const newReviewId = res.content[res.content.length - 1].id;
           setReviewId(newReviewId);
         }
         if (res.pageInfo.last) {
-        setIsLastPage(true)
-      }
+          setIsLastPage(true);
+        }
       } catch (e) {
         console.error(e);
       }
-    }, [id,reviewId,isLastPage]
-  )
+    },
+    [id, reviewId, isLastPage],
+  );
 
   useEffect(() => {
     if (inView) {
@@ -41,6 +42,6 @@ export const useReviewPagination = (id) => {
   return {
     reviewData,
     ref,
-    fetchReviewData
+    fetchReviewData,
   };
 };

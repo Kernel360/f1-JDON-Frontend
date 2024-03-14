@@ -4,9 +4,7 @@ import SignIn from 'pages/sign-in/SignIn';
 import Info from 'pages/info/InFo';
 import { Layout } from 'components/layout/Layout';
 import { ThemeProvider } from '@mui/material/styles';
-
 import { theme } from 'styles/themeMuiStyle';
-
 import SignupFail from 'pages/info/SignupFail';
 import MyCoffeeChat from 'pages/mypage/MyCoffeeChat';
 import FavoritesVideo from 'pages/mypage/FavoritesVideo';

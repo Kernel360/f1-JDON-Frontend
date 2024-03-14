@@ -4,7 +4,6 @@ import { buttonStyles } from '../ButtonStyle';
 import { JobBadge } from '../components/badge/JobBadge';
 
 function HostInfoWithViewcount({ coffeeChatData }) {
-
   return (
     <Box sx={buttonStyles.UpTitle}>
       <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>

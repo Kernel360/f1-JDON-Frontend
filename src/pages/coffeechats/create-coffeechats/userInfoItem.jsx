@@ -10,8 +10,7 @@ function infoItem({ title, content }) {
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
-      }}
-    >
+      }}>
       {`${title} : ${content}`}
     </Box>
   );

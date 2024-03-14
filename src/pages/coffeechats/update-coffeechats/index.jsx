@@ -46,7 +46,7 @@ function UpdateCoffeeForm() {
     e.preventDefault();
     try {
       await updateCoffeechat(id, formValue);
-      alert('커피챗이 수정되었습니다.')
+      alert('커피챗이 수정되었습니다.');
       navigate(`/coffee/${id}`);
     } catch (error) {
       const { message } = error.response.data;

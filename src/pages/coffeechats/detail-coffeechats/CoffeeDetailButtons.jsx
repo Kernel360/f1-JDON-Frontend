@@ -93,14 +93,13 @@ function CoffeeDetailButtons({ id, host, coffeeChatData, isParticipant, setIsPar
   return (
     <Box sx={buttonStyles.Container}>
       <Box
-        container
         sx={{
           width: '100%',
           display: 'flex',
           justifyContent: 'space-between',
           gap: '20px',
         }}>
-        <Grid item xs={8} sm={8} fullwidth sx={{ display: 'flex', gap: '12px', flexGrow: 1 }}>
+        <Grid item xs={8} sm={8} sx={{ display: 'flex', gap: '12px', flexGrow: 1 }}>
           {host ? (
             <>
               <NewBtn
@@ -132,7 +131,7 @@ function CoffeeDetailButtons({ id, host, coffeeChatData, isParticipant, setIsPar
             />
           )}
         </Grid>
-        <Box item>
+        <Box>
           <Button sx={buttonStyles.ShareButton} onClick={copyUrlToClipboard}>
             <ShareIcon sx={{ color: theme.palette.primary.main }} />
           </Button>

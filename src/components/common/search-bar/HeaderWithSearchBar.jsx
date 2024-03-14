@@ -23,7 +23,11 @@ function HeaderWithSearchBar({ setSelectedChip, isSearchBarTrue = true }) {
   return (
     <>
       <img src={logo} alt="logo" width={80} style={{ height: 50, marginTop: 10 }} />
-      {isSearchBarTrue ? <SearchBar keyword={search} onChange={handleSearchChange} onKeyDown={handleKeyDown} /> : ''}
+      {isSearchBarTrue ? (
+        <SearchBar keyword={search} onChange={handleSearchChange} onKeyDown={handleKeyDown} />
+      ) : (
+        ''
+      )}
     </>
   );
 }
