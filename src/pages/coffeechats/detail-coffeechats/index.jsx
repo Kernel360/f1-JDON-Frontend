@@ -50,11 +50,6 @@ function CoffeeDetail() {
     );
   }
 
-  // if (!coffeeChatData) {
-  //   return <div>존재하지 않는 커피챗입니다</div>;
-  // 이건 에러번호로 하기
-  // }
-
   return (
     <Container maxWidth="md">
       <CssBaseline />

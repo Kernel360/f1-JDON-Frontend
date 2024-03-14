@@ -21,14 +21,13 @@ export function Coffee() {
       empty: true,
     },
   });
-  // const hasFilterValue = JSON.parse(localStorage.getItem("filters"));
   const defaultSortData = {
-    sorting: 'createdDate',
+    sort: 'createdDate',
     jobCategory: '',
   };
-  const filterValues = JSON.parse(localStorage.getItem('filters'));
+   const filterValues = JSON.parse(localStorage.getItem('filters') || '{}');
 
-  const [sortData, setSortData] = useState(defaultSortData);
+  const [sortData, setSortData] = useState({ ...defaultSortData, ...filterValues });
   const [currentPage, setCurrentPage] = useState(1);
   const [kindOfJd, setKindOfJd] = useRecoilState(kindOfJdState);
 
@@ -44,17 +43,11 @@ export function Coffee() {
   };
 
   useEffect(() => {
-    if (filterValues) {
-      setSortData((prev) => ({ ...prev, ...filterValues }));
-    }
     const timer = setTimeout(() => {
       setFoundTxt('커피챗 정보가 없습니다.');
     }, 1500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [filterValues]);
-  // --------------------------------
+    return () => clearTimeout(timer);
+  }, []);
 
   const handlePageChange = (_, newPage) => {
     setCurrentPage(newPage);
@@ -67,7 +60,7 @@ export function Coffee() {
         const data = await getCoffeeChat(
           currentPage - 1,
           coffeeData.pageInfo.pageSize || 12,
-          sortData.sorting,
+          sortData.sort,
           sortData.jobCategory,
         );
         setCoffeeData(data.data.data);
@@ -75,7 +68,7 @@ export function Coffee() {
         console.error('Error fetching getCoffeeChat:', error);
       }
     })(currentPage);
-  }, [sortData.sorting, sortData.jobCategory, currentPage, coffeeData.pageInfo.pageSize]);
+  }, [sortData.sort, sortData.jobCategory, currentPage, coffeeData.pageInfo.pageSize]);
 
   useEffect(() => {
     (async () => {

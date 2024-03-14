@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import eyeIcon from 'assets/icons/eye.svg';
 import { buttonStyles } from '../ButtonStyle';
-import { JobBadge } from '../badge/JobBadge';
+import { JobBadge } from '../components/badge/JobBadge';
 
 function HostInfoWithViewcount({ coffeeChatData }) {
 
