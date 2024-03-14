@@ -22,7 +22,7 @@ function Withdrawal() {
       } else {
         const logoutPromise = logoutMember();
         const deletePromise = deleteMember();
-        await Promise.all([logoutPromise, deletePromise]);
+        await Promise.all([deletePromise, logoutPromise]);
 
         // console.log(`${res || null}회원탈퇴합니다`);
 
