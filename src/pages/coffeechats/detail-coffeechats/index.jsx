@@ -6,11 +6,11 @@ import { getCoffeeChatDetail } from 'api/api';
 import { useParams } from 'react-router-dom';
 import HostInfoWithViewcount from './HostInfoWithViewcount';
 import CoffeeDetailButtons from './CoffeeDetailButtons';
-import { BeatLoader } from 'react-spinners';
+
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
 import { COFFEE_CHILD } from 'constants/headerProps';
-//import useFilterPersistence from "../useFilterPersistence";
+import Loading from 'components/common/Loading';
 
 function CoffeeDetail() {
   const { id } = useParams();
@@ -35,19 +35,7 @@ function CoffeeDetail() {
   }, [id]);
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          background: 'rgba(255, 255, 255, 0.6)',
-        }}>
-        <BeatLoader />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

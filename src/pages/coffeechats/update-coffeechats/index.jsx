@@ -10,10 +10,13 @@ import NewBtn from 'components/common/new-btn/NewBtn';
 import { useForm } from '../hooks/useForm';
 import { formatDateTime } from '../dateUtils';
 import { COFFEE_CHILD_ID } from 'constants/headerProps';
+import { useRecoilValue } from 'recoil';
+import { isLoggedInState } from 'recoil/atoms';
 
 function UpdateCoffeeForm() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const loginState = useRecoilValue(isLoggedInState);
   const { formValue, setFormValue, helperTexts, isFormValid, updateFormValue } = useForm({
     title: '',
     content: '',
@@ -33,6 +36,10 @@ function UpdateCoffeeForm() {
           meetDate: res.meetDate || '',
           openChatUrl: res.openChatUrl || '',
         });
+        if (res.hostId !== loginState.memberId) {
+          alert('본인이 작성하지 않은 커피챗의 상태를 변경할 수 없습니다.');
+          navigate('/coffee');
+        }
       } catch (error) {
         if (error.response.status) {
           navigate('/404');
@@ -40,6 +47,7 @@ function UpdateCoffeeForm() {
         console.error('Error fetching coffee chat detail:', error);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, navigate, setFormValue]);
 
   const hanldeRegister = async (e) => {
