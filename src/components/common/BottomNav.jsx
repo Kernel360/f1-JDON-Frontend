@@ -21,7 +21,7 @@ export default function BottomNav() {
       case location.pathname === '/':
         setValue(0);
         break;
-      case location.pathname === '/jd':
+      case location.pathname === '/jds':
         setValue(1);
         break;
       case location.pathname === '/coffee':
@@ -47,7 +47,7 @@ export default function BottomNav() {
         navigate('/');
         break;
       case 1:
-        navigate('/jd');
+        navigate('/jds');
         break;
       case 2:
         navigate('/coffee');
