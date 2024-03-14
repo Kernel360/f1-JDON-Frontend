@@ -20,7 +20,7 @@ export const COFFEE_MYPAGE_CHILD = {
 // JD 상세 페이지
 export const JD_CHILD = {
   title: '목록으로',
-  url: '/jd',
+  url: '/jds',
 };
 
 // 마이페이지 (찜, 커피챗, 정보수정)

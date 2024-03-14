@@ -5,7 +5,7 @@ import { TabForInfo } from './TabForInfo';
 import { TabForReview } from './TabForReview';
 import { MainStyles } from '../PageStyles';
 import { getJdDetail } from 'api/api';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
 
@@ -27,7 +27,7 @@ function TabPanelItem({ children, value }) {
 
 export function CategoryTab() {
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
   const [value, setValue] = useState('1');
   const [jdData, setJdData] = useState({});
   const [reviewNum, setReviewNum] = useState(0);
@@ -38,8 +38,10 @@ export function CategoryTab() {
 
   const handleTabChange = (e, newValue) => {
     if (isLogin === false && newValue === '2') {
-      window.confirm('리뷰는 로그인 후 조회할 수 있습니다. \n로그인 하시겠습니까?') &&
+      if (window.confirm('리뷰는 로그인 후 조회할 수 있습니다. \n로그인 하시겠습니까?')) {
+        localStorage.setItem('pathname', pathname);
         navigate('/signin');
+      }
     } else {
       setValue(newValue);
     }

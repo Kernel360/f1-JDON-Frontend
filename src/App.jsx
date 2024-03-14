@@ -50,13 +50,19 @@ function App() {
     { path: '/coffee/:id', element: <CoffeeDetail /> },
     { path: 'edit-coffee/:id', element: <UpdateCoffeeForm /> },
     { path: '/oauth/info', element: <RedirectPage /> },
+
+    // 로그인 리다이렉트 페이지 5가지
     { path: '/oauth/login/success', element: <RedirectPage /> },
-    { path: '/oauth/login/fail/not-found-email', element: <FailPage /> },
+    { path: '/oauth/login/fail/not-found-email', element: <FailPage /> }, // 소셜 이메일을 찾을 수 없을 때
+    { path: '/oauth/login/fail/another-withdraw-account', element: <FailPage /> }, // 다른 소셜 로그인으로 탈퇴한 내역이 존재
+    { path: '/oauth/login/fail/already-withdraw-account', element: <FailPage /> },
     {
-      path: '/oauth/login/fail//not-match-provider',
+      path: '/oauth/login/fail/not-match-provider',
       element: <FailPage />,
     },
-    { path: '/jd', element: <JdAll /> },
+
+    //
+    { path: '/jds', element: <JdAll /> },
     { path: '/jds/:id', element: <JdDetail /> },
     { path: '/fail', element: <SignupFail /> },
     { path: '/*', element: <NotFound /> },

@@ -12,24 +12,29 @@ export function useLoadData() {
 
   const loadData = useCallback(
     async (keyword, userSelected) => {
-      const res = await fetchLectureData(encodeURIComponent(keyword));
-      setLectureList(res.lectureList);
-      setJdList(res.jdList);
+      try {
+        const res = await fetchLectureData(encodeURIComponent(keyword));
+        setLectureList(res.lectureList);
+        setJdList(res.jdList);
 
-      if (isInitialLoad) {
-        setSelectedChip({ keyword: res.keyword, userSelected });
-        setIsInitialLoad(false);
+        if (isInitialLoad) {
+          setSelectedChip({ keyword: res.keyword, userSelected });
+          setIsInitialLoad(false);
+        }
+      } catch (error) {
+        console.error('Error while fetching data:', error);
+        setIsInitialLoad(true);
       }
     },
     [isInitialLoad],
   );
 
   useEffect(() => {
-    isInitialLoad && loadData('', false);
-    if (selectedChip.userSelected && selectedChip.keyword) {
-      loadData(selectedChip.keyword, true);
-    } else if (!selectedChip.keyword) {
-      setIsInitialLoad(true);
+    if (isInitialLoad) loadData('', false);
+    else {
+      if (selectedChip.userSelected && selectedChip.keyword) {
+        loadData(selectedChip.keyword, true);
+      }
     }
   }, [isInitialLoad, selectedChip, loadData]);
 

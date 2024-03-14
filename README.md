@@ -1,5 +1,5 @@
 # JDON💡
-### "Job Description을 기반으로 직무 분석과 해당 직무 학습에 도움을 주는 서비스입니다"
+### 개발자 직군별로 최근 채용공고에 많이 언급된 채용 공고와 강의 영상을 추천해주는 플랫폼입니다.
 </br>
 
 <img width="647" alt="image" src="https://github.com/Kernel360/f1-JDON-Frontend/assets/103630185/ad371135-d8e5-4493-98f8-588be36fdde1">
@@ -32,7 +32,7 @@
 | **이지원** | **정종미** | **박준규** |
 | :------: |  :------: |  :------: |
 |[<img height=150 width=150 alt="image" src="https://github.com/Kernel360/f1-JDON-Frontend/assets/103630185/a93e8ce8-b0e4-4f80-95a6-1abe56f41030"> <br/> @Wlfjd](https://github.com/Wlfjd) | [<img src="https://github.com/Kernel360/f1-JDON-Frontend/assets/116716381/a735504b-6061-4db9-9c44-997c9a257e7a" height=150 width=150> <br/> @jjo-mi](https://github.com/jjo-mi) | [<img src="https://avatars.githubusercontent.com/u/122848687?v=4" height=150 width=150> <br/> @junkue20](https://github.com/junkue20) |
-| 전반적인 페이지 디자인 및 퍼블리싱, 회원가입 폼 구현 , api 연동 | 마이페이지 퍼블리싱 및 공통컴포넌트 분리, 회원정보 수정 폼 구현, api 연동 | JD키워드 전체목록 페이지 퍼블리싱, api 연동 및 전반적인 코드 리팩토링  |
+| 전반적인 페이지 디자인 및 퍼블리싱, 회원가입 폼 구현 , api 연동 | 마이페이지 퍼블리싱 및 공통컴포넌트 분리, 회원정보 수정 폼 구현, api 연동 | CICD환경 구축 및 배포, JD키워드 전체목록 페이지 퍼블리싱, api 연동 및 전반적인 코드 리팩토링  |
 
 
 </br>
