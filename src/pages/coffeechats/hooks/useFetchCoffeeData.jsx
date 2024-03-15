@@ -29,7 +29,6 @@ const useFetchCoffeeData = (currentPage, sortData, 검색어) => {
   };
 
   useEffect(() => {
-    console.log(검색어);
     fetchCoffeeData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, sortData, 검색어]);
