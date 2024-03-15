@@ -3,7 +3,7 @@ import { getCoffeeChat } from 'api/api';
 import { useRecoilState } from 'recoil';
 import { coffeeChatListState } from 'recoil/atoms';
 
-const useFetchCoffeeData = (currentPage, sortData, searchKeyword) => {
+const useFetchCoffeeData = (currentPage, sortData, 검색어) => {
   const [coffeeData, setCoffeeData] = useRecoilState(coffeeChatListState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ const useFetchCoffeeData = (currentPage, sortData, searchKeyword) => {
         sortData.pageSize || 12,
         sortData.sort,
         sortData.jobCategory,
-        searchKeyword,
+        검색어,
       );
       setCoffeeData(data.data.data);
       setError(null);
@@ -31,7 +31,7 @@ const useFetchCoffeeData = (currentPage, sortData, searchKeyword) => {
   useEffect(() => {
     fetchCoffeeData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, sortData, searchKeyword]);
+  }, [currentPage, sortData, 검색어]);
 
   return { coffeeData, loading, error };
 };

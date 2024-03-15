@@ -19,7 +19,8 @@ export function Coffee() {
   const filterValues = JSON.parse(localStorage.getItem('filters') || '{}');
   const [sortData, setSortData] = useState({ ...defaultSortData, ...filterValues });
   const [currentPage, setCurrentPage] = useState(pageNum || 1);
-  const [검색어, set검색어] = useState('');
+  const prevKeyword = JSON.parse(localStorage.getItem('keyword'));
+  const [검색어, set검색어] = useState(prevKeyword || '');
   // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
   const [foundTxt, setFoundTxt] = useState('커피챗 정보 불러오는 중..');
   const { coffeeData } = useFetchCoffeeData(currentPage, sortData, 검색어);
