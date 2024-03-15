@@ -49,7 +49,6 @@ export default function InfoEdit() {
     }
   }, [oldNickname, nickname]);
 
-  //회원 정보 가져오기
   useEffect(() => {
     (async () => {
       try {
@@ -158,7 +157,8 @@ export default function InfoEdit() {
       alert('정보 수정을 성공하였습니다.');
       navigate('/mypage');
     } catch (error) {
-      console.error('회원 정보 업데이트 에러', error);
+      const { message } = error.response.data;
+      alert(message);
     }
   };
 
