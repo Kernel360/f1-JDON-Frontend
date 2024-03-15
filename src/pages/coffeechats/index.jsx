@@ -4,7 +4,6 @@ import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
 import { useEffect, useState } from 'react';
 import { getCoffeeChat, getJobCategory } from 'api/api';
 import PaginationComponent from 'components/common/Pagenation';
-// import CoffeeBanner from './CoffeeBanner';
 import { useRecoilState } from 'recoil';
 import { kindOfJdState } from 'recoil/atoms';
 import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
@@ -51,7 +50,6 @@ export function Coffee() {
 
   const handlePageChange = (_, newPage) => {
     setCurrentPage(newPage);
-    // console.log(JSON.parse(pageNum));
   };
 
   useEffect(() => {
@@ -84,7 +82,7 @@ export function Coffee() {
 
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>
-      <HeaderWithSearchBar isSearchBarTrue={false} />
+      <HeaderWithSearchBar isSearchBarTrue={true} searchOptions={['제목']} />
       <FiltersAndButton sortData={sortData} onChange={handleChange} kindOfJd={kindOfJd} />
       <Grid container spacing={{ xs: 2, md: 2 }}>
         {coffeeData?.content?.length > 0 ? (

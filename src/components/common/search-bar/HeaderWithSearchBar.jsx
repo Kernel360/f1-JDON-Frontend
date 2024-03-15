@@ -2,7 +2,7 @@ import SearchBar from 'components/common/search-bar/SearchBar';
 import logo from 'assets/images/logo.svg';
 import { useState } from 'react';
 
-function HeaderWithSearchBar({ setSelectedChip, isSearchBarTrue = true }) {
+function HeaderWithSearchBar({ setSelectedChip, isSearchBarTrue = true, searchOptions }) {
   const [search, setSearch] = useState('');
 
   const handleKeyDown = (e) => {
@@ -24,7 +24,12 @@ function HeaderWithSearchBar({ setSelectedChip, isSearchBarTrue = true }) {
     <>
       <img src={logo} alt="logo" width={80} style={{ height: 50, marginTop: 10 }} />
       {isSearchBarTrue ? (
-        <SearchBar keyword={search} onChange={handleSearchChange} onKeyDown={handleKeyDown} />
+        <SearchBar
+          keyword={search}
+          onChange={handleSearchChange}
+          searchOptions={searchOptions}
+          onKeyDown={handleKeyDown}
+        />
       ) : (
         ''
       )}
