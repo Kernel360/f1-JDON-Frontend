@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
-import { Filters } from './components/filters';
+import { Filters } from '../components/Filters';
 
 function FiltersAndButton({ sortData, kindOfJd, onChange }) {
   const navigate = useNavigate();

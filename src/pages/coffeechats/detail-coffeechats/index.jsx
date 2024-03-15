@@ -9,7 +9,7 @@ import CoffeeDetailButtons from './CoffeeDetailButtons';
 
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
-import { COFFEE_CHILD } from 'constants/headerProps';
+import { COFFEE_CHILD, COFFEE_MYPAGE_CHILD } from 'constants/headerProps';
 import Loading from 'components/common/Loading';
 
 function CoffeeDetail() {
@@ -18,6 +18,14 @@ function CoffeeDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const loginState = useRecoilValue(isLoggedInState);
   const [isParticipant, setIsParticipant] = useState(false);
+
+  const backPath = localStorage.getItem('back_path');
+
+  useEffect(() => {
+    return () => {
+      // localStorage.removeItem('back_path');
+    }
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -37,11 +45,13 @@ function CoffeeDetail() {
   if (isLoading) {
     return <Loading />;
   }
-
   return (
     <Container maxWidth="md">
       <CssBaseline />
-      <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url} />
+      {backPath === '/mypage/coffee'
+        ? <Header title={COFFEE_MYPAGE_CHILD.title} url={COFFEE_MYPAGE_CHILD.url} />
+        : <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url} />
+      }
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
       <CoffeeChatInfo
         coffeeChatData={coffeeChatData}

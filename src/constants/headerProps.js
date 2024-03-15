@@ -14,7 +14,7 @@ export const COFFEE_CHILD_ID = {
 };
 // 커피챗 - 마이페이지에서 타고 들어갈 시 다시 마이페이지로 오도록. (아직 적용 안됨.)
 export const COFFEE_MYPAGE_CHILD = {
-  title: '내 커피챗',
+  title: '마이페이지 / 내 커피챗',
   url: '/mypage/coffee',
 };
 // JD 상세 페이지

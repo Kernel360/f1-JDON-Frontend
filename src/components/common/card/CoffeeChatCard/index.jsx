@@ -6,7 +6,7 @@ import CardBody from './CardBody';
 import CardHeader from './CardHeader';
 import { cancelCoffeechat } from 'api/api';
 
-function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData }) {
+function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData, pathName }) {
   const navigate = useNavigate();
 
   const jobNum = useMemo(
@@ -20,6 +20,7 @@ function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData }) {
       return;
     }
     navigate(`/coffee/${data.coffeeChatId}`);
+    if (pathName !== undefined) localStorage.setItem('back_path', pathName);
   };
 
   const hanldeCancelCoffeeChat = async () => {
