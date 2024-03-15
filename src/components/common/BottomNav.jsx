@@ -42,6 +42,7 @@ export default function BottomNav() {
     setValue(newValue);
     localStorage.removeItem('filters');
     localStorage.removeItem('page');
+    localStorage.removeItem('keyword');
     switch (newValue) {
       case 0:
         navigate('/');

@@ -248,10 +248,10 @@ export const getSignCoffeeChat = async (page) => {
 };
 
 //커피챗 목록 조회
-export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
+export const getCoffeeChat = async (page, size, sorting, jobCategory, searchKeyword) => {
   try {
     const res = await instance.get(
-      `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`,
+      `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&keyword=${searchKeyword}&jobCategory=${jobCategory}`,
     );
     return res;
   } catch (error) {

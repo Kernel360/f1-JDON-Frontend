@@ -16,7 +16,7 @@ export function Main() {
   return (
     <div ref={topRef}>
       <Container maxWidth="md" sx={{ pb: 10, position: 'relative' }}>
-        <HeaderWithSearchBar setSelectedChip={setSelectedChip} />
+        <HeaderWithSearchBar setSelectedChip={setSelectedChip} searchOptions={false} />
         <ScrollToTop topRef={topRef} />
         <StickyTabSection selectedChip={selectedChip} setSelectedChip={setSelectedChip} />
         <VideoSection selectedChip={selectedChip} data={lectureList} />

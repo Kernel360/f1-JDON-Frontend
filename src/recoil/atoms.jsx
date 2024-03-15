@@ -45,3 +45,17 @@ export const filterValueState = atom({
   key: 'filterValueState',
   default: [],
 });
+
+export const coffeeChatListState = atom({
+  key: 'coffeeChatListState',
+  default: {
+    content: [],
+    pageInfo: {
+      totalPages: 0,
+      pageSize: 12,
+      first: true,
+      last: false,
+      empty: true,
+    },
+  },
+});

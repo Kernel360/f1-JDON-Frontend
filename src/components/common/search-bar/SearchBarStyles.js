@@ -10,3 +10,10 @@ export const SearchTextFiled = () => ({
     },
   },
 });
+
+export const SearchContainer = () => ({
+  padding: '0 !important',
+  '& .MuiInputBase-input': {
+    padding: '12px',
+  },
+});
