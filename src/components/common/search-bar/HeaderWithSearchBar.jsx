@@ -1,30 +1,30 @@
-import SearchBar from 'components/common/search-bar/SearchBar';
+import SearchBar from 'components/common/search-bar';
 import logo from 'assets/images/logo.svg';
-import { useState } from 'react';
 
-function HeaderWithSearchBar({ setSelectedChip, isSearchBarTrue = true }) {
-  const [search, setSearch] = useState('');
+function HeaderWithSearchBar({
+  setSelectedChip,
+  searchOptions,
+  set검색어,
+  검색어,
+  isSearchBarTrue = true,
+}) {
+  // const [search, setSearch] = useState(검색어);
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && e.nativeEvent.isComposing === false) {
-      setSelectedChip((prev) => ({
-        ...prev,
-        keyword: e.target.value,
-        userSelected: true,
-      }));
-    }
-  };
-
-  const handleSearchChange = (e) => {
-    const newSearch = e.target.value;
-    setSearch(newSearch);
-  };
+  // const handleSearchChange = (e) => {
+  //   const newSearch = e.target.value;
+  //   set검색어(newSearch);
+  // };
 
   return (
     <>
       <img src={logo} alt="logo" width={80} style={{ height: 50, marginTop: 10 }} />
       {isSearchBarTrue ? (
-        <SearchBar keyword={search} onChange={handleSearchChange} onKeyDown={handleKeyDown} />
+        <SearchBar
+          검색어={검색어}
+          set검색어={set검색어}
+          searchOptions={searchOptions}
+          setSelectedChip={setSelectedChip}
+        />
       ) : (
         ''
       )}

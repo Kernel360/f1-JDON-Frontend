@@ -14,7 +14,6 @@ import { Main } from 'pages/mainpage/Main';
 import Withdrawal from 'pages/mypage/Withdrawal';
 import React from 'react';
 import RedirectPage from 'pages/sign-in/RedirectPage';
-
 import { JdDetail } from 'pages/jd-detail/JdDetail';
 import { FailPage } from 'pages/sign-in/FailPage';
 import JdAll from 'pages/jd-all';
@@ -23,7 +22,7 @@ import NotFound from 'pages/404';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
 import Coffeeopen from 'pages/coffeechats/create-coffeechats';
-import { Coffee } from 'pages/coffeechats';
+import { Coffee } from 'pages/coffeechats/coffeechat-list';
 import CoffeeDetail from 'pages/coffeechats/detail-coffeechats';
 import UpdateCoffeeForm from 'pages/coffeechats/update-coffeechats';
 
