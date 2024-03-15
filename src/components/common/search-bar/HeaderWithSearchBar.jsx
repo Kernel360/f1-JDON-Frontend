@@ -1,5 +1,6 @@
 import SearchBar from 'components/common/search-bar';
 import logo from 'assets/images/logo.svg';
+import { useEffect } from 'react';
 
 function HeaderWithSearchBar({
   setSelectedChip,
@@ -8,12 +9,9 @@ function HeaderWithSearchBar({
   검색어,
   isSearchBarTrue = true,
 }) {
-  // const [search, setSearch] = useState(검색어);
-
-  // const handleSearchChange = (e) => {
-  //   const newSearch = e.target.value;
-  //   set검색어(newSearch);
-  // };
+  useEffect(() => {
+    검색어 && localStorage.setItem('keyword', JSON.stringify(검색어));
+  }, [검색어]);
 
   return (
     <>

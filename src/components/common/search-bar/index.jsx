@@ -5,7 +5,8 @@ import SelectOption from './SelectOption';
 import { useState } from 'react';
 
 function SearchBar({ searchOptions, setSelectedChip, set검색어 }) {
-  const [실시간키워드, set실시간키워드] = useState('');
+  const prevKeyword = JSON.parse(localStorage.getItem('keyword'));
+  const [실시간키워드, set실시간키워드] = useState(prevKeyword || '');
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && e.nativeEvent.isComposing === false) {
       if (searchOptions) {
