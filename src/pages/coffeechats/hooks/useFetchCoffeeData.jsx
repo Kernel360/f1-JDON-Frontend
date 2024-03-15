@@ -33,7 +33,7 @@ const useFetchCoffeeData = (currentPage, sortData, searchKeyword) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, sortData, searchKeyword]);
 
-  return { coffeeData, fetchCoffeeData, loading, error };
+  return { coffeeData, loading, error };
 };
 
 export default useFetchCoffeeData;
