@@ -62,7 +62,6 @@ export default function MyCoffeeChat() {
   }, [value]);
 
   useEffect(() => {
-
     (async () => {
       try {
         const { jobGroupList } = await getJobCategory();
@@ -72,9 +71,6 @@ export default function MyCoffeeChat() {
       }
     })();
 
-    // return () => {
-    //   localStorage.removeItem('tap_value');
-    // };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -113,7 +109,12 @@ export default function MyCoffeeChat() {
               <Grid Grid container spacing={{ xs: 2, md: 2 }}>
                 {coffeeDatas.map((data, index) => (
                   <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} isMyCoffeeChat={false} pathName={pathname} />
+                    <CoffeeChatCard
+                      data={data}
+                      kindOfJd={kindOfJd}
+                      isMyCoffeeChat={false}
+                      pathName={pathname}
+                    />
                   </Grid>
                 ))}
               </Grid>
