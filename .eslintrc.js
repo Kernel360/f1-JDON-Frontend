@@ -10,11 +10,6 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier',
   ],
-  // settings: {
-  //   react: {
-  //     version: 'detect',
-  //   },
-  // },
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
