@@ -15,6 +15,7 @@ const defaultSortData = {
 };
 
 export function Coffee() {
+  console.log(111);
   const pageNum = JSON.parse(localStorage.getItem('page'));
   const filterValues = JSON.parse(localStorage.getItem('filters') || '{}');
   const [sortData, setSortData] = useState({ ...defaultSortData, ...filterValues });
