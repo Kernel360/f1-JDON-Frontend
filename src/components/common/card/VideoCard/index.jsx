@@ -85,7 +85,7 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
           position: 'absolute',
           top: 6,
           right: 6,
-          animation: data.isFavorite ? 'pop 0.3s ease' : 'none',
+          animation: isFavorite ? 'pop 0.3s ease' : 'none',
         }}
       />
       <Box sx={{ mt: 1 }}>
