@@ -3,8 +3,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { SearchContainer, SearchTextFiled } from './SearchBarStyles';
 import SelectOption from './SelectOption';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function SearchBar({ searchOptions, setSelectedChip, set검색어 }) {
+  const { pathname } = useLocation();
   const prevKeyword = JSON.parse(localStorage.getItem('keyword'));
   const [실시간키워드, set실시간키워드] = useState(prevKeyword || '');
   const handleKeyDown = (e) => {
@@ -34,7 +36,7 @@ function SearchBar({ searchOptions, setSelectedChip, set검색어 }) {
         sx={SearchTextFiled}
         InputProps={{
           startAdornment: searchOptions ? (
-            <SelectOption searchOptions={searchOptions} />
+            <SelectOption searchOptions={searchOptions} useCompanyName={pathname === '/jds'} />
           ) : (
             <InputAdornment position="start">
               <SearchIcon sx={{ color: '#BCBCC4' }} />

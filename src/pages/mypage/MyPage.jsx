@@ -4,7 +4,7 @@ import ToggleList from 'components/common/ToggleList';
 import BottomNav from 'components/common/BottomNav';
 import { getFAQ, getJobCategory, getMemberInfo } from 'api/api';
 import { kindOfJdState } from 'recoil/atoms';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { getNoticeList } from './notice';
 import ProfileSection from './ProfileSection';
 import NavButtons from './NavButtons';
@@ -12,9 +12,8 @@ import LogoutButton from './LogoutButton';
 
 export default function MyPage() {
   const [memberInfo, setMemberInfo] = useState({});
-
   const [FAQ, setFAQ] = useState([]);
-  const [, setJobCategories] = useRecoilState(kindOfJdState);
+  const setJobCategories = useSetRecoilState(kindOfJdState);
   const noticeLists = getNoticeList(FAQ);
 
   useEffect(() => {
