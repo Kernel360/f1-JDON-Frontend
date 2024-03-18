@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import CompanyTitle from './CompanyTitle';
 import CompanyList from './CompanyList';
 
-function CompanySection({ selectedChip, data }) {
-  const [loading, setIsLoading] = useState(true);
+function CompanySection({ loading, selectedChip, data }) {
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -15,12 +15,13 @@ function CompanySection({ selectedChip, data }) {
     };
   }, []);
   // --------------------------------
+
   return (
     <Box sx={{ mt: 8 }}>
       <CompanyTitle keyword={selectedChip.keyword} />
       <Box sx={{ width: '100%' }}>
         {data.length > 0 ? (
-          <CompanyList data={data} />
+          <CompanyList loading={loading} data={data} />
         ) : (
           <Box
             sx={{
@@ -37,7 +38,7 @@ function CompanySection({ selectedChip, data }) {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              {loading}
+              {isLoading}
             </div>
           </Box>
         )}

@@ -20,8 +20,6 @@ const CompanyCardSkeleton = () => {
       <Box sx={{ mt: 1 }}>
         <Skeleton width="60%" height={24} />
         <Skeleton width="80%" height={28} />
-        <Skeleton width="40%" height={24} />
-        <Skeleton width="30%" height={24} />
       </Box>
     </Box>
   );

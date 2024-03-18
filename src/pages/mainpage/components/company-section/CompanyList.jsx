@@ -1,7 +1,12 @@
+import SkeletonCompanySection from './SkeletonCompanySection';
+
 const { Grid } = require('@mui/material');
 const { default: CompanyCard } = require('components/common/card/CompanyCard');
 
-function CompanyList({ data }) {
+function CompanyList({ loading, data }) {
+  if (loading) {
+    return <SkeletonCompanySection />;
+  }
   return (
     <Grid container spacing={{ xs: 1, sm: 2, md: 2 }} sx={{ py: 1 }}>
       {data.map((item, index) => (
