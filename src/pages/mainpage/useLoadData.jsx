@@ -32,8 +32,11 @@ export function useLoadData() {
   useEffect(() => {
     if (isInitialLoad) loadData('', false);
     else {
-      if (selectedChip.userSelected && selectedChip.keyword) {
+      if (selectedChip.keyword && selectedChip.userSelected) {
         loadData(selectedChip.keyword, true);
+      }
+      if (!selectedChip.keyword) {
+        setIsInitialLoad(true);
       }
     }
   }, [isInitialLoad, selectedChip, loadData]);

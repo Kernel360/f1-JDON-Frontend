@@ -186,9 +186,9 @@ export const postFavoriteVideo = async (data) => {
 };
 
 // 내가 찜한 영상 목록 조회
-export const getFavoriteVideo = async () => {
+export const getFavoriteVideo = async (page) => {
   try {
-    const res = await instance.get('/api/v1/favorites?page=0&size=12');
+    const res = await instance.get(`/api/v1/favorites?page=${page}&size=12`);
     return res.data;
   } catch (error) {
     console.error('getFavoriteVideo API', error);
@@ -248,10 +248,10 @@ export const getSignCoffeeChat = async (page) => {
 };
 
 //커피챗 목록 조회
-export const getCoffeeChat = async (page, size, sorting, jobCategory) => {
+export const getCoffeeChat = async (page, size, sorting, jobCategory, searchKeyword) => {
   try {
     const res = await instance.get(
-      `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&jobCategory=${jobCategory}`,
+      `/api/v1/coffeechats?page=${page}&size=${size}&sort=${sorting}&keyword=${searchKeyword}&jobCategory=${jobCategory}`,
     );
     return res;
   } catch (error) {

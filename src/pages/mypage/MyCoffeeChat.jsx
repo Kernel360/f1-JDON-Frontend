@@ -9,13 +9,16 @@ import { MainStyles } from '../PageStyles';
 import { useRecoilState } from 'recoil';
 import { kindOfJdState } from 'recoil/atoms';
 import { MYPAGE_CHILD } from 'constants/headerProps';
+import { useLocation } from 'react-router-dom';
 
 export default function MyCoffeeChat() {
-  const [value, setValue] = useState('1');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [value, setValue] = useState(localStorage.getItem('tap_value') || '1');
+  const [currentPage, setCurrentPage] = useState(Number(localStorage.getItem('page')) || 1);
   const [page, setPage] = useState({});
   const [coffeeDatas, setCoffeeDatas] = useState([]);
   const [kindOfJd, setKindOfJd] = useRecoilState(kindOfJdState);
+
+  const { pathname } = useLocation();
 
   const handleTabChange = (_, value) => {
     setValue(value);
@@ -55,6 +58,10 @@ export default function MyCoffeeChat() {
   }, [refetchData]);
 
   useEffect(() => {
+    localStorage.setItem('tap_value', value);
+  }, [value]);
+
+  useEffect(() => {
     (async () => {
       try {
         const { jobGroupList } = await getJobCategory();
@@ -63,6 +70,7 @@ export default function MyCoffeeChat() {
         console.error(error);
       }
     })();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -105,6 +113,7 @@ export default function MyCoffeeChat() {
                       data={data}
                       kindOfJd={kindOfJd}
                       isMyCoffeeChat={false}
+                      pathName={pathname}
                     />
                   </Grid>
                 ))}
@@ -134,7 +143,13 @@ export default function MyCoffeeChat() {
               <Grid container spacing={{ xs: 2, md: 2 }}>
                 {coffeeDatas.map((data, index) => (
                   <Grid item xs={12} sm={6} md={6} key={index}>
-                    <CoffeeChatCard data={data} kindOfJd={kindOfJd} isMyCoffeeChat={true} refetchData={refetchData}/>
+                    <CoffeeChatCard
+                      data={data}
+                      kindOfJd={kindOfJd}
+                      isMyCoffeeChat={true}
+                      refetchData={refetchData}
+                      pathName={pathname}
+                    />
                   </Grid>
                 ))}
               </Grid>

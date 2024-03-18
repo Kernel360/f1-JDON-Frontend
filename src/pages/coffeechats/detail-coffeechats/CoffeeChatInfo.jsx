@@ -56,7 +56,14 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
 
   return (
     <>
-      <Typography sx={{ px: '6px', fontSize: '20px', mt: '22px' }}>
+      <Typography
+        sx={{
+          px: '6px',
+          fontSize: '20px',
+          mt: '22px',
+          wordWrap: 'break-word',
+          whiteSpace: 'normal',
+        }}>
         {coffeeChatData.title}
       </Typography>
       <Box
@@ -95,17 +102,17 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
           minHeight: '180px',
           wordWrap: 'break-word',
           whiteSpace: 'normal',
+          pt: 2,
         }}>
         {coffeeChatData.content?.split('\n').map((line, index) => (
-          <p key={index}>
+          <Typography key={index}>
             {line}
             <br />
-          </p>
+          </Typography>
         ))}
       </Typography>
       <TotalInputForm value={false} label="오픈채팅 링크">
         <TextField
-          fullWidth
           InputLabelProps={{ shrink: true }}
           sx={URLInput}
           ref={inputRef}
@@ -117,7 +124,7 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
               <InputAdornment position="end" sx={{ background: 'transparent' }}>
                 <Button onClick={handleCopyClick}>
                   {isCopied ? (
-                    <p style={{ fontSize: '12px' }}>Copied!</p>
+                    <Typography sx={{ fontSize: '12px' }}>Copied!</Typography>
                   ) : (
                     <FileCopyIcon sx={{ fontSize: 20, color: '#BCBCC4' }} />
                   )}

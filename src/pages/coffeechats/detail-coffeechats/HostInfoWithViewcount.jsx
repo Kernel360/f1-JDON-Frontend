@@ -1,16 +1,7 @@
 import { Box, Typography } from '@mui/material';
-import { jobStyle } from 'components/common/card/CardStyle';
-
 import eyeIcon from 'assets/icons/eye.svg';
-import { useRecoilValue } from 'recoil';
-import { kindOfJdState } from 'recoil/atoms';
 import { buttonStyles } from '../ButtonStyle';
-
-const JobBadge = ({ job }) => {
-  const kindOfJd = useRecoilValue(kindOfJdState);
-  const jobNum = kindOfJd.find((jd) => jd.name === job)?.id;
-  return jobNum ? <Box sx={jobStyle(jobNum)}>{job}</Box> : null;
-};
+import { JobBadge } from '../components/badge/JobBadge';
 
 function HostInfoWithViewcount({ coffeeChatData }) {
   return (

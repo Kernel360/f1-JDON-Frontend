@@ -1,4 +1,3 @@
-
 import { Box, Container, CssBaseline, Grid, Typography } from '@mui/material';
 import Header from 'components/common/Header';
 import NewInput from 'components/common/new-input/NewInput';
@@ -35,15 +34,12 @@ function Coffeeopen() {
     }
     try {
       const res = await registerCoffeeChat(formValue);
-      if (!res.data) {
-        alert('커피챗 등록에 실패했습니다.');
-        return;
-      }
       setIsRegistered(true);
       alert('등록이 완료되었습니다.');
       navigate(`/coffee/${res.data.coffeeChatId}`);
     } catch (error) {
-      console.error('Error registering coffee chat:', error);
+      const { message } = error.response.data;
+      alert(message);
     }
   };
 
@@ -71,15 +67,13 @@ function Coffeeopen() {
           display="flex"
           flexDirection="column"
           gap="13px"
-          width="100%"
-        >
+          width="100%">
           <Box
             sx={{
               color: '#373737',
               fontWeight: 600,
               fontSize: '13px',
-            }}
-          >
+            }}>
             <Box sx={infoBoxContainer}>
               [ 작성자 정보 ]
               <Box display="flex" alignItems="center" gap={1}>
@@ -92,10 +86,7 @@ function Coffeeopen() {
                   {jobId === 2 ? '서버개발자' : '프론트엔드 개발자'}
                 </div>
               </Box>
-              <div style={noticeMsg}>
-                * 작성자 정보는 마이페이지 회원정보에서 수정 가능합니다
-              </div>
-
+              <div style={noticeMsg}>* 작성자 정보는 마이페이지 회원정보에서 수정 가능합니다</div>
             </Box>
           </Box>
           <NewInput

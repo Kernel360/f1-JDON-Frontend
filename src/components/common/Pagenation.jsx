@@ -1,7 +1,12 @@
 import { Container } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
+import { useEffect } from 'react';
 
 export default function PaginationComponent({ pageCount, currentPage, onChange }) {
+  useEffect(() => {
+    localStorage.setItem('page', JSON.stringify(currentPage));
+  }, [currentPage]);
+
   return (
     <Container
       maxWidth="md"
@@ -11,8 +16,8 @@ export default function PaginationComponent({ pageCount, currentPage, onChange }
         mt: '1.25rem',
       }}>
       <Pagination
-        count={pageCount} // 전체 페이지 수
-        page={currentPage} // 현재 페이지
+        count={pageCount}
+        page={currentPage}
         onChange={onChange}
         variant="outlined"
         color="primary"

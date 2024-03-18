@@ -4,15 +4,14 @@ import BottomNav from 'components/common/BottomNav';
 import VideoCard from 'components/common/card/VideoCard';
 import { getFavoriteVideo } from 'api/api';
 import Header from 'components/common/Header';
-import Pagenation from 'components/common/Pagenation';
 import { MYPAGE_CHILD } from 'constants/headerProps';
+import PaginationComponent from 'components/common/Pagenation';
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFavoriteChanged, setIsFavoriteChanged] = useState(false);
-
-  const [page, setPage] = useState({});
+  const [page, setPage] = useState();
 
   // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
   const [foundTxt, setFoundTxt] = useState('찜한 영상 불러오는 중..');
@@ -20,7 +19,7 @@ export default function FavoritesVideo() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await getFavoriteVideo();
+        const res = await getFavoriteVideo(currentPage - 1);
         setDatas(res.data.content);
         setPage(res.data.pageInfo);
       } catch (error) {
@@ -34,13 +33,13 @@ export default function FavoritesVideo() {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     if (isFavoriteChanged) {
       (async () => {
         try {
-          const res = await getFavoriteVideo();
+          const res = await getFavoriteVideo(currentPage - 1);
           setDatas(res.data.content);
           setPage(res.data.pageInfo);
         } catch (error) {
@@ -51,8 +50,8 @@ export default function FavoritesVideo() {
     }
   }, [currentPage, datas, isFavoriteChanged]);
 
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
   };
 
   const handleFavoriteChange = () => {
@@ -95,7 +94,7 @@ export default function FavoritesVideo() {
       </Grid>
       {datas && (
         <Box mt={4}>
-          <Pagenation
+          <PaginationComponent
             pageCount={page?.totalPages}
             currentPage={currentPage}
             onChange={handlePageChange}

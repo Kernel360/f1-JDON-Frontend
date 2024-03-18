@@ -4,9 +4,7 @@ import SignIn from 'pages/sign-in/SignIn';
 import Info from 'pages/info/InFo';
 import { Layout } from 'components/layout/Layout';
 import { ThemeProvider } from '@mui/material/styles';
-
 import { theme } from 'styles/themeMuiStyle';
-
 import SignupFail from 'pages/info/SignupFail';
 import MyCoffeeChat from 'pages/mypage/MyCoffeeChat';
 import FavoritesVideo from 'pages/mypage/FavoritesVideo';
@@ -16,16 +14,15 @@ import { Main } from 'pages/mainpage/Main';
 import Withdrawal from 'pages/mypage/Withdrawal';
 import React from 'react';
 import RedirectPage from 'pages/sign-in/RedirectPage';
-
 import { JdDetail } from 'pages/jd-detail/JdDetail';
 import { FailPage } from 'pages/sign-in/FailPage';
 import JdAll from 'pages/jd-all';
-import { useAuth } from 'pages/mainpage/useAuth';
+import { useAuth } from 'pages/mainpage/hooks/useAuth';
 import NotFound from 'pages/404';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
 import Coffeeopen from 'pages/coffeechats/create-coffeechats';
-import { Coffee } from 'pages/coffeechats';
+import { Coffee } from 'pages/coffeechats/coffeechat-list';
 import CoffeeDetail from 'pages/coffeechats/detail-coffeechats';
 import UpdateCoffeeForm from 'pages/coffeechats/update-coffeechats';
 
