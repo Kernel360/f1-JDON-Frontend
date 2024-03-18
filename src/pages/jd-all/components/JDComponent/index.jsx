@@ -3,8 +3,8 @@ import CompanyCard from 'components/common/card/CompanyCard';
 import PaginationComponent from 'components/common/Pagenation';
 import useJDComponents from 'pages/jd-all/hooks/useJDComponents';
 
-function JDComponent() {
-  const { jobData, foundTxt, currentPage, handlePageChange } = useJDComponents();
+function JDComponent({ keyword, sortData }) {
+  const { jobData, foundTxt, currentPage, handlePageChange } = useJDComponents(keyword, sortData);
 
   return (
     <>

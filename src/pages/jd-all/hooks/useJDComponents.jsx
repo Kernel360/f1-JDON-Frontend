@@ -1,12 +1,17 @@
 import { getAllJDByKeyword } from 'api/api';
 import { useEffect, useState } from 'react';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useResetRecoilState } from 'recoil';
 import { jdSearchValue } from 'recoil/atoms';
 
-function useJDComponents() {
-  const searchValue = useRecoilValue(jdSearchValue);
+function useJDComponents(keyword, sortData) {
+  const searchKeyword = keyword;
+  const searchSortData = sortData;
+
   const resetSearchValue = useResetRecoilState(jdSearchValue);
-  const [currentPage, setCurrentPage] = useState(1);
+  const pageNum = JSON.parse(localStorage.getItem('page'));
+  const searchOption = localStorage.getItem('searchOption');
+  const [currentPage, setCurrentPage] = useState(pageNum || 1);
+  const maxPage = Number(localStorage.getItem('totalPages'));
   const [jobData, setJobData] = useState({
     content: [],
     pageInfo: {
@@ -33,23 +38,28 @@ function useJDComponents() {
   }, []);
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [searchValue]);
+    if (maxPage < currentPage) setCurrentPage(1);
+  }, [maxPage, currentPage]);
 
   useEffect(() => {
-    (async (currentPage) => {
+    (async () => {
       try {
         const data = await getAllJDByKeyword(
-          currentPage - 1,
-          jobData.pageInfo.pageSize || 12,
-          searchValue,
+          currentPage - 1, // page
+          jobData.pageInfo.pageSize || 12, // size
+          searchSortData.jobSkills, // skill
+          searchSortData.jobCategory, // jobCategory
+          searchOption, // keywordType
+          searchKeyword, //keyword
+          searchSortData.sort, // sort
         );
         setJobData(data);
+        localStorage.setItem('totalPages', JSON.stringify(data.pageInfo.totalPages));
       } catch (error) {
-        console.error('Error fetching getJDAll:', error);
+        console.error('Error fetching getJDAll', error);
       }
     })(currentPage);
-  }, [currentPage, jobData.pageInfo.pageSize, searchValue]);
+  }, [currentPage, searchOption, jobData.pageInfo.pageSize, searchKeyword, searchSortData]);
 
   const handlePageChange = (_, newPage) => {
     setCurrentPage(newPage);

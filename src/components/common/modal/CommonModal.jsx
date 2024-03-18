@@ -8,6 +8,8 @@ function CommonModal({ open, onClose, children }) {
           position: 'absolute',
           top: '50%',
           left: '50%',
+          maxHeight: '80vh',
+          overflowY: 'auto',
           transform: 'translate(-50%, -50%)',
           width: 328,
           bgcolor: 'background.paper',

@@ -1,10 +1,7 @@
 import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
 import FiltersAndButton from './FiltersAndButton';
-import useJDSearchBar from 'pages/jd-all/hooks/useJDSearchBar';
 
-function JDSearchBar() {
-  const { keyword, setKeyword, sortData, jobCategories, handleSortDataChange } = useJDSearchBar();
-
+function JDSearchBar({ keyword, setKeyword, sortData, jobCategories, handleSortDataChange }) {
   return (
     <>
       <HeaderWithSearchBar
