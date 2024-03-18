@@ -32,6 +32,7 @@
     "react-spinners": "^0.13.8",
     "recoil": "^0.7.7",
     "sass": "^1.69.5",
+    "serve": "^14.2.1",
     "styled-components": "^6.1.1",
     "web-vitals": "^2.1.4"
   },
