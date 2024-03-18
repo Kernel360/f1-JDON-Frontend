@@ -3,22 +3,14 @@ import { useState } from 'react';
 import FilterChips from './FilterChips';
 import CommonModal from 'components/common/modal/CommonModal';
 import RadioOptionsGroup from './RadioOptionsGroup';
-
-const ORDER_SORT = [
-  { value: 'createdDate', label: '최신순' },
-  { value: 'viewCount', label: '조회순' },
-];
-
-const JOB_SORT = [
-  { value: '', label: '전체 직군' },
-  { value: '2', label: '서버 개발자' },
-  { value: '3', label: '프론트엔드 개발자' },
-];
+import { JOB_SORT, ORDER_SORT } from 'constants/jdAllFilter';
 
 export function Filters({ sortData, onChange }) {
   const [openFilter, setOpenFilter] = useState([false, false]);
 
-  const handleClose = () => setOpenFilter(openFilter.map(() => false));
+  const handleClose = () => {
+    setOpenFilter(openFilter.map(() => false))
+  };
 
   const handleChipClick = (value) => {
     setOpenFilter(openFilter.map((val, i) => (i === value ? !val : val)));
