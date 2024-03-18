@@ -34,15 +34,12 @@ function Coffeeopen() {
     }
     try {
       const res = await registerCoffeeChat(formValue);
-      if (!res.data) {
-        alert('커피챗 등록에 실패했습니다.');
-        return;
-      }
       setIsRegistered(true);
       alert('등록이 완료되었습니다.');
       navigate(`/coffee/${res.data.coffeeChatId}`);
     } catch (error) {
-      console.error('Error registering coffee chat:', error);
+      const { message } = error.response.data;
+      alert(message);
     }
   };
 
