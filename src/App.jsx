@@ -10,7 +10,7 @@ import MyCoffeeChat from 'pages/mypage/MyCoffeeChat';
 import FavoritesVideo from 'pages/mypage/FavoritesVideo';
 import InfoEdit from 'pages/mypage/InfoEdit';
 import MyPage from 'pages/mypage/MyPage';
-import { Main } from 'pages/mainpage/Main';
+import { Main } from 'pages/mainpage';
 import Withdrawal from 'pages/mypage/Withdrawal';
 import React from 'react';
 import RedirectPage from 'pages/sign-in/RedirectPage';
