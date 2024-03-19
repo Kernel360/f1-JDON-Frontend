@@ -15,7 +15,7 @@ export default function CompanyCard({ data }) {
         <CardMedia
           component="img"
           image={data.imageUrl}
-          sx={{ height: 200, borderRadius: '5px' }}
+          sx={{ height: 180, borderRadius: '5px' }}
         />
         <Box sx={{ mt: 1 }}>
           <Typography variant="body3" component="div" color="#9A9AA1" sx={CompanyCardStyle.Name}>

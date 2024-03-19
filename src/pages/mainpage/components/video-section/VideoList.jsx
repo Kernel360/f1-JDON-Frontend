@@ -1,10 +1,14 @@
 import { Grid } from '@mui/material';
 import VideoCard from 'components/common/card/VideoCard';
+import SkeletonVideoSection from './SkeletonVideoSection';
 
-const VideoList = ({ data }) => {
+const VideoList = ({ loading, data }) => {
   const handleError = (error) => {
     alert(`오류 발생: ${error.message}`);
   };
+  if (loading) {
+    return <SkeletonVideoSection />;
+  }
 
   return (
     <Grid container spacing={{ xs: 2, md: 2 }} sx={{ px: 2, py: 1 }}>

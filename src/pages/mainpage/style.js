@@ -1,3 +1,5 @@
+import { theme } from 'styles/themeMuiStyle';
+
 export const titleStyle = ({ style }) => ({
   color: 'black',
   fontWeight: 700,
@@ -24,3 +26,19 @@ export const messageStyle = () => ({
   textAlign: 'center',
   padding: '100px 0',
 });
+
+export const bugBtnStyle = {
+  display: 'inline-block',
+  height: '60px',
+  borderRadius: '10px',
+  width: '40%',
+  textAlign: 'center',
+  lineHeight: '60px',
+  margin: '15px auto',
+  background: theme.palette.primary.main, // theme.palette.primary.main을 대체하는 색상 값
+  fontWeight: 600,
+  color: 'white',
+  fontSize: '16px',
+  textDecoration: 'none',
+  padding: '0 15px',
+};
