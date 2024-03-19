@@ -75,7 +75,7 @@ export async function getMemberInfo() {
     const res = await instance.get('/api/v1/member');
     return res.data;
   } catch (error) {
-    console.log('getMemberInfo API error', error);
+    console.error('getMemberInfo API error', error);
     throw error;
   }
 }
@@ -105,7 +105,6 @@ export async function logoutMember() {
 //회원 탈퇴
 export async function deleteMember() {
   try {
-    // console.log(nickName);
     const res = await instance.delete('/api/v1/withdraw');
     return res.data;
   } catch (error) {
@@ -329,7 +328,7 @@ export async function applyCoffeechat(id, coffeeChatData) {
     const res = await instance.post(`/api/v1/coffeechats/${id}`, coffeeChatData);
     return res.data;
   } catch (error) {
-    console.log('applyCoffeechat API error', error);
+    console.error('applyCoffeechat API error', error);
     throw error;
   }
 }

@@ -1,6 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: 'Pretendard-Regular',
+  },
   palette: {
     primary: {
       main: '#3A79F3',

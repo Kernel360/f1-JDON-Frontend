@@ -23,8 +23,8 @@ function useJDComponents(keyword, sortData) {
     },
   });
 
-  // 추후 스켈레톤 UI 반영 시 지울 내용입니다.
-  const [foundTxt, setFoundTxt] = useState('회사 정보 불러오는 중..');
+  const [foundTxt, setFoundTxt] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     resetSearchValue();
@@ -43,6 +43,7 @@ function useJDComponents(keyword, sortData) {
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       try {
         const data = await getAllJDByKeyword(
           currentPage - 1, // page
@@ -58,6 +59,12 @@ function useJDComponents(keyword, sortData) {
       } catch (error) {
         console.error('Error fetching getJDAll', error);
       }
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 200);
+      return () => {
+        clearTimeout(timer);
+      };
     })(currentPage);
   }, [currentPage, searchOption, jobData.pageInfo.pageSize, searchKeyword, searchSortData]);
 
@@ -65,7 +72,7 @@ function useJDComponents(keyword, sortData) {
     setCurrentPage(newPage);
   };
 
-  return { jobData, foundTxt, currentPage, handlePageChange };
+  return { jobData, foundTxt, currentPage, handlePageChange, loading };
 }
 
 export default useJDComponents;
