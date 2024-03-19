@@ -11,7 +11,7 @@ export const JobBadge = ({ job }) => {
         const res = await getJobCategory();
         setJobCategoryList(res.jobGroupList[0].jobCategoryList);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     };
     fetchJobData();
