@@ -18,27 +18,16 @@ import TabPanel from './TabPanel';
 import { buttonStyle } from '../navigation-btn/NavigationBtnStyles';
 import { skillsButton } from 'pages/info/InfoStyles.js';
 import { getSkillsOnJD } from 'api/api';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { jobIdState, kindOfJdState, selectedJobSkillState } from 'recoil/atoms';
+import { useRecoilState } from 'recoil';
+import { jobIdState, selectedJobSkillState } from 'recoil/atoms';
+import { JOB_CATEGORIES } from 'constants/swipJobSkill';
 
 export default function SwipJobSkill() {
-  const jobCategories = useRecoilValue(kindOfJdState);
+  const jobCategories = JOB_CATEGORIES;
   const [jobId, setJobId] = useRecoilState(jobIdState);
   const [selectedJobSkill, setSelectedJobSkill] = useRecoilState(selectedJobSkillState);
   const [jobSkills, setJobSkills] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  //직무에 맞는 기술스택 세팅
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await getSkillsOnJD(jobId ? jobId : 2);
-        setJobSkills(res.skillList);
-      } catch (error) {
-        console.error('getSkillsOnJD 오류', error);
-      }
-    })();
-  }, [jobId]);
 
   const toggleDrawer = (open) => () => setIsDrawerOpen(open);
 
@@ -46,6 +35,20 @@ export default function SwipJobSkill() {
     setSelectedJobSkill([]);
     setJobId(newValue);
   };
+
+  //직무에 맞는 기술스택 세팅
+  useEffect(() => {
+    (async () => {
+      try {
+        if (jobId) {
+          const res = await getSkillsOnJD(jobId);
+          setJobSkills(res.skillList);
+        }
+      } catch (error) {
+        console.error('getSkillsOnJD 오류', error);
+      }
+    })();
+  }, [jobId]);
 
   const handleCheckboxChange = (skillId, event) => {
     const isChecked = event.target.checked;
@@ -73,7 +76,7 @@ export default function SwipJobSkill() {
       toggleDrawer(false)();
     }
   };
-  const renderCheckboxes = () => {
+  const renderCheckboxes = (jobSkills) => {
     return (
       <FormControl component="fieldset">
         <FormGroup>
@@ -98,7 +101,7 @@ export default function SwipJobSkill() {
     );
   };
 
-  const renderChips = () => {
+  const renderChips = (selectedJobSkill) => {
     return (
       <Stack direction="row" spacing={0.8} sx={{ ...MainStyles.ChipContainer }}>
         {selectedJobSkill.map((skillId) => {
@@ -133,7 +136,9 @@ export default function SwipJobSkill() {
           },
         }}>
         <Box sx={{ width: '100%', padding: 3 }}>
-          <Box sx={{ padding: '15px', borderBottom: '1px solid #F5F5F7' }}>{renderChips()}</Box>
+          <Box sx={{ padding: '15px', borderBottom: '1px solid #F5F5F7' }}>
+            {renderChips(selectedJobSkill)}
+          </Box>
 
           <Box
             sx={{
@@ -165,7 +170,7 @@ export default function SwipJobSkill() {
             </Tabs>
             {jobCategories.map((category) => (
               <TabPanel key={category.id} value={jobId} index={category.id}>
-                {renderCheckboxes()}
+                {renderCheckboxes(jobSkills)}
               </TabPanel>
             ))}
           </Box>

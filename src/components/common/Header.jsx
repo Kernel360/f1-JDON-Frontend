@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import back from 'assets/icons/btn_back.svg';
+import { COFFEE_MYPAGE_CHILD } from 'constants/headerProps';
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -10,8 +11,10 @@ import { useNavigate } from 'react-router-dom';
  */
 function Header({ title, url }) {
   const navigate = useNavigate();
+
   const goBackHandler = () => {
     navigate(url);
+    if (url === COFFEE_MYPAGE_CHILD.url) localStorage.removeItem('back_path')
   };
   return (
     <>

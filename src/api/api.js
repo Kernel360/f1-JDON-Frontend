@@ -161,10 +161,19 @@ export async function getSkillsOnJD(jobCategoryId) {
   }
 }
 
-export async function getAllJDByKeyword(page, size, keyword) {
+// JD페이지 검색기능
+export async function getAllJDByKeyword(
+  page,
+  size,
+  skill,
+  jobCategory,
+  keyWordType,
+  keyword,
+  sort,
+) {
   try {
     const res = await instance.get(
-      `/api/v1/jds?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword)}`,
+      `/api/v1/jds?page=${page}&size=${size}&skill=${skill}&jobCategory=${jobCategory}&keywordType=${keyWordType}&keyword=${encodeURIComponent(keyword)}&sort=${sort}`,
     );
     return res.data.data;
   } catch (error) {
