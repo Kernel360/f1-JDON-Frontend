@@ -10,7 +10,7 @@ function HeaderWithSearchBar({
   isSearchBarTrue = true,
 }) {
   useEffect(() => {
-    검색어 && localStorage.setItem('keyword', JSON.stringify(검색어));
+    localStorage.setItem('keyword', JSON.stringify(검색어 || ''));
   }, [검색어]);
 
   return (
