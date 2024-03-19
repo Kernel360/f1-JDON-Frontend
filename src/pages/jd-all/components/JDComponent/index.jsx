@@ -1,43 +1,22 @@
-import { Box, Grid, Stack } from '@mui/material';
-import CompanyCard from 'components/common/card/CompanyCard';
+import { Stack } from '@mui/material';
 import PaginationComponent from 'components/common/Pagenation';
 import useJDComponents from 'pages/jd-all/hooks/useJDComponents';
+import SkeletonLoader from 'components/common/skeleton/company-card/SkeletonLoader';
+import { Suspense, lazy } from 'react';
+const JDGird = lazy(() => import('./JDGird'));
 
 function JDComponent({ keyword, sortData }) {
-  const { jobData, foundTxt, currentPage, handlePageChange } = useJDComponents(keyword, sortData);
+  const { jobData, foundTxt, currentPage, handlePageChange, loading } = useJDComponents(
+    keyword,
+    sortData,
+  );
 
   return (
     <>
-      <Box sx={{ width: '100%' }}>
-        {jobData.content.length > 0 ? (
-          <Grid container spacing={{ xs: 1, sm: 2, md: 2 }}>
-            {jobData.content.map((item, index) => (
-              <Grid item xs={6} sm={4} md={4} key={index}>
-                <CompanyCard data={item} />
-              </Grid>
-            ))}
-          </Grid>
-        ) : (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-              padding: '100px 0',
-            }}>
-            <div
-              style={{
-                fontSize: '16px',
-                color: '#B9B9B9',
-                fontWeight: 600,
-                textAlign: 'center',
-              }}>
-              {foundTxt}
-            </div>
-          </Box>
-        )}
-      </Box>
+      {/* JDGrid 컴포넌트 */}
+      <Suspense fallback={<SkeletonLoader count={12} />}>
+        <JDGird jobData={jobData} foundTxt={foundTxt} loading={loading} />
+      </Suspense>
 
       {/* 페이지네이션 컴포넌트 */}
       <Stack justifyContent="center" alignItems="center" sx={{ mb: 3 }}>
