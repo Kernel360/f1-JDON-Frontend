@@ -40,9 +40,12 @@ export function useLoadData() {
         setIsInitialLoad(true);
       }
     }
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setLoading(false);
-    }, 100);
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [isInitialLoad, selectedChip, loadData]);
 
   return { loading, selectedChip, setSelectedChip, lectureList, jdList };

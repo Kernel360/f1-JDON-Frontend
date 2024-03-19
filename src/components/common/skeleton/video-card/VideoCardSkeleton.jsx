@@ -7,6 +7,7 @@ const VideoCardSkeleton = () => {
         width="100%"
         height={180}
         variant="rectangular"
+        animation="wave"
         sx={{
           borderRadius: '8px',
         }}
