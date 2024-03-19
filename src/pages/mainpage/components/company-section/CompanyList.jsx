@@ -4,7 +4,7 @@ const { Grid } = require('@mui/material');
 const { default: CompanyCard } = require('components/common/card/CompanyCard');
 
 function CompanyList({ loading, data }) {
-  if (!loading) {
+  if (loading) {
     return <SkeletonCompanySection />;
   }
   return (
