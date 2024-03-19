@@ -103,6 +103,7 @@ function CoffeeChatInfo({ coffeeChatData, canView, isParticipant }) {
           wordWrap: 'break-word',
           whiteSpace: 'normal',
           pt: 2,
+          mb: 3,
         }}>
         {coffeeChatData.content?.split('\n').map((line, index) => (
           <Typography key={index}>

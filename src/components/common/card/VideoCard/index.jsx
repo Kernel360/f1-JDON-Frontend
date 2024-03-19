@@ -73,8 +73,9 @@ function VideoCard({ data, onSuccess, myFavorite, onError }) {
         component="img"
         image={data.imageUrl}
         sx={{
+          width: '100%',
           borderRadius: '8px',
-          maxHeight: '230px',
+          height: 180,
         }}
       />
       <img

@@ -1,17 +1,18 @@
 import { Box, Chip, Stack, Tab } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { ChipStyle, MainStyles } from '../PageStyles';
+
 // import arrowLeft from 'assets/icons/arrow-left.svg';
 // import arrowRight from 'assets/icons/arrow-right.svg';
 import { useNavigate } from 'react-router-dom';
 import { getHotSkills, getMemberSkills } from 'api/api';
-import { useAuth } from './hooks/useAuth';
+import { useAuth } from 'pages/mainpage/hooks/useAuth';
+import { ChipStyle, MainStyles } from 'pages/PageStyles';
 
 function StickyTabSection({ selectedChip, setSelectedChip }) {
   const { isLoginUser } = useAuth();
   const scrollRef = useRef({
-     current: 'div.MuiStack-root.css-rpc19u-MuiStack-root',
+    current: 'div.MuiStack-root.css-rpc19u-MuiStack-root',
   });
   const navigate = useNavigate();
   const [value, setValue] = useState('1');

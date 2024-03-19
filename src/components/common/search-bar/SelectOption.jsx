@@ -1,12 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const { NativeSelect } = require('@mui/material');
 
-function SelectOption({ searchOptions }) {
-  const [menuTitle, setMenuTitle] = useState(searchOptions[0]);
+function SelectOption({ searchOptions, useCompanyName = false }) {
+  useEffect(() => {
+    localStorage.setItem('searchOption', 'title');
+  }, []);
+
+  const [menuTitle, setMenuTitle] = useState(searchOptions);
 
   const selectionChangeHandler = (event) => {
-    setMenuTitle(event.target.value);
+    const selectedValue = event.target.value;
+    setMenuTitle(selectedValue);
+
+    if (useCompanyName && selectedValue === '1') {
+      localStorage.setItem('searchOption', 'title');
+    }
+    if (useCompanyName && selectedValue === '2') {
+      localStorage.setItem('searchOption', 'company');
+    }
   };
 
   return (
@@ -17,15 +29,22 @@ function SelectOption({ searchOptions }) {
       onChange={selectionChangeHandler}
       sx={{
         color: 'rgba(0, 0, 0, 0.54);',
-        width: '90px',
+        width: '120px',
         fontSize: '14px',
         '& .MuiInputBase-input': {
           paddingX: '10px',
         },
       }}>
       <option value={1} style={{ color: 'rgba(0, 0, 0, 0.54);' }}>
-        {searchOptions[0]}
+        {searchOptions}
       </option>
+      {useCompanyName ? (
+        <option value={2} style={{ color: 'rgba(0, 0, 0, 0.54);' }}>
+          {'회사명'}
+        </option>
+      ) : (
+        ''
+      )}
     </NativeSelect>
   );
 }
