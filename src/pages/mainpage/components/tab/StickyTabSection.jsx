@@ -105,7 +105,7 @@ function StickyTabSection({ selectedChip, setSelectedChip }) {
         <TabContext value={value}>
           <TabList
             onChange={handleTabChange}
-            sx={{ pt: 2 }}
+            sx={{ mt: 2 }}
             TabIndicatorProps={{ style: MainStyles.TabIndicator }}>
             <Tab label="요즘 뜨는 키워드" value="1" sx={MainStyles.Tab} />
             {isLoginUser ? <Tab label="내 맞춤 키워드" value="2" sx={MainStyles.Tab} /> : ''}

@@ -10,7 +10,6 @@ function SearchBar({ searchOptions, setSelectedChip, set검색어 }) {
   const { pathname } = useLocation();
   const prevKeyword = JSON.parse(localStorage.getItem('keyword')) || '';
   const [실시간키워드, set실시간키워드] = useState(prevKeyword || '');
-
   const placeholder = pathname === '/' ? '기술 키워드를 입력하세요' : '검색어를 입력하세요';
 
   const handleKeyDown = (e) => {
