@@ -13,6 +13,7 @@ function HeaderWithSearchBar({
   const navigate = useNavigate();
 
   const imgHandler = () => {
+    localStorage.setItem('keyword', JSON.stringify(''));
     navigate('/');
   };
 
@@ -22,8 +23,14 @@ function HeaderWithSearchBar({
 
   return (
     <>
-      <div onClick={imgHandler} style={{ cursor: 'pointer' }}>
-        <img src={logo} alt="logo" width={80} style={{ height: 50, marginTop: 10 }} />
+      <div>
+        <img
+          src={logo}
+          alt="logo"
+          width={80}
+          style={{ height: 50, marginTop: 10, cursor: 'pointer' }}
+          onClick={imgHandler}
+        />
       </div>
       {isSearchBarTrue ? (
         <SearchBar
