@@ -18,7 +18,7 @@ function VideoSection({ loading, selectedChip, data }) {
   }, []);
 
   let keyword = selectedChip.keyword;
-  if (selectedChip.keyword.length > 10) {
+  if (selectedChip.keyword?.length > 10) {
     keyword = `${selectedChip.keyword.substring(0, 15)}...`;
   }
 
