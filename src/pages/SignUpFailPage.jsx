@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { Close } from '@mui/icons-material';
 import { Box, Button, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { buttonStyle } from 'components/common/button/NavigationBtnStyles';
+import Close from '@mui/icons-material/Close';
 import { infoBasicStyles } from 'components/member/sign-up/InfoStyles';
 
-function NotFound() {
+function SignUpFailPage() {
   const navigate = useNavigate();
   return (
     <Container
@@ -15,9 +15,9 @@ function NotFound() {
         justifyContent: 'center',
         height: '100vh',
       }}>
-      <Typography sx={{ fontSize: '25px', fontWeight: 500, p: 4 }}>존재하지 않는 페이지</Typography>
+      <Typography sx={{ fontSize: '25px', fontWeight: 500, p: 4 }}>회원가입 실패</Typography>
       <Typography sx={infoBasicStyles.typographySubtitle}>
-        접근할 수 없는 URL 주소입니다.
+        알 수 없는 오류가 발생했습니다. 처음부터 다시 시도해주세요.
       </Typography>
       <Box sx={{ padding: 4 }}>
         <Close sx={{ fontSize: '40px' }} />
@@ -25,12 +25,12 @@ function NotFound() {
       <Button
         sx={buttonStyle.EndButton}
         onClick={() => {
-          navigate('/');
+          navigate('/signin');
         }}>
-        메인 페이지로
+        로그인 재시도
       </Button>
     </Container>
   );
 }
 
-export default NotFound;
+export default SignUpFailPage;

@@ -5,7 +5,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { formattedDate, formattedTime } from 'utils/formatDate';
 import { cardBodyStyle } from './CoffeeChatCardStyle';
-import RoundButton from 'components/common/new-btn/RoundButton';
+import RoundButton from 'components/common/button/RoundButton';
 
 function CardBody({ data, isMyCoffeeChat, hanldeCancelCoffeeChat }) {
   const InfoValue = [

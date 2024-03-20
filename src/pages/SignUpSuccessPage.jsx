@@ -1,10 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { Close } from '@mui/icons-material';
 import { Box, Button, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { buttonStyle } from 'components/common/button/NavigationBtnStyles';
-import { infoBasicStyles } from 'components/member/sign-up/InfoStyles';
+import DoneIcon from '@mui/icons-material/Done';
 
-function NotFound() {
+function SignUpSuccessPage() {
   const navigate = useNavigate();
   return (
     <Container
@@ -15,22 +14,21 @@ function NotFound() {
         justifyContent: 'center',
         height: '100vh',
       }}>
-      <Typography sx={{ fontSize: '25px', fontWeight: 500, p: 4 }}>존재하지 않는 페이지</Typography>
-      <Typography sx={infoBasicStyles.typographySubtitle}>
-        접근할 수 없는 URL 주소입니다.
+      <Typography sx={{ fontSize: '25px', fontWeight: 500, p: 4 }}>
+        회원가입이 완료되었습니다!
       </Typography>
       <Box sx={{ padding: 4 }}>
-        <Close sx={{ fontSize: '40px' }} />
+        <DoneIcon sx={{ fontSize: '40px' }} />
       </Box>
       <Button
         sx={buttonStyle.EndButton}
         onClick={() => {
           navigate('/');
         }}>
-        메인 페이지로
+        이용하러 가기
       </Button>
     </Container>
   );
 }
 
-export default NotFound;
+export default SignUpSuccessPage;

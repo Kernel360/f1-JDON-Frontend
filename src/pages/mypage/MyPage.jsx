@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Box } from '@mui/material';
 import ToggleList from 'components/common/ToggleList';
-import BottomNav from 'components/common/BottomNav';
+import BottomNav from 'components/common/footer/BottomNav';
 import { getFAQ, getJobCategory, getMemberInfo } from 'api/api';
 import { kindOfJdState } from 'recoil/atoms';
 import { useSetRecoilState } from 'recoil';

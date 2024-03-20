@@ -1,11 +1,11 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { SignInStyle } from '../PageStyles';
 import TitleLogo from './TitleLogo';
 import kakao from 'assets/images/kakao.svg';
 import git from 'assets/images/github.svg';
-import { LoginBtn } from './LoginBtn';
+import { SignInStyle } from 'pages/PageStyles';
+import { LoginBtn } from 'components/member/sign-up/ui/LoginBtn';
 
 export default function SignIn() {
   return (

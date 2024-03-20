@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 import React, { Suspense, useRef } from 'react';
-import BottomNav from 'components/common/BottomNav';
+import BottomNav from 'components/common/footer/BottomNav';
 import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
 import { useLoadData } from './hooks/useLoadData';
 import StickyTabSection from './components/tab/StickyTabSection';
