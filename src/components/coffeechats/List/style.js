@@ -11,3 +11,10 @@ export const listContainer = () => ({
   width: '100%',
   py: 3,
 });
+
+export const newBtnStyle = () => ({
+  fontWeight: 600,
+  fontSize: 12,
+  padding: '4px 10px',
+  gap: 1,
+});

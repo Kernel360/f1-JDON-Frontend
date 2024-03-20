@@ -85,3 +85,11 @@ export const InfoItemStyle = () => ({
   alignItems: 'center',
   gap: '8px',
 });
+
+export const viewCountContainerStyle = () => ({
+  color: '#B9B9B9',
+  fontSize: '12px',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+});

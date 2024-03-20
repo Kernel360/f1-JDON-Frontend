@@ -3,7 +3,7 @@ import { JobBadge } from 'components/common/badge/JobBadge';
 
 import { Box, Typography } from '@mui/material';
 
-import { CoffeeDetailStyles } from '../styles';
+import { CoffeeDetailStyles, viewCountContainerStyle } from '../styles';
 
 function HostInfoWithViewcount({ coffeeChatData }) {
   return (
@@ -16,14 +16,7 @@ function HostInfoWithViewcount({ coffeeChatData }) {
           <JobBadge job={coffeeChatData.hostJobCategoryName} />
         )}
       </Box>
-      <Typography
-        sx={{
-          color: '#B9B9B9',
-          fontSize: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '4px',
-        }}>
+      <Typography sx={viewCountContainerStyle}>
         <img src={eyeIcon} alt="조회수" />
         {coffeeChatData.viewCount}
       </Typography>

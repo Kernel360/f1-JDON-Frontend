@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import useFetchCoffeeData from 'components/coffeechats/List/queryHooks/useFetchCoffeeData';
 import { foundTxtStyle, listContainer } from 'components/coffeechats/List/style';
 import FiltersAndButton from 'components/coffeechats/List/ui/FiltersAndButton';
-import useFetchCoffeeData from 'components/coffeechats/List/useFetchCoffeeData';
 import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
 import BottomNav from 'components/common/footer/BottomNav';
 import PaginationComponent from 'components/common/pagenation/Pagenation';
