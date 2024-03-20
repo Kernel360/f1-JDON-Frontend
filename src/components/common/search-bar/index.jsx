@@ -41,6 +41,12 @@ function SearchBar({ searchOptions, setSelectedChip, set검색어 }) {
     set실시간키워드('');
   };
 
+  const keywordValidate = (keyword) => {
+    if (!searchOptions && keyword.length > 20) return '검색어는 20자 이하여야 합니다.';
+    if (keyword.length > 50) return '검색어는 50자 이하여야 합니다.';
+    return '';
+  };
+
   return (
     <Container maxWidth="md" sx={SearchContainer}>
       <TextField
@@ -67,15 +73,7 @@ function SearchBar({ searchOptions, setSelectedChip, set검색어 }) {
           ),
         }}
       />
-      <Box sx={SearchResetBtn}>
-        {searchOptions
-          ? 실시간키워드.length > 50
-            ? '검색어는 50자 이하여야 합니다.'
-            : ''
-          : 실시간키워드.length > 20
-            ? '검색어는 20자 이하여야 합니다.'
-            : ''}
-      </Box>
+      <Box sx={SearchResetBtn}>{keywordValidate(실시간키워드)}</Box>
     </Container>
   );
 }
