@@ -16,9 +16,15 @@ function VideoSection({ loading, selectedChip, data }) {
       clearTimeout(timer);
     };
   }, []);
+
+  let keyword = selectedChip.keyword;
+  if (selectedChip.keyword.length > 10) {
+    keyword = `${selectedChip.keyword.substring(0, 15)}...`;
+  }
+
   return (
     <Box sx={{ mt: 4 }}>
-      <VideoTitle keyword={selectedChip.keyword} />
+      <VideoTitle keyword={keyword} />
       <Box display="flex">
         <Box sx={videoContainer}>
           {data.length > 0 ? (
