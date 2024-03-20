@@ -1,15 +1,17 @@
-import { Container, CssBaseline } from '@mui/material';
-import Header from 'components/common/header/Header';
 import { useEffect, useState } from 'react';
+
 import { getCoffeeChatDetail } from 'api/api';
+import CoffeeInfo from 'components/coffeechats/Detail/ui';
+import CoffeeDetailButtons from 'components/coffeechats/Detail/ui/CoffeeDetailButtons';
+import HostInfoWithViewcount from 'components/coffeechats/Detail/ui/HostInfoWithViewcount';
+import Header from 'components/common/header/Header';
+import Loading from 'components/common/loading/Loading';
+import { COFFEE_CHILD, COFFEE_MYPAGE_CHILD } from 'constants/headerProps';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
-import { COFFEE_CHILD, COFFEE_MYPAGE_CHILD } from 'constants/headerProps';
-import Loading from 'components/common/loading/Loading';
-import CoffeeChatInfo from 'components/coffeechats/detail/ui/CoffeeChatInfo';
-import HostInfoWithViewcount from 'components/coffeechats/detail/ui/HostInfoWithViewcount';
-import CoffeeDetailButtons from 'components/coffeechats/detail/ui/CoffeeDetailButtons';
+
+import { Container, CssBaseline } from '@mui/material';
 
 function CoffeeDetailPage() {
   const { id } = useParams();
@@ -53,7 +55,7 @@ function CoffeeDetailPage() {
         <Header title={COFFEE_CHILD.title} url={COFFEE_CHILD.url} />
       )}
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
-      <CoffeeChatInfo
+      <CoffeeInfo
         coffeeChatData={coffeeChatData}
         canView={coffeeChatData.hostId === loginState.memberId || coffeeChatData.isParticipant}
         isParticipant={isParticipant}

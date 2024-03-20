@@ -1,8 +1,10 @@
-import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import CompanyTitle from './CompanyTitle';
-import CompanyList from './CompanyList';
+
+import { Box } from '@mui/material';
+
 import DataNone from '../DataNone';
+import CompanyList from './CompanyList';
+import CompanyTitle from './CompanyTitle';
 
 function CompanySection({ loading, selectedChip, data }) {
   const [isDataNone, setIsLoading] = useState(false);

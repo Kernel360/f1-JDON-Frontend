@@ -1,8 +1,10 @@
-import { Box, Button, Container, Typography } from '@mui/material';
-import { infoBasicStyles } from '../info/InfoStyles';
 import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
 import { useNavigate } from 'react-router-dom';
+
 import { Close } from '@mui/icons-material';
+import { Box, Button, Container, Typography } from '@mui/material';
+
+import { infoBasicStyles } from '../info/InfoStyles';
 import { useSetErrorMsg } from './hooks/useSetErrorMsg';
 
 export function FailPage() {

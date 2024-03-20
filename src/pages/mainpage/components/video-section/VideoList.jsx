@@ -1,5 +1,7 @@
-import { Grid } from '@mui/material';
 import VideoCard from 'components/common/card/VideoCard';
+
+import { Grid } from '@mui/material';
+
 import SkeletonVideoSection from './SkeletonVideoSection';
 
 const VideoList = ({ loading, data }) => {

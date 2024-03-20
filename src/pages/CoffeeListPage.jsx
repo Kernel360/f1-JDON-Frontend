@@ -1,13 +1,15 @@
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
-import BottomNav from 'components/common/footer/BottomNav';
-import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
 import { useEffect, useState } from 'react';
+
+import { foundTxtStyle, listContainer } from 'components/coffeechats/List/style';
+import FiltersAndButton from 'components/coffeechats/List/ui/FiltersAndButton';
+import useFetchCoffeeData from 'components/coffeechats/List/useFetchCoffeeData';
+import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
+import BottomNav from 'components/common/footer/BottomNav';
 import PaginationComponent from 'components/common/pagenation/Pagenation';
 import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
-import FiltersAndButton from 'components/coffeechats/main/ui/FiltersAndButton';
-import { foundTxtStyle, listContainer } from 'components/coffeechats/main/style';
 import useFetchJobCategories from 'hooks/useFetchJobCategory';
-import useFetchCoffeeData from 'components/coffeechats/main/useFetchCoffeeData';
+
+import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 
 const defaultSortData = {
   sort: 'createdDate',

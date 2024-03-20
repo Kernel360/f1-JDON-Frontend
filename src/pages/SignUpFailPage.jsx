@@ -1,8 +1,9 @@
-import { Box, Button, Container, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { buttonStyle } from 'components/common/button/NavigationBtnStyles';
-import Close from '@mui/icons-material/Close';
 import { infoBasicStyles } from 'components/member/sign-up/InfoStyles';
+import { useNavigate } from 'react-router-dom';
+
+import Close from '@mui/icons-material/Close';
+import { Box, Button, Container, Typography } from '@mui/material';
 
 function SignUpFailPage() {
   const navigate = useNavigate();

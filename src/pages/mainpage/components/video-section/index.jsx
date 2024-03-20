@@ -1,9 +1,12 @@
-import { Box } from '@mui/material';
-import VideoTitle from './VideoTitle';
-import VideoList from './VideoList';
-import { videoContainer } from 'pages/mainpage/style';
 import { useEffect, useState } from 'react';
+
+import { videoContainer } from 'pages/mainpage/style';
+
+import { Box } from '@mui/material';
+
 import DataNone from '../DataNone';
+import VideoList from './VideoList';
+import VideoTitle from './VideoTitle';
 
 function VideoSection({ loading, selectedChip, data }) {
   const [isDataNone, setIsDataNone] = useState(false);

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { fetchLectureData } from '../apiFunction';
 
 export function useLoadData() {

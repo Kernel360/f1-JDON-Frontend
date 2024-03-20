@@ -1,7 +1,8 @@
-import { Box, Button, Container, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { buttonStyle } from 'components/common/button/NavigationBtnStyles';
+import { useNavigate } from 'react-router-dom';
+
 import DoneIcon from '@mui/icons-material/Done';
+import { Box, Button, Container, Typography } from '@mui/material';
 
 function SignUpSuccessPage() {
   const navigate = useNavigate();

@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
-import { Container, Box, Typography, Grid } from '@mui/material';
-import BottomNav from 'components/common/footer/BottomNav';
-import VideoCard from 'components/common/card/VideoCard';
+import { useEffect, useState } from 'react';
+
 import { getFavoriteVideo } from 'api/api';
+import VideoCard from 'components/common/card/VideoCard';
+import BottomNav from 'components/common/footer/BottomNav';
 import Header from 'components/common/header/Header';
-import { MYPAGE_CHILD } from 'constants/headerProps';
-import PaginationComponent from 'components/common/pagenation/Pagenation';
 import SkeletonLoader from 'components/common/loading/skeleton/video-card/SkeletonLoader';
+import PaginationComponent from 'components/common/pagenation/Pagenation';
+import { MYPAGE_CHILD } from 'constants/headerProps';
+
+import { Box, Container, Grid, Typography } from '@mui/material';
 
 export default function FavoritesVideo() {
   const [datas, setDatas] = useState(null);

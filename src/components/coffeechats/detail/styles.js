@@ -43,3 +43,45 @@ export const CoffeeDetailStyles = {
     alignItems: 'center',
   },
 };
+
+export const TitleStyle = () => ({
+  px: '6px',
+  fontSize: '20px',
+  mt: '22px',
+  wordWrap: 'break-word',
+  whiteSpace: 'normal',
+});
+
+export const DetailInfoBoxStyle = () => ({
+  borderRadius: '10px',
+  width: '100%',
+  heigth: '64px',
+  background: '#F3F5FF',
+  my: '24px',
+  py: '16px',
+  px: '16px',
+});
+
+export const recruitInfoStyle = () => ({
+  pb: '10px',
+  color: '#373737',
+  fontWeight: '600',
+  fontSize: '15px',
+});
+export const ContentStyle = () => ({
+  color: '#545459',
+  minHeight: '180px',
+  wordWrap: 'break-word',
+  whiteSpace: 'normal',
+  pt: 2,
+  mb: 3,
+});
+
+export const InfoItemStyle = () => ({
+  pb: '5px',
+  color: '#696969',
+  fontSize: '15px',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+});

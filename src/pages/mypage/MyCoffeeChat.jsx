@@ -1,15 +1,17 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, Grid, Tab, Container } from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import Header from 'components/common/header/Header';
-import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
+import { useCallback, useEffect, useState } from 'react';
+
 import { getJobCategory, getMyCoffeeChat, getSignCoffeeChat } from 'api/api';
+import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
+import Header from 'components/common/header/Header';
 import Pagenation from 'components/common/pagenation/Pagenation';
+import { MYPAGE_CHILD } from 'constants/headerProps';
+import { MainStyles } from 'pages/PageStyles';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { kindOfJdState } from 'recoil/atoms';
-import { MYPAGE_CHILD } from 'constants/headerProps';
-import { useLocation } from 'react-router-dom';
-import { MainStyles } from 'pages/PageStyles';
+
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Box, Container, Grid, Tab, Typography } from '@mui/material';
 
 export default function MyCoffeeChat() {
   const [value, setValue] = useState(localStorage.getItem('tap_value') || '1');

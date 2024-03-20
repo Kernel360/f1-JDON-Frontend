@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
+
+import { Authentication } from 'api/api';
 import { useRecoilState } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
-import { Authentication } from 'api/api';
 
 export function useAuth() {
   const [loginState, setLoginState] = useRecoilState(isLoggedInState);

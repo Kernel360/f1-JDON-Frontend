@@ -11,3 +11,13 @@ export const formatDateTime = (date) => {
   const formattedDate = `${year}-${month}-${day} ${time}`;
   return formattedDate;
 };
+
+export const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+};
+
+export const formatTime = (dateString) => {
+  const date = new Date(dateString);
+  return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+};

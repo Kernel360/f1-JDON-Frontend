@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { useNavigate } from 'react-router-dom/dist';
+
 import { getJobCategory, registerUserInfo } from 'api/api';
-import { isLoggedInState, userInfo } from 'recoil/atoms';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import StepForBasic from 'components/member/sign-up/ui/StepForBasic';
 import NavigationButtons from 'components/common/button/NavigationBtn';
-import StepForJob from 'components/member/sign-up/ui/StepForJob';
-import StepForSkills from 'components/member/sign-up/ui/StepForSkills';
 import ProgressBar from 'components/common/Progressbar';
 import { InfoStyle } from 'components/member/sign-up/InfoStyles';
+import StepForBasic from 'components/member/sign-up/ui/StepForBasic';
+import StepForJob from 'components/member/sign-up/ui/StepForJob';
+import StepForSkills from 'components/member/sign-up/ui/StepForSkills';
+import { useNavigate } from 'react-router-dom/dist';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { isLoggedInState, userInfo } from 'recoil/atoms';
+
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+
 import SignUpSuccessPage from './SignUpSuccessPage';
 
 export default function SignUpPage() {

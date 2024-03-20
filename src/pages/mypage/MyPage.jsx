@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Container, Box } from '@mui/material';
-import ToggleList from 'components/common/ToggleList';
-import BottomNav from 'components/common/footer/BottomNav';
+
 import { getFAQ, getJobCategory, getMemberInfo } from 'api/api';
-import { kindOfJdState } from 'recoil/atoms';
+import BottomNav from 'components/common/footer/BottomNav';
+import ToggleList from 'components/common/ToggleList';
 import { useSetRecoilState } from 'recoil';
+import { kindOfJdState } from 'recoil/atoms';
+
+import { Box, Container } from '@mui/material';
+
+import LogoutButton from './LogoutButton';
+import NavButtons from './NavButtons';
 import { getNoticeList } from './notice';
 import ProfileSection from './ProfileSection';
-import NavButtons from './NavButtons';
-import LogoutButton from './LogoutButton';
 
 export default function MyPage() {
   const [memberInfo, setMemberInfo] = useState({});
