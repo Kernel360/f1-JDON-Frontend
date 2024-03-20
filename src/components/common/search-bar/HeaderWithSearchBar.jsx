@@ -13,6 +13,7 @@ function HeaderWithSearchBar({
   const navigate = useNavigate();
 
   const imgHandler = () => {
+    localStorage.setItem('keyword', JSON.stringify(''));
     navigate('/');
   };
 
