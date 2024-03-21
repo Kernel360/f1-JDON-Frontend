@@ -1,33 +1,37 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
+import React from 'react';
+
 import { Layout } from 'components/layout/Layout';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from 'styles/themeMuiStyle';
-import MyCoffeeChat from 'pages/mypage/MyCoffeeChat';
+import useFetchJobCategories from 'hooks/useFetchJobCategory';
+import NotFound from 'pages/404';
+import CoffeeCreatePage from 'pages/CoffeeCreatePage';
+import CoffeeDetailPage from 'pages/CoffeeDetailPage';
+import CoffeeListPage from 'pages/CoffeeListPage';
+import CoffeeUpdatePage from 'pages/CoffeeUpdatePage';
+import JdAll from 'pages/jd-all';
+import { JdDetail } from 'pages/jd-detail/JdDetail';
+import { Main } from 'pages/mainpage';
+import { useAuth } from 'pages/mainpage/hooks/useAuth';
 import FavoritesVideo from 'pages/mypage/FavoritesVideo';
 import InfoEdit from 'pages/mypage/InfoEdit';
+import MyCoffeeChat from 'pages/mypage/MyCoffeeChat';
 import MyPage from 'pages/mypage/MyPage';
-import { Main } from 'pages/mainpage';
 import Withdrawal from 'pages/mypage/Withdrawal';
-import React from 'react';
 import RedirectPage from 'pages/sign-in/RedirectPage';
-import JdAll from 'pages/jd-all';
-import { useAuth } from 'pages/mainpage/hooks/useAuth';
-import NotFound from 'pages/404';
+import SignIn from 'pages/sign-in/SignIn';
+import SignUpFailPage from 'pages/SignUpFailPage';
+import SignUpPage from 'pages/SignUpPage';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
-import CoffeeCreatePage from 'pages/CoffeeCreatePage';
-import CoffeeUpdatePage from 'pages/CoffeeUpdatePage';
-import CoffeeListPage from 'pages/CoffeeListPage';
-import CoffeeDetailPage from 'pages/CoffeeDetailPage';
-import SignIn from 'pages/sign-in/SignIn';
-import SignUpPage from 'pages/SignUpPage';
-import SignUpFailPage from 'pages/SignUpFailPage';
-import { JdDetail } from 'pages/jd-detail/JdDetail';
+import { theme } from 'styles/themeMuiStyle';
+
+import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
   useAuth();
+  useFetchJobCategories();
   const localLoginState = localStorage.getItem('isLoggedInState');
   const loginState = useRecoilValue(isLoggedInState);
 

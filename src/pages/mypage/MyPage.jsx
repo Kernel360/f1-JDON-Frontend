@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { getFAQ, getJobCategory, getMemberInfo } from 'api/api';
+import { getFAQ, getMemberInfo } from 'api/api';
 import BottomNav from 'components/common/footer/BottomNav';
 import ToggleList from 'components/common/ToggleList';
-import { useSetRecoilState } from 'recoil';
-import { kindOfJdState } from 'recoil/atoms';
 
 import { Box, Container } from '@mui/material';
 
@@ -16,7 +14,7 @@ import ProfileSection from './ProfileSection';
 export default function MyPage() {
   const [memberInfo, setMemberInfo] = useState({});
   const [FAQ, setFAQ] = useState([]);
-  const setJobCategories = useSetRecoilState(kindOfJdState);
+
   const noticeLists = getNoticeList(FAQ);
 
   useEffect(() => {
@@ -24,10 +22,8 @@ export default function MyPage() {
       try {
         const memberData = await getMemberInfo();
         const faqData = await getFAQ();
-        const { jobGroupList } = await getJobCategory();
         setFAQ(faqData.faqList || []);
         setMemberInfo(memberData.data);
-        setJobCategories(jobGroupList[0].jobCategoryList);
       } catch (error) {
         console.error(error);
       }

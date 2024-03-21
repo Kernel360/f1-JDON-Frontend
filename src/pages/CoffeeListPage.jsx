@@ -3,13 +3,12 @@ import useSortAndSearch from 'components/coffeechats/List/queryHooks/useSortAndS
 import FiltersAndButton from 'components/coffeechats/List/ui/FiltersAndButton';
 import BottomNav from 'components/common/footer/BottomNav';
 import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
-import useFetchJobCategories from 'hooks/useFetchJobCategory';
 
 import { Container } from '@mui/material';
 
 function CoffeeListPage() {
   const { sortData, 검색어, set검색어, handleSortDataChange } = useSortAndSearch();
-  const { jobCategories } = useFetchJobCategories();
+  const jobCategories = JSON.parse(localStorage.getItem('jobCategories'));
 
   return (
     <Container maxWidth="md" sx={{ pb: 10 }}>

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { getJobCategory } from 'api/api';
 import { useRecoilState } from 'recoil';
 import { kindOfJdState } from 'recoil/atoms';
@@ -15,6 +16,7 @@ const useFetchJobCategories = () => {
       try {
         const { jobGroupList } = await getJobCategory();
         setJobCategories(jobGroupList[0].jobCategoryList);
+        localStorage.setItem('jobCategories', JSON.stringify(jobGroupList[0].jobCategoryList));
         setError(null);
       } catch (error) {
         setError(error);
@@ -24,6 +26,7 @@ const useFetchJobCategories = () => {
       }
     };
     fetchJobCategories();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
