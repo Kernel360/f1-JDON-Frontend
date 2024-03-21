@@ -1,5 +1,6 @@
 import { Box, Chip, Stack, Typography } from '@mui/material';
 import NewBtn from 'components/common/new-btn/NewBtn';
+import { BackgroundImg, MainImg, RelativeBox } from './style';
 
 function JdInfoForm({ title, mockData }) {
   return (
@@ -25,8 +26,9 @@ export function TabForInfo({ jdData }) {
   };
   return (
     <Box>
-      <Box height={300} bgcolor="#9A9AA1" borderRadius="8px">
-        <img src={jdData.imageUrl} alt="imageUrl" height={300} width="100%" />
+      <Box height={330} bgcolor="#9A9AA1" borderRadius="8px" sx={RelativeBox}>
+        <img src={jdData.imageUrl} alt="imageUrl" height={500} style={BackgroundImg} />
+        <img src={jdData.imageUrl} alt="imageUrl" height={300} style={MainImg} />
       </Box>
       <Box sx={{ paddingY: 3, borderBottom: '1px solid #EBEBEB' }}>
         <Typography variant="body3" component="p" color="#9A9AA1" fontSize={14}>
