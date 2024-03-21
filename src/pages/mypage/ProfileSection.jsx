@@ -1,7 +1,7 @@
-import profile from 'assets/images/profile.svg';
-import edit from 'assets/images/icn_edit.svg';
-const { Grid, Avatar, Typography, IconButton } = require('@mui/material');
-const { Link } = require('react-router-dom');
+import { Avatar, Grid, IconButton, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom';
+import ProfileIcon from 'assets/images/ProfileIcon';
 
 function ProfileSection({ data }) {
   return (
@@ -10,15 +10,15 @@ function ProfileSection({ data }) {
         <Grid item>
           <Avatar
             alt="user profile"
-            src={profile}
             sx={{
               background: 'inherit',
               width: '45px',
               height: '45px',
               p: 1,
               border: '1px solid #FEC93A',
-            }}
-          />
+            }}>
+            <ProfileIcon />
+          </Avatar>
         </Grid>
         <Grid item container alignItems="center" justifyContent="center">
           <Typography
@@ -32,16 +32,19 @@ function ProfileSection({ data }) {
           </Typography>
           <Link to={{ pathname: '/mypage/infoedit', state: { data: data } }}>
             <IconButton
-              aria-label="정보수정"
-              color="black"
+              // aria-label="정보수정"
+              // color="black"
               style={{
-                backgroundImage: `url(${edit})`,
-                backgroundSize: 'cover',
+                // backgroundImage: `url(${edit})`,
+                // backgroundSize: 'cover',
                 margin: '11px',
                 width: '17px',
                 height: '17px',
-              }}></IconButton>
+              }}>
+              <EditIcon />
+            </IconButton>
           </Link>
+          {/* <PencilIcon /> */}
         </Grid>
       </Grid>
     </Grid>
