@@ -3,7 +3,7 @@ import { MainStyles } from 'pages/PageStyles';
 import { titleStyle } from 'pages/mainpage/style';
 
 const CompanyTitle = ({ keyword }) => {
-  if (keyword.length > 10) {
+  if (keyword?.length > 10) {
     keyword = `${keyword.substring(0, 15)}...`;
   }
 
