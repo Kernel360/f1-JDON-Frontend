@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
 import { getCoffeeChat } from 'api/api';
 import { useRecoilState } from 'recoil';
 import { coffeeChatListState } from 'recoil/atoms';
@@ -28,12 +29,7 @@ const useFetchCoffeeData = (currentPage, sortData, 검색어) => {
     }
   };
 
-  useEffect(() => {
-    fetchCoffeeData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, sortData, 검색어]);
-
-  return { coffeeData, loading, error };
+  return { coffeeData, loading, error, fetchCoffeeData };
 };
 
 export default useFetchCoffeeData;

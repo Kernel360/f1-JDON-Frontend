@@ -10,6 +10,12 @@ export const CoffeeDetailStyles = {
       flexGrow: 1,
     },
   },
+  BtnsContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
+  },
 
   Button: {
     mt: 5,

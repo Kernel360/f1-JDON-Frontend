@@ -4,27 +4,20 @@ import { isLoggedInState } from 'recoil/atoms';
 
 import { Box, Grid } from '@mui/material';
 
-import useFetchCoffeeChatDetail from '../queryHooks/useFetchcCoffeeChatDetail';
 import { CoffeeDetailStyles } from '../styles';
 import ApplyButton from './button/ApplyButton';
 import EditButton from './button/EditButton';
 import RemoveButton from './button/RemoveButton';
 
-function CoffeeDetailButtons({ id }) {
+function CoffeeDetailButtons({ id, coffeeChatData, isParticipant, setIsParticipant }) {
   const loginState = useRecoilValue(isLoggedInState);
-  const { coffeeChatData, isParticipant, setIsParticipant } = useFetchCoffeeChatDetail(id);
+
   const isButtonDisables = coffeeChatData?.status !== '모집중' || isParticipant;
   const host = coffeeChatData?.hostId === loginState.memberId;
 
   return (
     <Box sx={CoffeeDetailStyles.Container}>
-      <Box
-        sx={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-between',
-          gap: '20px',
-        }}>
+      <Box sx={CoffeeDetailStyles.BtnsContainer}>
         <Grid item xs={8} sm={8} sx={{ display: 'flex', gap: '12px', flexGrow: 1 }}>
           {host ? (
             <>
@@ -42,7 +35,13 @@ function CoffeeDetailButtons({ id }) {
               />
             </>
           ) : (
-            <ApplyButton title="신청하기" id={id} />
+            <ApplyButton
+              title="신청하기"
+              id={id}
+              coffeeChatData={coffeeChatData}
+              isParticipant={isParticipant}
+              setIsParticipant={setIsParticipant}
+            />
           )}
         </Grid>
         <URLShareButton />

@@ -3,11 +3,9 @@ import { JobBadge } from 'components/common/badge/JobBadge';
 
 import { Box, Typography } from '@mui/material';
 
-import useFetchCoffeeChatDetail from '../queryHooks/useFetchcCoffeeChatDetail';
 import { CoffeeDetailStyles, viewCountContainerStyle } from '../styles';
 
-function HostInfoWithViewcount({ id }) {
-  const { coffeeChatData } = useFetchCoffeeChatDetail(id);
+function HostInfoWithViewcount({ coffeeChatData }) {
   return (
     <Box sx={CoffeeDetailStyles.UpTitle}>
       <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>

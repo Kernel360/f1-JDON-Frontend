@@ -1,12 +1,9 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { applyCoffeechat } from 'api/api';
 import ActionButton from 'components/common/button/ActionButton';
 
-import useFetchCoffeeChatDetail from '../../queryHooks/useFetchcCoffeeChatDetail';
-
-function ApplyButton({ title, id }) {
-  const { coffeeChatData, isParticipant, setIsParticipant } = useFetchCoffeeChatDetail(id);
+function ApplyButton({ title, id, coffeeChatData, isParticipant, setIsParticipant }) {
   const isButtonDisables = useMemo(
     () => coffeeChatData?.status !== '모집중' || isParticipant,
     [coffeeChatData, isParticipant],
@@ -47,10 +44,6 @@ function ApplyButton({ title, id }) {
       return;
     }
   };
-
-  useEffect(() => {
-    console.log(isParticipant);
-  }, [isParticipant]);
 
   return (
     <ActionButton
