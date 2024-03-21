@@ -3,22 +3,24 @@ import { JobBadge } from 'components/common/badge/JobBadge';
 
 import { Box, Typography } from '@mui/material';
 
+import useFetchCoffeeChatDetail from '../queryHooks/useFetchcCoffeeChatDetail';
 import { CoffeeDetailStyles, viewCountContainerStyle } from '../styles';
 
-function HostInfoWithViewcount({ coffeeChatData }) {
+function HostInfoWithViewcount({ id }) {
+  const { coffeeChatData } = useFetchCoffeeChatDetail(id);
   return (
     <Box sx={CoffeeDetailStyles.UpTitle}>
       <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
         <Typography sx={{ color: '#9A9AA1', fontWeight: 400, fontSize: '13px' }}>
-          {coffeeChatData.nickname}
+          {coffeeChatData?.nickname}
         </Typography>
-        {coffeeChatData.hostJobCategoryName && (
-          <JobBadge job={coffeeChatData.hostJobCategoryName} />
+        {coffeeChatData?.hostJobCategoryName && (
+          <JobBadge job={coffeeChatData?.hostJobCategoryName} />
         )}
       </Box>
       <Typography sx={viewCountContainerStyle}>
         <img src={eyeIcon} alt="조회수" />
-        {coffeeChatData.viewCount}
+        {coffeeChatData?.viewCount}
       </Typography>
     </Box>
   );

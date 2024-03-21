@@ -1,11 +1,19 @@
+import TotalInputForm from 'components/common/input/TotalInputForm';
 import { URLInput } from 'pages/PageStyles';
 
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 
-const { TextField, InputAdornment, Button, Typography } = require('@mui/material');
-const { default: TotalInputForm } = require('components/common/input/TotalInputForm');
+import useClipboardCopy from '../queryHooks/useClipboardCopy';
 
-function CoffeeDetailChatLink({ hasAuthenticate, openChatUrl, isCopied, inputRef, onCopy }) {
+const { TextField, InputAdornment, Button, Typography } = require('@mui/material');
+
+function CoffeeDetailChatLink({ hasAuthenticate, openChatUrl, inputRef }) {
+  const [isCopied, handleCopyClick] = useClipboardCopy();
+
+  const onCopyButtonClick = () => {
+    handleCopyClick(openChatUrl);
+  };
+
   return (
     <TotalInputForm value={false} label="오픈채팅 링크">
       <TextField
@@ -18,7 +26,7 @@ function CoffeeDetailChatLink({ hasAuthenticate, openChatUrl, isCopied, inputRef
           disabled: true,
           endAdornment: hasAuthenticate && (
             <InputAdornment position="end" sx={{ background: 'transparent' }}>
-              <Button onClick={onCopy}>
+              <Button onClick={onCopyButtonClick}>
                 {isCopied ? (
                   <Typography sx={{ fontSize: '12px' }}>Copied!</Typography>
                 ) : (

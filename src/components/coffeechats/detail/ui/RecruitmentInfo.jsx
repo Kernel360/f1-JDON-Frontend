@@ -20,7 +20,7 @@ function RecruitmentInfo({ coffeeChatData }) {
       <CoffeeInfoItem icon={<AccessTimeFilledIcon />} text={formattedTime} iconColor="#52BF91" />
       <CoffeeInfoItem
         icon={<PeopleAltIcon />}
-        text={`${coffeeChatData?.currentRecruitCount} / ${coffeeChatData.totalRecruitCount}`}
+        text={`${coffeeChatData?.currentRecruitCount} / ${coffeeChatData?.totalRecruitCount}`}
         iconColor="#575757"
       />
     </Box>

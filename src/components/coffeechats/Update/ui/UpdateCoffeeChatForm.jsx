@@ -65,9 +65,7 @@ function UpdateCoffeeChatForm() {
       <CoffeeChatForm
         formValue={formValue}
         helperTexts={helperTexts}
-        isFormValid={isFormValid}
         updateFormValue={updateFormValue}
-        submitCoffeeChat={hanldeRegister}
       />
       <NewBtn
         title="수정완료"
