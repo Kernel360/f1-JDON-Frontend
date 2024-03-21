@@ -1,5 +1,5 @@
 import { Container, CssBaseline } from '@mui/material';
-import Header from 'components/common/Header';
+import Header from 'components/common/header/Header';
 import { CategoryTab } from './CategoryTab';
 import { JD_CHILD } from 'constants/headerProps';
 

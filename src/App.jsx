@@ -1,33 +1,37 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import SignIn from 'pages/sign-in/SignIn';
-import Info from 'pages/info/InFo';
+
+import React from 'react';
+
 import { Layout } from 'components/layout/Layout';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from 'styles/themeMuiStyle';
-import SignupFail from 'pages/info/SignupFail';
-import MyCoffeeChat from 'pages/mypage/MyCoffeeChat';
+import useFetchJobCategories from 'hooks/useFetchJobCategory';
+import NotFound from 'pages/404';
+import CoffeeCreatePage from 'pages/CoffeeCreatePage';
+import CoffeeDetailPage from 'pages/CoffeeDetailPage';
+import CoffeeListPage from 'pages/CoffeeListPage';
+import CoffeeUpdatePage from 'pages/CoffeeUpdatePage';
+import JdAll from 'pages/jd-all';
+import { JdDetail } from 'pages/jd-detail/JdDetail';
+import { Main } from 'pages/mainpage';
+import { useAuth } from 'pages/mainpage/hooks/useAuth';
 import FavoritesVideo from 'pages/mypage/FavoritesVideo';
 import InfoEdit from 'pages/mypage/InfoEdit';
+import MyCoffeeChat from 'pages/mypage/MyCoffeeChat';
 import MyPage from 'pages/mypage/MyPage';
-import { Main } from 'pages/mainpage';
 import Withdrawal from 'pages/mypage/Withdrawal';
-import React from 'react';
 import RedirectPage from 'pages/sign-in/RedirectPage';
-import { JdDetail } from 'pages/jd-detail/JdDetail';
-import { FailPage } from 'pages/sign-in/FailPage';
-import JdAll from 'pages/jd-all';
-import { useAuth } from 'pages/mainpage/hooks/useAuth';
-import NotFound from 'pages/404';
+import SignIn from 'pages/sign-in/SignIn';
+import SignUpFailPage from 'pages/SignUpFailPage';
+import SignUpPage from 'pages/SignUpPage';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
-import Coffeeopen from 'pages/coffeechats/create-coffeechats';
-import { Coffee } from 'pages/coffeechats/coffeechat-list';
-import CoffeeDetail from 'pages/coffeechats/detail-coffeechats';
-import UpdateCoffeeForm from 'pages/coffeechats/update-coffeechats';
+import { theme } from 'styles/themeMuiStyle';
+
+import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
   useAuth();
+  useFetchJobCategories();
   const localLoginState = localStorage.getItem('isLoggedInState');
   const loginState = useRecoilValue(isLoggedInState);
 
@@ -37,31 +41,31 @@ function App() {
     { path: '/mypage/video', element: <FavoritesVideo /> },
     { path: '/mypage/withdrawal', element: <Withdrawal /> },
     { path: '/mypage/coffee', element: <MyCoffeeChat /> },
-    { path: '/coffeechat-open', element: <Coffeeopen /> },
+    { path: '/coffeechat-open', element: <CoffeeCreatePage /> },
   ];
   const publicRoutes = [
     { path: '/', element: <Main /> },
     { path: '/signin', element: <SignIn /> },
-    { path: '/info', element: <Info /> },
-    { path: '/coffee', element: <Coffee /> },
-    { path: '/coffee/:id', element: <CoffeeDetail /> },
-    { path: 'edit-coffee/:id', element: <UpdateCoffeeForm /> },
+    { path: '/info', element: <SignUpPage /> },
+    { path: '/coffee', element: <CoffeeListPage /> },
+    { path: '/coffee/:id', element: <CoffeeDetailPage /> },
+    { path: 'edit-coffee/:id', element: <CoffeeUpdatePage /> },
     { path: '/oauth/info', element: <RedirectPage /> },
 
     // 로그인 리다이렉트 페이지 5가지
     { path: '/oauth/login/success', element: <RedirectPage /> },
-    { path: '/oauth/login/fail/not-found-email', element: <FailPage /> }, // 소셜 이메일을 찾을 수 없을 때
-    { path: '/oauth/login/fail/another-withdraw-account', element: <FailPage /> }, // 다른 소셜 로그인으로 탈퇴한 내역이 존재
-    { path: '/oauth/login/fail/already-withdraw-account', element: <FailPage /> },
+    { path: '/oauth/login/fail/not-found-email', element: <SignUpFailPage /> }, // 소셜 이메일을 찾을 수 없을 때
+    { path: '/oauth/login/fail/another-withdraw-account', element: <SignUpFailPage /> }, // 다른 소셜 로그인으로 탈퇴한 내역이 존재
+    { path: '/oauth/login/fail/already-withdraw-account', element: <SignUpFailPage /> },
     {
       path: '/oauth/login/fail/not-match-provider',
-      element: <FailPage />,
+      element: <SignUpFailPage />,
     },
 
     //
     { path: '/jds', element: <JdAll /> },
     { path: '/jds/:id', element: <JdDetail /> },
-    { path: '/fail', element: <SignupFail /> },
+    { path: '/fail', element: <SignUpFailPage /> },
     { path: '/*', element: <NotFound /> },
   ];
 

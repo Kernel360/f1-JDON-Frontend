@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import Header from 'components/common/Header';
-import { Box, Button, Container, Grid, Link, CssBaseline } from '@mui/material';
+import { useEffect, useState } from 'react';
+
+import { checkNicknameDuplicate, getMemberInfo, updateMemberInfo } from 'api/api';
+import { buttonStyle } from 'components/common/button/NavigationBtnStyles';
+import NewDayPicker from 'components/common/date-picker/NewDayPicker';
+import Header from 'components/common/header/Header';
+import NewInput from 'components/common/input/NewInput';
+import TotalInputForm from 'components/common/input/TotalInputForm';
 import SwipJobSkill from 'components/common/swipe/SwipJobSkill';
-import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
-import NewInput from 'components/common/new-input/NewInput';
+import { infoBasicStyles, OptionButton } from 'components/member/sign-up/InfoStyles';
+import { MYPAGE_CHILD } from 'constants/headerProps';
+import { NO_ADMIN, NO_SC, NO_SPACE_BAR } from 'constants/nickname';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { jobIdState, selectedJobSkillState } from 'recoil/atoms';
-import { checkNicknameDuplicate, getMemberInfo, updateMemberInfo } from 'api/api';
-import NewDayPicker from 'components/common/new-daypicker/NewDayPicker';
-import TotalInputForm from 'components/common/total-input-form/TotalInputForm';
-import { OptionButton, infoBasicStyles } from '../info/InfoStyles';
-import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from 'constants/nickname';
-import { MYPAGE_CHILD } from 'constants/headerProps';
+
+import { Box, Button, Container, CssBaseline, Grid, Link } from '@mui/material';
 
 const GENDERS = ['남성', '여성'];
 

@@ -1,6 +1,8 @@
-import { Box } from '@mui/material';
-import topIcon from 'assets/icons/aroww-top.svg';
 import { useEffect, useState } from 'react';
+
+import topIcon from 'assets/icons/aroww-top.svg';
+
+import { Box } from '@mui/material';
 
 function ScrollToTop({ topRef }) {
   const [isSlideUp, setIsSlideUp] = useState(false);

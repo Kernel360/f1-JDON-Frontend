@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
-import PaginationComponent from 'components/common/Pagenation';
+import PaginationComponent from 'components/common/pagenation/Pagenation';
 import useJDComponents from 'pages/jd-all/hooks/useJDComponents';
-import SkeletonLoader from 'components/common/skeleton/company-card/SkeletonLoader';
+import SkeletonLoader from 'components/common/loading/skeleton/company-card/SkeletonLoader';
 import { Suspense, lazy } from 'react';
 const JDGird = lazy(() => import('./JDGird'));
 
