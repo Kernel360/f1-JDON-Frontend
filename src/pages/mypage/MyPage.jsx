@@ -39,7 +39,6 @@ export default function MyPage() {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '95vh',
-        minwidth: '100vw',
         py: 10,
       }}>
       <ProfileSection data={memberInfo} />

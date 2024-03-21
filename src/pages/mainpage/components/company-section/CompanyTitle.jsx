@@ -4,7 +4,7 @@ import { MainStyles } from 'pages/PageStyles';
 import { Typography } from '@mui/material';
 
 const CompanyTitle = ({ keyword }) => {
-  if (keyword.length > 10) {
+  if (keyword?.length > 10) {
     keyword = `${keyword.substring(0, 15)}...`;
   }
 
