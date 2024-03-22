@@ -15,17 +15,12 @@ const useFetchCoffeeData = (currentPage, sortData, 검색어) => {
 
   const {
     data: coffeeData,
-    isLoading: loading,
+    isLoading,
+    isPending,
     error,
-  } = useQuery(
-    ['coffeeData', currentPage, sortData, 검색어], // 이 배열은 쿼리 키로 사용되며, 이 값들이 변경될 때마다 쿼리가 다시 실행됩니다.
-    fetchCoffeeData, // 데이터를 가져오는 함수
-    {
-      keepPreviousData: true,
-    },
-  );
+  } = useQuery(['coffeeData', currentPage, sortData, 검색어], fetchCoffeeData);
 
-  return { coffeeData, loading, error };
+  return { coffeeData, isPending, isLoading, error };
 };
 
 export default useFetchCoffeeData;
