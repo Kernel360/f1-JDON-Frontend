@@ -6,12 +6,19 @@ import { useCoffeeForm } from 'hooks/useCoffeeForm';
 import useRegisterCoffeeChat from '../queryHooks/useSubmitCoffeeChat';
 
 function CreateCoffeeChatForm() {
-  const { formValue, helperTexts, isFormValid, updateFormValue } = useCoffeeForm();
+  const { formValue, helperTexts, isFormValid, updateFormValue } = useCoffeeForm({
+    title: '',
+    content: '',
+    totalRecruitCount: '',
+    meetDate: '',
+    openChatUrl: '',
+  });
 
   const { register, isLoading } = useRegisterCoffeeChat();
 
   const submitCoffeeChat = (e) => {
     e.preventDefault();
+    alert('커피챗이 정상적으로 등록되었습니다');
     register(formValue);
   };
 

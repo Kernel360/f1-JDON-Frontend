@@ -4,7 +4,6 @@ import { getJobCategory } from 'api/api';
 import { useRecoilState } from 'recoil';
 import { kindOfJdState } from 'recoil/atoms';
 
-//공통 컴포넌트로 이동
 const useFetchJobCategories = () => {
   const [jobCategories, setJobCategories] = useRecoilState(kindOfJdState);
   const [loading, setLoading] = useState(false);
