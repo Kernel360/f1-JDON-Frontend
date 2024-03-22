@@ -1,6 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export const useCoffeeForm = (initialValues) => {
+const defaultInitialValues = {
+  title: '',
+  content: '',
+  totalRecruitCount: '',
+  meetDate: '',
+  openChatUrl: '',
+};
+
+export const useCoffeeForm = (initialValues = defaultInitialValues) => {
   const [formValue, setFormValue] = useState(initialValues);
   const [helperTexts, setHelperTexts] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
