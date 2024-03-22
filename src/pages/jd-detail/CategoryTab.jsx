@@ -1,13 +1,16 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Tab } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { TabForInfo } from './TabForInfo';
-import { TabForReview } from './TabForReview';
-import { MainStyles } from '../PageStyles';
+
 import { getJdDetail } from 'api/api';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
+
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Box, Tab } from '@mui/material';
+
+import { MainStyles } from '../PageStyles';
+import { TabForInfo } from './TabForInfo';
+import { TabForReview } from './TabForReview';
 
 function TabPanelItem({ children, value }) {
   return (

@@ -23,7 +23,7 @@ function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData, pathName 
       return;
     }
     navigate(`/coffee/${data.coffeeChatId}`);
-    if (pathName !== undefined) localStorage.setItem('back_path', pathName);
+    if (pathName === undefined) localStorage.setItem('back_path', pathName);
   };
 
   const hanldeCancelCoffeeChat = async () => {

@@ -1,4 +1,4 @@
-import Header from 'components/layout/Header';
+import Header from 'components/common/header/Header';
 import { COFFEE_CHILD, COFFEE_MYPAGE_CHILD } from 'constants/headerProps';
 
 function DynamicHeader({ backPath }) {
