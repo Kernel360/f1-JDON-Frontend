@@ -9,10 +9,10 @@ import ApplyButton from './button/ApplyButton';
 import EditButton from './button/EditButton';
 import RemoveButton from './button/RemoveButton';
 
-function CoffeeDetailButtons({ coffeeChatId, coffeeChatData, isParticipant, setIsParticipant }) {
+function CoffeeDetailButtons({ coffeeChatId, coffeeChatData }) {
   const loginState = useRecoilValue(isLoggedInState);
 
-  const isButtonDisables = coffeeChatData?.status !== '모집중' || isParticipant;
+  const isButtonDisables = coffeeChatData?.status !== '모집중' || coffeeChatData.isParticipant;
   const host = coffeeChatData?.hostId === loginState.memberId;
 
   return (
@@ -21,12 +21,7 @@ function CoffeeDetailButtons({ coffeeChatId, coffeeChatData, isParticipant, setI
         <Grid item xs={8} sm={8} sx={{ display: 'flex', gap: '12px', flexGrow: 1 }}>
           {host ? (
             <>
-              <EditButton
-                title="수정하기"
-                id={coffeeChatId}
-                coffeeChatData={coffeeChatData}
-                setIsParticipant={setIsParticipant}
-              />
+              <EditButton title="수정하기" id={coffeeChatId} coffeeChatData={coffeeChatData} />
               <RemoveButton
                 title="삭제하기"
                 id={coffeeChatId}
@@ -35,13 +30,7 @@ function CoffeeDetailButtons({ coffeeChatId, coffeeChatData, isParticipant, setI
               />
             </>
           ) : (
-            <ApplyButton
-              title="신청하기"
-              id={coffeeChatId}
-              coffeeChatData={coffeeChatData}
-              isParticipant={isParticipant}
-              setIsParticipant={setIsParticipant}
-            />
+            <ApplyButton title="신청하기" id={coffeeChatId} coffeeChatData={coffeeChatData} />
           )}
         </Grid>
         <URLShareButton />

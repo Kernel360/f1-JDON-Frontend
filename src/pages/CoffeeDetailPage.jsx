@@ -10,8 +10,7 @@ import { Container, CssBaseline } from '@mui/material';
 
 function CoffeeDetailPage() {
   const { id } = useParams();
-  const { coffeeChatData, isParticipant, setIsParticipant, isLoading } =
-    useFetchCoffeeChatDetail(id);
+  const { coffeeChatData, isLoading } = useFetchCoffeeChatDetail(id);
 
   const backPath = localStorage.getItem('back_path');
 
@@ -24,13 +23,8 @@ function CoffeeDetailPage() {
       <CssBaseline />
       <DynamicHeader backPath={backPath} />
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
-      <CoffeeChatDetails coffeeChatData={coffeeChatData} isParticipant={isParticipant} />
-      <CoffeeDetailButtons
-        coffeeChatId={id}
-        coffeeChatData={coffeeChatData}
-        isParticipant={isParticipant}
-        setIsParticipant={setIsParticipant}
-      />
+      <CoffeeChatDetails coffeeChatData={coffeeChatData} />
+      <CoffeeDetailButtons coffeeChatId={id} coffeeChatData={coffeeChatData} />
     </Container>
   );
 }

@@ -3,7 +3,8 @@ import { useMemo } from 'react';
 import { applyCoffeechat } from 'api/api';
 import ActionButton from 'components/common/button/ActionButton';
 
-function ApplyButton({ title, id, coffeeChatData, isParticipant, setIsParticipant }) {
+function ApplyButton({ title, id, coffeeChatData }) {
+  const isParticipant = coffeeChatData?.isParticipant;
   const isButtonDisables = useMemo(
     () => coffeeChatData?.status !== '모집중' || isParticipant,
     [coffeeChatData, isParticipant],
@@ -34,7 +35,6 @@ function ApplyButton({ title, id, coffeeChatData, isParticipant, setIsParticipan
     try {
       await applyCoffeechat(id, applyCoffeeValue);
       alert('신청이 완료되었습니다.');
-      setIsParticipant(true);
     } catch (error) {
       if (error.response?.status !== 409) {
         console.error('신청 중 에러가 발생했습니다.');
