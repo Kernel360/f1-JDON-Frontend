@@ -9,7 +9,7 @@ import ApplyButton from './button/ApplyButton';
 import EditButton from './button/EditButton';
 import RemoveButton from './button/RemoveButton';
 
-function CoffeeDetailButtons({ id, coffeeChatData, isParticipant, setIsParticipant }) {
+function CoffeeDetailButtons({ coffeeChatId, coffeeChatData, isParticipant, setIsParticipant }) {
   const loginState = useRecoilValue(isLoggedInState);
 
   const isButtonDisables = coffeeChatData?.status !== '모집중' || isParticipant;
@@ -23,13 +23,13 @@ function CoffeeDetailButtons({ id, coffeeChatData, isParticipant, setIsParticipa
             <>
               <EditButton
                 title="수정하기"
-                id={id}
+                id={coffeeChatId}
                 coffeeChatData={coffeeChatData}
                 setIsParticipant={setIsParticipant}
               />
               <RemoveButton
                 title="삭제하기"
-                id={id}
+                id={coffeeChatId}
                 coffeeChatData={coffeeChatData}
                 isDisable={isButtonDisables}
               />
@@ -37,7 +37,7 @@ function CoffeeDetailButtons({ id, coffeeChatData, isParticipant, setIsParticipa
           ) : (
             <ApplyButton
               title="신청하기"
-              id={id}
+              id={coffeeChatId}
               coffeeChatData={coffeeChatData}
               isParticipant={isParticipant}
               setIsParticipant={setIsParticipant}
