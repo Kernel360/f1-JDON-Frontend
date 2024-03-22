@@ -32,7 +32,7 @@ function CoffeeDetailPage() {
       <CssBaseline />
       {getHeaderComponent(backPath)}
       <HostInfoWithViewcount coffeeChatData={coffeeChatData} />
-      <CoffeeInfo coffeeChatData={coffeeChatData} />
+      <CoffeeInfo coffeeChatData={coffeeChatData} isParticipant={isParticipant} />
       <CoffeeDetailButtons
         id={id}
         coffeeChatData={coffeeChatData}
