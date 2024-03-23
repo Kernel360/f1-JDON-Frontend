@@ -6,13 +6,7 @@ import { useCoffeeForm } from 'hooks/useCoffeeForm';
 import useRegisterCoffeeChat from '../queryHooks/useSubmitCoffeeChat';
 
 function CreateCoffeeChatForm() {
-  const { formValue, helperTexts, isFormValid, updateFormValue } = useCoffeeForm({
-    title: '',
-    content: '',
-    totalRecruitCount: '',
-    meetDate: '',
-    openChatUrl: '',
-  });
+  const { formValue, helperTexts, isFormValid, updateFormValue } = useCoffeeForm();
 
   const { register, isLoading } = useRegisterCoffeeChat();
 

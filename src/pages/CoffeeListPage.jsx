@@ -1,9 +1,11 @@
-import CoffeeListComponent from 'components/coffeechats/Detail/ui/CoffeeListComponent';
+import CoffeeListComponent
+  from 'components/coffeechats/detail/ui/CoffeeListComponent';
 import useSearch from 'components/coffeechats/List/queryHooks/useSearch';
 import useSort from 'components/coffeechats/List/queryHooks/useSort';
 import FiltersAndButton from 'components/coffeechats/List/ui/FiltersAndButton';
 import BottomNav from 'components/common/footer/BottomNav';
-import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
+import HeaderWithSearchBar
+  from 'components/common/search-bar/HeaderWithSearchBar';
 
 import { Container } from '@mui/material';
 

@@ -1,4 +1,8 @@
-import { infoBoxContainer, infoTitle, noticeMsg } from 'components/coffeechats/Create/styles';
+import {
+  infoBoxContainer,
+  infoTitle,
+  noticeMsg,
+} from 'components/coffeechats/create/styles';
 import { jobStyle } from 'components/common/card/CardStyle';
 
 import { Box } from '@mui/material';

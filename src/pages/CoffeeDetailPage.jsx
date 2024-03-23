@@ -1,12 +1,18 @@
-import useFetchCoffeeChatDetail from 'components/coffeechats/Detail/queryHooks/useFetchcCoffeeChatDetail';
-import CoffeeChatDetails from 'components/coffeechats/Detail/ui';
-import CoffeeDetailButtons from 'components/coffeechats/Detail/ui/CoffeeDetailButtons';
-import DynamicHeader from 'components/coffeechats/Detail/ui/DynamicHeader';
-import HostInfoWithViewcount from 'components/coffeechats/Detail/ui/HostInfoWithViewcount';
+import useFetchCoffeeChatDetail
+  from 'components/coffeechats/detail/queryHooks/useFetchcCoffeeChatDetail';
+import CoffeeChatDetails from 'components/coffeechats/detail/ui';
+import CoffeeDetailButtons
+  from 'components/coffeechats/detail/ui/CoffeeDetailButtons';
+import DynamicHeader from 'components/coffeechats/detail/ui/DynamicHeader';
+import HostInfoWithViewcount
+  from 'components/coffeechats/detail/ui/HostInfoWithViewcount';
 import Loading from 'components/common/loading/Loading';
 import { useParams } from 'react-router-dom';
 
-import { Container, CssBaseline } from '@mui/material';
+import {
+  Container,
+  CssBaseline,
+} from '@mui/material';
 
 function CoffeeDetailPage() {
   const { id } = useParams();
