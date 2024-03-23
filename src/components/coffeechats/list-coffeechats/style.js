@@ -18,3 +18,9 @@ export const newBtnStyle = () => ({
   padding: '4px 10px',
   gap: 1,
 });
+
+export const userInfoContainer = () => ({
+  color: '#373737',
+  fontWeight: 600,
+  fontSize: '13px',
+});

@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 
 import { getMemberInfo } from 'api/api';
-import CreateCoffeeChatForm from 'components/coffeechats/Create/ui/CreateCoffeeChatForm';
-import UserInfo from 'components/coffeechats/List/ui/UserInfo';
+import CreateCoffeeChatForm
+  from 'components/coffeechats/create-coffeechats/ui/CreateCoffeeChatForm';
+import UserInfo from 'components/coffeechats/list-coffeechats/ui/UserInfo';
 import Header from 'components/common/header/Header';
 import FormWrapper from 'components/common/wrapper/FormWrapper';
 import { COFFEE_CHILD } from 'constants/headerProps';
 
-import { Box, Container, CssBaseline } from '@mui/material';
+import {
+  Box,
+  Container,
+  CssBaseline,
+} from '@mui/material';
 
 function CoffeeCreatePage() {
   const [nickname, setNickName] = useState('');

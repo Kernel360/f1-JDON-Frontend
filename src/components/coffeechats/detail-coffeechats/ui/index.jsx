@@ -10,12 +10,12 @@ import CoffeeDetailContent from './CoffeeContent';
 import CoffeeTitle from './CoffeeTitle';
 import RecruitmentInfo from './RecruitmentInfo';
 
-function CoffeeInfo({ coffeeChatData, isParticipant }) {
+function CoffeeChatDetails({ coffeeChatData }) {
   const inputRef = useRef(null);
   const loginState = useRecoilValue(isLoggedInState);
 
   const canView = coffeeChatData?.hostId === loginState.memberId || coffeeChatData?.isParticipant;
-  const hasAuthenticate = canView || isParticipant;
+  const hasAuthenticate = canView || coffeeChatData.isParticipant;
 
   return (
     <>
@@ -32,4 +32,4 @@ function CoffeeInfo({ coffeeChatData, isParticipant }) {
   );
 }
 
-export default CoffeeInfo;
+export default CoffeeChatDetails;

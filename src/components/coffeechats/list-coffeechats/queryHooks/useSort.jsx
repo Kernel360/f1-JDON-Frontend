@@ -1,17 +1,13 @@
-const { useState } = require('react');
+import { useState } from 'react';
 
 const defaultSortData = {
   sort: 'createdDate',
   jobCategory: '',
 };
 
-function useSortAndSearch() {
+function useSort() {
   const filterValues = JSON.parse(localStorage.getItem('filters') || '{}');
-  const prevKeyword = JSON.parse(localStorage.getItem('keyword')) || '';
-
   const [sortData, setSortData] = useState({ ...defaultSortData, ...filterValues });
-
-  const [검색어, set검색어] = useState(prevKeyword);
 
   const handleSortDataChange = (title, newSortData) => {
     setSortData((prev) => {
@@ -21,13 +17,6 @@ function useSortAndSearch() {
     });
   };
 
-  return {
-    sortData,
-    setSortData,
-    검색어,
-    set검색어,
-    handleSortDataChange,
-  };
+  return { sortData, setSortData, handleSortDataChange };
 }
-
-export default useSortAndSearch;
+export default useSort;

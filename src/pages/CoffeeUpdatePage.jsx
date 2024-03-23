@@ -1,10 +1,15 @@
-import UpdateCoffeeChatForm from 'components/coffeechats/Update/ui/UpdateCoffeeChatForm';
+import UpdateCoffeeChatForm
+  from 'components/coffeechats/edit-coffeechats/ui/UpdateCoffeeChatForm';
 import Header from 'components/common/header/Header';
 import FormWrapper from 'components/common/wrapper/FormWrapper';
 import { COFFEE_CHILD_ID } from 'constants/headerProps';
 import { useParams } from 'react-router-dom';
 
-import { Box, Container, CssBaseline } from '@mui/material';
+import {
+  Box,
+  Container,
+  CssBaseline,
+} from '@mui/material';
 
 function CoffeeUpdatePage() {
   const { id } = useParams();
