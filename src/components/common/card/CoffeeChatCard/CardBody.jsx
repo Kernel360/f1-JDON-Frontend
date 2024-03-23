@@ -1,11 +1,19 @@
-import { Box, Typography } from '@mui/material';
-import CoffeeInfoItem from './CoffeeInfoItem';
+import RoundButton from 'components/common/button/RoundButton';
+import {
+  formattedDate,
+  formattedTime,
+} from 'utils/formatDate';
+
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import { formattedDate, formattedTime } from 'utils/formatDate';
+import {
+  Box,
+  Typography,
+} from '@mui/material';
+
 import { cardBodyStyle } from './CoffeeChatCardStyle';
-import RoundButton from 'components/common/button/RoundButton';
+import CoffeeInfoItem from './CoffeeInfoItem';
 
 function CardBody({ data, isMyCoffeeChat, hanldeCancelCoffeeChat }) {
   const InfoValue = [

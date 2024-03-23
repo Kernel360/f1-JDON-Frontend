@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { cancelCoffeechat } from 'api/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,13 +7,8 @@ import CardBody from './CardBody';
 import CardHeader from './CardHeader';
 import { cardStyles } from './CoffeeChatCardStyle';
 
-function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData, pathName }) {
+function CoffeeChatCard({ data, isMyCoffeeChat, refetchData, pathName }) {
   const navigate = useNavigate();
-
-  const jobNum = useMemo(
-    () => kindOfJd?.find((jd) => jd.name === data.hostJobCategoryName)?.id,
-    [kindOfJd, data.hostJobCategoryName],
-  );
 
   const handleClick = () => {
     if (data.activeStatus === '모집종료') {
@@ -41,7 +34,7 @@ function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData, pathName 
 
   return (
     <Paper onClick={handleClick} elevation={0} sx={cardStyles(data)}>
-      <CardHeader jobNum={jobNum} data={data} />
+      <CardHeader data={data} />
       <CardBody
         data={data}
         isMyCoffeeChat={isMyCoffeeChat}

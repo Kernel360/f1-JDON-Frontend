@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 
 import { getJobCategory } from 'api/api';
 import { useRecoilState } from 'recoil';

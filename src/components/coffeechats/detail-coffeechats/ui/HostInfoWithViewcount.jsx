@@ -1,9 +1,16 @@
 import eyeIcon from 'assets/icons/eye.svg';
-import { JobBadge } from 'components/common/badge/JobBadge';
+import BadgeForJob from 'components/common/badge/BadgeForJob';
+import BadgeForStatus from 'components/common/badge/BadgeForStatus';
 
-import { Box, Typography } from '@mui/material';
+import {
+  Box,
+  Typography,
+} from '@mui/material';
 
-import { CoffeeDetailStyles, viewCountContainerStyle } from '../styles';
+import {
+  CoffeeDetailStyles,
+  viewCountContainerStyle,
+} from '../styles';
 
 function HostInfoWithViewcount({ coffeeChatData }) {
   return (
@@ -12,9 +19,9 @@ function HostInfoWithViewcount({ coffeeChatData }) {
         <Typography sx={{ color: '#9A9AA1', fontWeight: 400, fontSize: '13px' }}>
           {coffeeChatData?.nickname}
         </Typography>
-        {coffeeChatData?.hostJobCategoryName && (
-          <JobBadge job={coffeeChatData?.hostJobCategoryName} />
-        )}
+
+        <BadgeForJob data={coffeeChatData?.hostJobCategoryName} />
+        <BadgeForStatus data={coffeeChatData?.status} />
       </Box>
       <Typography sx={viewCountContainerStyle}>
         <img src={eyeIcon} alt="조회수" />

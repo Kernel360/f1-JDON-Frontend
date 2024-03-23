@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { applyCoffeechat } from 'api/api';
 import ActionButton from 'components/common/button/ActionButton';
+
+import useApplyForCoffeeChat from '../../queryHooks/useApplyForCoffeeChat';
 
 function ApplyButton({ title, id, coffeeChatData }) {
   const isParticipant = coffeeChatData?.isParticipant;
@@ -9,7 +10,11 @@ function ApplyButton({ title, id, coffeeChatData }) {
     () => coffeeChatData?.status !== '모집중' || isParticipant,
     [coffeeChatData, isParticipant],
   );
+  const { apply } = useApplyForCoffeeChat(id);
 
+  const applyForCoffeeChat = () => {
+    apply(id, applyCoffeeValue);
+  };
   const applyCoffeeValue = {
     title: coffeeChatData?.title,
     content: coffeeChatData?.content,
@@ -28,20 +33,6 @@ function ApplyButton({ title, id, coffeeChatData }) {
         return '종료된 커피챗입니다.';
       default:
         return '상태 확인 중';
-    }
-  };
-
-  const applyForCoffeeChat = async () => {
-    try {
-      await applyCoffeechat(id, applyCoffeeValue);
-      alert('신청이 완료되었습니다.');
-    } catch (error) {
-      if (error.response?.status !== 409) {
-        console.error('신청 중 에러가 발생했습니다.');
-        return;
-      }
-      alert('이미 신청된 커피챗입니다.');
-      return;
     }
   };
 
