@@ -55,6 +55,7 @@ export function TabForInfo({ jdData }) {
         </Stack>
       </Box>
       <Box sx={{ marginY: '10px', paddingBottom: '90px' }}>
+        <JdInfoForm title="채용 기한" mockData={jdData.deadListDate || '상시채용'} />
         <JdInfoForm title="자격 요견" mockData={jdData.requirements} />
         <JdInfoForm title="주요 업무" mockData={jdData.mainTasks} />
         <JdInfoForm title="소개글" mockData={jdData.intro} />
