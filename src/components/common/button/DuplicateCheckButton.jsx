@@ -1,11 +1,11 @@
-import { Button, InputAdornment } from '@mui/material';
 import { duplicateCheckButtonStyle } from 'pages/info/InfoStyles';
+
+import { Button, InputAdornment } from '@mui/material';
+
 const DuplicateCheckButton = ({ onClick, text }) => {
   return (
     <InputAdornment position="end" sx={{ background: 'transparent' }}>
-      <Button
-        onClick={onClick} // 부모 컴포넌트에서 전달된 onClick 이벤트 핸들러를 실행
-        sx={duplicateCheckButtonStyle}>
+      <Button onClick={onClick} sx={duplicateCheckButtonStyle}>
         {text}
       </Button>
     </InputAdornment>

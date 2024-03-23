@@ -22,6 +22,7 @@ import RedirectPage from 'pages/sign-in/RedirectPage';
 import SignIn from 'pages/sign-in/SignIn';
 import SignUpFailPage from 'pages/SignUpFailPage';
 import SignUpPage from 'pages/SignUpPage';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
@@ -32,6 +33,7 @@ import { ThemeProvider } from '@mui/material/styles';
 function App() {
   useAuth();
   useFetchJobCategories();
+  const queryClient = new QueryClient();
   const localLoginState = localStorage.getItem('isLoggedInState');
   const loginState = useRecoilValue(isLoggedInState);
 
@@ -78,30 +80,32 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <React.Fragment>
-            <Routes>
-              {privateRoutes.map((route, index) => (
-                <Route
-                  key={index}
-                  path={route.path}
-                  element={
-                    <PrivateRoute localAuth={localLoginState} apiAuth={loginState.isloginUser}>
-                      {route.element}
-                    </PrivateRoute>
-                  }
-                />
-              ))}
-              {publicRoutes.map((route, index) => (
-                <Route key={index} path={route.path} element={route.element} />
-              ))}
-            </Routes>
-          </React.Fragment>
-        </Layout>
-      </ThemeProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <Layout>
+            <React.Fragment>
+              <Routes>
+                {privateRoutes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={
+                      <PrivateRoute localAuth={localLoginState} apiAuth={loginState.isloginUser}>
+                        {route.element}
+                      </PrivateRoute>
+                    }
+                  />
+                ))}
+                {publicRoutes.map((route, index) => (
+                  <Route key={index} path={route.path} element={route.element} />
+                ))}
+              </Routes>
+            </React.Fragment>
+          </Layout>
+        </ThemeProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 

@@ -1,3 +1,14 @@
+import { useEffect, useState } from 'react';
+
+import { checkNicknameDuplicate } from 'api/api';
+import NewDayPicker from 'components/common/date-picker/NewDayPicker';
+import NewInput from 'components/common/input/NewInput';
+import TotalInputForm from 'components/common/input/TotalInputForm';
+import { infoBasicStyles, OptionButton } from 'components/member/sign-up/InfoStyles';
+import { NO_ADMIN, NO_SC, NO_SPACE_BAR } from 'constants/nickname';
+import { useRecoilState } from 'recoil';
+import { userInfo } from 'recoil/atoms';
+
 import {
   Box,
   Button,
@@ -8,21 +19,8 @@ import {
   FormLabel,
   Grid,
   Typography,
-  // Dialog,
-  // DialogTitle,
-  // DialogContent,
-  // DialogContentText,
-  // DialogActions,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { OptionButton, infoBasicStyles } from 'components/member/sign-up/InfoStyles';
-import NewInput from 'components/common/input/NewInput';
-import { checkNicknameDuplicate } from 'api/api';
-import { userInfo } from 'recoil/atoms';
-import { useRecoilState } from 'recoil';
-import NewDayPicker from 'components/common/date-picker/NewDayPicker';
-import TotalInputForm from 'components/common/input/TotalInputForm';
-import { NO_SC, NO_ADMIN, NO_SPACE_BAR } from 'constants/nickname';
+
 import DetailDialog from './DetailDialog';
 import TermsAndConditions from './TermsAndConditions';
 

@@ -1,10 +1,13 @@
-import { Paper } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
-import { cardStyles } from './CoffeeChatCardStyle';
+
+import { cancelCoffeechat } from 'api/api';
+import { useNavigate } from 'react-router-dom';
+
+import { Paper } from '@mui/material';
+
 import CardBody from './CardBody';
 import CardHeader from './CardHeader';
-import { cancelCoffeechat } from 'api/api';
+import { cardStyles } from './CoffeeChatCardStyle';
 
 function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData, pathName }) {
   const navigate = useNavigate();
@@ -20,7 +23,7 @@ function CoffeeChatCard({ data, kindOfJd, isMyCoffeeChat, refetchData, pathName 
       return;
     }
     navigate(`/coffee/${data.coffeeChatId}`);
-    if (pathName !== undefined) localStorage.setItem('back_path', pathName);
+    if (pathName === undefined) localStorage.setItem('back_path', pathName);
   };
 
   const hanldeCancelCoffeeChat = async () => {

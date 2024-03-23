@@ -11,14 +11,14 @@ function CoffeeChatForm({ formValue, helperTexts, updateFormValue }) {
         placeholder="커피챗 제목을 입력해주세요."
         label="제목"
         helperText={helperTexts.title}
-        value={formValue.title}
+        value={formValue?.title}
         onChange={(e) => updateFormValue('title', e.target.value)}
       />
       <NewInput
         placeholder="커피챗 내용을 입력해주세요."
         label="상세 내용"
         helperText={helperTexts.content}
-        value={formValue.content}
+        value={formValue?.content}
         isMultiline={true}
         onChange={(e) => updateFormValue('content', e.target.value)}
       />
@@ -32,9 +32,9 @@ function CoffeeChatForm({ formValue, helperTexts, updateFormValue }) {
               type="number"
               min={0}
               value={
-                isNaN(formValue.totalRecruitCount) || formValue.totalRecruitCount === 0
+                isNaN(formValue?.totalRecruitCount) || formValue?.totalRecruitCount === 0
                   ? null
-                  : formValue.totalRecruitCount
+                  : formValue?.totalRecruitCount
               }
               onChange={(e) => {
                 updateFormValue('totalRecruitCount', parseInt(e.target.value, 10));
@@ -46,7 +46,7 @@ function CoffeeChatForm({ formValue, helperTexts, updateFormValue }) {
             <NewDayPicker
               label="일시"
               daytime={true}
-              value={formValue.meetDate}
+              value={formValue?.meetDate}
               onChange={(newValue) => {
                 const newTime = formatDateTime(newValue);
                 updateFormValue('meetDate', newTime);
@@ -59,7 +59,7 @@ function CoffeeChatForm({ formValue, helperTexts, updateFormValue }) {
         placeholder="카카오톡 오픈채팅방 링크만 입력 가능합니다. ex)https://open.kakao.com/o/"
         label="카카오톡 오픈채팅방 링크"
         helperText={helperTexts.openChatUrl}
-        value={formValue.openChatUrl}
+        value={formValue?.openChatUrl}
         onChange={(e) => updateFormValue('openChatUrl', e.target.value)}
       />
     </>

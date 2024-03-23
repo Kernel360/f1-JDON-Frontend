@@ -1,64 +1,30 @@
-import { useEffect } from 'react';
-
-import { getCoffeeChatDetail, updateCoffeechat } from 'api/api';
-import NewBtn from 'components/common/button/NewBtn';
+import useFetchCoffeeChatDetail from 'components/coffeechats/Detail/queryHooks/useFetchcCoffeeChatDetail';
+import ActionButton from 'components/common/button/ActionButton';
+import CoffeeChatForm from 'components/common/form/CoffeeChatForm';
+import Loading from 'components/common/loading/Loading';
 import { useCoffeeForm } from 'hooks/useCoffeeForm';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { isLoggedInState } from 'recoil/atoms';
+import { useParams } from 'react-router-dom';
 import { theme } from 'styles/themeMuiStyle';
 
-const { default: CoffeeChatForm } = require('components/common/form/CoffeeChatForm');
+import { useRegisterCoffeeChat } from '../queryHooks/useRegisterCoffeeChat';
 
 function UpdateCoffeeChatForm() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const loginState = useRecoilValue(isLoggedInState);
-  const { formValue, setFormValue, helperTexts, isFormValid, updateFormValue } = useCoffeeForm({
-    title: '',
-    content: '',
-    totalRecruitCount: '',
-    meetDate: '',
-    openChatUrl: '',
-  });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await getCoffeeChatDetail(id);
-        setFormValue({
-          title: res.title || '',
-          content: res.content || '',
-          totalRecruitCount: res.totalRecruitCount || '',
-          meetDate: res.meetDate || '',
-          openChatUrl: res.openChatUrl || '',
-        });
-        if (res.hostId !== loginState.memberId) {
-          alert('본인이 작성하지 않은 커피챗의 상태를 변경할 수 없습니다.');
-          navigate('/coffee');
-        }
-      } catch (error) {
-        if (error.response.status) {
-          navigate('/404');
-        }
-        console.error('Error fetching coffee chat detail:', error);
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, navigate, setFormValue]);
+  const { coffeeChatData, isLoading } = useFetchCoffeeChatDetail(id);
 
-  const hanldeRegister = async (e) => {
+  const { formValue, helperTexts, isFormValid, updateFormValue } = useCoffeeForm(coffeeChatData);
+
+  const { update } = useRegisterCoffeeChat();
+
+  const hanldeRegister = (e) => {
     e.preventDefault();
-    try {
-      await updateCoffeechat(id, formValue);
-      alert('커피챗이 수정되었습니다.');
-      navigate(`/coffee/${id}`);
-    } catch (error) {
-      const { message } = error.response.data;
-      alert(message);
-      console.error('Error fetching hot skills:', error);
-    }
+    update(id, formValue);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -67,21 +33,16 @@ function UpdateCoffeeChatForm() {
         helperTexts={helperTexts}
         updateFormValue={updateFormValue}
       />
-      <NewBtn
-        title="수정완료"
-        onClick={hanldeRegister}
-        disable={!isFormValid}
-        isActive={!isFormValid}
+      <ActionButton
         styles={{
-          mt: 3,
-          mb: 3,
-          width: '100%',
-          p: '13px',
-          borderRadius: '999px',
+          mt: 1,
+          mb: 8,
           background: isFormValid ? theme.palette.primary.main : '#EBEBEB',
           color: isFormValid ? 'white' : '#BCBCC4',
-          fontSize: '16px',
         }}
+        title="수정완료"
+        onClick={hanldeRegister}
+        isDisable={!isFormValid || isLoading}
       />
     </>
   );

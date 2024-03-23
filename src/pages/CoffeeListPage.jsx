@@ -1,5 +1,6 @@
 import CoffeeListComponent from 'components/coffeechats/Detail/ui/CoffeeListComponent';
-import useSortAndSearch from 'components/coffeechats/List/queryHooks/useSortAndSearch';
+import useSearch from 'components/coffeechats/List/queryHooks/useSearch';
+import useSort from 'components/coffeechats/List/queryHooks/useSort';
 import FiltersAndButton from 'components/coffeechats/List/ui/FiltersAndButton';
 import BottomNav from 'components/common/footer/BottomNav';
 import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBar';
@@ -7,7 +8,8 @@ import HeaderWithSearchBar from 'components/common/search-bar/HeaderWithSearchBa
 import { Container } from '@mui/material';
 
 function CoffeeListPage() {
-  const { sortData, 검색어, set검색어, handleSortDataChange } = useSortAndSearch();
+  const { sortData, handleSortDataChange } = useSort();
+  const { 검색어, set검색어 } = useSearch();
   const jobCategories = JSON.parse(localStorage.getItem('jobCategories'));
 
   return (
