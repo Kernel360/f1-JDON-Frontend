@@ -1,8 +1,11 @@
+import useSearch
+  from 'components/coffeechats/list-coffeechats/queryHooks/useSearch';
+import useSort
+  from 'components/coffeechats/list-coffeechats/queryHooks/useSort';
 import CoffeeListComponent
-  from 'components/coffeechats/detail/ui/CoffeeListComponent';
-import useSearch from 'components/coffeechats/List/queryHooks/useSearch';
-import useSort from 'components/coffeechats/List/queryHooks/useSort';
-import FiltersAndButton from 'components/coffeechats/List/ui/FiltersAndButton';
+  from 'components/coffeechats/list-coffeechats/ui/CoffeeListComponent';
+import FiltersAndButton
+  from 'components/coffeechats/list-coffeechats/ui/FiltersAndButton';
 import BottomNav from 'components/common/footer/BottomNav';
 import HeaderWithSearchBar
   from 'components/common/search-bar/HeaderWithSearchBar';

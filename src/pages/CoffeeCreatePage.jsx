@@ -5,8 +5,8 @@ import {
 
 import { getMemberInfo } from 'api/api';
 import CreateCoffeeChatForm
-  from 'components/coffeechats/create/ui/CreateCoffeeChatForm';
-import UserInfo from 'components/coffeechats/List/ui/UserInfo';
+  from 'components/coffeechats/create-coffeechats/ui/CreateCoffeeChatForm';
+import UserInfo from 'components/coffeechats/list-coffeechats/ui/UserInfo';
 import Header from 'components/common/header/Header';
 import FormWrapper from 'components/common/wrapper/FormWrapper';
 import { COFFEE_CHILD } from 'constants/headerProps';

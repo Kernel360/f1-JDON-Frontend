@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import useFetchCoffeeData from 'components/coffeechats/List/queryHooks/useFetchCoffeeData';
+import useFetchCoffeeData
+  from 'components/coffeechats/list-coffeechats/queryHooks/useFetchCoffeeData';
 import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
 import Loading from 'components/common/loading/Loading';
 

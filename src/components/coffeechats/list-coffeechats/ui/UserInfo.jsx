@@ -2,7 +2,7 @@ import {
   infoBoxContainer,
   infoTitle,
   noticeMsg,
-} from 'components/coffeechats/create/styles';
+} from 'components/coffeechats/create-coffeechats/styles';
 import { jobStyle } from 'components/common/card/CardStyle';
 
 import { Box } from '@mui/material';
