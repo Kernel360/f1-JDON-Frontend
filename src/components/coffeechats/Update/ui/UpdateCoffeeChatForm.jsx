@@ -1,4 +1,5 @@
-import useFetchCoffeeChatDetail from 'components/coffeechats/Detail/queryHooks/useFetchcCoffeeChatDetail';
+import useFetchCoffeeChatDetail
+  from 'components/coffeechats/detail/queryHooks/useFetchcCoffeeChatDetail';
 import ActionButton from 'components/common/button/ActionButton';
 import CoffeeChatForm from 'components/common/form/CoffeeChatForm';
 import Loading from 'components/common/loading/Loading';

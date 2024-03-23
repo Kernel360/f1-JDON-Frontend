@@ -1,8 +1,11 @@
-import URLShareButton from 'components/coffeechats/Detail/ui/URLShareButton';
+import URLShareButton from 'components/coffeechats/detail/ui/URLShareButton';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
 
-import { Box, Grid } from '@mui/material';
+import {
+  Box,
+  Grid,
+} from '@mui/material';
 
 import { CoffeeDetailStyles } from '../styles';
 import ApplyButton from './button/ApplyButton';
