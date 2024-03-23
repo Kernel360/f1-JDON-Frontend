@@ -1,11 +1,12 @@
 import useFetchCoffeeChatDetail
-  from 'components/coffeechats/detail/queryHooks/useFetchcCoffeeChatDetail';
-import CoffeeChatDetails from 'components/coffeechats/detail/ui';
+  from 'components/coffeechats/detail-coffeechats/queryHooks/useFetchcCoffeeChatDetail';
+import CoffeeChatDetails from 'components/coffeechats/detail-coffeechats/ui';
 import CoffeeDetailButtons
-  from 'components/coffeechats/detail/ui/CoffeeDetailButtons';
-import DynamicHeader from 'components/coffeechats/detail/ui/DynamicHeader';
+  from 'components/coffeechats/detail-coffeechats/ui/CoffeeDetailButtons';
+import DynamicHeader
+  from 'components/coffeechats/detail-coffeechats/ui/DynamicHeader';
 import HostInfoWithViewcount
-  from 'components/coffeechats/detail/ui/HostInfoWithViewcount';
+  from 'components/coffeechats/detail-coffeechats/ui/HostInfoWithViewcount';
 import Loading from 'components/common/loading/Loading';
 import { useParams } from 'react-router-dom';
 

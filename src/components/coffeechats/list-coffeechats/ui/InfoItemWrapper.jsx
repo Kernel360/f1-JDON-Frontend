@@ -1,4 +1,4 @@
-import { infoTitle } from 'components/coffeechats/create/styles';
+import { infoTitle } from 'components/coffeechats/create-coffeechats/styles';
 
 import { Box } from '@mui/material';
 

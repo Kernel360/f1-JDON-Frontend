@@ -1,4 +1,5 @@
-import URLShareButton from 'components/coffeechats/detail/ui/URLShareButton';
+import URLShareButton
+  from 'components/coffeechats/detail-coffeechats/ui/URLShareButton';
 import { useRecoilValue } from 'recoil';
 import { isLoggedInState } from 'recoil/atoms';
 
