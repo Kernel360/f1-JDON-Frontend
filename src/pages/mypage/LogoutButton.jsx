@@ -8,7 +8,6 @@ function LogoutButton() {
   const handleLogout = async () => {
     try {
       await logoutMember();
-      // console.log(res);
 
       // if (res === 302) {
       localStorage.setItem('isLoggedInState', false);
