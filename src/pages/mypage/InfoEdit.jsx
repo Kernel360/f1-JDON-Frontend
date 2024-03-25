@@ -120,9 +120,10 @@ export default function InfoEdit() {
         if (error.response && error.response.status === 409) {
           setValidation(false); // 중간밸류 유효성 x
           setHelperText('이미 존재하는 닉네임입니다.');
-        } else {
+        }
+        if (error.response && error.response.status === 400) {
           setValidation(false);
-          setHelperText('오류가 발생했습니다.');
+          setHelperText(error.response.data.message);
         }
       }
     }

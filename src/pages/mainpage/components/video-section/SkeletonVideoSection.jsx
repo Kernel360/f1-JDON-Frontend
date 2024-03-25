@@ -1,4 +1,3 @@
-//import DeferredComponent from 'components/DeferredComponent';
 import SkeletonLoader from 'components/common/loading/skeleton/video-card/SkeletonLoader';
 
 function SkeletonVideoSection() {
