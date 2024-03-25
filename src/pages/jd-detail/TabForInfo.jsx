@@ -1,8 +1,9 @@
 import NewBtn from 'components/common/button/NewBtn';
-
-import { Box, Chip, Skeleton, Stack, Typography } from '@mui/material';
-
+import { Box, Chip, Stack, Typography } from '@mui/material';
 import { BackgroundImg, MainImg, RelativeBox } from './style';
+import ContentSkeleton from 'components/common/loading/skeleton/jd-detail/content';
+import TitleSkeleton from 'components/common/loading/skeleton/jd-detail/title';
+import ImgSkeleton from 'components/common/loading/skeleton/jd-detail/img';
 
 function JdInfoForm({ title, mockData }) {
   return (
@@ -52,15 +53,7 @@ export function TabForInfo({ jdData }) {
             <img src={jdData.imageUrl} alt="imageUrl" height={300} style={MainImg} />
           </>
         ) : (
-          <Skeleton
-            width="100%"
-            height="100%"
-            variant="rectangular"
-            animation="wave"
-            sx={{
-              borderRadius: '8px',
-            }}
-          />
+          <ImgSkeleton />
         )}
       </Box>
       <Box sx={{ paddingY: 3, borderBottom: '1px solid #EBEBEB' }}>
@@ -74,12 +67,7 @@ export function TabForInfo({ jdData }) {
             </Typography>
           </>
         ) : (
-          <>
-            <Box sx={{ mt: 1 }}>
-              <Skeleton width="15%" height="18" />
-              <Skeleton width="30%" height="24" />
-            </Box>
-          </>
+          <TitleSkeleton />
         )}
       </Box>
       <Box sx={{ marginY: '10px' }}>
@@ -107,39 +95,7 @@ export function TabForInfo({ jdData }) {
             <JdInfoForm title="우대사항" mockData={jdData.preferredPoints} />
           </>
         ) : (
-          <>
-            <Box sx={{ mt: 1 }}>
-              <Skeleton width="15%" height="18" />
-              <Skeleton width="30%" height="24" />
-            </Box>
-            <Box sx={{ mt: 4 }}>
-              <Skeleton width="15%" height="18" />
-              <Skeleton width="50%" height="24" />
-              <Skeleton width="59%" height="24" />
-              <Skeleton width="52%" height="24" />
-            </Box>
-            <Box sx={{ mt: 4 }}>
-              <Skeleton width="15%" height="18" />
-              <Skeleton width="55%" height="24" />
-              <Skeleton width="54%" height="24" />
-            </Box>
-            <Box sx={{ mt: 4 }}>
-              <Skeleton width="15%" height="18" />
-              <Skeleton width="76%" height="24" />
-              <Skeleton width="76%" height="24" />
-              <Skeleton width="76%" height="24" />
-              <Skeleton width="76%" height="24" />
-              <Skeleton width="36%" height="24" />
-            </Box>
-            <Box sx={{ mt: 4 }}>
-              <Skeleton width="15%" height="18" />
-              <Skeleton width="30%" height="24" />
-            </Box>
-            <Box sx={{ mt: 4 }}>
-              <Skeleton width="15%" height="18" />
-              <Skeleton width="30%" height="24" />
-            </Box>
-          </>
+          <ContentSkeleton />
         )}
       </Box>
       <Box
