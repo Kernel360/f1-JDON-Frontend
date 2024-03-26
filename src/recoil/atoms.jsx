@@ -59,3 +59,8 @@ export const coffeeChatListState = atom({
     },
   },
 });
+
+export const alertState = atom({
+  key: 'alertState',
+  default: false,
+});

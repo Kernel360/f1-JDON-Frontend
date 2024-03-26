@@ -15,8 +15,8 @@ import {
 } from '@mui/material';
 import { ChipStyle, MainStyles } from 'pages/PageStyles';
 import TabPanel from './TabPanel';
-import { buttonStyle } from '../navigation-btn/NavigationBtnStyles';
-import { skillsButton } from 'pages/info/InfoStyles.js';
+import { buttonStyle } from '../button/NavigationBtnStyles';
+import { skillsButton } from 'components/member/sign-up/InfoStyles';
 import { getSkillsOnJD } from 'api/api';
 import { useRecoilState } from 'recoil';
 import { jobIdState, selectedJobSkillState } from 'recoil/atoms';

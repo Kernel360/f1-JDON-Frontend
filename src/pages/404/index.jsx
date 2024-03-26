@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Close } from '@mui/icons-material';
 import { Box, Button, Container, Typography } from '@mui/material';
-import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
-import { infoBasicStyles } from 'pages/info/InfoStyles';
+import { buttonStyle } from 'components/common/button/NavigationBtnStyles';
+import { infoBasicStyles } from 'components/member/sign-up/InfoStyles';
 
 function NotFound() {
   const navigate = useNavigate();

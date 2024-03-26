@@ -1,5 +1,4 @@
-//import DeferredComponent from 'components/DeferredComponent';
-import SkeletonLoader from 'components/common/skeleton/video-card/SkeletonLoader';
+import SkeletonLoader from 'components/common/loading/skeleton/video-card/SkeletonLoader';
 
 function SkeletonVideoSection() {
   return <SkeletonLoader count={3} />;

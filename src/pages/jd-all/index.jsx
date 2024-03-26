@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import BottomNav from 'components/common/BottomNav';
+import BottomNav from 'components/common/footer/BottomNav';
 import JDComponent from './components/JDComponent';
 import JDSearchBar from './components/JDSearchBar';
 import useJDSearchBar from './hooks/useJDSearchBar';

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { BackDrop } from 'components/common/BackDrop';
-import NewInput from 'components/common/new-input/NewInput';
+import { BackDrop } from 'components/common/pop-up/BackDrop';
+import NewInput from 'components/common/input/NewInput';
 import { Box } from '@mui/material';
-import NewBtn from 'components/common/new-btn/NewBtn';
-import { PopupFrame } from 'components/common/PopupFrame';
+import NewBtn from 'components/common/button/NewBtn';
+import { PopupFrame } from 'components/common/pop-up/PopupFrame';
 
 export function ReviewPopup({ isOpen, closePopup, addReviewAndUpdate }) {
   const [reviewInput, setReviewInput] = useState();

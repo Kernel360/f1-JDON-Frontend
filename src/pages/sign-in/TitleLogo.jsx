@@ -1,7 +1,9 @@
-import { Divider, Typography } from '@mui/material';
+import './index.scss';
+
 import logo from 'assets/images/logo.svg';
 import { useNavigate } from 'react-router-dom';
-import './index.scss';
+
+import { Divider, Typography } from '@mui/material';
 
 function TitleLogo() {
   const navigate = useNavigate();

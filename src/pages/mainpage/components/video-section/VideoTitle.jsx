@@ -1,7 +1,8 @@
-import { Typography } from '@mui/material';
-import { MainStyles } from 'pages/PageStyles';
-import { titleStyle } from 'pages/mainpage/style';
 import hot from 'assets/images/hot.svg';
+import { titleStyle } from 'pages/mainpage/style';
+import { MainStyles } from 'pages/PageStyles';
+
+import { Typography } from '@mui/material';
 
 const VideoTitle = ({ keyword }) => (
   <Typography sx={MainStyles.TypoGraphy}>

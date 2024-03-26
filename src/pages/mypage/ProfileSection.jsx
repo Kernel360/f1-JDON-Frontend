@@ -1,7 +1,8 @@
-import { Avatar, Grid, IconButton, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import { Link } from 'react-router-dom';
 import ProfileIcon from 'assets/images/ProfileIcon';
+import { Link } from 'react-router-dom';
+
+import EditIcon from '@mui/icons-material/Edit';
+import { Avatar, Grid, IconButton, Typography } from '@mui/material';
 
 function ProfileSection({ data }) {
   return (

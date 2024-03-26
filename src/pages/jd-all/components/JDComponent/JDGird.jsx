@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import CompanyCard from 'components/common/card/CompanyCard';
-import SkeletonLoader from 'components/common/skeleton/company-card/SkeletonLoader';
+import SkeletonLoader from 'components/common/loading/skeleton/company-card/SkeletonLoader';
 
 function JDGird({ jobData, foundTxt, loading }) {
   return (

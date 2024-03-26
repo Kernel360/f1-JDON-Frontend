@@ -1,6 +1,7 @@
-import { Typography } from '@mui/material';
-import { MainStyles } from 'pages/PageStyles';
 import { titleStyle } from 'pages/mainpage/style';
+import { MainStyles } from 'pages/PageStyles';
+
+import { Typography } from '@mui/material';
 
 const CompanyTitle = ({ keyword }) => {
   if (keyword?.length > 10) {

@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import Header from 'components/common/Header';
-import { Box, Button, Checkbox, Container, FormControlLabel } from '@mui/material';
-import { buttonStyle } from 'components/common/navigation-btn/NavigationBtnStyles';
-import { useNavigate } from 'react-router-dom';
+
 import { deleteMember, logoutMember } from 'api/api';
+import { buttonStyle } from 'components/common/button/NavigationBtnStyles';
+import Header from 'components/common/header/Header';
 import { USER_QUIT } from 'constants/headerProps';
+import { useNavigate } from 'react-router-dom';
+
+import { Box, Button, Checkbox, Container, FormControlLabel } from '@mui/material';
 
 function Withdrawal() {
   const navigate = useNavigate();
