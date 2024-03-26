@@ -39,7 +39,7 @@ export function TabForInfo({ jdData }) {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
 
-    const formattedDate = `${year}년 ${month}월 ${day}일까지`;
+    const formattedDate = `${year}년 ${month}월 ${day}일 00 : 00까지`;
     return formattedDate;
   };
 
