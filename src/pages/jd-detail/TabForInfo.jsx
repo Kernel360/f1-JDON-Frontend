@@ -24,13 +24,12 @@ function JdInfoForm({ title, mockData }) {
 }
 
 export function TabForInfo({ jdData }) {
-  console.log(jdData.id);
   const handleClick = () => {
     window.open(jdData.jdUrl, '_blank');
   };
 
   const formatDate = (dateData) => {
-    if (dateData === undefined) {
+    if (dateData === '') {
       const formattedDate = '상시채용';
       return formattedDate;
     }
@@ -87,7 +86,7 @@ export function TabForInfo({ jdData }) {
       <Box sx={{ marginY: '10px', paddingBottom: '90px' }}>
         {jdData.id ? (
           <>
-            <JdInfoForm title="채용 기한" mockData={formatDate(jdData.deadListDate)} />
+            <JdInfoForm title="마감 일자" mockData={formatDate(jdData.deadlineDate)} />
             <JdInfoForm title="자격 요견" mockData={jdData.requirements} />
             <JdInfoForm title="주요 업무" mockData={jdData.mainTasks} />
             <JdInfoForm title="소개글" mockData={jdData.intro} />
