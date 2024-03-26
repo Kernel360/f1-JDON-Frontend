@@ -24,7 +24,6 @@ function JdInfoForm({ title, mockData }) {
 }
 
 export function TabForInfo({ jdData }) {
-  console.log(jdData.id);
   const handleClick = () => {
     window.open(jdData.jdUrl, '_blank');
   };
