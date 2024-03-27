@@ -1,6 +1,6 @@
 import './App.css';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Layout } from 'components/layout/Layout';
 import useFetchJobCategories from 'hooks/useFetchJobCategory';
@@ -31,11 +31,14 @@ import { theme } from 'styles/themeMuiStyle';
 import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
-  useAuth();
   useFetchJobCategories();
   const queryClient = new QueryClient();
   const localLoginState = localStorage.getItem('isLoggedInState');
   const loginState = useRecoilValue(isLoggedInState);
+
+  useEffect(() => {
+    useAuth;
+  }, []);
 
   const privateRoutes = [
     { path: '/mypage', element: <MyPage /> },
@@ -45,6 +48,7 @@ function App() {
     { path: '/mypage/coffee', element: <MyCoffeeChat /> },
     { path: '/coffeechat-open', element: <CoffeeCreatePage /> },
   ];
+
   const publicRoutes = [
     { path: '/', element: <Main /> },
     { path: '/signin', element: <SignIn /> },
@@ -53,8 +57,6 @@ function App() {
     { path: '/coffee/:id', element: <CoffeeDetailPage /> },
     { path: 'edit-coffee/:id', element: <CoffeeUpdatePage /> },
     { path: '/oauth/info', element: <RedirectPage /> },
-
-    // 로그인 리다이렉트 페이지 5가지
     { path: '/oauth/login/success', element: <RedirectPage /> },
     { path: '/oauth/login/fail/not-found-email', element: <SignUpFailPage /> }, // 소셜 이메일을 찾을 수 없을 때
     { path: '/oauth/login/fail/another-withdraw-account', element: <SignUpFailPage /> }, // 다른 소셜 로그인으로 탈퇴한 내역이 존재
@@ -63,8 +65,6 @@ function App() {
       path: '/oauth/login/fail/not-match-provider',
       element: <SignUpFailPage />,
     },
-
-    //
     { path: '/jds', element: <JdAll /> },
     { path: '/jds/:id', element: <JdDetail /> },
     { path: '/fail', element: <SignUpFailPage /> },
