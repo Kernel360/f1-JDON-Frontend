@@ -9,11 +9,7 @@ const useApplyForCoffeeChat = (id) => {
         alert('신청이 완료되었습니다.');
       },
       onError: (error) => {
-        if (error.response?.status === 409) {
-          alert('이미 신청된 커피챗입니다.');
-        } else {
-          console.error('신청 중 에러가 발생했습니다.');
-        }
+        alert(error.response.data.message);
       },
     },
   );
