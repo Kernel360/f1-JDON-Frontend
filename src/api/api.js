@@ -15,7 +15,7 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
+    if (error.response.status === 401) {
       alert('로그인이 필요한 서비스입니다.');
       window.location.href = '/signin';
     }

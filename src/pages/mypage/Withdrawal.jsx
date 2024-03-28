@@ -17,21 +17,19 @@ function Withdrawal() {
   };
 
   const deleteMeHandler = async () => {
-    try {
-      if (!checkState) {
-        alert('체크박스를 선택해야 진행할 수 있습니다.');
-        return;
-      } else {
+    if (!checkState) {
+      alert('체크박스를 선택해야 진행할 수 있습니다.');
+      return;
+    } else {
+      try {
         const logoutPromise = logoutMember();
         const deletePromise = deleteMember();
         await Promise.all([deletePromise, logoutPromise]);
-
-        localStorage.setItem('isLoggedInState', false);
         alert('회원탈퇴가 성공적으로 진행되었습니다. \n지금까지 JDON을 이용해주셔서 감사합니다.');
         navigate('/');
+      } catch (error) {
+        console.error('Withdrawal파일 deleteMember 통신에러', error);
       }
-    } catch (error) {
-      console.error('Withdrawal파일 deleteMember 통신에러', error);
     }
   };
   return (
