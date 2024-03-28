@@ -10,7 +10,6 @@ const RedirectPage = () => {
   const [, setData] = useRecoilState(userInfo);
   let path = localStorage.getItem('pathname');
   useEffect(() => {
-    localStorage.setItem('isLoggedInState', false);
     const searchParams = new URLSearchParams(location.search);
 
     const value = searchParams.get('value');
@@ -26,8 +25,6 @@ const RedirectPage = () => {
       } else {
         navigate('/');
       }
-
-      localStorage.setItem('isLoggedInState', true);
     }
   }, [location, navigate, setData, path]);
 

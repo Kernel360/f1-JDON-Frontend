@@ -33,7 +33,6 @@ import { ThemeProvider } from '@mui/material/styles';
 function App() {
   useFetchJobCategories();
   const queryClient = new QueryClient();
-  const localLoginState = localStorage.getItem('isLoggedInState');
   const loginState = useRecoilValue(isLoggedInState);
 
   useEffect(() => {
@@ -91,7 +90,9 @@ function App() {
                     key={index}
                     path={route.path}
                     element={
-                      <PrivateRoute localAuth={localLoginState} apiAuth={loginState.isloginUser}>
+                      <PrivateRoute
+                        localAuth={loginState.isLoginUser}
+                        apiAuth={loginState.isLoginUser}>
                         {route.element}
                       </PrivateRoute>
                     }
