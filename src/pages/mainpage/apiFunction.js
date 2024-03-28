@@ -20,6 +20,5 @@ export const fetchLectureData = async (keyword) => {
     return datas;
   } catch (error) {
     console.error('키워드별 데이터 가져오기 오류:', error);
-    return { lectureList: [], jdList: [] };
   }
 };
