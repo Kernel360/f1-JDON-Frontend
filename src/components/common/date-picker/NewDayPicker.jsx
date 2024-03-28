@@ -1,12 +1,14 @@
 import React from 'react';
-import { Grid, TextField } from '@mui/material';
-import { DatePicker, DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+
+import { datePicker, datePickerContainer } from 'components/member/sign-up/InfoStyles';
 import { parseISO } from 'date-fns';
 import format from 'date-fns/locale/ko';
 
+import { Grid, TextField } from '@mui/material';
+import { DatePicker, DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+
 import TotalInputForm from '../input/TotalInputForm';
-import { datePicker, datePickerContainer } from 'components/member/sign-up/InfoStyles';
 
 const isDateString = (value) => {
   const regex = /^\d{4}-\d{2}-\d{2}$/;
@@ -53,6 +55,7 @@ function NewDayPicker({ label, value, onChange, valid, helperText, daytime }) {
                   readOnly: true,
                 },
               }}
+              minutesStep={30}
               sx={datePicker(value)}
               renderInput={(params) => <TextField {...params} />}
             />
