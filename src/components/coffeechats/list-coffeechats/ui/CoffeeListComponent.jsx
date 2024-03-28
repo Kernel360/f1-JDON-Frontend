@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
-import useFetchCoffeeData
-  from 'components/coffeechats/list-coffeechats/queryHooks/useFetchCoffeeData';
+import useFetchCoffeeData from 'components/coffeechats/list-coffeechats/queryHooks/useFetchCoffeeData';
 import CoffeeChatCard from 'components/common/card/CoffeeChatCard';
-import Loading from 'components/common/loading/Loading';
+import SkeletonLoader from 'components/common/loading/skeleton/coffeechat-card/SkeletonLoader';
 
 import { Grid } from '@mui/material';
 
@@ -15,7 +14,7 @@ function CoffeeListComponent({ jobCategories, sortData, 검색어 }) {
   const { coffeeData, isLoading } = useFetchCoffeeData(currentPage, sortData, 검색어);
 
   if (isLoading) {
-    return <Loading />;
+    return <SkeletonLoader count={6} />;
   }
 
   return (
