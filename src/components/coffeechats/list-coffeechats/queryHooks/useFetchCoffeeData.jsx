@@ -1,4 +1,5 @@
 import { getCoffeeChat } from 'api/api';
+import { delay } from 'constants/delay';
 import { useQuery } from 'react-query';
 
 const useFetchCoffeeData = (currentPage, sortData, 검색어) => {
@@ -10,6 +11,7 @@ const useFetchCoffeeData = (currentPage, sortData, 검색어) => {
       sortData.jobCategory,
       검색어,
     );
+    await delay(300);
     return response.data.data;
   };
 
