@@ -8,11 +8,8 @@ function LogoutButton() {
   const handleLogout = async () => {
     try {
       await logoutMember();
-
-      // if (res === 302) {
       localStorage.setItem('isLoggedInState', false);
       navigate('/');
-      // }
     } catch (error) {
       console.error('로그아웃 에러', error);
     }
