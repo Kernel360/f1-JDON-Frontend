@@ -36,11 +36,12 @@ export function CategoryTab() {
   const [reviewNum, setReviewNum] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const isLogin = useRecoilValue(isLoggedInState).isLoginUser;
+  console.log(isLogin);
 
   const { id } = useParams();
 
   const handleTabChange = (e, newValue) => {
-    if (isLogin === false && newValue === '2') {
+    if (!isLogin && newValue === '2') {
       if (window.confirm('리뷰는 로그인 후 조회할 수 있습니다. \n로그인 하시겠습니까?')) {
         localStorage.setItem('pathname', pathname);
         navigate('/signin');
