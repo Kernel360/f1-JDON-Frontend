@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { userInfo } from 'recoil/atoms';
 
 const RedirectPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [, setData] = useRecoilState(userInfo);
+  const setData = useSetRecoilState(userInfo);
   let path = localStorage.getItem('pathname');
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -19,12 +19,12 @@ const RedirectPage = () => {
       navigate('/info');
       setData((prev) => ({ ...prev, encrypted: value, hmac: hmac }));
     } else {
-      if (path) {
-        navigate(path);
-        localStorage.removeItem('pathname');
-      } else {
-        navigate('/');
-      }
+      // if (path) {
+      //   navigate(path);
+      //   // localStorage.removeItem('pathname');
+      // } else {
+      navigate('/');
+      // }
     }
   }, [location, navigate, setData, path]);
 
